@@ -1,9 +1,8 @@
 ## Nouveautés
 
-- 👁 **ZKX repère ta box à l'écran** : quand Epic Seven (client PC Stove) est ouvert, ZKX lit les noms des héros affichés dans la fenêtre du jeu et coche tout seul tes persos. Ouvre ton menu Héros et fais défiler la liste : ta box se remplit. Un nouveau perso tiré est ajouté dès qu'il passe dans ta liste.
-  - Simple capture de la fenêtre, lue sur ton PC puis jetée : ZKX ne touche pas au jeu, rien n'est envoyé.
-  - « Annuler le dernier » sous le bouton si un perso a été ajouté par erreur ; bouton « 👁 Repérer ma box à l'écran » pour couper.
-- 🔄 Import auto Fribbels : la sauvegarde à choisir est Documents\FribbelsOptimizerSaves\autosave.json.
+- 🎯 **Ton pull conseillé** (Invocations) : calculé avec **ta box**. Pour chaque bannière, ZKX mesure ce que le perso ajoute à ta meilleure team (et qui il remplace), s'il comble un manque (soigneur), ses combos avec tes persos et s'il est déjà chez toi, puis te dit sur quoi tirer, ou de garder tes bookmarks.
+- ✨ **Nouvelle fiche perso** : grand en-tête avec le perso, son artefact en fond et un néon, ses chiffres clés (tiers, victoires, joué, pré-ban), et des onglets Guide / Compétences / Stats & builds / Mon stuff / Sources.
+- Le titre de la page suit l'onglet ouvert, et les compteurs ne s'affichent plus que sur « Conseils ».
 
 ## Installer
 

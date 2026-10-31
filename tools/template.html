@@ -169,6 +169,45 @@ span.pface{cursor:default}
 .gleft .gname{text-shadow:0 0 14px color-mix(in srgb,var(--neon) 75%,transparent),0 2px 4px #000}
 .fbauto[aria-pressed="true"]{border-color:var(--acc);box-shadow:inset 3px 0 0 var(--acc)}
 .fbstat{margin:2px 2px 0;line-height:1.35}.fbstat a{color:var(--acc)}
+.kpis[hidden]{display:none}
+.guide.noleft{grid-template-columns:1fr 1fr}.guide .gleft[hidden]{display:none}
+.hdlgbox{padding:0 !important;overflow:hidden;border-top:0 !important}
+.hdlg{--neon:var(--acc)}
+.hhero{position:relative;display:flex;gap:22px;align-items:flex-end;padding:28px 24px 20px;min-height:200px;border-bottom:1px solid color-mix(in srgb,var(--neon) 55%,var(--line));box-shadow:inset 0 -24px 40px -30px var(--neon);overflow:hidden}
+.hhero .pbg{opacity:.55;background-position:center 30%}
+.hhero .pbg::after{background:linear-gradient(90deg,rgba(7,5,10,.92) 0%,rgba(7,5,10,.7) 45%,rgba(7,5,10,.35) 100%),linear-gradient(0deg,rgba(7,5,10,.85),transparent 60%)}
+.hhero > *:not(.pbg){position:relative}
+.hclose{position:absolute !important;top:12px;right:12px;z-index:2;width:36px;height:36px;padding:0 !important;border-radius:50% !important;font-size:16px}
+.hface{flex:none;width:132px;height:132px;border-radius:50%;background:#120c1c center/cover no-repeat;border:3px solid var(--neon);box-shadow:0 0 0 5px rgba(7,5,10,.75),0 0 28px var(--neon);display:grid;place-items:center;font:800 38px var(--f-display);color:var(--text)}
+.htxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.htxt h3{font-size:34px !important;line-height:1;text-shadow:0 0 18px color-mix(in srgb,var(--neon) 70%,transparent),0 2px 6px #000}
+.hsub{color:var(--muted);margin-top:-2px}
+.hchips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;background:rgba(7,5,10,.65);border:1px solid color-mix(in srgb,var(--neon) 45%,var(--line));backdrop-filter:blur(4px)}
+.hchip.gold{color:var(--gold);letter-spacing:1px}.hchip.own{color:var(--good);border-color:var(--good)}
+.hstats{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.hst{display:flex;flex-direction:column;gap:2px;min-width:86px;padding:7px 11px;border-radius:12px;background:rgba(7,5,10,.62);border:1px solid var(--line);backdrop-filter:blur(4px)}
+.hst span{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+.hst b{font:700 18px var(--f-display);display:flex;align-items:center;gap:6px}.hst .tier{font-size:15px;min-width:28px;height:26px;display:inline-grid;place-items:center}.hst small{font:600 12px var(--f-body);color:var(--muted)}
+.hst.good b{color:var(--good)}.hst.bad b{color:#f0a3a3}
+.hcap{align-self:flex-start;padding:5px 12px !important;font-size:13px !important;margin-top:2px}
+.htabs{display:flex;gap:4px;padding:10px 18px 0;border-bottom:1px solid var(--line);overflow-x:auto;position:sticky;top:0;z-index:3;background:var(--panel)}
+.htabs button{background:none;border:0;color:var(--muted);font:700 14px var(--f-body);padding:10px 14px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.htabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--neon)}
+.htabs button:hover{color:var(--text)}
+.hpane{padding:4px 22px 22px}
+.hpane > .guide:first-child{margin-top:16px}
+@media (max-width:700px){.hhero{flex-direction:column;align-items:flex-start;padding:22px 16px 16px}.hface{width:96px;height:96px}.htxt h3{font-size:26px !important}.guide.noleft{grid-template-columns:1fr}.hpane{padding:4px 14px 18px}}
+.advbest{--neon:var(--acc);display:flex;gap:16px;align-items:flex-start;padding:16px;border-radius:14px;border:1.5px solid var(--neon);background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--neon) 18%,transparent),transparent 60%),var(--panel2);box-shadow:0 0 18px color-mix(in srgb,var(--neon) 30%,transparent)}
+.advbest.keep{--neon:var(--muted)}
+.advbest ul{margin:6px 0;padding-left:18px}.advbest li{margin:2px 0}
+.advbest p{margin:4px 0 0}
+.advface{flex:none;width:92px;height:92px;border-radius:50%;background:center/cover;border:2px solid var(--neon);box-shadow:0 0 16px var(--neon)}
+.advico{flex:none;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:34px;background:rgba(0,0,0,.25);border:1px solid var(--line)}
+.advname{display:block;font:700 24px var(--f-display);margin:2px 0;text-shadow:0 0 12px color-mix(in srgb,var(--neon) 60%,transparent)}
+.advrow{display:grid;grid-template-columns:minmax(220px,1.2fr) minmax(180px,1fr) 2fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.advl{display:flex;flex-direction:column;gap:3px}.advg{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+@media (max-width:760px){.advrow{grid-template-columns:1fr}.advbest{flex-direction:column}}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -314,7 +353,7 @@ __JSZIP__
 </aside>
 <main><div class="wrap">
 <header class="top">
-  <div><h1>Tableau de bord</h1><p>Tes meilleures teams, les persos à chercher, ton stuff noté comme dans Fribbels. Tiers = consensus de 12 tier lists, données RTA du 30/10/2026. Compétences et stats de base : pack e7-sidekick-resources.</p></div>
+  <div><h1 id="page-h">Tableau de bord</h1><p id="page-p">Tes meilleures teams, les persos à chercher, ton stuff noté comme dans Fribbels. Tiers = consensus de 12 tier lists, données RTA du 30/10/2026. Compétences et stats de base : pack e7-sidekick-resources.</p></div>
   <div class="status" id="status" aria-live="polite"></div>
 </header>
 <div class="kpis" id="kpis"></div>
@@ -368,6 +407,11 @@ __JSZIP__
 </div>
 <div class="view" id="v-pulls" role="tabpanel" aria-labelledby="tab-pulls" hidden>
   <section class="card" style="margin-top:14px">
+    <h2>🎯 Ton pull conseillé</h2>
+    <p class="sub">Calculé avec <b>ta box</b> : ce que chaque perso ajoute à ta meilleure team, s'il comble un manque (soigneur), ses combos avec tes persos, et s'il est déjà chez toi. Ramené au nombre de bookmarks qu'il coûte.</p>
+    <div id="adv"></div>
+  </section>
+  <section class="card" style="margin-top:18px">
     <h2>Bannières du moment</h2>
     <p class="sub" id="ban-sub"></p>
     <div class="bans" id="bans"></div>
@@ -983,8 +1027,8 @@ function guideHTML(h){
   const num = i => `<span class="gnum">${i + 1}</span>`;
   const pct = (u, wr) => [u != null ? `porté par ${String(u).replace(".", ",")} %` : "", wr != null ? `${String(wr).replace(".", ",")} % de victoires` : ""].filter(Boolean).join(" · ");
   const stars = +(h.stars || (h.sk && h.sk.stars) || 5);
-  return `<div class="guide" style="--elc:${ELCOLOR[h.el]}">
-  <div class="gcol gleft" style="--neon:${gpa ? gpa.col : ELCOLOR[h.el]}">
+  return `<div class="guide noleft" style="--elc:${ELCOLOR[h.el]}">
+  <div class="gcol gleft" hidden style="--neon:${gpa ? gpa.col : ELCOLOR[h.el]}">
     <div class="pbg ${gpa ? "" : "pbg-none"}" ${gpa ? `style="background-image:url('${gpa.url}')"` : ""}></div>
     <div class="gport" ${im ? `style="background-image:url('${im}')"` : ""}>${im ? "" : badge(h, true)}</div>
     <div class="gname">${esc(dn(h))}</div>
@@ -1007,39 +1051,77 @@ function guideHTML(h){
     <div class="gbox"><h5>💰 Coût</h5><p style="margin:0 0 6px"><b>${esc(C.get[0])} :</b> ${esc(C.get[1])}</p>${C.up.map(([i, k, v]) => `<div class="gcost"><span>${i}</span><b>${esc(k)}</b><span class="mini">${esc(v)}</span></div>`).join("")}</div>
   </div></div>`;
 }
+let heroTab = "guide";
+function secArts(h){
+  const otherArts = [...new Set((h.builds || []).map(b => b.art).concat(h.alt_arts || []))].filter(a => !h.build || a !== h.build.art);
+  if (!h.build) return `<p class="note">Pas encore assez de stats joueurs pour conseiller un artefact à ce perso.</p>`;
+  return `<h4>🔱 Artefact conseillé</h4>` + artCard(h.build.art) + (otherArts.length ? `<h4>🔱 Autres artefacts joués</h4>` + otherArts.map(artCard).join("") : "");
+}
+function secSources(h){ return `<h4>📊 Tier par source</h4><div class="srcgrid">${META.sources.map(s => `<div class="src"><span>${esc(s.lab)}<br><span class="mini">${esc(s.date)}</span></span><b>${h.src && h.src[s.k] ? esc(h.src[s.k]) : "—"}</b></div>`).join("")}</div>`; }
+function secFribbels(h){ return (h.fr_sets || h.fr_arts) ? `<h4>🛠 Stuffs enregistrés par les joueurs (Fribbels)</h4><p style="margin:0">${h.fr_sets ? "<b>Sets :</b> " + esc(h.fr_sets) + "<br>" : ""}${h.fr_arts ? "<b>Artefacts :</b> " + esc(h.fr_arts) : ""}</p><p class="mini">Fribbels mélange PvE et PvP : ça peut différer des builds RTA.</p>` : ""; }
 function heroDialog(name){
   const h = BY[name]; if (!h) return;
   const grade = (k, lab) => h[k] ? `<dt>${lab}</dt><dd><span class="g g-${h[k]}">${h[k]}</span> ${GTXT[h[k]]}</dd>` : "";
   const pills = (arr) => (arr || []).map(n => `<span class="pill ${owned.has(n)?"own":"miss"}">${owned.has(n)?"✓ ":""}${esc(DN(n))}</span>`).join("") || "—";
-  let html = `<button class="btn x" type="button" data-close>Fermer</button>
-  <div style="display:flex;gap:12px;align-items:center">${badge(h)}<div><h3 id="hero-title">${esc(dn(h))}</h3><div style="color:var(--muted)">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]} ${owned.has(h.n)?'· <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
-  ${guideHTML(h)}
-  <h4 style="margin-top:6px">📋 Détails</h4>
-  <dl class="kv">
-    <dt>Tier PvP</dt><dd>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span> ${fmt(h.pvp)}/5 · ${h.pvpN} source${h.pvpN>1?"s":""}` : "non classé"}</dd>
-    <dt>Tier PvE</dt><dd>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span> ${fmt(h.pve)}/5 · ${h.pveN} source${h.pveN>1?"s":""}` : "non classé"}</dd>
-    ${h.wr != null ? `<dt>Win rate RTA</dt><dd>${String(h.wr).replace(".", ",")} %${h.pick != null ? ` · joué ${String(h.pick).replace(".", ",")} %` : ""}${h.pre != null ? ` · pré-ban ${String(h.pre).replace(".", ",")} %` : ""}${h.post != null ? ` · post-ban ${String(h.post).replace(".", ",")} %` : ""}</dd>` : ""}
+  const pa = posterArt(h.build && h.build.art), neon = pa ? pa.col : ELCOLOR[h.el], im = IMGS[h.n];
+  const ty = h.type || (h.sk && h.sk.type) || "", stars = +(h.stars || (h.sk && h.sk.stars) || 5);
+  const tyLab = ty === "Limited" ? "Limité" : ty === "Collab" ? "Collab" : (!ty || (h.el === "light" || h.el === "dark")) ? "Moonlight" : "Permanent";
+  const tile = (lab, val, cls = "") => `<div class="hst ${cls}"><span>${lab}</span><b>${val}</b></div>`;
+  const tierTile = (lab, t, sc) => tile(lab, t ? `<span class="tier t-${t}">${t}</span>${sc != null ? ` <small>${fmt(sc)}/5</small>` : ""}` : "—");
+  const stats = [tierTile("PvP", h.pvpT, h.pvp), tierTile("PvE", h.pveT, h.pve)];
+  if (h.wr != null) stats.push(tile("Victoires RTA", P(h.wr), h.wr >= 52 ? "good" : h.wr < 47 ? "bad" : ""));
+  if (h.pick != null) stats.push(tile("Joué RTA", P(h.pick)));
+  if (h.pre != null) stats.push(tile("Pré-ban", P(h.pre)));
+  const tabs = [["guide", "📖 Guide"], ["skills", "✨ Compétences"], ["stats", "📊 Stats & builds"], ["stuff", "🧮 Mon stuff"], ["src", "🗂 Sources"]];
+  // panneaux
+  const pStats = `<dl class="kv">
     ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
     ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> ${buildNote(h.build)}</dd>` : ""}
     ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
     ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
-  </dl>`;
-  if (h.syn){
-    html += `<h4>🤝 Se combine bien avec</h4><div class="pills">${pills(h.syn)}</div>
+    ${h.post != null ? `<dt>Post-ban RTA</dt><dd>${P(h.post)}</dd>` : ""}
+  </dl>` + (h.syn ? `<h4>🤝 Se combine bien avec</h4><div class="pills">${pills(h.syn)}</div>
       <h4>✅ Bat</h4><div class="pills">${pills(h.beats)}</div>
       <h4>❌ Contré par</h4><div class="pills">${pills(h.beaten)}</div>
       <h4>Builds RTA les plus joués</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
-      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(b.art)}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`;
-    html += extraSections(h);
-  } else {
-    html += extraSections(h) + `<p class="note">Pas encore de données détaillées (partenaires, builds) pour ce perso : seuls les 30 meilleurs persos RTA en ont.</p>`;
-  }
-  html = html.replace("</h3>", `</h3><button class="btn" type="button" data-capfor="${esc(h.n)}" style="margin-top:6px;padding:4px 10px;font-size:13px">📸 Mettre ma capture</button>`);
-  document.getElementById("hero-dlg").innerHTML = html;
+      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(b.art)}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
+      : `<p class="note">Partenaires, counters et builds RTA détaillés : seulement pour les 30 meilleurs persos RTA.</p>`) + secFribbels(h);
+  const stuff = stuffSection(h);
+  const panes = {
+    guide: guideHTML(h),
+    skills: (infoSections(h) || `<p class="note">Pas encore le texte des compétences de ce perso.</p>`) + secArts(h),
+    stats: pStats,
+    stuff: stuff || `<p class="note">${ITEMS.length ? "Aucune pièce de ton stuff n'est équipée sur ce perso." : "Importe ta sauvegarde Fribbels (ou active l'import auto) pour voir ton stuff et les meilleures pièces de ton inventaire pour ce perso."}</p>`,
+    src: secSources(h)
+  };
+  if (!panes[heroTab]) heroTab = "guide";
+  const html = `<div class="hdlg" style="--neon:${neon}">
+  <div class="hhero">
+    <div class="pbg ${pa ? "" : "pbg-none"}" ${pa ? `style="background-image:url('${pa.url}')"` : ""}></div>
+    <button class="btn x hclose" type="button" data-close aria-label="Fermer la fiche">✕</button>
+    <div class="hface" ${im ? `style="background-image:url('${im}')"` : ""}>${im ? "" : esc(initials(h.n))}</div>
+    <div class="htxt">
+      <div class="hchips"><span class="hchip">${ELN[h.el]}</span><span class="hchip">${CLN[h.cl]}</span><span class="hchip gold">${"★".repeat(stars)}</span><span class="hchip">${tyLab}</span>${owned.has(h.n) ? `<span class="hchip own">✓ dans ta box</span>` : ""}</div>
+      <h3 id="hero-title">${esc(dn(h))}</h3>${dn2(h) ? `<div class="hsub">${esc(dn2(h))}</div>` : ""}
+      <div class="hstats">${stats.join("")}</div>
+      <button class="btn hcap" type="button" data-capfor="${esc(h.n)}">📸 Mettre ma capture</button>
+    </div>
+  </div>
+  <div class="htabs" role="tablist" aria-label="Sections de la fiche">${tabs.map(([k, l]) => `<button type="button" role="tab" data-ht="${k}" aria-selected="${k === heroTab}">${l}</button>`).join("")}</div>
+  ${tabs.map(([k]) => `<div class="hpane" data-hp="${k}" role="tabpanel" ${k === heroTab ? "" : "hidden"}>${panes[k]}</div>`).join("")}
+  </div>`;
+  const dlg = document.getElementById("hero-dlg");
+  dlg.innerHTML = html; dlg.classList.add("hdlgbox");
   currentHero = h.n;
-  const cb = document.querySelector("#hero-dlg [data-capfor]"); if (cb) cb.addEventListener("click", () => { const n = cb.dataset.capfor; closeOv("ov-hero"); openCaptures({ k: "h", id: n }); });
-  wireArtSlots(document.getElementById("hero-dlg"));
+  dlg.querySelectorAll("[data-ht]").forEach(b => b.addEventListener("click", () => {
+    heroTab = b.dataset.ht;
+    dlg.querySelectorAll("[data-ht]").forEach(x => x.setAttribute("aria-selected", x === b));
+    dlg.querySelectorAll("[data-hp]").forEach(x => x.hidden = x.dataset.hp !== heroTab);
+  }));
+  const cb = dlg.querySelector("[data-capfor]"); if (cb) cb.addEventListener("click", () => { const n = cb.dataset.capfor; closeOv("ov-hero"); openCaptures({ k: "h", id: n }); });
+  wireArtSlots(dlg);
   if (!document.getElementById("ov-hero").classList.contains("open")) openOv("ov-hero");
+  dlg.scrollTop = 0; document.getElementById("ov-hero").scrollTop = 0;
 }
 let lastFocus = null;
 function openOv(id){ lastFocus = document.activeElement; const o = document.getElementById(id); o.classList.add("open"); const b = o.querySelector("button"); if (b) b.focus(); }
@@ -1146,7 +1228,16 @@ document.addEventListener("click", e => { const c = e.target.closest("[data-hero
 document.querySelectorAll(".ov").forEach(o => o.addEventListener("click", e => { if (e.target === o){ closeOv(o.id); if (o.id === "ov-pick") renderAll(); } }));
 document.addEventListener("keydown", e => { if (e.key === "Escape") document.querySelectorAll(".ov.open").forEach(o => { closeOv(o.id); if (o.id === "ov-pick") renderAll(); }); });
 
+const PAGE_TXT = { conseils: null,
+  stuff: ["Mon stuff", "Tes pièces notées comme dans Fribbels (gear score) : filtre par set, emplacement ou perso équipé."],
+  tiers: ["Tier lists", "Consensus de 12 tier lists (6 PvP, 6 PvE) et stats RTA. Clique sur un perso pour sa fiche."],
+  pulls: ["Invocations", "Les bannières du moment, où mettre tes bookmarks selon ta box, et ta liste de souhaits."],
+  daily: ["Daily / Hebdo", "Ce qu'il faut faire en priorité à chaque reset."],
+  captures: ["Mes captures", "Tes propres images de persos et d'artefacts, prises dans le jeu."] };
+const PAGE_DEF = [document.getElementById("page-h").textContent, document.getElementById("page-p").innerHTML];
 for (const id of ["conseils","stuff","tiers","pulls","daily","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+  const t = PAGE_TXT[id] || PAGE_DEF; document.getElementById("page-h").textContent = t[0]; document.getElementById("page-p").innerHTML = t[1];
+  document.getElementById("kpis").hidden = id !== "conseils";
   if (id === "captures") renderGal(); if (id === "pulls") renderPulls(); if (id === "daily") renderDaily();
   for (const o of ["conseils","stuff","tiers","pulls","daily","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
@@ -1321,6 +1412,73 @@ setTimeout(() => fetch(IMG_BASE + "art/colors.json?t=" + Date.now(), { cache: "n
   const v = document.getElementById("v-pulls"); if (v && !v.hidden) renderBans();
 }).catch(() => {}), 500);
 function posterArt(name){ const k = name ? artKey(name) : null; return k && ART_COL[k] ? { url: ART_URL(k), col: ART_COL[k] } : null; }
+/* ---------- Pull conseillé selon la box ---------- */
+function bestTeamWith(extra){
+  const P = pool(20); if (extra && !P.some(x => x.n === extra.n)) P.push(extra);
+  if (P.length < 4) return null;
+  let best = null; combos(P, 4, t => { const r = teamScore(t); if (!best || r.total > best.total) best = { t, total: r.total }; });
+  return best;
+}
+function boxGain(h, base){
+  if (!h) return { g: null, why: ["Nouveau perso : pas encore de stats, impossible de mesurer ce qu'il apporte."] };
+  const why = [];
+  if (owned.has(h.n)) return { g: 0, why: ["Tu l'as déjà : un doublon ne sert qu'à l'imprint."], own: true };
+  const nb = bestTeamWith(h);
+  let g = base && nb ? Math.max(0, nb.total - base.total) : sc(h) * .6;
+  if (base && nb && nb.t.some(x => x.n === h.n)){
+    const out = base.t.find(x => !nb.t.some(y => y.n === x.n));
+    why.push(`Entre dans ta meilleure team ${mode.toUpperCase()} (+${fmt(nb.total - base.total)} pts)${out ? ` à la place de ${DN(out.n)}` : ""}.`);
+  } else if (base) why.push(`N'entre pas dans ta meilleure team ${mode.toUpperCase()} actuelle.`);
+  const heal = [...owned].map(n => BY[n]).filter(x => x && x.cl === "manauser" && sc(x) >= 3).length;
+  if (h.cl === "manauser" && heal < 2){ g += .6; why.push(heal ? "Tu n'as qu'un bon soigneur : il t'en ferait un deuxième." : "Tu n'as pas de bon soigneur : il en comble le manque."); }
+  const partners = (h.syn || []).filter(n => owned.has(n)).concat([...owned].filter(n => BY[n] && (BY[n].syn || []).includes(h.n)));
+  const pu = [...new Set(partners)];
+  if (pu.length){ g += .25 * pu.length; why.push(`Combo avec ${pu.slice(0, 3).map(DN).join(", ")} que tu as déjà.`); }
+  const t = tierOf(h); why.push(`Tier ${t === "x" ? "non classé" : t} en ${mode.toUpperCase()}${h.wr != null ? `, ${P(h.wr)} de victoires en RTA` : ""}.`);
+  return { g, why };
+}
+function renderAdvice(){
+  const el = document.getElementById("adv"); if (!el) return;
+  const now = Date.now(), base = bestTeamWith(null), rows = [];
+  for (const b of BANNERS){
+    const k = KI(b), st = banState(b, now);
+    if (st === "over" || (st === "soon" && new Date(b.start).getTime() - now > 21 * 864e5)) continue;
+    if (k.cur === "bm" && k.p && k.pity && b.hero){
+      const h = BY[b.hero], r = boxGain(h, base), avg = expPulls(k.p, k.pity) * 5;
+      rows.push({ b, k, st, h, name: h ? dn(h) : b.hero, ...r, cost: avg, max: (k.pity + 1) * 5, cur: "bm" });
+    } else if (b.kind === "mystic" && b.hero){
+      const h = BY[b.hero], r = boxGain(h, base); rows.push({ b, k, st, h, name: h ? dn(h) : b.hero, ...r, cur: "mm" });
+    } else if (b.kind === "covenant"){
+      const S = PR.get(), list = S.h.map(prHero).filter(Boolean), cands = list.length ? list : DATA.filter(wlEligible).filter(h => !owned.has(h.n)).sort((a, b2) => heroInterest(b2) - heroInterest(a)).slice(0, 7);
+      const gs = cands.map(h => boxGain(h, base).g || 0), mean = gs.length ? gs.reduce((a, x) => a + x, 0) / 7 : 0;
+      const top = cands.map((h, i) => [h, gs[i]]).sort((a, b2) => b2[1] - a[1])[0];
+      rows.push({ b, k, st, name: "Invocation de la Prophétie", g: mean, cost: 400, cur: "bm", prophecy: true,
+        why: [list.length ? "D'après ta liste de souhaits recopiée plus bas." : "D'après la liste conseillée (recopie la tienne plus bas pour un calcul exact).", top && top[1] > 0 ? `Le plus utile pour toi dans la liste : ${dn(top[0])}.` : "Aucun perso de la liste n'améliore vraiment ta box.", "1 chance sur 7 que le 5★ tiré soit celui que tu veux, pas de garantie."] });
+    }
+  }
+  const bm = rows.filter(r => r.cur === "bm" && r.g != null).map(r => (r.rent = r.g / r.cost * 1000, r)).sort((a, b2) => b2.rent - a.rent);
+  const best = bm[0], my = rows.filter(r => r.cur === "mm");
+  const exNote = isExample ? `<p class="mini">⚠ C'est la box d'exemple : importe ta box (ou active « 👁 Repérer ma box à l'écran ») pour un conseil vraiment perso.</p>` : "";
+  let head;
+  if (!base) head = `<p class="cmpbest">Il faut au moins 4 persos dans ta box pour calculer ce que chaque bannière t'apporte.</p>`;
+  else if (!best || best.g < .5){
+    const nw = rows.filter(r => r.g == null);
+    head = `<div class="advbest keep"><div class="advico">💤</div><div><b>Garde tes bookmarks.</b><p>Aucune bannière en ce moment n'améliore vraiment ta box ${mode.toUpperCase()}.${nw.length ? ` ${nw.map(r => esc(r.name) + (r.st === "soon" ? ` (dès le ${fmtD(r.b.start)})` : "")).join(", ")} : nouveau, pas encore de stats RTA. Attends quelques jours de retours avant de vider tes bookmarks.` : " Attends une prochaine bannière."}</p></div></div>`;
+  }
+  else {
+    const h = best.h;
+    head = `<div class="advbest" style="--neon:${h ? ELCOLOR[h.el] : "var(--acc)"}">${h && IMGS[h.n] ? `<div class="advface" style="background-image:url('${IMGS[h.n]}')"></div>` : `<div class="advico">${best.prophecy ? "🔮" : "🎯"}</div>`}
+      <div><span class="mini">${esc(best.k.lab)}${best.st === "soon" ? " · à venir" : ""}${best.b.end ? " · jusqu'au " + fmtD(best.b.end) : ""}</span>
+      <b class="advname">Tire sur ${esc(best.name)}</b>
+      <ul>${best.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+      <p class="mini">${best.prophecy ? "≈ 400 bookmarks en moyenne pour un 5★ de ta liste." : `≈ ${NB(best.cost)} bookmarks en moyenne, <b>${NB(best.max)}</b> pour être sûr de l'avoir.`}${bm[1] && bm[1].rent > 0 ? ` Environ ${String((best.rent / bm[1].rent).toFixed(1)).replace(".", ",")}× plus utile pour toi que ${esc(bm[1].name)}.` : ""}</p></div></div>`;
+  }
+  const line = r => `<div class="advrow"><div class="advl">${r.h ? chip(r.h) : `<b>${esc(r.name)}</b>`}<span class="mini">${esc(r.k.lab)}${r.st === "soon" ? " · à venir" : ""}</span></div>
+    <div class="advg">${r.g == null ? '<span class="verdict v-new">Pas de stats</span>' : r.own ? '<span class="verdict v-no">Déjà dans ta box</span>' : r.g >= 1.2 ? '<span class="verdict v-go">Gros gain</span>' : r.g >= .4 ? '<span class="verdict v-ok">Petit gain</span>' : '<span class="verdict v-no">Peu utile pour toi</span>'}
+    ${r.g != null && !r.own ? `<span class="mini">gain ${fmt(r.g)} pts${r.cur === "bm" ? ` · ${NB(r.cost)} bm en moyenne` : " · médailles mystiques"}</span>` : ""}</div>
+    <div class="mini advw">${esc(r.why[0] || "")}</div></div>`;
+  el.innerHTML = exNote + head + (rows.length ? `<h3 style="margin-top:14px">Chaque bannière pour ta box</h3>` + bm.concat(rows.filter(r => r.cur === "bm" && r.g == null)).map(line).join("") + (my.length ? `<h3 style="margin-top:14px">Médailles mystiques</h3>` + my.map(line).join("") : "") : "");
+}
 function renderBans(){
   const now = Date.now(), el = document.getElementById("bans");
   const list = BANNERS.filter(b => !b.end || new Date(b.end).getTime() > now - 14 * 864e5)
@@ -1440,7 +1598,7 @@ function renderPulls(){
     const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
     return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
   }).join("") + "</tbody>";
-  renderBans(); renderProphecy();
+  renderBans(); renderProphecy(); renderAdvice();
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
 /* ---------- Invocation de la Prophétie (wish list du joueur) ---------- */
