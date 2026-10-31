@@ -134,6 +134,12 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .dprio.p1{background:#2a1046;border-color:var(--acc);color:#e9d5ff}.dprio.p2{color:var(--text)}.dprio.p3{color:var(--muted)}
 .ditem .dx{margin-left:auto;padding:2px 8px;font-size:12px}
 .dadd{display:flex;gap:8px;margin-top:10px}.dadd input{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--text);font:inherit}
+.prgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.prslot{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px}
+.prin{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.prin input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:var(--text);font:inherit;font-size:14px}
+.prempty{display:grid;place-items:center;background:#1a1226;color:var(--muted);font-weight:800}
+.prart{display:grid;place-items:center;background:#1a1226}.prart .aico{width:100%;height:100%;margin:0;border-radius:inherit}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -352,6 +358,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     <div class="scroll"><table class="inv" id="cmp-table"></table></div>
     <div id="cmp-mystic"></div>
     <p class="mini" style="margin-top:10px">Rentabilité = valeur du perso pour toi ÷ bookmarks moyens pour l'avoir (×1000). Un perso que tu as déjà compte pour un tiers (imprint seulement). Taux officiels : 1 % sur une bannière vedette avec garantie à la 121e, 1,25 % de 5★ sur l'alliance. Les cadeaux du compteur d'invocations (bookmarks rendus, copie bonus) ne sont pas comptés.</p>
+  </section>
+  <section class="card" style="margin-top:18px">
+    <h2>🔮 Invocation de la Prophétie (alliance)</h2>
+    <p class="sub">La bannière permanente qui tire <b>uniquement dans ta liste de souhaits</b> : à chaque invocation, 1,25 % de chances d'avoir un perso 5★ (un des 7 de ta liste, au hasard) et ≈ 1,75 % un artefact 5★ de ta liste. <b>Pas de garantie</b> : en moyenne 80 invocations (400 bookmarks) pour un 5★, mais 560 pour un perso précis. Recopie ta liste du jeu ci-dessous : ZKX te dit quoi garder et quoi changer.</p>
+    <div id="pr-score"></div>
+    <div class="tools"><button class="btn" type="button" id="pr-fill">Remplir avec la liste conseillée</button><button class="btn" type="button" id="pr-clear">Vider ma liste</button></div>
+    <h3>Ta liste · 7 persos</h3>
+    <div class="prgrid" id="pr-h"></div>
+    <datalist id="pr-dl-h"></datalist><datalist id="pr-dl-a"></datalist>
+    <h3 style="margin-top:16px">Tes chances</h3>
+    <div class="scroll"><table class="inv" id="pr-odds"></table></div>
+    <p class="mini">« Un perso précis » = un perso donné de ta liste. Les persos que tu as déjà comptent peu (doublon = imprint), sauf si tu coches « Garder aussi les persos que j'ai déjà ».</p>
+    <h3 style="margin-top:16px">Ta liste · 7 artefacts</h3>
+    <div class="prgrid" id="pr-a"></div>
   </section>
   <section class="card" style="margin-top:18px">
     <h2>Ma wish list conseillée</h2>
@@ -1231,14 +1251,14 @@ async function refreshBanners(){
 }
 setTimeout(refreshBanners, 800); setInterval(refreshBanners, 3 * 3600e3);
 const KIND = {
-  covenant: { lab: "Invocation d'alliance", cur: "bm", p: .0125 },
+  covenant: { lab: "Invocation de la Prophétie", cur: "bm", p: .0125 },
   rateup: { lab: "Drop rate up", cur: "bm", p: .01, pity: 120 },
   limited: { lab: "Limitée", cur: "bm", p: .01, pity: 120, lim: true },
   collab: { lab: "Collab (limitée)", cur: "bm", p: .01, pity: 120, lim: true },
   class: { lab: "Invocation de classe", cur: "bm" },
   mystic: { lab: "Mystique (Moonlight)", cur: "mm", pity: 200 },
   "special-mystic": { lab: "Mystique spéciale", cur: "mm" },
-  galaxy: { lab: "Moonlight (galactique)", cur: "gb" }
+  galaxy: { lab: "Invocation lunaire", cur: "gb" }
 };
 const KI = b => KIND[b.kind] || { lab: b.kind || "Bannière", cur: "bm", p: .01, pity: 120, lim: !!b.lim };
 const LIMITED_ARTS = ["Guiding Light", "Wall of Order", "Unfading Memories", "Dreamlike Holiday", "Proof of Friendship", "Glorious Flag", "Fan of Light and Dark", "Magic Bubble Maker", "Mirrored Lotus Ring", "Flame Dragon's Jewel", "Custom-Made Power Anchor"];
@@ -1311,7 +1331,7 @@ function renderCompare(now){
     if (b.kind === "covenant"){
       const w = wishTop(); if (!w.length) continue;
       const v = w.reduce((a, x) => a + x, 0) / w.length, avg = 5 / .0125;
-      rows.push({ b, st, lab: "Invocation d'alliance", who: "1 perso au hasard parmi tes 7 de la wish list", v, est: false, avg, max: null, odds: "1,25 % (un des 7)" });
+      rows.push({ b, st, lab: "Invocation de la Prophétie", who: "1 perso au hasard parmi tes 7 de la wish list", v, est: false, avg, max: null, odds: "1,25 % (un des 7)" });
     } else if (k.p && k.pity){
       const h = b.hero ? BY[b.hero] : null, hv = heroValue(h), avg = expPulls(k.p, k.pity) * 5;
       rows.push({ b, st, lab: k.lab, h, who: h ? dn(h) : (b.hero || "?"), v: hv.v, est: hv.est, avg, max: (k.pity + 1) * 5, odds: P(k.p * 100), own: h && owned.has(h.n) });
@@ -1326,7 +1346,7 @@ function renderCompare(now){
     if (best.b.kind === "covenant") msg = `💤 <b>Aucune bannière vedette ne bat ta wish list en ce moment.</b> Garde tes bookmarks pour l'alliance ou une prochaine bannière.`;
     else {
       msg = `🏆 <b>Le plus rentable : ${esc(best.who)}</b> (${esc(best.lab)}${best.st === "soon" ? ", à venir" : ""})`;
-      if (second) msg += ` · environ <b>${String((best.rent / second.rent).toFixed(1)).replace(".", ",")}×</b> plus de valeur par bookmark que ${second.b.kind === "covenant" ? "l'invocation d'alliance" : esc(second.who)}.`;
+      if (second) msg += ` · environ <b>${String((best.rent / second.rent).toFixed(1)).replace(".", ",")}×</b> plus de valeur par bookmark que ${second.b.kind === "covenant" ? "l'Invocation de la Prophétie" : esc(second.who)}.`;
       if (KI(best.b).lim) msg += ` Perso limité : il ne revient pas avant longtemps.`;
       msg += ` Prévois <b>${NB(best.max)} bookmarks</b> pour être sûr de l'avoir.`;
     }
@@ -1348,7 +1368,7 @@ function renderCompare(now){
   }).join("") : "";
 }
 const WL_EL = new Set(["fire", "ice", "wind"]);
-function wlEligible(h){ return h.stars === 5 && WL_EL.has(h.el) && h.type === "Common"; }
+function wlEligible(h){ return h.stars === 5 && WL_EL.has(h.el) && (h.type === "Common" || h.n === "Tactical Archetype Coli"); }
 function heroInterest(h){
   let s = sc(h);
   if (h.wr != null && mode === "pvp") s += Math.max(-1.5, Math.min(1.5, (h.wr - 50) / 4));
@@ -1385,13 +1405,79 @@ function renderPulls(){
       a.s += v; a.users.push([h, u, v]);
     }
   }
-  const arts = Object.entries(A).filter(([n]) => !limArts.has(n) && !(ARTS[n] && ARTS[n].stars && +ARTS[n].stars < 5)).sort((a, b) => b[1].s - a[1].s).slice(0, 7);
+  ART_RANK = Object.entries(A).filter(([n]) => !limArts.has(n) && !(ARTS[n] && ARTS[n].stars && +ARTS[n].stars < 5)).sort((a, b) => b[1].s - a[1].s);
+  const arts = ART_RANK.slice(0, 7);
   document.getElementById("wl-arts").innerHTML = `<thead><tr><th>#</th><th>Artefact</th><th>Classe</th><th>Porté par</th></tr></thead><tbody>` + arts.map(([n, a], i) => {
     const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
     return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
   }).join("") + "</tbody>";
+  renderProphecy();
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
+/* ---------- Invocation de la Prophétie (wish list du joueur) ---------- */
+let ART_RANK = [];
+const PR = { get(){ const s = store.get("zkxwish") || {}; return { h: (s.h || []).concat(Array(7).fill("")).slice(0, 7), a: (s.a || []).concat(Array(7).fill("")).slice(0, 7) }; }, set(v){ store.set("zkxwish", v); } };
+const prOk = h => h && h.stars === 5 && WL_EL.has(h.el) && h.type !== "Limited" && h.type !== "Collab";
+function prHero(v){ if (!v) return null; const n = HNORM[NRM(v)] || (BY[v] ? v : null); return n && prOk(BY[n]) ? BY[n] : null; }
+function prArt(v){ if (!v) return null; const n = Object.keys(ARTS).find(x => NRM(x) === NRM(v)) || ART_RANK.map(x => x[0]).find(x => NRM(x) === NRM(v)); return n || v.trim(); }
+const PCT = x => (x * 100 < 10 ? (x * 100).toFixed(1) : Math.round(x * 100)).toString().replace(".", ",") + " %";
+function renderProphecy(){
+  const S = PR.get(), incl = document.getElementById("wl-own").checked;
+  const pool = DATA.filter(wlEligible).map(h => [h, heroInterest(h) * (owned.has(h.n) && !incl ? .35 : 1)]).sort((a, b) => b[1] - a[1]);
+  const rank = Object.fromEntries(pool.map(([h], i) => [h.n, i + 1]));
+  const dl = document.getElementById("pr-dl-h");
+  if (!dl.childElementCount) dl.innerHTML = DATA.filter(prOk).map(h => `<option value="${esc(dn(h))}">${esc(dn2(h) || h.n)}</option>`).join("");
+  const dla = document.getElementById("pr-dl-a");
+  dla.innerHTML = ART_RANK.slice(0, 60).map(([n]) => `<option value="${esc(n)}"></option>`).join("");
+  // cases persos
+  const heroes = S.h.map(prHero), inList = new Set(heroes.filter(Boolean).map(h => h.n));
+  const better = pool.filter(([h]) => !inList.has(h.n) && (incl || !owned.has(h.n)));
+  let bi = 0;
+  document.getElementById("pr-h").innerHTML = S.h.map((v, i) => {
+    const h = heroes[i]; let adv;
+    if (!v) { const b = better[bi++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(dn(b[0]))} (tier ${tierOf(b[0])})</span>` : ""; }
+    else if (!h) adv = `<span class="verdict v-no">Pas reconnu</span> <span class="mini">pas un 5★ Feu/Glace/Terre de la liste</span>`;
+    else {
+      const r = rank[h.n] || 99, own = owned.has(h.n), b = better[bi];
+      if (own && !incl){ adv = `<span class="verdict v-no">Déjà dans ta box</span> <span class="mini">un doublon ne sert qu'à l'imprint${b ? ` · mets plutôt <b>${esc(dn(b[0]))}</b> (tier ${tierOf(b[0])})` : ""}</span>`; if (b) bi++; }
+      else if (r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r} des persos possibles</span>`;
+      else if (r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}${b && b[1] > heroInterest(h) + .4 ? ` · ${esc(dn(b[0]))} serait mieux` : ""}</span>`;
+      else { adv = `<span class="verdict v-no">À remplacer</span> <span class="mini">n°${r}${b ? ` · mets <b>${esc(dn(b[0]))}</b> (tier ${tierOf(b[0])})` : ""}</span>`; if (b) bi++; }
+    }
+    return `<div class="prslot">${h ? badge(h) : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-h" data-k="h" data-i="${i}" value="${esc(h ? dn(h) : v)}" placeholder="Perso ${i + 1}" aria-label="Perso ${i + 1} de ta liste"><div>${adv || ""}</div></div></div>`;
+  }).join("");
+  // valeur de la liste
+  const val = heroes.map(h => h ? heroInterest(h) * (owned.has(h.n) && !incl ? .35 : 1) : 0), ideal = pool.slice(0, 7).map(x => x[1]);
+  const sum = a => a.reduce((x, y) => x + y, 0), q = sum(ideal) ? sum(val) / sum(ideal) : 0;
+  const good = heroes.filter(h => h && "SS S A".split(" ").includes(tierOf(h)) && (incl || !owned.has(h.n))).length;
+  const filled = heroes.filter(Boolean).length;
+  document.getElementById("pr-score").innerHTML = filled ? `<p class="cmpbest">Ta liste vaut <b>${Math.round(q * 100)} %</b> de la liste idéale en ${mode.toUpperCase()} · <b>${good}/7</b> persos tier A ou mieux que tu n'as pas. ${q >= .9 ? "Elle est très bien, tu peux tirer." : q >= .7 ? "Correcte : change les cases en rouge pour gagner en valeur." : "Change les cases en rouge avant de tirer."}</p>` : `<p class="mini">Recopie ta liste du jeu (Invocation de la Prophétie → Liste de souhaits) ou clique sur « Remplir avec la liste conseillée ».</p>`;
+  // chances
+  const pH = .0125, Ns = [10, 50, 100, 200, 400];
+  const kGood = Math.max(good, 0);
+  document.getElementById("pr-odds").innerHTML = `<thead><tr><th>Invocations</th><th>Bookmarks</th><th>≥ 1 perso 5★</th><th>Un perso précis</th>${kGood ? `<th>Un de tes ${kGood} bons persos</th>` : ""}<th>5★ en moyenne</th></tr></thead><tbody>` +
+    Ns.map(N => `<tr><td class="n">${N}</td><td class="n">${NB(N * 5)}</td><td class="n pct">${PCT(1 - Math.pow(1 - pH, N))}</td><td class="n pct">${PCT(1 - Math.pow(1 - pH / 7, N))}</td>${kGood ? `<td class="n pct">${PCT(1 - Math.pow(1 - pH * kGood / 7, N))}</td>` : ""}<td class="n">${String((N * pH).toFixed(1)).replace(".", ",")}</td></tr>`).join("") + "</tbody>";
+  // artefacts
+  const arank = Object.fromEntries(ART_RANK.map(([n], i) => [n, i + 1])), arts = S.a.map(prArt), aIn = new Set(arts.filter(Boolean));
+  const abetter = ART_RANK.filter(([n]) => !aIn.has(n)); let ai = 0;
+  document.getElementById("pr-a").innerHTML = S.a.map((v, i) => {
+    const n = arts[i]; let adv = "";
+    if (!v){ const b = abetter[ai++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(b[0])}</span>` : ""; }
+    else { const r = arank[n]; if (r && r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r}</span>`; else if (r && r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}</span>`; else { const b = abetter[ai++]; adv = `<span class="verdict v-no">Peu joué</span>${b ? ` <span class="mini">mets plutôt <b>${esc(b[0])}</b></span>` : ""}`; } }
+    return `<div class="prslot">${n ? `<span class="badge prart">${artIcon(n) || "🔱"}</span>` : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-a" data-k="a" data-i="${i}" value="${esc(v)}" placeholder="Artefact ${i + 1}" aria-label="Artefact ${i + 1} de ta liste"><div>${adv}</div></div></div>`;
+  }).join("");
+  document.querySelectorAll("#pr-h input, #pr-a input").forEach(inp => inp.addEventListener("change", () => {
+    const s = PR.get(); let v = inp.value.trim();
+    if (inp.dataset.k === "h"){ const h = prHero(v); if (h) v = h.n; } else { const a = prArt(v); if (a) v = a; }
+    s[inp.dataset.k][+inp.dataset.i] = v; PR.set(s); renderProphecy();
+  }));
+}
+document.getElementById("pr-fill").addEventListener("click", () => {
+  const incl = document.getElementById("wl-own").checked;
+  const pool = DATA.filter(wlEligible).filter(h => incl || !owned.has(h.n)).sort((a, b) => heroInterest(b) - heroInterest(a));
+  PR.set({ h: pool.slice(0, 7).map(h => h.n), a: ART_RANK.slice(0, 7).map(x => x[0]) }); renderProphecy();
+});
+document.getElementById("pr-clear").addEventListener("click", () => { PR.set({ h: [], a: [] }); renderProphecy(); });
 document.getElementById("wl-own").addEventListener("change", renderPulls);
 /* ---------- Daily / Hebdo ---------- */
 const SERVERS = { europe: { lab: "Europe", h: 3 }, global: { lab: "Global", h: 10 }, asia: { lab: "Asie / Corée / Japon", h: 18 } };
