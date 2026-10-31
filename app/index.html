@@ -208,6 +208,16 @@ span.pface{cursor:default}
 .advrow{display:grid;grid-template-columns:minmax(220px,1.2fr) minmax(180px,1fr) 2fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 .advl{display:flex;flex-direction:column;gap:3px}.advg{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
 @media (max-width:760px){.advrow{grid-template-columns:1fr}.advbest{flex-direction:column}}
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.artc{--neon:var(--acc);position:relative;display:flex;gap:12px;padding:10px;border-radius:14px;background:var(--panel2);border:1px solid color-mix(in srgb,var(--neon) 50%,var(--line));box-shadow:0 0 14px color-mix(in srgb,var(--neon) 18%,transparent)}
+.artbig{--neon:var(--acc);flex:none;display:grid;place-items:center;width:96px;height:152px;border-radius:10px;background:#120c1c center/cover no-repeat;border:1.5px solid var(--neon);box-shadow:0 0 12px color-mix(in srgb,var(--neon) 55%,transparent);font-size:30px}
+.artbig.md{width:72px;height:114px}.artbig.sm{width:46px;height:72px;border-radius:8px;font-size:18px}
+.artn{position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--neon);color:#0b0612;font:800 13px var(--f-display);display:grid;place-items:center;box-shadow:0 0 8px var(--neon)}
+.artt{display:flex;flex-direction:column;gap:4px;min-width:0}.artt b{font:700 17px var(--f-display);line-height:1.15}.artt .hchip{align-self:flex-start}
+.artcard .artbig{margin-right:4px}
+#wl-heroes .chip .badge,#wl-more .chip .badge,#pr-h .badge,#cmp-table .chip .badge,#adv .chip .badge{width:58px !important;height:58px !important;font-size:18px}
+#wl-heroes .chip,#wl-more .chip{padding-top:6px;padding-bottom:6px}
+#wl-heroes .chip .en,#wl-more .chip .en{font-size:15px}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -459,7 +469,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     <details style="margin-top:8px"><summary class="mini" style="cursor:pointer">Autres bons choix</summary><div class="scroll"><table class="inv" id="wl-more"></table></div></details>
     <h3 style="margin-top:18px">7 artefacts</h3>
     <p class="mini" style="margin:0 0 8px">Calculé à partir des artefacts réellement portés par les joueurs (Fribbels) sur les persos forts. Les artefacts signature des persos limités sont écartés ; vérifie quand même qu'il est proposé dans la liste en jeu.</p>
-    <div class="scroll"><table class="inv" id="wl-arts"></table></div>
+    <div class="artgrid" id="wl-arts"></div>
   </section>
 </div>
 <div class="view" id="v-daily" role="tabpanel" aria-labelledby="tab-daily" hidden>
@@ -597,6 +607,203 @@ const EXAMPLE = ["Lady of the Scales","Frieren","Arbiter Vildred","Genesis Ras",
 
 const META = {"sources":[{"k":"e7","lab":"e7rtabot (données RTA)","date":"30/10/2026","mode":"PvP"},{"k":"mmo","lab":"MMO Culture (RTA)","date":"07/10/2026","mode":"PvP"},{"k":"pga","lab":"Pocket Gamer (Arène)","date":"16/10/2026","mode":"PvP"},{"k":"pgg","lab":"Pocket Gamer (GdG)","date":"16/10/2026","mode":"PvP"},{"k":"joy","lab":"Joytify (PvP)","date":"12/05/2026","mode":"PvP"},{"k":"gg","lab":"game.guide (agrégé)","date":"22/10/2026","mode":"PvP"},{"k":"pgw","lab":"Pocket Gamer (Histoire)","date":"16/10/2026","mode":"PvE"},{"k":"pgab","lab":"Pocket Gamer (Abysse)","date":"16/10/2026","mode":"PvE"},{"k":"pgh","lab":"Pocket Gamer (Chasse)","date":"16/10/2026","mode":"PvE"},{"k":"pgr","lab":"Pocket Gamer (Raid)","date":"16/10/2026","mode":"PvE"},{"k":"joye","lab":"Joytify (PvE)","date":"12/05/2026","mode":"PvE"},{"k":"top","lab":"TopUpLive (PvE)","date":"26/08/2026","mode":"PvE"}]};
 const ARTS = {"Holy Sacrifice":{"key":"holy_sacrifice","class":"Knight","stars":5,"skill":"100% chance to be revived with 25% Health and granted a barrier for 1 turn after dying. Barrier strength is proportional to the caster's max Health. Can only be activated once.","skill_fr":"100 % de chances de ressusciter avec 25 % de PV et une barrière pendant 1 tour après la mort (selon les PV max du lanceur). Une seule fois."},"Mirrored Lotus Ring":{"key":"mirrored_lotus_ring","class":"Mage","stars":5,"skill":"At the start of the first battle, gains 20 Soul. At the start of the turn, has a 100% chance to gain 2 Soul.","skill_fr":"Au début du premier combat, gagne 20 âmes. Au début du tour, 100 % de chances de gagner 2 âmes."},"Kal'adra":{"key":"kaladra","class":"Mage","stars":4,"skill":"Increases damage dealt by 30% if the target is debuffed when the caster attacks.","skill_fr":"Augmente les dégâts de 30 % si la cible a un affaiblissement."},"Benimaru's Tachi":{"key":"benimarus_tachi","class":"Warrior","stars":5,"skill":"At the start of the first battle, has a 100% chance to grant immunity for 1 turn. At the start of the turn, when the caster does not have a debuff, has a 100% chance to increase Attack for 1 turn.","skill_fr":"Au début du premier combat, 100 % de chances d'octroyer l'immunité pendant 1 tour. Au début du tour, si le lanceur n'a aucun affaiblissement, 100 % de chances d'augmenter son Attaque pendant 1 tour."},"Draco Plate":{"key":"draco_plate","class":"Warrior","stars":5,"skill":"Increases Critical Hit Damage by 30%. When suffering a critical hit, grants 30% damage reduction.","skill_fr":"Augmente les dégâts critiques de 30 %. En subissant un coup critique, octroie 30 % de réduction des dégâts."},"Tagehel's Ancient Book":{"key":"tagehels_ancient_book","class":"Mage","stars":4,"skill":"Acquires 20 souls at the start of the first battle.","skill_fr":"Gagne 20 âmes au début du premier combat."},"Dux Noctis":{"key":"dux_noctis","class":"Ranger","stars":5,"skill":"Increases Attack of the caster by 4% when an ally makes a critical hit. Effect can only stack up to 8 times.","skill_fr":"Augmente l'Attaque du lanceur de 4 % quand un allié inflige un coup critique (cumulable 8 fois)."},"Celestine":{"key":"celestine","class":"Soul Weaver","stars":5,"skill":"After attacking with a Single Attack, heals the ally with the lowest Health by 16%.","skill_fr":"Après une attaque mono-cible, soigne de 16 % l'allié le plus blessé."},"Golden Rose":{"key":"golden_rose","class":"Warrior","stars":5,"skill":"When attacking, if the caster's Health is 50% or more, increases damage dealt by 16%, and when Health is less than 50%, recovers 30% of damage dealt.","skill_fr":"En attaquant, si les PV du lanceur sont à 50 % ou plus, augmente les dégâts de 16 % ; sous 50 %, récupère 30 % des dégâts infligés."},"Bastion of Perlutia":{"key":"bastion_of_perlutia","class":"Knight","stars":5,"skill":"At the start of battle, grants the caster and the ally in the back row immunity for 1 turn and a barrier equivalent to 30% of the caster's max Health for 2 turns.","skill_fr":"Au début du combat, octroie au lanceur et à l'allié du dernier rang l'immunité pendant 1 tour et une barrière égale à 30 % des PV max du lanceur pendant 2 tours."},"Queen's Whistle":{"key":"queens_whistle","class":"Soul Weaver","stars":4,"skill":"Increases Attack of all allies by 10%. At the end of the ally with the highest Attack’s turn, increases Combat Readiness of the caster by 20% Can only be activated once every 2 turns, and this Artifact’s skill effect can only apply to one Hero within a team.","skill_fr":"Augmente l'Attaque de tous les alliés de 10 %. À la fin du tour de l'allié ayant l'Attaque la plus haute, augmente la jauge d'action du lanceur de 20 % (une fois tous les 2 tours). Effet limité à un héros par équipe."},"Unseen Observer":{"key":"unseen_observer","class":"Ranger","stars":5,"skill":"After the caster uses a non-attack skill, increases Combat Readiness of the caster by 20% and acquires 10 Souls. Souls can only be acquired once.","skill_fr":"Après une compétence non offensive, augmente la jauge d'action du lanceur de 20 % et gagne 10 âmes (âmes une seule fois)."},"Sigurd Scythe":{"key":"sigurd_scythe","class":"Warrior","stars":5,"skill":"Increases Attack by 20%. When attacking, if the caster's Health is 50% or less, absorbs 50% of the damage dealt as Health.","skill_fr":"Augmente l'Attaque de 20 %. En attaquant, si les PV du lanceur sont à 50 % ou moins, absorbe 50 % des dégâts en PV."},"Sword of Summer Twilight":{"key":"sword_of_summer_twilight","class":"Thief","stars":5,"skill":"When using a skill that targets all enemies, penetrates the target's Defense by 20%. When defeating an enemy with a skill that targets all enemies, increases Combat Readiness of all allies except for the caster by 10%.","skill_fr":"Avec une compétence de zone, ignore 20 % de la Défense. En battant un ennemi avec une compétence de zone, augmente la jauge d'action des autres alliés de 10 %."},"Sole Consolation":{"key":"sole_consolation","class":"Soul Weaver","stars":5,"skill":"Increases Effect Resistance by 40%. After an enemy uses a non-attack skill, increases Combat Readiness of the caster by 16%. Can only be activated once per turn.","skill_fr":"Augmente la Résistance de 40 %. Après qu'un ennemi utilise une compétence non offensive, augmente la jauge d'action du lanceur de 16 % (une fois par tour)."},"Mature Sunglasses":{"key":"mature_sunglasses","class":"Knight","stars":5,"skill":"Increases Critical Hit Damage by 30.0%. When attacked, grants 20% damage reduction.","skill_fr":"Augmente les dégâts critiques de 30 %. Quand le lanceur est attaqué, octroie 20 % de réduction des dégâts."},"Guardian Ice Crystals":{"key":"guardian_ice_crystals","class":"Soul Weaver","stars":5,"skill":"Increases Effect Resistance by 15%. When an ally's Health is 50% or less after being attacked, recovers Health of the ally by 20%. Can only be activated once per turn. Amount recovered increases proportional to the ally's max Health.","skill_fr":"Augmente la Résistance de 15 %. Quand un allié tombe à 50 % de PV ou moins après une attaque, restaure 20 % de ses PV (une fois par tour, selon ses PV max)."},"Etica's Scepter":{"key":"eticas_scepter","class":"Mage","stars":5,"skill":"50% chance to decreases skill cooldown by 1 turn at the beginning of the turn.","skill_fr":"50 % de chances de réduire la recharge d'1 tour au début du tour."},"Guide to a Decision":{"key":"guide_to_a_decision","class":"General","stars":5,"skill":"At the start of battle, has a 100% chance to grant a barrier equivalent to 30% of the caster's max Health for 2 turns. When the caster is at max Health after being attacked, increases Combat Readiness by 16%. Can only be activated once per turn. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"Au début du combat, 100 % de chances d'octroyer une barrière égale à 30 % des PV max du lanceur pendant 2 tours. Si le lanceur est à PV max après une attaque, augmente sa jauge d'action de 16 % (une fois par tour). Effet limité à un héros par équipe."},"Junkyard Dog":{"key":"junkyard_dog","class":"Warrior","stars":5,"skill":"50% chance to burn enemy for 2 turns after using basic skill.","skill_fr":"50 % de chances de brûler l'ennemi pendant 2 tours après une compétence basique."},"Hell Cutter":{"key":"hell_cutter","class":"Warrior","stars":4,"skill":"At the start of someone's turn, increases Attack and Critical Hit Chance of the caster by 4%. Effect stacks, and is removed after the caster attacks.","skill_fr":"Au début du tour de quiconque, augmente l'Attaque et les chances de coup critique du lanceur de 4 %. Cumulable, retiré après l'attaque du lanceur."},"Bastion of Hope":{"key":"bastion_of_hope","class":"General","stars":5,"skill":"Increases Effect Resistance of all allies by 20%, and the caster's Effect Resistance by an additional 50%. The caster's Effect Resistance decreases by 3% with each attack suffered, down to 35%. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"Augmente la Résistance de tous les alliés de 20 %, et celle du lanceur de 50 % de plus. La Résistance du lanceur baisse de 3 % par attaque subie, jusqu'à 35 %. Effet limité à un héros par équipe."},"Elbris Ritual Sword":{"key":"elbris_ritual_sword","class":"Knight","stars":5,"skill":"Has a 20% chance to counterattack when an ally except for the caster is attacked.","skill_fr":"20 % de chances de contre-attaquer quand un autre allié est attaqué."},"Sashe Ithanes":{"key":"sashe_ithanes","class":"Ranger","stars":4,"skill":"Increases Combat Readiness of all allies by 16% when the enemy is defeated. Effect does not stack with other Artifacts of the same name.","skill_fr":"Augmente la jauge d'action de tous les alliés de 16 % quand un ennemi est vaincu. Non cumulable avec un artefact du même nom."},"Alexa's Basket":{"key":"alexas_basket","class":"Thief","stars":5,"skill":"70% chance to grant increased Attack for 1 turn and a 40% chance to grant increased Attack (Greater) to the caster for 1 turn at the start of the turn.","skill_fr":"Au début du tour, 70 % de chances d'octroyer une hausse d'Attaque et 40 % de chances une forte hausse d'Attaque au lanceur pendant 1 tour."},"Guiding Light":{"key":"guiding_light","class":"Ranger","stars":5,"skill":"At the start of the battle, grants stealth for 1 turn. At the end of the caster's turn, has a 70% to grant stealth for 2 turns. Stealth granted at the end of the caster's turn can be activated once every 2 turns.","skill_fr":"Au début du combat, octroie la furtivité pendant 1 tour. À la fin du tour du lanceur, 70 % de chances d'octroyer la furtivité pendant 2 tours (une fois tous les 2 tours)."},"Daydream Joker":{"key":"daydream_joker","class":"General","stars":3,"skill":"Increases damage dealt by 3% of the enemy's max Health when attacking.","skill_fr":"En attaquant, augmente les dégâts de 3 % des PV max de l'ennemi."},"Cure-All Magic Wand":{"key":"cure_all_magic_wand","class":"Soul Weaver","stars":5,"skill":"Increases Effect Resistance by 15%. When an ally's Health is 50% or less after being attacked, recovers Health of the target by 20%. Can only be activated once per turn.","skill_fr":"Augmente la Résistance de 15 %. Quand un allié tombe à 50 % de PV ou moins après une attaque, restaure 20 % de ses PV (une fois par tour)."},"War Horn":{"key":"war_horn","class":"General","stars":5,"skill":"Increaes Attack of all allies by 10%. At the end of every 3 enemy turns, increases Combat Readiness of the caster by 20%. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"Augmente l'Attaque de tous les alliés de 10 %. Tous les 3 tours ennemis, augmente la jauge d'action du lanceur de 20 %. Effet limité à un héros par équipe."},"Water's Origin":{"key":"waters_origin","class":"Soul Weaver","stars":4,"skill":"Recovers 8% Health and increases Combat Readiness by 20% upon receiving damage equivalent to 20% or more of max Health at the moment the caster is attacked.","skill_fr":"Quand le lanceur subit en une attaque 20 % ou plus de ses PV max, restaure 8 % de ses PV et augmente sa jauge d'action de 20 %."},"Proof of Friendship":{"key":"proof_of_friendship","class":"Soul Weaver","stars":5,"skill":"Increases Health of the caster and the foremost ally except for the caster by 10%. At the end of the turn, has a 100% chance to increase Combat Readiness of the foremost ally by 15%. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"Augmente les PV du lanceur et de l'allié du premier rang (hors lanceur) de 10 %. À la fin du tour, 100 % de chances d'augmenter la jauge d'action de l'allié du premier rang de 15 %. Effet limité à un héros par équipe."},"Prophetic Candlestick":{"key":"prophetic_candlestick","class":"General","stars":3,"skill":"40% chance to reduce cooldown by 1 turn at the moment the caster is attacked. Can only be activated once per turn.","skill_fr":"40 % de chances de réduire la recharge d'1 tour quand le lanceur est attaqué (une fois par tour)."},"Alabastron":{"key":"alabastron","class":"Thief","stars":5,"skill":"Increases Effectiveness by 35%. After attacking with a Single Attack, has a 70% chance to inflict a random debuff on the target for 2 turns. Can only be activated once per turn. (Decrease Attack, Decrease Defense, Decrease Speed, or Unhealable)","skill_fr":"Augmente la précision de 35 %. Après une attaque mono-cible, 70 % de chances d'infliger un affaiblissement aléatoire pendant 2 tours (baisse d'Attaque, de Défense, de Vitesse ou soins impossibles), une fois par tour."},"Lethal Whispers":{"key":"lethal_whispers","class":"Thief","stars":5,"skill":"Increases Evasion by 20%. After counterattacking, when the target is still alive, has a 40% chance to activate the basic skill once more.","skill_fr":"Augmente l'Esquive de 20 %. Après une contre-attaque, si la cible est encore en vie, 40 % de chances de relancer la compétence basique."},"Beguiling Wings":{"key":"beguiling_wings","class":"Thief","stars":5,"skill":"Increases Effect Resistance by 30%. After using an attack except for a basic skill, when a non-critical hit is made, removes 20 Soul from the enemy. Soul removal can only be activated once every 4 turns.","skill_fr":"Augmente la Résistance de 30 %. Après une attaque non basique, en cas de coup non critique, retire 20 âmes à l'ennemi (une fois tous les 4 tours)."},"3F":{"key":"3f","class":"Knight","stars":5,"skill":"After attacking, has a 100% chance to deal additional damage to the target. Additional damage increases proportional to the caster's max Health.","skill_fr":"Après une attaque, 100 % de chances d'infliger des dégâts supplémentaires à la cible, selon les PV max du lanceur."},"Elegiac Candle":{"key":"elegiac_candle","class":"Ranger","stars":5,"skill":"After attacking, has a 50% chance to decrease Defense of the target for 1 turn. This effect is not activated by a counterattack, Dual Attack, or extra attack.","skill_fr":"Après une attaque, 50 % de chances de diminuer la Défense de la cible pendant 1 tour. Ne s'active pas sur contre-attaque, attaque combinée ou attaque supplémentaire."},"A Precious Connection":{"key":"a_precious_connection","class":"Knight","stars":5,"skill":"Increases Health by 10%. At the start of the turn, gains 10 Soul. Can only be activated twice. The skill effect of this Artifact does not increase when enhanced.","skill_fr":"Augmente les PV de 10 %. Au début du tour, gagne 10 âmes (deux fois max). Cet effet n'augmente pas avec l'amélioration."},"Bird's-Eye View":{"key":"birds_eye_view","class":"Soul Weaver","stars":5,"skill":"After using a non-attack skill, acquires 20 Soul. Can only be activated once.","skill_fr":"Après une compétence non offensive, gagne 20 âmes (une seule fois)."},"Air-to-Surface Missile: MISHA":{"key":"air_to_surface_missile_misha","class":"Ranger","stars":5,"skill":"Increases Hit Chance by 20% and Critical Hit Damage by 30%.","skill_fr":"Augmente la précision de 20 % et les dégâts critiques de 30 %."},"Sira-Ren":{"key":"sira_ren","class":"Mage","stars":4,"skill":"50% chance to inflict a random debuff for 1 turn after attacking (Decrease Attack, Decreases Hit Chance, Silence, Sleep, or Poison).","skill_fr":"50 % de chances d'infliger un affaiblissement aléatoire pendant 1 tour après une attaque (baisse d'Attaque, baisse de précision, silence, sommeil ou poison)."},"Brilliant Confidence":{"key":"brilliant_confidence","class":"General","stars":4,"skill":"Increases the Friendship acquired after completing a stage in Adventure, Side Story, Spirit Altar, and Hunt by the Hero who has this Artifact equipped by 100%. The skill effect of this Artifact does not increase when enhanced.","skill_fr":"Augmente de 100 % l'amitié gagnée par le héros équipé en Aventure, Histoire parallèle, Autel des esprits et Chasse. Cet effet n'augmente pas avec l'amélioration."},"Thorn of the Blue Rose":{"key":"thorn_of_the_blue_rose","class":"Warrior","stars":5,"skill":"At the start of the first battle, acquires 10 Soul. When attacking, increases damage dealt by 10%, and when using Soulburn, increases damage dealt by an additional 20%.","skill_fr":"Au début du premier combat, gagne 10 âmes. En attaquant, augmente les dégâts de 10 %, et de 20 % de plus avec un Soulburn."},"Violet Talisman":{"key":"violet_talisman","class":"Thief","stars":5,"skill":"Increases Attack by 10% and Evasion by 10% at the start of every turn. Each effect can stack up to 3 times, and resets at the start of battle.","skill_fr":"Augmente l'Attaque et l'Esquive de 10 % au début de chaque tour (cumulable 3 fois, réinitialisé au début du combat)."},"Shepherd of the Hollow":{"key":"shepherd_of_the_hollow","class":"Thief","stars":5,"skill":"Increase Evasion by 20%. Damage dealt increases by 12% when attacking, and as Health decreases, damage dealt increases, up to a maximum of 24%","skill_fr":"Augmente l'Esquive de 20 %. Les dégâts augmentent de 12 %, et davantage à mesure que les PV baissent, jusqu'à 24 %."},"Twilight Calamity":{"key":"twilight_calamity","class":"Mage","stars":5,"skill":"Increases Critical Hit Chance of all allies by 10%, and increases Effectivesness of the caster by 30%. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"Augmente les chances de coup critique de tous les alliés de 10 % et la précision du lanceur de 30 %. Effet limité à un héros par équipe."},"Idol's Cheer":{"key":"idols_cheer","class":"Soul Weaver","stars":5,"skill":"When attacked, increases Combat Readiness of the ally with the highest Attack by 20%.","skill_fr":"Quand le lanceur est attaqué, augmente de 20 % la jauge d'action de l'allié ayant l'Attaque la plus haute."},"A Symbol of Unity":{"key":"a_symbol_of_unity","class":"General","stars":5,"skill":"When attacking, increases Hit Chance by 20% and damage dealt by 16%. This Artifact's skill effect can only apply to one Hero within a team.","skill_fr":"En attaquant, augmente la précision de 20 % et les dégâts de 16 %. Effet limité à un héros par équipe."},"Indestructible Gaiters":{"key":"indestructible_gaiters","class":"Warrior","stars":5,"skill":"Increases Attack by 10%. If a non-critical hit is made when attacking, has a 50-100% chance to inflict burn for 1 turn. Can only be activated once per turn.","skill_fr":"Augmente l'Attaque de 10 %. En cas de coup non critique, 50 à 100 % de chances de brûler pendant 1 tour (une fois par tour)."},"Awakened Leaf":{"key":"awakened_leaf","class":"Ranger","stars":5,"skill":"After using a non-attack skill, increases Combat Readiness of the caster and the ally in the back row except for the caster by 24%. Can only be activated once every 2 turns.","skill_fr":"Après une compétence non offensive, augmente de 24 % la jauge d'action du lanceur et de l'allié du dernier rang (une fois tous les 2 tours)."},"Double-Edged Decrescent":{"key":"double_edged_decrescent","class":"Thief","stars":5,"skill":"Increases Evasion by 20%. After successfully evading, has a 30% chance to counterattack.","skill_fr":"Augmente l'Esquive de 20 %. Après une esquive réussie, 30 % de chances de contre-attaquer."},"Victorious Flag":{"key":"victorious_flag","class":"General","stars":5,"skill":"When attacking, damage dealt increases by 16%. When being attacked, damage taken decreases by 16%. When more than one damage reduction effect is granted, only the strongest effect is applied. The effect of this Artifact applies only to Earth, Ice, and Fire Elemental Heroes, and can only be applied to one Hero within a team.","skill_fr":"En attaquant, augmente les dégâts de 16 % ; en étant attaqué, réduit les dégâts subis de 16 % (seule la plus forte réduction s'applique). Uniquement pour les héros Terre, Glace et Feu, limité à un héros par équipe."},"Abyssal Crown":{"key":"abyssal_crown","class":"Mage","stars":5,"skill":"30% chance to stun the enemy for 1 turn after attacking.","skill_fr":"30 % de chances d'étourdir l'ennemi pendant 1 tour après une attaque."},"Proof of Valor":{"key":"proof_of_valor","class":"General","stars":5,"skill":"Decreases damage taken by 30%. Effect decreases by 3% with each attack suffered, down to 15%. When more than one damage reduction effect is granted, only the strongest effect is applied. This Artifact's can only apply to one Hero within a party.","skill_fr":"Réduit les dégâts subis de 30 %, puis de 3 % de moins par attaque subie, jusqu'à 15 % (seule la plus forte réduction s'applique). Effet limité à un héros par équipe."},"Summer Photogenic":{"key":"summer_photogenic","class":"Thief","stars":5,"skill":"Increases Attack by 20%. When attacking, if the target is not an Elite or Boss monster, has a 100% chance to ignore damage sharing effects.","skill_fr":"Augmente l'Attaque de 20 %. Contre un ennemi non Élite/Boss, 100 % de chances d'ignorer le partage de dégâts."},"Otherworldly Machinery":{"key":"otherworldly_machinery","class":"Ranger","stars":5,"skill":"Increases Critical Hit Chance by 10%. Increases damage of attacks that target all enemies by 16%","skill_fr":"Augmente les chances de coup critique de 10 % et les dégâts des attaques de zone de 16 %."},"Spotted Mouse Hair Tie":{"key":"spotted_mouse_hair_tie","class":"Soul Weaver","stars":5,"skill":"At the start of the first battle, acquires 10 Soul. After an ally uses a Soulburn, has a 100% chance to acquire 10 Soul. Can only be activated once.","skill_fr":"Au début du premier combat, gagne 10 âmes. Après le Soulburn d'un allié, 100 % de chances de gagner 10 âmes (une seule fois)."}};
+const ARTFR = {
+ "3F": "3F",
+ "A Little Queen's Huge Crown": "L'immense couronne de la petite reine",
+ "A Precious Connection": "Un lien précieux",
+ "A Symbol of Unity": "Symbole d'unité",
+ "Abyssal Crown": "Couronne abyssale",
+ "Adamant Shield": "Bouclier inflexible",
+ "Air-to-Surface Missile: MISHA": "Missile air-sol : MISHA",
+ "Alabastron": "Alabastron",
+ "Alencinox's Wrath": "Colère d'Alencinox",
+ "Alexa's Basket": "Panier d'Alexa",
+ "An Assassin's Pledge": "Serment d'un assassin",
+ "An Offer You Can't Refuse": "Une offre qu'on ne refuse pas",
+ "Ancient Dragon's Legacy": "Héritage de l'ancien dragon",
+ "Andre's Crossbow": "Arbalète d'André",
+ "Anti-Magic Mask": "Masque antimagie",
+ "Aubade Orb": "Orbe de l'Aubade",
+ "Aurius": "Aurius",
+ "Awakened Leaf": "Feuille éveillée",
+ "Azure Comet": "Comète azur",
+ "Bastion of Hope": "Bastion de l'espoir",
+ "Bastion of Perlutia": "Bastion de Perlutia",
+ "Beguiling Wings": "Ailes envoûtantes",
+ "Benimaru's Tachi": "Tachi de Benimaru",
+ "Bird's-Eye View": "Vue d'oiseau",
+ "Black Hand of the Goddess": "Main noire de la déesse",
+ "Bloodstone": "Pierre de sang",
+ "Bloody Rose": "Rose sanglante",
+ "Border Coin": "Pièce de la frontière",
+ "Brilliant Confidence": "Assurance éclatante",
+ "Broken Will of the Priest": "Volonté brisée du prêtre",
+ "Butterfly Hair Ornament": "Barrette papillon",
+ "Butterfly's Baptism": "Baptême du papillon",
+ "Celestine": "Célestine",
+ "Chatty": "Bavard",
+ "Circus Fantasia": "Cirque fantasia",
+ "Cradle of Life": "Berceau de vie",
+ "Creation & Destruction": "Création et destruction",
+ "Crimson Moon of Nightmares": "Lune écarlate des cauchemars",
+ "Crown of Glory": "Couronne de gloire",
+ "Cruel Mischief": "Cruelle malice",
+ "Cure-All Magic Wand": "Baguette magique guérit-tout",
+ "Cursed Compass": "Boussole maudite",
+ "Custom-Made Power Anchor": "Ancre de puissance sur mesure",
+ "Dark Blood Keeper": "Gardien du sang noir",
+ "Daydream Joker": "Joker de rêve",
+ "Dignus Orb": "Orbe de Dignus",
+ "Discreet Hands": "Mains discrètes",
+ "Doctor's Bag": "Sacoche du docteur",
+ "Double-Edged Decrescent": "Croissant à double tranchant",
+ "Draco Plate": "Plaque draconique",
+ "Dreamlike Holiday": "Vacances de rêve",
+ "Durandal": "Durandal",
+ "Dust Devil": "Diable de poussière",
+ "Dux Noctis": "Dux Noctis",
+ "El's Fist": "Poing d'El",
+ "Elbris Ritual Sword": "Épée rituelle d'Elbris",
+ "Elegiac Candle": "Bougie élégiaque",
+ "Eternus": "Eternus",
+ "Etica's Scepter": "Sceptre d'Etica",
+ "Excommunicant's Censer": "Encensoir de l'excommunié",
+ "Exorcist's Tonfa": "Tonfa d'exorciste",
+ "Fairy Tale for a Nightmare": "Conte de fées pour un cauchemar",
+ "Fan of Light and Dark": "Éventail de lumière et d'ombre",
+ "Feed of Criticism": "Fil de critiques",
+ "Flame Dragon's Jewel": "Joyau du dragon de flammes",
+ "Flawless Garments": "Tenue impeccable",
+ "Flower Shower": "Pluie de fleurs",
+ "Frantic Flight": "Vol frénétique",
+ "Fullmetal's Automail": "Automail du Fullmetal",
+ "Gifted Pen": "Plume douée",
+ "Glo-Wings 21": "Glo-Wings 21",
+ "Glorious Throne": "Trône glorieux",
+ "Goblet of Oath": "Coupe du serment",
+ "Golden Rose": "Rose dorée",
+ "Guardian Ice Crystals": "Cristaux de glace gardiens",
+ "Guide to a Decision": "Guide pour une décision",
+ "Guiding Light": "Lumière guide",
+ "Hell Cutter": "Coupe-enfer",
+ "Holy Sacrifice": "Sacrifice sacré",
+ "Homage to Tarman": "Hommage à Tarman",
+ "Hostess of the Banquet": "Hôtesse du banquet",
+ "Idol's Cheer": "Encouragements de l'idole",
+ "Iela Violin": "Violon d'Iela",
+ "Indestructible Gaiters": "Jambières indestructibles",
+ "Infinity Basket": "Panier infini",
+ "Intoxicating Indulgence": "Douceur enivrante",
+ "Iron Fan": "Éventail de fer",
+ "Jack-O's Symbol": "Symbole de Jack-O",
+ "Junkyard Dog": "Junkyard Dog",
+ "Justice for All": "Justice pour tous",
+ "Kal'adra": "Kal'adra",
+ "Knowledge Seed": "Graine de savoir",
+ "Last Teatime": "Dernier thé",
+ "Lethal Whispers": "Murmures mortels",
+ "Light and Darkness": "Lumière et ténèbres",
+ "M.O.A.S": "M.O.A.S",
+ "Magaraha's Tome": "Tome de Magaraha",
+ "Magic Bubble Maker": "Souffleur de bulles magique",
+ "Magic for Friends": "Magie pour les amis",
+ "Manica of Control": "Manica du contrôle",
+ "Mature Sunglasses": "Lunettes de soleil d'adulte",
+ "Merciless Glutton": "Glouton impitoyable",
+ "Mirrored Lotus Ring": "Anneau du lotus miroir",
+ "Moonlight Dreamblade": "Révélame lunaire",
+ "Ms. Confille": "Mlle Confille",
+ "Necro & Undine": "Nécro et Ondine",
+ "Noble Oath": "Noble serment",
+ "Nostalgic Music Box": "Boîte à musique nostalgique",
+ "Old Gardening Shears": "Vieux sécateur",
+ "Otherworldly Machinery": "Machinerie d'un autre monde",
+ "Our Beautiful Seasons": "Nos belles saisons",
+ "Pipette Lance": "Lance pipette",
+ "Portrait of the Saviors": "Portrait des sauveurs",
+ "Prayer of Solitude": "Prière de solitude",
+ "Prelude to a New Era": "Prélude à une nouvelle ère",
+ "Proof of Friendship": "Preuve d'amitié",
+ "Proof of Valor": "Preuve de bravoure",
+ "Prophetic Candlestick": "Chandelier prophétique",
+ "Pure White Trust": "Confiance immaculée",
+ "Queen's Whistle": "Sifflet de la reine",
+ "Refracted Desire": "Désir réfracté",
+ "Reingar's Special Drink": "Boisson spéciale de Reingar",
+ "Renewed Will": "Volonté renouvelée",
+ "Rhianna & Luciella": "Rhianna et Luciella",
+ "Rise of a Monarch": "Ascension d'un monarque",
+ "Ritual of Sealing Flames": "Rituel des flammes scellantes",
+ "Rocket Punch Gauntlet": "Gantelet coup-de-poing fusée",
+ "Rod of Amaryllis": "Bâton d'Amaryllis",
+ "Rosa Hargana": "Rosa Hargana",
+ "Ruyi Jingu Bang": "Ruyi Jingu Bang",
+ "Sacred Tree Branch": "Branche de l'arbre sacré",
+ "Samsara Prayer Beads": "Chapelet du samsara",
+ "Sashe Ithanes": "Sashe Ithanes",
+ "Scroll of Shadows": "Parchemin des ombres",
+ "Seal of Capture": "Sceau de capture",
+ "Secret Art – Storm Sword": "Art secret : épée tempête",
+ "Seductive Flower": "Fleur séduisante",
+ "Sepulcrum": "Sépulcre",
+ "Shadow Winds 7": "Vents d'ombre 7",
+ "Shepherd of the Hollow": "Berger du néant",
+ "Shepherds of Chaos": "Bergers du chaos",
+ "Shimadra Staff": "Bâton de Shimadra",
+ "Sigurd Scythe": "Faux de Sigurd",
+ "Silver Rain": "Pluie d'argent",
+ "Sira-Ren": "Sira-Ren",
+ "Snow Crystal": "Cristal de neige",
+ "Sole Consolation": "Seule consolation",
+ "Song of Stars": "Chant des étoiles",
+ "Spatiotemporal Fan": "Éventail spatio-temporel",
+ "Spear of Purification": "Lance de purification",
+ "Spear of a New Dawn": "Lance d'une nouvelle aube",
+ "Sphere of Inferno": "Sphère infernale",
+ "Sphere of Sadism": "Sphère du sadisme",
+ "Spirit's Breath": "Souffle de l'esprit",
+ "Spotted Mouse Hair Tie": "Élastique souris tachetée",
+ "Star of the Deep Sea": "Étoile des abysses",
+ "Stella Harpa": "Stella Harpa",
+ "Strak Gauntlet": "Gantelet de Strak",
+ "Summer Photogenic": "Photogénie d'été",
+ "Super Duper Water Gun Shooter": "Super pistolet à eau",
+ "Sweet Miracle": "Doux miracle",
+ "Sword of Autumn Eclipse": "Épée de l'éclipse d'automne",
+ "Sword of Cycling Seasons": "Épée du cycle des saisons",
+ "Sword of Ezera": "Épée d'Ezera",
+ "Sword of Summer Twilight": "Épée du crépuscule d'été",
+ "Sword of Winter Shadow": "Épée de l'ombre d'hiver",
+ "Tagehel's Ancient Book": "Livre ancien de Tagehel",
+ "Thorn of the Blue Rose": "Épine de la rose bleue",
+ "Time Matter": "Matière temporelle",
+ "Tome of Life's End": "Tome de la fin de vie",
+ "Torn Sleeve": "Manche déchirée",
+ "Touch of Rekos": "Toucher de Rekos",
+ "Twilight Calamity": "Calamité crépusculaire",
+ "Tyrant's Descent": "Descente du tyran",
+ "Uberius's Tooth": "Dent d'Uberius",
+ "Umbral Keystones": "Clés de voûte ombrales",
+ "Unfading Memories": "Souvenirs impérissables",
+ "Unleashed Axe of Heavenly Mandate": "Hache déchaînée du mandat céleste",
+ "Unseen Observer": "Observateur invisible",
+ "Upgraded Dragon Knuckles": "Poings de dragon améliorés",
+ "Veritas": "Veritas",
+ "Victorious Flag": "Drapeau victorieux",
+ "Violet Talisman": "Talisman de Violet",
+ "Wall of Order": "Mur de l'ordre",
+ "War Horn": "Cor de guerre",
+ "Water's Origin": "Origine de l'eau",
+ "Wind Rider": "Chevaucheur du vent",
+ "Wings of Light and Shadow": "Ailes de lumière et d'ombre",
+ "With a Little Friend": "Avec un petit ami",
+ "Wondrous Potion Vial": "Fiole de potion merveilleuse",
+ "XVII. The Star": "XVII. L'Étoile",
+ "A Boss's Dignity": "Dignité d'un boss"
+}
+;
+const ARTEN = Object.fromEntries(Object.entries(ARTFR).map(([en, fr]) => [fr, en]));
+const ACL = { "Knight": "Chevalier", "Warrior": "Guerrier", "Thief": "Voleur", "Ranger": "Archer", "Mage": "Mage", "Soul Weaver": "Tisseur d'âme", "General": "Toutes classes" };
 const SETS = {HealthSet:"PV",DefenseSet:"Défense",AttackSet:"Attaque",SpeedSet:"Vitesse",CriticalSet:"Critique",HitSet:"Coup",DestructionSet:"Destruction",LifestealSet:"Vol de vie",CounterSet:"Contre",ResistSet:"Résistance",UnitySet:"Unité",RageSet:"Rage",ImmunitySet:"Immunité",RevengeSet:"Vengeance",InjurySet:"Blessure",PenetrationSet:"Pénétration",ProtectionSet:"Protection",TorrentSet:"Torrent",ReversalSet:"Renversement",RiposteSet:"Riposte",WarfareSet:"Warfare",PursuitSet:"Poursuite",WeakeningSet:"Affaiblissement",FervorSet:"Fervor"};
 const FR2SET = Object.fromEntries(Object.entries(SETS).map(([k,v]) => [v,k]));
 const SLOTFR = {Weapon:"Arme",Helmet:"Casque",Armor:"Armure",Necklace:"Collier",Ring:"Anneau",Boots:"Bottes"};
@@ -708,12 +915,16 @@ function stuffSection(h){
   return html;
 }
 function artKey(name){ return (ARTS[name] && ARTS[name].key) || String(name).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
+const AN = n => (lang === "fr" && ARTFR[n]) || n;
+const ANen = n => lang === "fr" && ARTFR[n] && ARTFR[n] !== n ? n : "";
+const artBig = (n, cls = "") => { const k = artKey(n), u = ART_COL[k] ? ART_URL(k) : AIMGS[k]; return `<span class="artbig ${cls}" style="${u ? `background-image:url('${u}');` : ""}--neon:${ART_COL[k] || "var(--acc)"}" aria-hidden="true">${u ? "" : "🔱"}</span>`; };
+function artClass(n, users){ if (ARTS[n] && ARTS[n].class) return ACL[ARTS[n].class] || ARTS[n].class; const u = users || [], cl = [...new Set(u.map(x => x[0].cl))]; return cl.length === 1 && u.length >= 3 ? CLN[cl[0]] : ""; }
 function artIcon(name){ const im = AIMGS[artKey(name)]; return im ? `<span class="aico" style="background-image:url('${im}')" aria-hidden="true"></span>` : ""; }
 let pasteTarget = null;
 function artCard(name){
   const a = ARTS[name], im = AIMGS[artKey(name)];
-  return `<div class="artcard"><div class="artimg" ${im ? `style="background-image:url('${im}')"` : ""} aria-hidden="true">${im ? "" : "🔱"}</div>
-    <div style="flex:1;min-width:0"><b>${esc(name)}</b>${a ? ` <span class="mini">· ${esc(a.class)} · ${esc(a.stars)}★</span><div style="font-size:13px;margin-top:3px">${esc(sklang === "fr" && a.skill_fr ? a.skill_fr : a.skill)}</div>` : '<div class="mini">Effet pas encore dans les données.</div>'}</div></div>`;
+  return `<div class="artcard">${artBig(name, "md")}
+    <div style="flex:1;min-width:0"><b>${esc(AN(name))}</b>${ANen(name) ? ` <span class="mini">(${esc(name)})</span>` : ""}${a ? ` <span class="mini">· ${esc(ACL[a.class] || a.class)} · ${esc(a.stars)}★</span><div style="font-size:13px;margin-top:3px">${esc(sklang === "fr" && a.skill_fr ? a.skill_fr : a.skill)}</div>` : '<div class="mini">Effet pas encore dans les données.</div>'}</div></div>`;
 }
 function setArtImg(name, file){
   if (!file || !file.type.startsWith("image/")) return;
@@ -1051,7 +1262,7 @@ function guideHTML(h){
     ${b ? `<div class="gbase"><span>⚔ ${NB(b[0])}</span><span>❤ ${NB(b[1])}</span><span>🛡 ${NB(b[2])}</span><span>💨 ${NB(b[3])}</span></div><div class="mini" style="text-align:center">Stats de base niv. 60</div>` : ""}
   </div>
   <div class="gcol">
-    <div class="gbox"><h5>🔱 Artefacts</h5>${arts.length ? arts.map(([n, u, wr], i) => `<div class="grank">${num(i)}${artIcon(n)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr) || (ARTS[n] ? esc(ARTS[n].class) : "")}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}</div>
+    <div class="gbox"><h5>🔱 Artefacts</h5>${arts.length ? arts.map(([n, u, wr], i) => `<div class="grank">${num(i)}${artIcon(n)}<div><b>${esc(AN(n))}</b>${ANen(n) ? `<span class="mini"> · ${esc(n)}</span>` : ""}<div class="mini">${pct(u, wr) || (ARTS[n] ? esc(ARTS[n].class) : "")}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}</div>
     <div class="gbox"><h5>💎 Sets</h5>${sets.length ? sets.map(([n, u, wr], i) => `<div class="grank">${num(i)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr)}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}
       <div class="gslots">${Object.entries(R.main).map(([k, v]) => `<div class="gslot"><span class="mini">${k}</span><b>${esc(v)}</b></div>`).join("")}</div>
       <p class="mini" style="margin:8px 0 0">Sous-stats à viser : ${R.subs.map((s, i) => `<b>${i + 1}. ${esc(s)}</b>`).join(" ✦ ")}</p>
@@ -1088,7 +1299,7 @@ function heroDialog(name){
   // panneaux
   const pStats = `<dl class="kv">
     ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
-    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> ${buildNote(h.build)}</dd>` : ""}
+    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(AN(h.build.art))}</b> ${buildNote(h.build)}</dd>` : ""}
     ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
     ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
     ${h.post != null ? `<dt>Post-ban RTA</dt><dd>${P(h.post)}</dd>` : ""}
@@ -1096,7 +1307,7 @@ function heroDialog(name){
       <h4>✅ Bat</h4><div class="pills">${pills(h.beats)}</div>
       <h4>❌ Contré par</h4><div class="pills">${pills(h.beaten)}</div>
       <h4>Builds RTA les plus joués</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
-      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(b.art)}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
+      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(AN(b.art))}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
       : `<p class="note">Partenaires, counters et builds RTA détaillés : seulement pour les 30 meilleurs persos RTA.</p>`) + secFribbels(h);
   const stuff = stuffSection(h);
   const panes = {
@@ -1265,7 +1476,7 @@ function ovCard(h){
   return `<div class="card2"><div style="display:flex;gap:8px;align-items:center">${badge(h)}<div style="flex:1;min-width:0"><h5 style="margin:0">${esc(dn(h))}</h5><div class="mini">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]}${owned.has(h.n)?' · <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
     <div class="line"><span class="lab">Tier :</span> PvP ${h.pvpT?`<span class="tier t-${h.pvpT}">${h.pvpT}</span>`:"—"} · PvE ${h.pveT?`<span class="tier t-${h.pveT}">${h.pveT}</span>`:"—"}${h.wr!=null?` · ${String(h.wr).replace(".",",")} % win`:""}</div>
     ${h.dd?`<div class="line"><span class="lab">DPS</span> <span class="g g-${h.dd}">${h.dd}</span> · <span class="lab">TANK</span> <span class="g g-${h.ds}">${h.ds}</span></div>`:""}
-    ${h.build?`<div class="line"><span class="lab">Stuff :</span> ${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}${artIcon(h.build.art)}${esc(h.build.art)}</div>`:""}
+    ${h.build?`<div class="line"><span class="lab">Stuff :</span> ${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}${artIcon(h.build.art)}${esc(AN(h.build.art))}</div>`:""}
     ${h.stats?`<div class="line"><span class="lab">Viser :</span> ${esc(h.stats)}</div>`:""}
     ${h.syn?`<div class="line"><span class="lab">🤝 Avec :</span></div><div class="pills">${pl(h.syn)}</div><div class="line"><span class="lab">❌ Contré par :</span></div><div class="pills">${pl(h.beaten)}</div>`:""}
     <div class="line"><span class="lab">🛡 Dans ta box pour le contrer :</span></div><div class="pills">${counters.length ? counters.map(x => `<span class="pill own">✓ ${esc(dn(x))}</span>`).join("") : '<span class="mini">aucun counter connu dans ta box</span>'}</div></div>`;
@@ -1618,7 +1829,7 @@ function renderBans(){
         <span class="kind">${esc(k.lab)} · ${esc(st)}</span>
         <div class="phead">${face}<div style="min-width:0"><b class="pname">${esc(name)}</b>${sub ? `<div class="mini">${esc(sub)}</div>` : ""}</div></div>
         ${verd}
-        ${b.art ? `<span class="mini">🗡 ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
+        ${b.art ? `<span class="mini">🗡 ${artIcon(b.art)}${esc(AN(b.art))}</span>` : ""}
         ${odds ? `<span class="mini odds">${esc(odds)}</span>` : ""}${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}
       </div></div>`;
   }).join("");
@@ -1682,7 +1893,7 @@ function wlWhy(h){
   const bits = [];
   const t = tierOf(h); if (t !== "x") bits.push(`tier ${t} ${mode.toUpperCase()}`);
   const o = mode === "pvp" ? h.pveT : h.pvpT; if (o && "SS S A".split(" ").includes(o)) bits.push(`${o} en ${mode === "pvp" ? "PvE" : "PvP"} aussi`);
-  if (h.build && h.build.art) bits.push("artefact : " + h.build.art);
+  if (h.build && h.build.art) bits.push("artefact : " + AN(h.build.art));
   return bits.join(" · ");
 }
 function parseArts(s){ const out = []; String(s || "").split(";").forEach(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); if (m) out.push([m[1].trim(), parseFloat(m[2].replace(",", "."))]); else if (x.trim()) out.push([x.trim(), null]); }); return out; }
@@ -1708,10 +1919,12 @@ function renderPulls(){
   }
   ART_RANK = Object.entries(A).filter(([n]) => !limArts.has(n) && !(ARTS[n] && ARTS[n].stars && +ARTS[n].stars < 5)).sort((a, b) => b[1].s - a[1].s);
   const arts = ART_RANK.slice(0, 7);
-  document.getElementById("wl-arts").innerHTML = `<thead><tr><th>#</th><th>Artefact</th><th>Classe</th><th>Porté par</th></tr></thead><tbody>` + arts.map(([n, a], i) => {
-    const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
-    return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
-  }).join("") + "</tbody>";
+  document.getElementById("wl-arts").innerHTML = arts.map(([n, a], i) => {
+    const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">${P(u)}</span>` : ""}`).join("<br>");
+    const cl = artClass(n, a.users);
+    return `<div class="artc" style="--neon:${ART_COL[artKey(n)] || "var(--acc)"}">${artBig(n)}<span class="artn">${i + 1}</span>
+      <div class="artt"><b>${esc(AN(n))}</b>${ANen(n) ? `<span class="mini">${esc(n)}</span>` : ""}${cl ? `<span class="hchip">${esc(cl)}</span>` : ""}<span class="mini">Porté par :<br>${us}</span></div></div>`;
+  }).join("");
   renderBans(); renderProphecy(); renderAdvice();
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
@@ -1720,7 +1933,7 @@ let ART_RANK = [];
 const PR = { get(){ const s = store.get("zkxwish") || {}; return { h: (s.h || []).concat(Array(7).fill("")).slice(0, 7), a: (s.a || []).concat(Array(7).fill("")).slice(0, 7) }; }, set(v){ store.set("zkxwish", v); } };
 const prOk = h => h && h.stars === 5 && WL_EL.has(h.el) && h.type !== "Limited" && h.type !== "Collab";
 function prHero(v){ if (!v) return null; const n = HNORM[NRM(v)] || (BY[v] ? v : null); return n && prOk(BY[n]) ? BY[n] : null; }
-function prArt(v){ if (!v) return null; const n = Object.keys(ARTS).find(x => NRM(x) === NRM(v)) || ART_RANK.map(x => x[0]).find(x => NRM(x) === NRM(v)); return n || v.trim(); }
+function prArt(v){ if (!v) return null; const t = String(v).trim(), en = ARTEN[t] || Object.keys(ARTFR).find(x => NRM(x) === NRM(t) || NRM(ARTFR[x]) === NRM(t)); return en || Object.keys(ARTS).find(x => NRM(x) === NRM(t)) || t; }
 const PCT = x => (x * 100 < 10 ? (x * 100).toFixed(1) : Math.round(x * 100)).toString().replace(".", ",") + " %";
 function renderProphecy(){
   const S = PR.get(), incl = document.getElementById("wl-own").checked;
@@ -1729,7 +1942,7 @@ function renderProphecy(){
   const dl = document.getElementById("pr-dl-h");
   if (!dl.childElementCount) dl.innerHTML = DATA.filter(prOk).map(h => `<option value="${esc(dn(h))}">${esc(dn2(h) || h.n)}</option>`).join("");
   const dla = document.getElementById("pr-dl-a");
-  dla.innerHTML = ART_RANK.slice(0, 60).map(([n]) => `<option value="${esc(n)}"></option>`).join("");
+  dla.innerHTML = ART_RANK.slice(0, 80).map(([n]) => `<option value="${esc(AN(n))}">${ANen(n) ? esc(n) : ""}</option>`).join("");
   // cases persos
   const heroes = S.h.map(prHero), inList = new Set(heroes.filter(Boolean).map(h => h.n));
   const better = pool.filter(([h]) => !inList.has(h.n) && (incl || !owned.has(h.n)));
@@ -1763,9 +1976,9 @@ function renderProphecy(){
   const abetter = ART_RANK.filter(([n]) => !aIn.has(n)); let ai = 0;
   document.getElementById("pr-a").innerHTML = S.a.map((v, i) => {
     const n = arts[i]; let adv = "";
-    if (!v){ const b = abetter[ai++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(b[0])}</span>` : ""; }
-    else { const r = arank[n]; if (r && r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r}</span>`; else if (r && r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}</span>`; else { const b = abetter[ai++]; adv = `<span class="verdict v-no">Peu joué</span>${b ? ` <span class="mini">mets plutôt <b>${esc(b[0])}</b></span>` : ""}`; } }
-    return `<div class="prslot">${n ? `<span class="badge prart">${artIcon(n) || "🔱"}</span>` : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-a" data-k="a" data-i="${i}" value="${esc(v)}" placeholder="Artefact ${i + 1}" aria-label="Artefact ${i + 1} de ta liste"><div>${adv}</div></div></div>`;
+    if (!v){ const b = abetter[ai++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(AN(b[0]))}</span>` : ""; }
+    else { const r = arank[n]; if (r && r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r}</span>`; else if (r && r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}</span>`; else { const b = abetter[ai++]; adv = `<span class="verdict v-no">Peu joué</span>${b ? ` <span class="mini">mets plutôt <b>${esc(AN(b[0]))}</b></span>` : ""}`; } }
+    return `<div class="prslot">${n ? artBig(n, "sm") : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-a" data-k="a" data-i="${i}" value="${esc(n ? AN(n) : v)}" placeholder="Artefact ${i + 1}" aria-label="Artefact ${i + 1} de ta liste"><div>${adv}</div></div></div>`;
   }).join("");
   document.querySelectorAll("#pr-h input, #pr-a input").forEach(inp => inp.addEventListener("change", () => {
     const s = PR.get(); let v = inp.value.trim();

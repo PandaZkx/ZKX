@@ -208,6 +208,16 @@ span.pface{cursor:default}
 .advrow{display:grid;grid-template-columns:minmax(220px,1.2fr) minmax(180px,1fr) 2fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 .advl{display:flex;flex-direction:column;gap:3px}.advg{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
 @media (max-width:760px){.advrow{grid-template-columns:1fr}.advbest{flex-direction:column}}
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.artc{--neon:var(--acc);position:relative;display:flex;gap:12px;padding:10px;border-radius:14px;background:var(--panel2);border:1px solid color-mix(in srgb,var(--neon) 50%,var(--line));box-shadow:0 0 14px color-mix(in srgb,var(--neon) 18%,transparent)}
+.artbig{--neon:var(--acc);flex:none;display:grid;place-items:center;width:96px;height:152px;border-radius:10px;background:#120c1c center/cover no-repeat;border:1.5px solid var(--neon);box-shadow:0 0 12px color-mix(in srgb,var(--neon) 55%,transparent);font-size:30px}
+.artbig.md{width:72px;height:114px}.artbig.sm{width:46px;height:72px;border-radius:8px;font-size:18px}
+.artn{position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--neon);color:#0b0612;font:800 13px var(--f-display);display:grid;place-items:center;box-shadow:0 0 8px var(--neon)}
+.artt{display:flex;flex-direction:column;gap:4px;min-width:0}.artt b{font:700 17px var(--f-display);line-height:1.15}.artt .hchip{align-self:flex-start}
+.artcard .artbig{margin-right:4px}
+#wl-heroes .chip .badge,#wl-more .chip .badge,#pr-h .badge,#cmp-table .chip .badge,#adv .chip .badge{width:58px !important;height:58px !important;font-size:18px}
+#wl-heroes .chip,#wl-more .chip{padding-top:6px;padding-bottom:6px}
+#wl-heroes .chip .en,#wl-more .chip .en{font-size:15px}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -447,7 +457,7 @@ __JSZIP__
     <details style="margin-top:8px"><summary class="mini" style="cursor:pointer">Autres bons choix</summary><div class="scroll"><table class="inv" id="wl-more"></table></div></details>
     <h3 style="margin-top:18px">7 artefacts</h3>
     <p class="mini" style="margin:0 0 8px">Calculé à partir des artefacts réellement portés par les joueurs (Fribbels) sur les persos forts. Les artefacts signature des persos limités sont écartés ; vérifie quand même qu'il est proposé dans la liste en jeu.</p>
-    <div class="scroll"><table class="inv" id="wl-arts"></table></div>
+    <div class="artgrid" id="wl-arts"></div>
   </section>
 </div>
 <div class="view" id="v-daily" role="tabpanel" aria-labelledby="tab-daily" hidden>
@@ -585,6 +595,9 @@ const EXAMPLE = ["Lady of the Scales","Frieren","Arbiter Vildred","Genesis Ras",
 
 const META = __META__;
 const ARTS = __ARTS__;
+const ARTFR = __ARTFR__;
+const ARTEN = Object.fromEntries(Object.entries(ARTFR).map(([en, fr]) => [fr, en]));
+const ACL = { "Knight": "Chevalier", "Warrior": "Guerrier", "Thief": "Voleur", "Ranger": "Archer", "Mage": "Mage", "Soul Weaver": "Tisseur d'âme", "General": "Toutes classes" };
 const SETS = {HealthSet:"PV",DefenseSet:"Défense",AttackSet:"Attaque",SpeedSet:"Vitesse",CriticalSet:"Critique",HitSet:"Coup",DestructionSet:"Destruction",LifestealSet:"Vol de vie",CounterSet:"Contre",ResistSet:"Résistance",UnitySet:"Unité",RageSet:"Rage",ImmunitySet:"Immunité",RevengeSet:"Vengeance",InjurySet:"Blessure",PenetrationSet:"Pénétration",ProtectionSet:"Protection",TorrentSet:"Torrent",ReversalSet:"Renversement",RiposteSet:"Riposte",WarfareSet:"Warfare",PursuitSet:"Poursuite",WeakeningSet:"Affaiblissement",FervorSet:"Fervor"};
 const FR2SET = Object.fromEntries(Object.entries(SETS).map(([k,v]) => [v,k]));
 const SLOTFR = {Weapon:"Arme",Helmet:"Casque",Armor:"Armure",Necklace:"Collier",Ring:"Anneau",Boots:"Bottes"};
@@ -696,12 +709,16 @@ function stuffSection(h){
   return html;
 }
 function artKey(name){ return (ARTS[name] && ARTS[name].key) || String(name).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
+const AN = n => (lang === "fr" && ARTFR[n]) || n;
+const ANen = n => lang === "fr" && ARTFR[n] && ARTFR[n] !== n ? n : "";
+const artBig = (n, cls = "") => { const k = artKey(n), u = ART_COL[k] ? ART_URL(k) : AIMGS[k]; return `<span class="artbig ${cls}" style="${u ? `background-image:url('${u}');` : ""}--neon:${ART_COL[k] || "var(--acc)"}" aria-hidden="true">${u ? "" : "🔱"}</span>`; };
+function artClass(n, users){ if (ARTS[n] && ARTS[n].class) return ACL[ARTS[n].class] || ARTS[n].class; const u = users || [], cl = [...new Set(u.map(x => x[0].cl))]; return cl.length === 1 && u.length >= 3 ? CLN[cl[0]] : ""; }
 function artIcon(name){ const im = AIMGS[artKey(name)]; return im ? `<span class="aico" style="background-image:url('${im}')" aria-hidden="true"></span>` : ""; }
 let pasteTarget = null;
 function artCard(name){
   const a = ARTS[name], im = AIMGS[artKey(name)];
-  return `<div class="artcard"><div class="artimg" ${im ? `style="background-image:url('${im}')"` : ""} aria-hidden="true">${im ? "" : "🔱"}</div>
-    <div style="flex:1;min-width:0"><b>${esc(name)}</b>${a ? ` <span class="mini">· ${esc(a.class)} · ${esc(a.stars)}★</span><div style="font-size:13px;margin-top:3px">${esc(sklang === "fr" && a.skill_fr ? a.skill_fr : a.skill)}</div>` : '<div class="mini">Effet pas encore dans les données.</div>'}</div></div>`;
+  return `<div class="artcard">${artBig(name, "md")}
+    <div style="flex:1;min-width:0"><b>${esc(AN(name))}</b>${ANen(name) ? ` <span class="mini">(${esc(name)})</span>` : ""}${a ? ` <span class="mini">· ${esc(ACL[a.class] || a.class)} · ${esc(a.stars)}★</span><div style="font-size:13px;margin-top:3px">${esc(sklang === "fr" && a.skill_fr ? a.skill_fr : a.skill)}</div>` : '<div class="mini">Effet pas encore dans les données.</div>'}</div></div>`;
 }
 function setArtImg(name, file){
   if (!file || !file.type.startsWith("image/")) return;
@@ -1039,7 +1056,7 @@ function guideHTML(h){
     ${b ? `<div class="gbase"><span>⚔ ${NB(b[0])}</span><span>❤ ${NB(b[1])}</span><span>🛡 ${NB(b[2])}</span><span>💨 ${NB(b[3])}</span></div><div class="mini" style="text-align:center">Stats de base niv. 60</div>` : ""}
   </div>
   <div class="gcol">
-    <div class="gbox"><h5>🔱 Artefacts</h5>${arts.length ? arts.map(([n, u, wr], i) => `<div class="grank">${num(i)}${artIcon(n)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr) || (ARTS[n] ? esc(ARTS[n].class) : "")}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}</div>
+    <div class="gbox"><h5>🔱 Artefacts</h5>${arts.length ? arts.map(([n, u, wr], i) => `<div class="grank">${num(i)}${artIcon(n)}<div><b>${esc(AN(n))}</b>${ANen(n) ? `<span class="mini"> · ${esc(n)}</span>` : ""}<div class="mini">${pct(u, wr) || (ARTS[n] ? esc(ARTS[n].class) : "")}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}</div>
     <div class="gbox"><h5>💎 Sets</h5>${sets.length ? sets.map(([n, u, wr], i) => `<div class="grank">${num(i)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr)}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}
       <div class="gslots">${Object.entries(R.main).map(([k, v]) => `<div class="gslot"><span class="mini">${k}</span><b>${esc(v)}</b></div>`).join("")}</div>
       <p class="mini" style="margin:8px 0 0">Sous-stats à viser : ${R.subs.map((s, i) => `<b>${i + 1}. ${esc(s)}</b>`).join(" ✦ ")}</p>
@@ -1076,7 +1093,7 @@ function heroDialog(name){
   // panneaux
   const pStats = `<dl class="kv">
     ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
-    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> ${buildNote(h.build)}</dd>` : ""}
+    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(AN(h.build.art))}</b> ${buildNote(h.build)}</dd>` : ""}
     ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
     ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
     ${h.post != null ? `<dt>Post-ban RTA</dt><dd>${P(h.post)}</dd>` : ""}
@@ -1084,7 +1101,7 @@ function heroDialog(name){
       <h4>✅ Bat</h4><div class="pills">${pills(h.beats)}</div>
       <h4>❌ Contré par</h4><div class="pills">${pills(h.beaten)}</div>
       <h4>Builds RTA les plus joués</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
-      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(b.art)}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
+      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(AN(b.art))}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
       : `<p class="note">Partenaires, counters et builds RTA détaillés : seulement pour les 30 meilleurs persos RTA.</p>`) + secFribbels(h);
   const stuff = stuffSection(h);
   const panes = {
@@ -1253,7 +1270,7 @@ function ovCard(h){
   return `<div class="card2"><div style="display:flex;gap:8px;align-items:center">${badge(h)}<div style="flex:1;min-width:0"><h5 style="margin:0">${esc(dn(h))}</h5><div class="mini">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]}${owned.has(h.n)?' · <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
     <div class="line"><span class="lab">Tier :</span> PvP ${h.pvpT?`<span class="tier t-${h.pvpT}">${h.pvpT}</span>`:"—"} · PvE ${h.pveT?`<span class="tier t-${h.pveT}">${h.pveT}</span>`:"—"}${h.wr!=null?` · ${String(h.wr).replace(".",",")} % win`:""}</div>
     ${h.dd?`<div class="line"><span class="lab">DPS</span> <span class="g g-${h.dd}">${h.dd}</span> · <span class="lab">TANK</span> <span class="g g-${h.ds}">${h.ds}</span></div>`:""}
-    ${h.build?`<div class="line"><span class="lab">Stuff :</span> ${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}${artIcon(h.build.art)}${esc(h.build.art)}</div>`:""}
+    ${h.build?`<div class="line"><span class="lab">Stuff :</span> ${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}${artIcon(h.build.art)}${esc(AN(h.build.art))}</div>`:""}
     ${h.stats?`<div class="line"><span class="lab">Viser :</span> ${esc(h.stats)}</div>`:""}
     ${h.syn?`<div class="line"><span class="lab">🤝 Avec :</span></div><div class="pills">${pl(h.syn)}</div><div class="line"><span class="lab">❌ Contré par :</span></div><div class="pills">${pl(h.beaten)}</div>`:""}
     <div class="line"><span class="lab">🛡 Dans ta box pour le contrer :</span></div><div class="pills">${counters.length ? counters.map(x => `<span class="pill own">✓ ${esc(dn(x))}</span>`).join("") : '<span class="mini">aucun counter connu dans ta box</span>'}</div></div>`;
@@ -1504,7 +1521,7 @@ function renderBans(){
         <span class="kind">${esc(k.lab)} · ${esc(st)}</span>
         <div class="phead">${face}<div style="min-width:0"><b class="pname">${esc(name)}</b>${sub ? `<div class="mini">${esc(sub)}</div>` : ""}</div></div>
         ${verd}
-        ${b.art ? `<span class="mini">🗡 ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
+        ${b.art ? `<span class="mini">🗡 ${artIcon(b.art)}${esc(AN(b.art))}</span>` : ""}
         ${odds ? `<span class="mini odds">${esc(odds)}</span>` : ""}${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}
       </div></div>`;
   }).join("");
@@ -1568,7 +1585,7 @@ function wlWhy(h){
   const bits = [];
   const t = tierOf(h); if (t !== "x") bits.push(`tier ${t} ${mode.toUpperCase()}`);
   const o = mode === "pvp" ? h.pveT : h.pvpT; if (o && "SS S A".split(" ").includes(o)) bits.push(`${o} en ${mode === "pvp" ? "PvE" : "PvP"} aussi`);
-  if (h.build && h.build.art) bits.push("artefact : " + h.build.art);
+  if (h.build && h.build.art) bits.push("artefact : " + AN(h.build.art));
   return bits.join(" · ");
 }
 function parseArts(s){ const out = []; String(s || "").split(";").forEach(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); if (m) out.push([m[1].trim(), parseFloat(m[2].replace(",", "."))]); else if (x.trim()) out.push([x.trim(), null]); }); return out; }
@@ -1594,10 +1611,12 @@ function renderPulls(){
   }
   ART_RANK = Object.entries(A).filter(([n]) => !limArts.has(n) && !(ARTS[n] && ARTS[n].stars && +ARTS[n].stars < 5)).sort((a, b) => b[1].s - a[1].s);
   const arts = ART_RANK.slice(0, 7);
-  document.getElementById("wl-arts").innerHTML = `<thead><tr><th>#</th><th>Artefact</th><th>Classe</th><th>Porté par</th></tr></thead><tbody>` + arts.map(([n, a], i) => {
-    const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
-    return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
-  }).join("") + "</tbody>";
+  document.getElementById("wl-arts").innerHTML = arts.map(([n, a], i) => {
+    const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">${P(u)}</span>` : ""}`).join("<br>");
+    const cl = artClass(n, a.users);
+    return `<div class="artc" style="--neon:${ART_COL[artKey(n)] || "var(--acc)"}">${artBig(n)}<span class="artn">${i + 1}</span>
+      <div class="artt"><b>${esc(AN(n))}</b>${ANen(n) ? `<span class="mini">${esc(n)}</span>` : ""}${cl ? `<span class="hchip">${esc(cl)}</span>` : ""}<span class="mini">Porté par :<br>${us}</span></div></div>`;
+  }).join("");
   renderBans(); renderProphecy(); renderAdvice();
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
@@ -1606,7 +1625,7 @@ let ART_RANK = [];
 const PR = { get(){ const s = store.get("zkxwish") || {}; return { h: (s.h || []).concat(Array(7).fill("")).slice(0, 7), a: (s.a || []).concat(Array(7).fill("")).slice(0, 7) }; }, set(v){ store.set("zkxwish", v); } };
 const prOk = h => h && h.stars === 5 && WL_EL.has(h.el) && h.type !== "Limited" && h.type !== "Collab";
 function prHero(v){ if (!v) return null; const n = HNORM[NRM(v)] || (BY[v] ? v : null); return n && prOk(BY[n]) ? BY[n] : null; }
-function prArt(v){ if (!v) return null; const n = Object.keys(ARTS).find(x => NRM(x) === NRM(v)) || ART_RANK.map(x => x[0]).find(x => NRM(x) === NRM(v)); return n || v.trim(); }
+function prArt(v){ if (!v) return null; const t = String(v).trim(), en = ARTEN[t] || Object.keys(ARTFR).find(x => NRM(x) === NRM(t) || NRM(ARTFR[x]) === NRM(t)); return en || Object.keys(ARTS).find(x => NRM(x) === NRM(t)) || t; }
 const PCT = x => (x * 100 < 10 ? (x * 100).toFixed(1) : Math.round(x * 100)).toString().replace(".", ",") + " %";
 function renderProphecy(){
   const S = PR.get(), incl = document.getElementById("wl-own").checked;
@@ -1615,7 +1634,7 @@ function renderProphecy(){
   const dl = document.getElementById("pr-dl-h");
   if (!dl.childElementCount) dl.innerHTML = DATA.filter(prOk).map(h => `<option value="${esc(dn(h))}">${esc(dn2(h) || h.n)}</option>`).join("");
   const dla = document.getElementById("pr-dl-a");
-  dla.innerHTML = ART_RANK.slice(0, 60).map(([n]) => `<option value="${esc(n)}"></option>`).join("");
+  dla.innerHTML = ART_RANK.slice(0, 80).map(([n]) => `<option value="${esc(AN(n))}">${ANen(n) ? esc(n) : ""}</option>`).join("");
   // cases persos
   const heroes = S.h.map(prHero), inList = new Set(heroes.filter(Boolean).map(h => h.n));
   const better = pool.filter(([h]) => !inList.has(h.n) && (incl || !owned.has(h.n)));
@@ -1649,9 +1668,9 @@ function renderProphecy(){
   const abetter = ART_RANK.filter(([n]) => !aIn.has(n)); let ai = 0;
   document.getElementById("pr-a").innerHTML = S.a.map((v, i) => {
     const n = arts[i]; let adv = "";
-    if (!v){ const b = abetter[ai++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(b[0])}</span>` : ""; }
-    else { const r = arank[n]; if (r && r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r}</span>`; else if (r && r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}</span>`; else { const b = abetter[ai++]; adv = `<span class="verdict v-no">Peu joué</span>${b ? ` <span class="mini">mets plutôt <b>${esc(b[0])}</b></span>` : ""}`; } }
-    return `<div class="prslot">${n ? `<span class="badge prart">${artIcon(n) || "🔱"}</span>` : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-a" data-k="a" data-i="${i}" value="${esc(v)}" placeholder="Artefact ${i + 1}" aria-label="Artefact ${i + 1} de ta liste"><div>${adv}</div></div></div>`;
+    if (!v){ const b = abetter[ai++]; adv = b ? `<span class="verdict v-new">Case vide</span> <span class="mini">mets ${esc(AN(b[0]))}</span>` : ""; }
+    else { const r = arank[n]; if (r && r <= 7) adv = `<span class="verdict v-go">Garde</span> <span class="mini">n°${r}</span>`; else if (r && r <= 14) adv = `<span class="verdict v-ok">Correct</span> <span class="mini">n°${r}</span>`; else { const b = abetter[ai++]; adv = `<span class="verdict v-no">Peu joué</span>${b ? ` <span class="mini">mets plutôt <b>${esc(AN(b[0]))}</b></span>` : ""}`; } }
+    return `<div class="prslot">${n ? artBig(n, "sm") : `<span class="badge prempty">${i + 1}</span>`}<div class="prin"><input list="pr-dl-a" data-k="a" data-i="${i}" value="${esc(n ? AN(n) : v)}" placeholder="Artefact ${i + 1}" aria-label="Artefact ${i + 1} de ta liste"><div>${adv}</div></div></div>`;
   }).join("");
   document.querySelectorAll("#pr-h input, #pr-a input").forEach(inp => inp.addEventListener("change", () => {
     const s = PR.get(); let v = inp.value.trim();
