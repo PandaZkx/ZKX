@@ -28,6 +28,14 @@ Onglet **🎰 Invocations** :
 
 Les bannières se mettent à jour toutes seules : un robot GitHub (`.github/workflows/banners.yml`) lit les annonces du jeu toutes les 6 h et met à jour `data/banners.json`, que l'appli recharge en ligne. Pour corriger une bannière à la main, modifie ce fichier et ajoute `"manual": true` à l'entrée.
 
+## Fiches persos
+
+Clique sur un perso : la fiche commence par une vue **guide** (artefacts et sets classés, stats principales par pièce, sous-stats et stats à viser, 3 équipes conseillées, coût pour l'avoir et le monter), puis tous les détails (tiers par source, compétences, builds RTA…).
+
+## Daily / Hebdo
+
+Onglet **📅 Daily / Hebdo** : la liste de ce qu'il faut faire en priorité à chaque reset (jour, semaine, mois), avec des cases qui se décochent toutes seules, le compte à rebours avant le reset de ton serveur, des alertes sur les bannières qui se terminent ou arrivent, et tes propres tâches.
+
 ## Mes captures
 
 Onglet **📸 Mes captures** : capture le jeu avec **Win + Maj + S**, puis **Ctrl + V** dans ZKX. Cadre le visage ou l'icône, choisis le perso ou l'artefact, enregistre. Depuis la fiche d'un perso, « 📸 Mettre ma capture » le présélectionne.

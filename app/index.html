@@ -104,6 +104,36 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .ban b.t{font-family:var(--f-display);font-size:17px}
 .verdict{display:inline-block;font-weight:800;font-size:12.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
 .updbar{position:sticky;top:0;z-index:20;background:#2a1046;border:1px solid var(--acc);border-radius:12px;padding:8px 12px;margin:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.updbar[hidden]{display:none}
+.guide{display:grid;grid-template-columns:210px 1fr 1fr;gap:12px;margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:radial-gradient(120% 90% at 0% 0%,color-mix(in srgb,var(--elc) 22%,transparent),transparent 60%),linear-gradient(160deg,#1a0f2b,#0d0814)}
+.gcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.gleft{align-items:center;text-align:center;gap:6px}
+.gport{width:100%;aspect-ratio:1;border-radius:14px;background:#120b1d center/cover no-repeat;border:2px solid color-mix(in srgb,var(--elc) 60%,var(--line));display:grid;place-items:center;box-shadow:0 0 30px color-mix(in srgb,var(--elc) 25%,transparent)}
+.gname{font-family:var(--f-display);font-size:20px;font-weight:700;line-height:1.15}
+.gstars{color:var(--gold);letter-spacing:2px}
+.gtiers{display:flex;gap:10px;font-size:13px}
+.gbase{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:13px;margin-top:4px}
+.gbox{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.gbox h5{margin:0 0 8px;font-family:var(--f-display);font-size:16px;color:var(--acc);letter-spacing:.3px}
+.grank{display:flex;gap:8px;align-items:center;margin:6px 0}
+.gnum{flex:none;width:20px;height:20px;border-radius:50%;background:var(--acc);color:#0b0612;font-size:12px;font-weight:800;display:inline-grid;place-items:center}
+.gslots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.gslot{border:1px solid var(--line);border-radius:10px;padding:6px;text-align:center;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.gtgt div{display:flex;gap:8px;align-items:center;margin:4px 0}.gtgt span:not(.gnum){flex:1}
+.gteam{display:flex;flex-direction:column;gap:2px;margin:6px 0 10px}
+.gmem{display:flex;gap:6px;flex-wrap:wrap}
+.gm{background:none;border:0;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;cursor:pointer;padding:0;width:58px}
+.gm{width:66px}.gmn{max-width:66px;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:center}
+.gcost{display:grid;grid-template-columns:22px auto 1fr;gap:6px;align-items:baseline;margin:5px 0}
+@media (max-width:900px){.guide{grid-template-columns:1fr}.gport{max-width:220px}}
+.dsec{margin-top:14px}.dhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dhead h2{margin:0;flex:1}
+.dprog{width:120px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.dprog i{display:block;height:100%;background:var(--acc)}
+.ditem{display:flex;gap:10px;align-items:flex-start;padding:9px 6px;border-bottom:1px solid var(--line);cursor:pointer}
+.ditem input{margin-top:3px;accent-color:var(--acc);width:17px;height:17px;flex:none}
+.ditem.done{opacity:.5}.ditem.done b{text-decoration:line-through}
+.dprio{flex:none;font-size:11px;font-weight:800;border-radius:99px;padding:2px 8px;margin-top:1px;border:1px solid var(--line)}
+.dprio.p1{background:#2a1046;border-color:var(--acc);color:#e9d5ff}.dprio.p2{color:var(--text)}.dprio.p3{color:var(--muted)}
+.ditem .dx{margin-left:auto;padding:2px 8px;font-size:12px}
+.dadd{display:flex;gap:8px;margin-top:10px}.dadd input{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--text);font:inherit}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -155,7 +185,7 @@ table.inv td.n{text-align:right;font-variant-numeric:tabular-nums}
 /* dialog */
 .ov{position:fixed;inset:0;background:rgba(6,3,10,.8);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow:auto;z-index:10}
 .ov.open{display:flex}
-.dlg{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:16px;max-width:800px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.dlg{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:16px;max-width:1120px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .dlg h3{font-family:var(--f-display);margin:0;font-size:26px;font-weight:700}
 .dlg h4{margin:18px 0 6px;font-family:var(--f-display);font-size:17px;letter-spacing:.4px;color:var(--acc)}
 .dlg .x{float:right}
@@ -241,6 +271,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
     <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
     <button role="tab" id="tab-pulls" aria-selected="false" aria-controls="v-pulls"><span class="ic">🎰</span>Invocations</button>
+    <button role="tab" id="tab-daily" aria-selected="false" aria-controls="v-daily"><span class="ic">📅</span>Daily / Hebdo</button>
     <button role="tab" id="tab-captures" aria-selected="false" aria-controls="v-captures"><span class="ic">📸</span>Mes captures</button>
   </nav>
   <div class="side-h">Ma box</div>
@@ -333,6 +364,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     <p class="mini" style="margin:0 0 8px">Calculé à partir des artefacts réellement portés par les joueurs (Fribbels) sur les persos forts. Les artefacts signature des persos limités sont écartés ; vérifie quand même qu'il est proposé dans la liste en jeu.</p>
     <div class="scroll"><table class="inv" id="wl-arts"></table></div>
   </section>
+</div>
+<div class="view" id="v-daily" role="tabpanel" aria-labelledby="tab-daily" hidden>
+  <section class="card" style="margin-top:14px">
+    <h2>À faire à chaque reset</h2>
+    <p class="sub">Coche au fur et à mesure : les cases se décochent toutes seules au reset du jour, de la semaine ou du mois. Les tâches sont rangées par priorité.</p>
+    <div class="tools"><label class="mini" style="display:flex;gap:6px;align-items:center">Serveur <select id="d-server" aria-label="Serveur">
+      <option value="europe">Europe (reset 03:00 UTC)</option><option value="global">Global (reset 10:00 UTC)</option><option value="asia">Asie / Corée / Japon (reset 18:00 UTC)</option></select></label></div>
+    <p class="progress" id="d-timer" aria-live="polite"></p>
+  </section>
+  <div id="daily"></div>
 </div>
 <div class="view" id="v-captures" role="tabpanel" aria-labelledby="tab-captures" hidden>
   <section class="card" style="margin-top:14px">
@@ -783,12 +824,112 @@ function renderKpis(){
 }
 function renderAll(msg){ renderStatus(msg); renderKpis(); renderTeams(); renderWant(); renderBox(); renderInv(); renderTiers(); if (!document.getElementById("v-pulls").hidden) renderPulls(); if (typeof ovRender === 'function' && ovEl()) ovRender(); store.set("e7box", {owned:[...owned], mode, isExample}); }
 
+/* ---------- Fiche guide (vue infographie) ---------- */
+
+function pctList(s){ return String(s || "").split(";").map(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); return m ? [m[1].trim(), parseFloat(m[2].replace(",", "."))] : (x.trim() ? [x.trim(), null] : null); }).filter(Boolean); }
+function guideArts(h){
+  const L = [], add = (n, u, wr) => { if (n && !L.some(x => x[0] === n)) L.push([n, u, wr]); };
+  if (h.build && h.build.art) add(h.build.art, h.build.use, h.build.wr);
+  (h.builds || []).forEach(b => add(b.art, b.use, b.wr));
+  pctList(h.fr_arts).forEach(([n, u]) => add(n, u));
+  (h.alt_arts || []).forEach(n => add(n, null));
+  return L.slice(0, 3);
+}
+function guideSets(h){
+  const L = [], add = (n, u, wr) => { if (n && !L.some(x => x[0] === n)) L.push([n, u, wr]); };
+  (h.builds || []).forEach(b => add(b.set, b.use, b.wr));
+  pctList(h.fr_sets).forEach(([n, u]) => add(n, u));
+  if (!L.length && h.build && h.build.set) add(h.build.set, h.build.setuse);
+  return L.slice(0, 3);
+}
+function guideRole(h){
+  const a = h.fr_avg ? h.fr_avg.map(Number) : null; // Att, Déf, PV, Vit, Crit, Dég crit, Eff, Rés
+  const r = { dps: false, eff: false, res: false, tank: false };
+  if (a){ r.dps = a[4] >= 55 && a[5] >= 170; r.eff = a[6] >= 65; r.res = a[7] >= 65; r.tank = a[2] >= 17000 || a[1] >= 1300; }
+  else { const g = x => "SSS SS S".split(" ").includes(x); r.dps = g(h.dd); r.tank = g(h.ds); }
+  if (!r.dps && !r.eff && !r.res && !r.tank) r.tank = true;
+  const main = {
+    "Collier": r.dps ? "Crit / Dég. crit" : r.tank ? "PV % / Déf %" : "PV %",
+    "Bague": r.dps ? "Att %" : r.eff ? "Efficacité / PV %" : r.res ? "Résistance / PV %" : "PV % / Déf %",
+    "Bottes": "Vitesse"
+  };
+  const subs = r.dps ? ["Crit", "Dég. crit", "Vitesse", "Att %"] : r.eff ? ["Vitesse", "Efficacité", "PV %", "Résistance"] : r.res ? ["Vitesse", "PV %", "Résistance", "Déf %"] : ["Vitesse", "PV %", "Déf %", "Résistance"];
+  const lab = r.dps ? (r.tank ? "DPS costaud" : "DPS") : r.eff ? "Support / contrôle" : r.res ? "Support résistant" : "Tank / soutien";
+  const tgt = [];
+  if (a){
+    tgt.push(["Vitesse", a[3]]);
+    if (r.dps) tgt.push(["Crit", a[4] + " %"], ["Dég. crit", a[5] + " %"], ["Attaque", a[0].toLocaleString("fr-FR")]);
+    if (r.tank || !r.dps) tgt.push(["PV", a[2].toLocaleString("fr-FR")]);
+    if (r.tank && !r.dps) tgt.push(["Défense", a[1].toLocaleString("fr-FR")]);
+    if (r.eff) tgt.push(["Efficacité", a[6] + " %"]);
+    if (r.res) tgt.push(["Résistance", a[7] + " %"]);
+  }
+  return { r, main, subs, lab, tgt };
+}
+function guideTeams(h){
+  const out = [], keys = new Set();
+  const push = (lab, t) => { if (!t || t.length < 2) return; const k = t.map(x => x.n).sort().join("|"); if (keys.has(k)) return; keys.add(k); out.push({ lab, t }); };
+  const best = C => { let b = null; combos(C.filter(x => x.n !== h.n), 3, c => { const t = [h, ...c], r = teamScore(t); if (!b || r.total > b.total) b = { t, total: r.total }; }); return b; };
+  const syn = (h.syn || []).map(n => BY[n]).filter(Boolean);
+  if (syn.length) push("Avec ses partenaires RTA", [h, ...syn]);
+  const meta = DATA.filter(x => x.n !== h.n && (mode === "pvp" ? x.pvp : x.pve) != null).sort((a, b) => sc(b) - sc(a)).slice(0, 22);
+  const m = best([...new Set([...syn, ...meta])]); if (m) push(`Team méta ${mode.toUpperCase()}`, m.t);
+  const mine = DATA.filter(x => owned.has(x.n) && x.n !== h.n).sort((a, b) => sc(b) - sc(a)).slice(0, 22);
+  if (mine.length >= 3){ const b = best(mine); if (b) push(isExample ? "Avec la box d'exemple" : "Avec ta box", b.t); }
+  return out.slice(0, 3);
+}
+function guideCost(h){
+  const ty = h.type || (h.sk && h.sk.type) || "", ml = !ty || ty === "Moonlight" || ((h.el === "light" || h.el === "dark") && ty !== "Limited" && ty !== "Collab");
+  const get = ty === "Collab" ? ["Collab", "Seulement pendant sa collab (rarement relancée). Garanti en 121 invocations : 605 bookmarks (≈ 9 000 skystones)."]
+    : ty === "Limited" ? ["Limité", "Seulement pendant sa bannière limitée. Garanti en 121 invocations : 605 bookmarks (≈ 9 000 skystones)."]
+    : ml ? ["Moonlight", "Invocation mystique : garanti en 200 invocations (10 000 médailles). Aussi via l'invocation Moonlight et les sélecteurs d'événement."]
+    : ["Alliance", "Wish list de l'alliance ou bannière drop rate up : ≈ 352 bookmarks en moyenne, 605 garantis (≈ 5 300 / 9 000 skystones via la boutique secrète)."];
+  const stars = +(h.stars || (h.sk && h.sk.stars) || 5);
+  const up = [
+    ["⭐", "Passage 6★", stars >= 5 ? "5 persos 5★ en fourrage + 120 000 or" : "fourrage jusqu'au 6★ (≈ 470 000 or en partant de 2★)"],
+    ["🔮", "Éveil complet", `runes ${ELN[h.el] ? ELN[h.el].replace(/^\S+\s/, "") : ""} (Autel des esprits) + or`],
+    ["🌱", "Compétences au max", "≈ 33 Molagoras (moyenne d'un 5★, varie selon le perso)"],
+    ["✨", "Imprint", h.sk && h.sk.imprint ? (() => { const [st, v, how] = h.sk.imprint.split(","); return `${how === "lr" ? "pour l'équipe" : how === "lb" ? "pour l'équipe" : "bonus"} : ${STFR[st] || st} jusqu'à ${String(v).replace(".", ",")}${h.sk.self ? " · pour lui : " + (STFR[h.sk.self.split(",")[0]] || h.sk.self.split(",")[0]) + " " + String(h.sk.self.split(",")[1] || "").replace(".", ",") : ""}`; })() : "copies du perso"]
+  ];
+  return { get, up };
+}
+function guideHTML(h){
+  const t = tierOf(h), arts = guideArts(h), sets = guideSets(h), R = guideRole(h), teams = guideTeams(h), C = guideCost(h);
+  const im = IMGS[h.n], b = h.base || (h.sk && h.sk.base);
+  const num = i => `<span class="gnum">${i + 1}</span>`;
+  const pct = (u, wr) => [u != null ? `porté par ${String(u).replace(".", ",")} %` : "", wr != null ? `${String(wr).replace(".", ",")} % de victoires` : ""].filter(Boolean).join(" · ");
+  const stars = +(h.stars || (h.sk && h.sk.stars) || 5);
+  return `<div class="guide" style="--elc:${ELCOLOR[h.el]}">
+  <div class="gcol gleft">
+    <div class="gport" ${im ? `style="background-image:url('${im}')"` : ""}>${im ? "" : badge(h, true)}</div>
+    <div class="gname">${esc(dn(h))}</div>
+    <div class="gstars">${"★".repeat(stars)}</div>
+    <div class="mini">${ELN[h.el]} · ${CLN[h.cl]} · ${esc(R.lab)}</div>
+    <div class="gtiers"><span>PvP <span class="tier t-${h.pvpT || "x"}">${h.pvpT || "—"}</span></span><span>PvE <span class="tier t-${h.pveT || "x"}">${h.pveT || "—"}</span></span></div>
+    ${h.wr != null ? `<div class="mini">RTA : ${P(h.wr)} de victoires${h.pick != null ? " · joué " + P(h.pick) : ""}</div>` : ""}
+    ${b ? `<div class="gbase"><span>⚔ ${NB(b[0])}</span><span>❤ ${NB(b[1])}</span><span>🛡 ${NB(b[2])}</span><span>💨 ${NB(b[3])}</span></div><div class="mini" style="text-align:center">Stats de base niv. 60</div>` : ""}
+  </div>
+  <div class="gcol">
+    <div class="gbox"><h5>🔱 Artefacts</h5>${arts.length ? arts.map(([n, u, wr], i) => `<div class="grank">${num(i)}${artIcon(n)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr) || (ARTS[n] ? esc(ARTS[n].class) : "")}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}</div>
+    <div class="gbox"><h5>💎 Sets</h5>${sets.length ? sets.map(([n, u, wr], i) => `<div class="grank">${num(i)}<div><b>${esc(n)}</b><div class="mini">${pct(u, wr)}</div></div></div>`).join("") : '<p class="mini">Pas encore de données.</p>'}
+      <div class="gslots">${Object.entries(R.main).map(([k, v]) => `<div class="gslot"><span class="mini">${k}</span><b>${esc(v)}</b></div>`).join("")}</div>
+      <p class="mini" style="margin:8px 0 0">Sous-stats à viser : ${R.subs.map((s, i) => `<b>${i + 1}. ${esc(s)}</b>`).join(" ✦ ")}</p>
+    </div>
+  </div>
+  <div class="gcol">
+    <div class="gbox"><h5>🎯 Stats à viser</h5>${h.stats ? `<p style="margin:0 0 6px">${esc(h.stats)}</p><p class="mini" style="margin:0">Fourchette des joueurs RTA.</p>` : R.tgt.length ? `<div class="gtgt">${R.tgt.map(([k, v], i) => `<div>${num(i)}<span>${esc(k)}</span><b>${esc(String(v))}</b></div>`).join("")}</div><p class="mini" style="margin:6px 0 0">Moyenne des joueurs Fribbels : vise au moins ça.</p>` : '<p class="mini">Pas encore de données.</p>'}</div>
+    <div class="gbox"><h5>👥 Équipes</h5>${teams.length ? teams.map(x => `<div class="gteam"><div class="gmem">${x.t.map(m => `<button type="button" class="gm" data-hero="${esc(m.n)}" title="${esc(dn(m))}">${badge(m)}<span class="gmn">${esc(dn(m))}</span></button>`).join("")}</div><span class="mini">${esc(x.lab)}${x.t.every(m => m.n === h.n || owned.has(m.n)) ? " · ✓ tout dans ta box" : ""}</span></div>`).join("") : '<p class="mini">Pas assez de données.</p>'}</div>
+    <div class="gbox"><h5>💰 Coût</h5><p style="margin:0 0 6px"><b>${esc(C.get[0])} :</b> ${esc(C.get[1])}</p>${C.up.map(([i, k, v]) => `<div class="gcost"><span>${i}</span><b>${esc(k)}</b><span class="mini">${esc(v)}</span></div>`).join("")}</div>
+  </div></div>`;
+}
 function heroDialog(name){
   const h = BY[name]; if (!h) return;
   const grade = (k, lab) => h[k] ? `<dt>${lab}</dt><dd><span class="g g-${h[k]}">${h[k]}</span> ${GTXT[h[k]]}</dd>` : "";
   const pills = (arr) => (arr || []).map(n => `<span class="pill ${owned.has(n)?"own":"miss"}">${owned.has(n)?"✓ ":""}${esc(DN(n))}</span>`).join("") || "—";
   let html = `<button class="btn x" type="button" data-close>Fermer</button>
   <div style="display:flex;gap:12px;align-items:center">${badge(h)}<div><h3 id="hero-title">${esc(dn(h))}</h3><div style="color:var(--muted)">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]} ${owned.has(h.n)?'· <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
+  ${guideHTML(h)}
+  <h4 style="margin-top:6px">📋 Détails</h4>
   <dl class="kv">
     <dt>Tier PvP</dt><dd>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span> ${fmt(h.pvp)}/5 · ${h.pvpN} source${h.pvpN>1?"s":""}` : "non classé"}</dd>
     <dt>Tier PvE</dt><dd>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span> ${fmt(h.pve)}/5 · ${h.pveN} source${h.pveN>1?"s":""}` : "non classé"}</dd>
@@ -851,9 +992,9 @@ document.addEventListener("click", e => { const c = e.target.closest("[data-hero
 document.querySelectorAll(".ov").forEach(o => o.addEventListener("click", e => { if (e.target === o){ closeOv(o.id); if (o.id === "ov-pick") renderAll(); } }));
 document.addEventListener("keydown", e => { if (e.key === "Escape") document.querySelectorAll(".ov.open").forEach(o => { closeOv(o.id); if (o.id === "ov-pick") renderAll(); }); });
 
-for (const id of ["conseils","stuff","tiers","pulls","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
-  if (id === "captures") renderGal(); if (id === "pulls") renderPulls();
-  for (const o of ["conseils","stuff","tiers","pulls","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
+for (const id of ["conseils","stuff","tiers","pulls","daily","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+  if (id === "captures") renderGal(); if (id === "pulls") renderPulls(); if (id === "daily") renderDaily();
+  for (const o of ["conseils","stuff","tiers","pulls","daily","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
 ["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
 ["t-q","t-own"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
@@ -1234,6 +1375,70 @@ function renderPulls(){
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
 document.getElementById("wl-own").addEventListener("change", renderPulls);
+/* ---------- Daily / Hebdo ---------- */
+const SERVERS = { europe: { lab: "Europe", h: 3 }, global: { lab: "Global", h: 10 }, asia: { lab: "Asie / Corée / Japon", h: 18 } };
+const DAILY_TASKS = {
+  d: [
+    { id: "d-mail", p: 1, t: "Boîte aux lettres et récompenses de connexion", w: "Énergie, bookmarks et objets d'événement qui expirent." },
+    { id: "d-arena", p: 1, t: "Arène : dépense tes drapeaux", w: "Ils se rechargent : un drapeau au plafond, c'est du gaspillé. Tape les PNJ en priorité pour les skystones." },
+    { id: "d-shop", p: 1, t: "Boutique secrète : rafraîchis-la", w: "La meilleure source de bookmarks d'alliance et de médailles mystiques (≈ 71 skystones les 5 bookmarks)." },
+    { id: "d-energy", p: 1, t: "Énergie : ne la laisse jamais plafonner", w: "Chasses pour le stuff, Autel des esprits pour les runes d'éveil, ou l'événement en cours." },
+    { id: "d-event", p: 1, t: "Missions quotidiennes de l'événement en cours", w: "Les monnaies d'événement donnent souvent des Molagoras et des bookmarks." },
+    { id: "d-guild", p: 2, t: "Guilde : présence, don et attaques de guerre de guilde", w: "Les jours de guerre, tes attaques comptent pour toute la guilde." },
+    { id: "d-sanct", p: 2, t: "Sanctuaire : récolte la Forêt des âmes", w: "Pingouins, or et mousse de l'âme gratuits." },
+    { id: "d-missions", p: 2, t: "Missions quotidiennes et points du pass", w: "Ça s'additionne vite pour les skystones." },
+    { id: "d-rta", p: 3, t: "RTA : quelques matchs si tu grimpes", w: "Pour les missions de matchs et le classement de saison." }
+  ],
+  w: [
+    { id: "w-arena", p: 1, t: "Arène : finis tes combats avant la fin de semaine", w: "Les récompenses de rang tombent au reset hebdo." },
+    { id: "w-trials", p: 1, t: "Salle des épreuves : fais tes essais sur le boss du moment", w: "Récompenses selon ton meilleur score." },
+    { id: "w-shops", p: 2, t: "Achats hebdo : boutiques de guilde, de conquête et de réputation", w: "Commence par ce qui est limité (Molagoras, gemmes de conversion)." },
+    { id: "w-gw", p: 2, t: "Guerre de guilde : récupère les récompenses", w: "" },
+    { id: "w-rta", p: 3, t: "RTA : récompenses hebdo de matchs joués", w: "" }
+  ],
+  m: [
+    { id: "m-coin", p: 1, t: "Boutiques de pièces d'alliance et galactiques", w: "Les limites d'achat repartent à zéro chaque mois : persos et objets qui tournent." },
+    { id: "m-transmit", p: 1, t: "Boutique des pierres de transmission : Molagoras", w: "Les Molagoras y sont limités par mois, ne les rate pas." },
+    { id: "m-tower", p: 2, t: "Tour de l'automate", w: "Remise à zéro mensuelle, bonnes récompenses d'équipement." }
+  ]
+};
+const DST = { get(){ return store.get("zkxdaily") || { server: "europe", done: {}, custom: [] }; }, set(v){ store.set("zkxdaily", v); } };
+function resetKeys(server, now){
+  const h = (SERVERS[server] || SERVERS.europe).h, t = new Date(now - h * 3600e3);
+  const day = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate());
+  const dow = (t.getUTCDay() + 6) % 7, week = day - dow * 864e5;
+  return { d: "d" + day, w: "w" + week, m: "m" + t.getUTCFullYear() + "-" + t.getUTCMonth(),
+    nextD: day + 864e5 + h * 3600e3, nextW: week + 7 * 864e5 + h * 3600e3, nextM: Date.UTC(t.getUTCFullYear(), t.getUTCMonth() + 1, 1) + h * 3600e3 };
+}
+function untilTxt(ms){ const m = Math.max(0, Math.round(ms / 60000)), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60), mm = m % 60; return (d ? d + " j " : "") + (d || h ? h + " h " : "") + (d ? "" : mm + " min"); }
+function renderDaily(){
+  const S = DST.get(), now = Date.now(), K = resetKeys(S.server, now), box = document.getElementById("daily");
+  if (!box) return;
+  document.getElementById("d-server").value = S.server;
+  const at = new Date(K.nextD).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+  document.getElementById("d-timer").innerHTML = `Prochain reset à <b>${at}</b> (dans ${untilTxt(K.nextD - now)}) · hebdo dans ${untilTxt(K.nextW - now)} · mensuel dans ${untilTxt(K.nextM - now)}`;
+  const isDone = (per, id) => S.done[id] === K[per];
+  const tips = [];
+  const live = BANNERS.filter(b => !b.perm && banState(b, now) === "live" && b.end);
+  live.forEach(b => { const left = new Date(b.end).getTime() - now; if (left < 3 * 864e5) tips.push(`⏳ <b>${esc(b.hero || b.title || KI(b).lab)}</b> (${esc(KI(b).lab)}) se termine dans ${untilTxt(left)}.`); });
+  const soon = BANNERS.filter(b => !b.perm && banState(b, now) === "soon" && new Date(b.start).getTime() - now < 4 * 864e5);
+  soon.forEach(b => tips.push(`🆕 <b>${esc(b.hero || b.title || KI(b).lab)}</b> (${esc(KI(b).lab)}) arrive dans ${untilTxt(new Date(b.start).getTime() - now)} : garde tes bookmarks si tu le veux.`));
+  const sec = (per, title, list) => {
+    const L = list.concat((S.custom || []).filter(c => c.per === per).map(c => ({ id: c.id, p: 2, t: c.t, w: "", custom: true })));
+    const n = L.filter(x => isDone(per, x.id)).length;
+    return `<section class="card dsec"><div class="dhead"><h2>${title}</h2><span class="mini">${n}/${L.length} fait${n > 1 ? "s" : ""}</span><span class="dprog"><i style="width:${L.length ? Math.round(n / L.length * 100) : 0}%"></i></span></div>
+      ${L.sort((a, b) => (isDone(per, a.id) - isDone(per, b.id)) || a.p - b.p).map(x => `<label class="ditem ${isDone(per, x.id) ? "done" : ""}"><input type="checkbox" data-per="${per}" data-id="${esc(x.id)}" ${isDone(per, x.id) ? "checked" : ""}>
+        <span class="dprio p${x.p}">${x.p === 1 ? "Prio" : x.p === 2 ? "À faire" : "Bonus"}</span><span><b>${esc(x.t)}</b>${x.w ? `<span class="mini"> · ${esc(x.w)}</span>` : ""}</span>${x.custom ? `<button type="button" class="btn dx" data-del="${esc(x.id)}" aria-label="Supprimer">✕</button>` : ""}</label>`).join("")}
+      <form class="dadd" data-per="${per}"><input type="text" placeholder="Ajouter une tâche à moi" aria-label="Nouvelle tâche ${title}"><button class="btn" type="submit">Ajouter</button></form></section>`;
+  };
+  box.innerHTML = (tips.length ? `<section class="card dsec"><h2>📣 À ne pas rater</h2>${tips.map(t => `<p class="cmpbest" style="margin:6px 0">${t}</p>`).join("")}</section>` : "") +
+    sec("d", "☀ Chaque jour", DAILY_TASKS.d) + sec("w", "📅 Chaque semaine (lundi)", DAILY_TASKS.w) + sec("m", "🗓 Chaque mois", DAILY_TASKS.m);
+  box.querySelectorAll("input[type=checkbox]").forEach(c => c.addEventListener("change", () => { const s = DST.get(), k = resetKeys(s.server, Date.now()); if (c.checked) s.done[c.dataset.id] = k[c.dataset.per]; else delete s.done[c.dataset.id]; DST.set(s); renderDaily(); }));
+  box.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); const s = DST.get(); s.custom = (s.custom || []).filter(c => c.id !== b.dataset.del); DST.set(s); renderDaily(); }));
+  box.querySelectorAll(".dadd").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const v = f.querySelector("input").value.trim(); if (!v) return; const s = DST.get(); (s.custom = s.custom || []).push({ id: "c" + Date.now(), per: f.dataset.per, t: v }); DST.set(s); renderDaily(); }));
+}
+document.getElementById("d-server").addEventListener("change", e => { const s = DST.get(); s.server = e.target.value; DST.set(s); renderDaily(); });
+setInterval(() => { if (!document.getElementById("v-daily").hidden) renderDaily(); }, 60000);
 /* ---------- Mes captures ---------- */
 const CAP = { queue: [], cur: null, img: null, box: null, k: "h", sel: null, preset: null };
 const capCv = document.getElementById("cap-canvas"), capPv = document.getElementById("cap-prev");
