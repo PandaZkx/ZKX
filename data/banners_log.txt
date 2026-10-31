@@ -1,4 +1,4 @@
-2026-10-31T02:38:52.343017+00:00
-articles trouvés : 12
+2026-10-31T02:39:27.743043+00:00
+articles trouvés : 12 ['1030-fri-patch-information', '1029-thu-patch-information', '1029-thu-maintenance-notice', 'patch-notes', 'pick-the-best-shorts-of-e7wc-2026-week-3', 'bunny-girl-moros-great-detective-debut-find-the-missing-alky', 'great-detectives-daily-investigation-lucky-board-party-event', 'events', 'launching-the-best-epic-seven-discord-bot', 'hero-rta-data-is-live', 'tier-lists-are-live', 'epic7db-is-live']
 articles à lire : 0
 bannières : 6 | changement : False
