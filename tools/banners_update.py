@@ -61,7 +61,7 @@ def list_slugs():
             log("sitemap :", len(slugs), "articles")
         except Exception as e:
             log("sitemap échec :", e)
-    log("articles trouvés :", len(slugs))
+    log("articles trouvés :", len(slugs), slugs[:40])
     return slugs
 
 
