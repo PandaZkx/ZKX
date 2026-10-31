@@ -18,6 +18,10 @@ L'appli vérifie toute seule s'il y a une nouvelle version (⚙ → Application)
 - Option « Lancer ZKX au démarrage de Windows ».
 - Notification Windows quand une nouvelle version sort.
 
+## Invocations
+
+Onglet **🎰 Invocations** : bannières du moment avec un avis (fonce / bon pull / passe ton tour) et la **wish list conseillée** de l'invocation d'alliance (7 persos + 7 artefacts 5★), avec % de victoires, % de jeu et pré-ban en RTA.
+
 ## Mes captures
 
 Onglet **📸 Mes captures** : capture le jeu avec **Win + Maj + S**, puis **Ctrl + V** dans ZKX. Cadre le visage ou l'icône, choisis le perso ou l'artefact, enregistre. Depuis la fiche d'un perso, « 📸 Mettre ma capture » le présélectionne.

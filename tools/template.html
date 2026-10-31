@@ -10,19 +10,19 @@
 <style>
 :root{
   /* HUD de jeu : menu latéral fixe + zone principale ; cartes à liseré de couleur d'élément ; accent sarcelle, or réservé aux tiers */
-  --bg:#0d1117; --bg2:#121821; --panel:#161d28; --panel2:#1c2533; --line:#263244; --text:#e6edf5; --muted:#8b9ab0;
-  --acc:#35d0c4; --acc2:#1f8f87; --gold:#f0c35a; --gold2:#b48a2c; --good:#45c27a; --bad:#e0605a;
+  --bg:#09060d; --bg2:#100b17; --panel:#151020; --panel2:#1c1429; --line:#2d2140; --text:#efe9f7; --muted:#a395b8;
+  --acc:#a855f7; --acc2:#7e3fc6; --gold:#f0c35a; --gold2:#b48a2c; --good:#45c27a; --bad:#e0605a;
   --f-display:"Rajdhani", "Segoe UI", sans-serif; --f-body:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --r:14px; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.45}
-body{background:radial-gradient(1200px 600px at 80% -10%, #16283a 0%, transparent 60%), var(--bg)}
+body{background:radial-gradient(1200px 600px at 80% -10%, #2a1244 0%, transparent 60%), var(--bg)}
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 a{color:var(--acc)}
 .app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
-aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,#111823,#0c1118);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:14px}
+aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,#120c1b,#08050c);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:14px}
 .logo{font-family:var(--f-display);font-weight:700;font-size:20px;white-space:nowrap;letter-spacing:1px;line-height:1}
 .logo b{color:var(--acc)} .logo small{display:block;white-space:normal;font-family:var(--f-body);font-size:12px;color:var(--muted);letter-spacing:0;margin-top:4px;font-weight:600}
 .nav{display:grid;gap:4px}
@@ -34,12 +34,12 @@ aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradien
 .side-actions{display:grid;gap:6px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:800;font-size:14px}
 .btn:hover{border-color:var(--acc2)}
-.btn.primary{background:var(--acc);color:#05201d;border-color:var(--acc)}
-.btn.primary:hover{background:#5ae0d5}
+.btn.primary{background:var(--acc);color:#fff;border-color:var(--acc)}
+.btn.primary:hover{background:#c084fc}
 .btn.sm{padding:5px 10px;font-size:13px}
 .seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:8px;cursor:pointer;font-weight:800;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--acc);color:#05201d}
+.seg button[aria-pressed="true"]{background:var(--acc);color:#fff}
 main{padding:22px 26px 60px;min-width:0}
 .wrap{max-width:1280px;margin:0 auto}
 header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -60,7 +60,7 @@ section.card{background:var(--panel);border:1px solid var(--line);border-radius:
 section.card h2{font-family:var(--f-display);font-size:21px;font-weight:700;margin:0;letter-spacing:.4px}
 section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .team{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--bg2)}
-.team.best{border-color:var(--acc2);background:linear-gradient(180deg,#132a2b,var(--bg2) 70%)}
+.team.best{border-color:var(--acc2);background:linear-gradient(180deg,#24123a,var(--bg2) 70%)}
 .team-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
 .team-head strong{font-family:var(--f-display);font-size:17px;letter-spacing:.4px}
 .score{font-family:var(--f-display);font-size:20px;color:var(--acc);font-weight:700;font-variant-numeric:tabular-nums}
@@ -87,7 +87,7 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .el-light{background:linear-gradient(145deg,#ffe49a,#b0821a)} .el-dark{background:linear-gradient(145deg,#c4a2f2,#4a2384)}
 .el-fire{background:linear-gradient(145deg,#ffb48d,#a7380f)} .el-ice{background:linear-gradient(145deg,#9fe0ff,#145f97)} .el-wind{background:linear-gradient(145deg,#b0e6b3,#2a7731)}
 .tier{flex:none;font-family:var(--f-display);font-weight:700;font-size:13px;padding:1px 7px;border-radius:6px;font-variant-numeric:tabular-nums;letter-spacing:.3px}
-.t-SS{background:linear-gradient(135deg,#f6d77a,#c8952c);color:#2a1d02} .t-S{background:#e0a640;color:#2a1d02} .t-A{background:#3fae6a;color:#04170c} .t-B{background:#3d7fc0;color:#fff} .t-C{background:#6b5aa8;color:#fff} .t-D{background:#4a4f5c;color:#ddd} .t-x{background:#2a313d;color:#9aa}
+.t-SS{background:linear-gradient(135deg,#f6d77a,#c8952c);color:#2a1d02} .t-S{background:#e0a640;color:#2a1d02} .t-A{background:#3fae6a;color:#04170c} .t-B{background:#8b5cf6;color:#fff} .t-C{background:#6b5aa8;color:#fff} .t-D{background:#4a4f5c;color:#ddd} .t-x{background:#2a313d;color:#9aa}
 .list{display:grid;gap:8px}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
 .gain{font-family:var(--f-display);font-size:18px;font-weight:700;color:var(--good);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -96,16 +96,25 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .empty{color:var(--muted);font-style:italic}
 .note{font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.55}
 .view[hidden]{display:none}
+
+.bans{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:10px}
+.ban{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.ban .kind{font-size:11.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.ban .kind.lim{color:var(--gold)} .ban .kind.live{color:var(--acc)}
+.ban b.t{font-family:var(--f-display);font-size:17px}
+.verdict{display:inline-block;font-weight:800;font-size:12.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.v-go{background:#2a1046;border-color:var(--acc);color:#e9d5ff} .v-ok{background:#1d1530;color:var(--text)} .v-no{background:#1a1016;color:#f0a3a3;border-color:#5a2730} .v-new{background:#16121f;color:var(--gold)}
+.pct{font-variant-numeric:tabular-nums;white-space:nowrap}
 /* captures */
 .capdrop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;color:var(--muted);background:var(--bg2);cursor:pointer;outline:none}
-.capdrop:focus-visible,.capdrop.hot{border-color:var(--acc);color:var(--text);background:#13232b}
+.capdrop:focus-visible,.capdrop.hot{border-color:var(--acc);color:var(--text);background:#1d1030}
 .capdrop b{color:var(--text)} kbd{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:0 6px;font-family:inherit;font-size:12.5px;color:var(--text)}
 .capwork{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:16px;margin-top:16px}
-.capstage{background:#07090d;border:1px solid var(--line);border-radius:12px;padding:8px;display:grid;place-items:center;min-height:240px;overflow:hidden}
+.capstage{background:#050307;border:1px solid var(--line);border-radius:12px;padding:8px;display:grid;place-items:center;min-height:240px;overflow:hidden}
 #cap-canvas{max-width:100%;touch-action:none;cursor:crosshair;display:block}
 .capside{display:flex;flex-direction:column;gap:10px}
 .capprev{display:flex;gap:10px;align-items:center}
-#cap-prev{width:96px;height:96px;border-radius:14px;border:1px solid var(--line);background:#07090d}
+#cap-prev{width:96px;height:96px;border-radius:14px;border:1px solid var(--line);background:#050307}
 .capside input[type=search]{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;box-sizing:border-box}
 .capres{display:flex;flex-direction:column;gap:4px;max-height:220px;overflow:auto}
 .capres button{display:flex;align-items:center;gap:8px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:6px 8px;cursor:pointer;color:var(--text)}
@@ -123,7 +132,7 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 @media (max-width:900px){.capwork{grid-template-columns:1fr}}
 /* appli Windows */
 #tbar{display:none}
-body.desk #tbar{display:flex;align-items:center;gap:8px;position:fixed;top:0;left:0;right:0;height:34px;padding-left:12px;background:#0a0e14;border-bottom:1px solid var(--line);z-index:50;-webkit-app-region:drag;font-family:var(--f-display);font-weight:700;letter-spacing:1px;font-size:14px;color:var(--muted)}
+body.desk #tbar{display:flex;align-items:center;gap:8px;position:fixed;top:0;left:0;right:0;height:34px;padding-left:12px;background:#07040b;border-bottom:1px solid var(--line);z-index:50;-webkit-app-region:drag;font-family:var(--f-display);font-weight:700;letter-spacing:1px;font-size:14px;color:var(--muted)}
 body.desk #tbar b{color:var(--acc)}
 body.desk .app{padding-top:35px} body.desk aside{top:35px;height:calc(100vh - 35px)}
 body.desk .ov{top:35px}
@@ -134,13 +143,13 @@ body.desk .ov{top:35px}
 table.inv{width:100%;border-collapse:collapse;font-size:13.5px;min-width:880px}
 table.inv th{position:sticky;top:0;background:var(--panel2);text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap}
 table.inv td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-table.inv tbody tr:hover{background:#18212e}
+table.inv tbody tr:hover{background:#1f1630}
 table.inv td.n{text-align:right;font-variant-numeric:tabular-nums}
 .sc{display:inline-block;min-width:40px;text-align:center;border-radius:6px;padding:1px 6px;font-weight:800;font-variant-numeric:tabular-nums}
-.sc-hi{background:#1f7a46} .sc-mid{background:#3d7fc0} .sc-lo{background:#8a6a1a} .sc-bad{background:#6b2525}
+.sc-hi{background:#1f7a46} .sc-mid{background:#7c3aed} .sc-lo{background:#8a6a1a} .sc-bad{background:#6b2525}
 .subs{color:var(--muted);font-size:12.5px}
 /* dialog */
-.ov{position:fixed;inset:0;background:rgba(4,8,14,.78);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow:auto;z-index:10}
+.ov{position:fixed;inset:0;background:rgba(6,3,10,.8);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow:auto;z-index:10}
 .ov.open{display:flex}
 .dlg{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:16px;max-width:800px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .dlg h3{font-family:var(--f-display);margin:0;font-size:26px;font-weight:700}
@@ -150,7 +159,7 @@ table.inv td.n{text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:560px){.kv{grid-template-columns:1fr}}
 .kv dt{color:var(--muted)} .kv dd{margin:0}
 .g{display:inline-block;padding:0 7px;border-radius:5px;font-weight:800;font-size:12.5px}
-.g-SSS,.g-SS{background:#1f7a46} .g-S{background:#2f9a5c} .g-A{background:#3d7fc0} .g-B{background:#6b5aa8} .g-C{background:#8a6a1a} .g-D{background:#8b3a35} .g-F{background:#6b2525}
+.g-SSS,.g-SS{background:#1f7a46} .g-S{background:#2f9a5c} .g-A{background:#8b5cf6} .g-B{background:#6b5aa8} .g-C{background:#8a6a1a} .g-D{background:#8b3a35} .g-F{background:#6b2525}
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12.5px;background:var(--bg2)}
 .pill.own{border-color:var(--good);color:#bdf0d0}
@@ -163,13 +172,13 @@ table.b td.n{font-variant-numeric:tabular-nums;text-align:right}
 .srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;margin-top:6px}
 .src{display:flex;justify-content:space-between;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
 .mini{font-size:12px;color:var(--muted)}
-.dropzone{margin-top:14px;border:1px dashed var(--acc2);border-radius:12px;padding:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);font-size:13.5px;background:#0f1a1e}
+.dropzone{margin-top:14px;border:1px dashed var(--acc2);border-radius:12px;padding:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);font-size:13.5px;background:#140d1d}
 .picker-tools{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .picker-tools input{flex:1;min-width:180px}
 .pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;max-height:58vh;overflow:auto;padding-right:4px}
 .pick label{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 8px;cursor:pointer}
 .pick input{accent-color:var(--acc);width:18px;height:18px}
-.pick label.on{border-color:var(--acc2);background:#10242a}
+.pick label.on{border-color:var(--acc2);background:#211335}
 .msg{margin-top:8px;font-size:13.5px}
 .skill{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:6px;font-size:13.5px}
 .skill b{color:var(--acc)} .skill .sb{display:block;margin-top:4px;color:var(--gold);font-size:12.5px}
@@ -183,7 +192,7 @@ table.b td.n{font-variant-numeric:tabular-nums;text-align:right}
 .set-sec h4{margin:0 0 4px!important}
 .set-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .artslot{cursor:pointer;font-size:24px;color:var(--acc)}
-.artslot:hover,.artslot.armed{border-color:var(--acc);box-shadow:0 0 0 2px rgba(53,208,196,.35)}
+.artslot:hover,.artslot.armed{border-color:var(--acc);box-shadow:0 0 0 2px rgba(168,85,247,.35)}
 .aico{display:inline-block;width:20px;height:20px;border-radius:5px;background:center/contain no-repeat;vertical-align:-5px;margin-right:6px}
 /* overlay */
 #ovl{display:none}
@@ -215,6 +224,7 @@ __JSZIP__
     <button role="tab" id="tab-conseils" aria-selected="true" aria-controls="v-conseils"><span class="ic">⚔</span>Conseils</button>
     <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
     <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
+    <button role="tab" id="tab-pulls" aria-selected="false" aria-controls="v-pulls"><span class="ic">🎰</span>Invocations</button>
     <button role="tab" id="tab-captures" aria-selected="false" aria-controls="v-captures"><span class="ic">📸</span>Mes captures</button>
   </nav>
   <div class="side-h">Ma box</div>
@@ -281,6 +291,24 @@ __JSZIP__
     <div class="scroll"><table class="inv" id="tier-table"></table></div>
   </section>
 </div>
+<div class="view" id="v-pulls" role="tabpanel" aria-labelledby="tab-pulls" hidden>
+  <section class="card" style="margin-top:14px">
+    <h2>Bannières du moment</h2>
+    <p class="sub" id="ban-sub"></p>
+    <div class="bans" id="bans"></div>
+  </section>
+  <section class="card" style="margin-top:18px">
+    <h2>Ma wish list conseillée</h2>
+    <p class="sub">La wish list de l'invocation d'alliance (Covenant) prend <b>7 persos 5★ et 7 artefacts 5★</b> : chaque 5★ tiré sur cette bannière, invocations gratuites comprises, vient de ta liste. Seuls les persos <b>Feu, Glace et Terre</b> non limités y vont (pas les Moonlight, ni les limités ou collabs). Classement selon le mode <b id="wl-mode"></b>, le tier consensus, le % de victoires et le % de jeu en RTA.</p>
+    <div class="tools"><label class="mini" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="wl-own"> Garder aussi les persos que j'ai déjà (pour les imprints)</label></div>
+    <h3>7 persos</h3>
+    <div class="scroll"><table class="inv" id="wl-heroes"></table></div>
+    <details style="margin-top:8px"><summary class="mini" style="cursor:pointer">Autres bons choix</summary><div class="scroll"><table class="inv" id="wl-more"></table></div></details>
+    <h3 style="margin-top:18px">7 artefacts</h3>
+    <p class="mini" style="margin:0 0 8px">Calculé à partir des artefacts réellement portés par les joueurs (Fribbels) sur les persos forts. Les artefacts signature des persos limités sont écartés ; vérifie quand même qu'il est proposé dans la liste en jeu.</p>
+    <div class="scroll"><table class="inv" id="wl-arts"></table></div>
+  </section>
+</div>
 <div class="view" id="v-captures" role="tabpanel" aria-labelledby="tab-captures" hidden>
   <section class="card" style="margin-top:14px">
     <h2>Mes captures du jeu</h2>
@@ -313,7 +341,7 @@ __JSZIP__
   <div class="card2" id="ov-team" style="margin-top:8px"></div>
   <p class="mini" id="ov-tip" style="margin-top:8px"></p>
 </div>
-<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour l'import automatique, exporte ta box depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Ta box et tes images restent dans ton navigateur. Pour mettre l'image d'un perso, ouvre sa fiche et colle-la. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
+<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour l'import automatique, exporte ta box depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
 </div></main>
 </div>
 
@@ -525,8 +553,9 @@ function infoSections(h){
   return html;
 }
 function extraSections(h){
-  const otherArts = [...new Set((h.builds || []).map(b => b.art))].filter(a => !h.build || a !== h.build.art);
+  const otherArts = [...new Set((h.builds || []).map(b => b.art).concat(h.alt_arts || []))].filter(a => !h.build || a !== h.build.art);
   let html = (h.build ? `<h4>🔱 Artefact conseillé</h4>` + artCard(h.build.art) + (otherArts.length ? `<h4>🔱 Autres artefacts joués</h4>` + otherArts.map(artCard).join("") : "") : "") + infoSections(h) + `<h4>📊 Tier par source</h4><div class="srcgrid">${META.sources.map(s => `<div class="src"><span>${esc(s.lab)}<br><span class="mini">${esc(s.date)}</span></span><b>${h.src && h.src[s.k] ? esc(h.src[s.k]) : "—"}</b></div>`).join("")}</div>`;
+  if (!h.build) html = `<p class="note">Pas encore assez de stats joueurs pour conseiller un artefact à ce perso.</p>` + html;
   if (h.fr_sets || h.fr_arts) html += `<h4>🛠 Stuffs enregistrés par les joueurs (Fribbels)</h4><p style="margin:0">${h.fr_sets ? "<b>Sets :</b> " + esc(h.fr_sets) + "<br>" : ""}${h.fr_arts ? "<b>Artefacts :</b> " + esc(h.fr_arts) : ""}</p><p class="mini">Fribbels mélange PvE et PvP : ça peut différer des builds RTA.</p>`;
   if (h.syn){
     const teams = [{lab:"Team principale", t:[h.n, ...h.syn]}];
@@ -713,7 +742,7 @@ function renderWant(){
 function renderBox(){
   const el = document.getElementById("box");
   const L = [...owned].map(x => BY[x]).filter(Boolean).sort((a,b) => sc(b) - sc(a));
-  el.innerHTML = L.length ? L.map((h, i) => chip(h, i < 6 ? `<span class="prio">À MONTER${h.build ? " · " + esc(h.build.set) : ""}</span>` : (h.build ? `<span class="frn">${esc(h.build.set)}</span>` : ""))).join("") : `<p class="empty">Ta box est vide.</p>`;
+  el.innerHTML = L.length ? L.map((h, i) => chip(h, i < 6 ? `<span class="prio">À MONTER${h.build && h.build.set ? " · " + esc(h.build.set) : ""}</span>` : (h.build && h.build.set ? `<span class="frn">${esc(h.build.set)}</span>` : ""))).join("") : `<p class="empty">Ta box est vide.</p>`;
 }
 function renderStatus(msg){
   const n = owned.size;
@@ -727,7 +756,7 @@ function renderKpis(){
     <div class="kpi"><div class="v">${bt ? fmt(bt.total) : "—"}</div><div class="l">score de ta meilleure team</div></div>
     <div class="kpi"><div class="v">${ITEMS.length}</div><div class="l">pièces de stuff${itemsExample ? " (exemple)" : ""}</div></div>`;
 }
-function renderAll(msg){ renderStatus(msg); renderKpis(); renderTeams(); renderWant(); renderBox(); renderInv(); renderTiers(); if (typeof ovRender === 'function' && ovEl()) ovRender(); store.set("e7box", {owned:[...owned], mode, isExample}); }
+function renderAll(msg){ renderStatus(msg); renderKpis(); renderTeams(); renderWant(); renderBox(); renderInv(); renderTiers(); if (!document.getElementById("v-pulls").hidden) renderPulls(); if (typeof ovRender === 'function' && ovEl()) ovRender(); store.set("e7box", {owned:[...owned], mode, isExample}); }
 
 function heroDialog(name){
   const h = BY[name]; if (!h) return;
@@ -740,7 +769,7 @@ function heroDialog(name){
     <dt>Tier PvE</dt><dd>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span> ${fmt(h.pve)}/5 · ${h.pveN} source${h.pveN>1?"s":""}` : "non classé"}</dd>
     ${h.wr != null ? `<dt>Win rate RTA</dt><dd>${String(h.wr).replace(".", ",")} %${h.pick != null ? ` · joué ${String(h.pick).replace(".", ",")} %` : ""}${h.pre != null ? ` · pré-ban ${String(h.pre).replace(".", ",")} %` : ""}${h.post != null ? ` · post-ban ${String(h.post).replace(".", ",")} %` : ""}</dd>` : ""}
     ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
-    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd><b>${esc(h.build.set)}</b> · artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> (${String(h.build.wr).replace(".", ",")} % de victoires)</dd>` : ""}
+    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> ${buildNote(h.build)}</dd>` : ""}
     ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
     ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
   </dl>`;
@@ -797,9 +826,9 @@ document.addEventListener("click", e => { const c = e.target.closest("[data-hero
 document.querySelectorAll(".ov").forEach(o => o.addEventListener("click", e => { if (e.target === o){ closeOv(o.id); if (o.id === "ov-pick") renderAll(); } }));
 document.addEventListener("keydown", e => { if (e.key === "Escape") document.querySelectorAll(".ov.open").forEach(o => { closeOv(o.id); if (o.id === "ov-pick") renderAll(); }); });
 
-for (const id of ["conseils","stuff","tiers","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
-  if (id === "captures") renderGal();
-  for (const o of ["conseils","stuff","tiers","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
+for (const id of ["conseils","stuff","tiers","pulls","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+  if (id === "captures") renderGal(); if (id === "pulls") renderPulls();
+  for (const o of ["conseils","stuff","tiers","pulls","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
 ["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
 ["t-q","t-own"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
@@ -813,7 +842,7 @@ function ovCard(h){
   return `<div class="card2"><div style="display:flex;gap:8px;align-items:center">${badge(h)}<div style="flex:1;min-width:0"><h5 style="margin:0">${esc(dn(h))}</h5><div class="mini">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]}${owned.has(h.n)?' · <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
     <div class="line"><span class="lab">Tier :</span> PvP ${h.pvpT?`<span class="tier t-${h.pvpT}">${h.pvpT}</span>`:"—"} · PvE ${h.pveT?`<span class="tier t-${h.pveT}">${h.pveT}</span>`:"—"}${h.wr!=null?` · ${String(h.wr).replace(".",",")} % win`:""}</div>
     ${h.dd?`<div class="line"><span class="lab">DPS</span> <span class="g g-${h.dd}">${h.dd}</span> · <span class="lab">TANK</span> <span class="g g-${h.ds}">${h.ds}</span></div>`:""}
-    ${h.build?`<div class="line"><span class="lab">Stuff :</span> <b>${esc(h.build.set)}</b> · ${artIcon(h.build.art)}${esc(h.build.art)}</div>`:""}
+    ${h.build?`<div class="line"><span class="lab">Stuff :</span> ${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}${artIcon(h.build.art)}${esc(h.build.art)}</div>`:""}
     ${h.stats?`<div class="line"><span class="lab">Viser :</span> ${esc(h.stats)}</div>`:""}
     ${h.syn?`<div class="line"><span class="lab">🤝 Avec :</span></div><div class="pills">${pl(h.syn)}</div><div class="line"><span class="lab">❌ Contré par :</span></div><div class="pills">${pl(h.beaten)}</div>`:""}
     <div class="line"><span class="lab">🛡 Dans ta box pour le contrer :</span></div><div class="pills">${counters.length ? counters.map(x => `<span class="pill own">✓ ${esc(dn(x))}</span>`).join("") : '<span class="mini">aucun counter connu dans ta box</span>'}</div></div>`;
@@ -898,6 +927,94 @@ document.getElementById("pack-dir").addEventListener("change", async e => {
   const ent = [...e.target.files].map(f => [f.webkitRelativePath || f.name, async () => f]); await importPack(ent); e.target.value = "";
 });
 
+
+/* ---------- Invocations ---------- */
+const BANNERS = [
+  { kind: "Mystique (Moonlight)", lim: false, hero: "Bunny Girl Great Detective Moro", art: null, start: "2026-10-29T03:00:00Z", end: null, note: "Nouveau héros Moonlight, sur l'invocation mystique (médailles mystiques). Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %." },
+  { kind: "Drop rate up", lim: false, hero: "Bunny Girl Mafia Yufine", art: "A Boss's Dignity", start: "2026-11-05T03:00:00Z", end: "2026-11-26T02:59:00Z", note: "Bannière classique : le perso rejoint ensuite l'invocation d'alliance (et donc la wish list)." },
+  { kind: "Limitée", lim: true, hero: "Mei Lin", art: "Flame Dragon's Jewel", start: "2026-10-08T03:00:00Z", end: "2026-10-29T02:59:00Z", note: "Collab Chaos Zero Nightmare." },
+  { kind: "Limitée", lim: true, hero: "Haru", art: "Custom-Made Power Anchor", start: "2026-09-17T03:00:00Z", end: "2026-10-08T02:59:00Z", note: "Collab Chaos Zero Nightmare." },
+  { kind: "Drop rate up", lim: false, hero: "Uncharted Pioneer Politis", art: "Light and Darkness", start: "2026-09-03T03:00:00Z", end: "2026-09-24T02:59:00Z", note: "" }
+];
+const BAN_DATE = "31/10/2026";
+const LIMITED_ARTS = ["Guiding Light", "Wall of Order", "Unfading Memories", "Dreamlike Holiday", "Proof of Friendship", "Glorious Flag", "Fan of Light and Dark", "Magic Bubble Maker", "Mirrored Lotus Ring", "Flame Dragon's Jewel", "Custom-Made Power Anchor"];
+const fmtD = s => new Date(s).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+const P = v => v == null ? "—" : String(v).replace(".", ",") + " %";
+function buildNote(b){
+  if (!b) return "";
+  if (b.src === "banner") return " (artefact de sa bannière, pas encore de stats joueurs)";
+  if (b.wr != null) return ` (${String(b.wr).replace(".", ",")} % de victoires)`;
+  return b.use != null ? ` (porté par ${String(b.use).replace(".", ",")} % des joueurs)` : "";
+}
+function verdict(h){
+  if (!h) return ['<span class="verdict v-new">Nouveau · pas encore de stats</span>', "Attends les premiers retours RTA ou prends-le s'il te plaît."];
+  const t = tierOf(h), wr = h.wr;
+  if (t === "SS" || t === "S") return ['<span class="verdict v-go">Fonce</span>', `Tier ${t} en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];
+  if (t === "A") return ['<span class="verdict v-ok">Bon pull</span>', `Tier A en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];
+  if (t === "B") return ['<span class="verdict v-ok">Si tu en as besoin</span>', `Tier B : utile dans certaines teams, pas prioritaire.`];
+  return ['<span class="verdict v-no">Passe ton tour</span>', `Tier ${t === "x" ? "non classé" : t} en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];
+}
+function renderBans(){
+  const now = Date.now(), el = document.getElementById("bans");
+  const list = BANNERS.filter(b => !b.end || new Date(b.end).getTime() > now - 21 * 864e5).sort((a, b) => new Date(b.start) - new Date(a.start));
+  document.getElementById("ban-sub").textContent = `Vérifié le ${BAN_DATE}. Une bannière à venir s'affiche à l'avance, une terminée reste 3 semaines.`;
+  el.innerHTML = list.map(b => {
+    const s = new Date(b.start).getTime(), e = b.end ? new Date(b.end).getTime() : Infinity;
+    const st = now < s ? `À venir · dès le ${fmtD(b.start)}` : now > e ? `Terminée le ${fmtD(b.end)}` : `En cours${b.end ? " · jusqu'au " + fmtD(b.end) : ""}`;
+    const h = BY[b.hero], [v, why] = verdict(h);
+    return `<div class="ban"><span class="kind ${b.lim ? "lim" : ""} ${now >= s && now <= e ? "live" : ""}">${esc(b.kind)} · ${esc(st)}</span>
+      ${h ? chip(h) : `<b class="t">${esc(b.hero)}</b>`}
+      ${b.art ? `<span class="mini">Artefact : ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
+      <div>${v} <span class="mini">${esc(why)}</span></div>${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}</div>`;
+  }).join("");
+  el.querySelectorAll("[data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
+}
+const WL_EL = new Set(["fire", "ice", "wind"]);
+function wlEligible(h){ return h.stars === 5 && WL_EL.has(h.el) && h.type === "Common"; }
+function heroInterest(h){
+  let s = sc(h);
+  if (h.wr != null && mode === "pvp") s += Math.max(-1.5, Math.min(1.5, (h.wr - 50) / 4));
+  if (h.pick != null) s += Math.min(1.2, Math.log10(1 + h.pick) * .8);
+  if (mode === "pve" && h.pveT && h.pvpT && "SS S".includes(h.pvpT)) s += .3;
+  return s;
+}
+function wlWhy(h){
+  const bits = [];
+  const t = tierOf(h); if (t !== "x") bits.push(`tier ${t} ${mode.toUpperCase()}`);
+  const o = mode === "pvp" ? h.pveT : h.pvpT; if (o && "SS S A".split(" ").includes(o)) bits.push(`${o} en ${mode === "pvp" ? "PvE" : "PvP"} aussi`);
+  if (h.build && h.build.art) bits.push("artefact : " + h.build.art);
+  return bits.join(" · ");
+}
+function parseArts(s){ const out = []; String(s || "").split(";").forEach(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); if (m) out.push([m[1].trim(), parseFloat(m[2].replace(",", "."))]); else if (x.trim()) out.push([x.trim(), null]); }); return out; }
+function renderPulls(){
+  renderBans();
+  document.getElementById("wl-mode").textContent = mode.toUpperCase();
+  const incl = document.getElementById("wl-own").checked;
+  const pool = DATA.filter(wlEligible).filter(h => incl || !owned.has(h.n)).map(h => [h, heroInterest(h) * (owned.has(h.n) ? .6 : 1)]).sort((a, b) => b[1] - a[1]);
+  const row = ([h, s], i) => `<tr><td class="n">${i + 1}</td><td>${chip(h)}</td><td class="n pct">${P(h.wr)}</td><td class="n pct">${P(h.pick)}</td><td class="n pct">${P(h.pre)}</td><td class="mini">${owned.has(h.n) ? "✓ déjà dans ta box · " : ""}${esc(wlWhy(h))}</td></tr>`;
+  const head = `<thead><tr><th>#</th><th>Perso</th><th>Victoires RTA</th><th>Joué RTA</th><th>Pré-ban</th><th>Pourquoi</th></tr></thead>`;
+  document.getElementById("wl-heroes").innerHTML = head + "<tbody>" + pool.slice(0, 7).map(row).join("") + "</tbody>";
+  document.getElementById("wl-more").innerHTML = head + "<tbody>" + pool.slice(7, 17).map((x, i) => row(x, i + 7)).join("") + "</tbody>";
+  // artefacts
+  const A = {}, limArts = new Set(BANNERS.filter(b => b.lim && b.art).map(b => b.art).concat(LIMITED_ARTS));
+  for (const h of DATA){
+    if (!h.build || !h.build.art) continue;
+    const list = parseArts(h.fr_arts); if (!list.some(x => x[0] === h.build.art)) list.unshift([h.build.art, h.build.use ?? 50]);
+    if (h.type === "Limited" || h.type === "Collab" || (!h.type && WL_EL.has(h.el))) list.forEach(([n, u]) => { if ((u ?? 0) >= 50) limArts.add(n); });
+    const w = Math.max(.2, heroInterest(h) - 1.5);
+    for (const [n, u] of list.slice(0, 3)){
+      const a = A[n] || (A[n] = { s: 0, users: [] }); const v = w * (u ?? 30) / 100;
+      a.s += v; a.users.push([h, u, v]);
+    }
+  }
+  const arts = Object.entries(A).filter(([n]) => !limArts.has(n) && !(ARTS[n] && ARTS[n].stars && +ARTS[n].stars < 5)).sort((a, b) => b[1].s - a[1].s).slice(0, 7);
+  document.getElementById("wl-arts").innerHTML = `<thead><tr><th>#</th><th>Artefact</th><th>Classe</th><th>Porté par</th></tr></thead><tbody>` + arts.map(([n, a], i) => {
+    const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
+    return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
+  }).join("") + "</tbody>";
+  document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
+}
+document.getElementById("wl-own").addEventListener("change", renderPulls);
 /* ---------- Mes captures ---------- */
 const CAP = { queue: [], cur: null, img: null, box: null, k: "h", sel: null, preset: null };
 const capCv = document.getElementById("cap-canvas"), capPv = document.getElementById("cap-prev");
@@ -948,8 +1065,8 @@ function drawCap(){
   const x = capCv.getContext("2d"), sc = CAP.sc, b = CAP.box;
   x.drawImage(CAP.img, 0, 0, capCv.width, capCv.height);
   x.fillStyle = "rgba(0,0,0,.55)"; x.beginPath(); x.rect(0, 0, capCv.width, capCv.height); x.rect(b.x * sc, b.y * sc + b.s * sc, b.s * sc, -b.s * sc); x.fill("evenodd");
-  x.strokeStyle = "#35d0c4"; x.lineWidth = 2; x.strokeRect(b.x * sc, b.y * sc, b.s * sc, b.s * sc);
-  x.fillStyle = "#35d0c4"; x.fillRect((b.x + b.s) * sc - 7, (b.y + b.s) * sc - 7, 14, 14);
+  x.strokeStyle = "#a855f7"; x.lineWidth = 2; x.strokeRect(b.x * sc, b.y * sc, b.s * sc, b.s * sc);
+  x.fillStyle = "#a855f7"; x.fillRect((b.x + b.s) * sc - 7, (b.y + b.s) * sc - 7, 14, 14);
   const p = capPv.getContext("2d"); p.clearRect(0, 0, 128, 128); p.drawImage(CAP.img, b.x, b.y, b.s, b.s, 0, 0, 128, 128);
 }
 (function(){

@@ -9,9 +9,9 @@ function show(){ if (!win) return; if (win.isMinimized()) win.restore(); win.sho
 function create(){
   win = new BrowserWindow({
     width: 1400, height: 900, minWidth: 380, minHeight: 480, show: false,
-    backgroundColor: '#0d1117', title: 'ZKX', icon: ICON,
+    backgroundColor: '#09060d', title: 'ZKX', icon: ICON,
     titleBarStyle: 'hidden',
-    titleBarOverlay: { color: '#0a0e14', symbolColor: '#e6edf5', height: 34 },
+    titleBarOverlay: { color: '#07040b', symbolColor: '#efe9f7', height: 34 },
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, sandbox: true, nodeIntegration: false }
   });
   win.removeMenu();
