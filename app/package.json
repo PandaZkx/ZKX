@@ -7,5 +7,6 @@
   "author": "PandaZkx",
   "dependencies": {
     "electron-updater": "^6.6.2"
-  }
+  },
+  "homepage": "https://github.com/PandaZkx/ZKX"
 }
