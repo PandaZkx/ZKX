@@ -1,12 +1,66 @@
 {
   "updated": "2026-10-31T02:30:00Z",
   "banners": [
-    { "id": "perm-covenant", "kind": "covenant", "perm": true, "hero": null, "art": null, "start": "2018-01-01T00:00:00Z", "end": null, "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie." },
-    { "id": "perm-galaxy", "kind": "galaxy", "perm": true, "hero": null, "art": null, "start": "2018-01-01T00:00:00Z", "end": null, "note": "Invocation Moonlight permanente (marque-pages galactiques). Pas de vedette ni de garantie : garde-les pour les événements Moonlight." },
-    { "id": "mystic-moro-20261029", "kind": "mystic", "manual": true, "hero": "Bunny Girl Great Detective Moro", "art": null, "start": "2026-10-29T03:00:00Z", "end": null, "note": "Nouveau héros Moonlight. Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %." },
-    { "id": "rateup-mafia-yufine-20261105", "kind": "rateup", "manual": true, "hero": "Bunny Girl Mafia Yufine", "art": "A Boss's Dignity", "start": "2026-11-05T03:00:00Z", "end": "2026-11-26T02:59:00Z", "note": "Le perso rejoint ensuite l'invocation d'alliance (et donc la wish list)." },
-    { "id": "limited-mei-lin-20261008", "kind": "collab", "manual": true, "hero": "Mei Lin", "art": "Flame Dragon's Jewel", "start": "2026-10-08T03:00:00Z", "end": "2026-10-29T02:59:00Z", "note": "Collab Chaos Zero Nightmare." },
-    { "id": "limited-haru-20260917", "kind": "collab", "manual": true, "hero": "Haru", "art": "Custom-Made Power Anchor", "start": "2026-09-17T03:00:00Z", "end": "2026-10-08T02:59:00Z", "note": "Collab Chaos Zero Nightmare." }
+    {
+      "id": "perm-covenant",
+      "kind": "covenant",
+      "perm": true,
+      "hero": null,
+      "art": null,
+      "start": "2018-01-01T00:00:00Z",
+      "end": null,
+      "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie."
+    },
+    {
+      "id": "perm-galaxy",
+      "kind": "galaxy",
+      "perm": true,
+      "hero": null,
+      "art": null,
+      "start": "2018-01-01T00:00:00Z",
+      "end": null,
+      "note": "Invocation Moonlight permanente (marque-pages galactiques). Pas de vedette ni de garantie : garde-les pour les événements Moonlight."
+    },
+    {
+      "id": "mystic-moro-20261029",
+      "kind": "mystic",
+      "manual": true,
+      "hero": "Bunny Girl Great Detective Moro",
+      "art": null,
+      "start": "2026-10-29T03:00:00Z",
+      "end": null,
+      "note": "Nouveau héros Moonlight. Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %."
+    },
+    {
+      "id": "rateup-mafia-yufine-20261105",
+      "kind": "rateup",
+      "manual": true,
+      "hero": "Bunny Girl Mafia Yufine",
+      "art": "A Boss's Dignity",
+      "start": "2026-11-05T03:00:00Z",
+      "end": "2026-11-26T02:59:00Z",
+      "note": "Le perso rejoint ensuite l'invocation d'alliance (et donc la wish list)."
+    },
+    {
+      "id": "limited-mei-lin-20261008",
+      "kind": "collab",
+      "manual": true,
+      "hero": "Mei Lin",
+      "art": "Flame Dragon's Jewel",
+      "start": "2026-10-08T03:00:00Z",
+      "end": "2026-10-29T02:59:00Z",
+      "note": "Collab Chaos Zero Nightmare."
+    },
+    {
+      "id": "limited-haru-20260917",
+      "kind": "collab",
+      "manual": true,
+      "hero": "Haru",
+      "art": "Custom-Made Power Anchor",
+      "start": "2026-09-17T03:00:00Z",
+      "end": "2026-10-08T02:59:00Z",
+      "note": "Collab Chaos Zero Nightmare."
+    }
   ],
   "seen": []
 }
