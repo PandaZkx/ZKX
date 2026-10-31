@@ -1,7 +1,7 @@
 name: Publier une version
 on:
-  push:
-    tags: ["v*"]
+  release:
+    types: [published]
 permissions:
   contents: write
 jobs:

@@ -24,11 +24,9 @@ ZKX ne lit pas le jeu et n'y touche pas. Ta box et tes images restent sur ton PC
 
 ## Pour publier une nouvelle version (dev)
 
-```
-python tools/build.py          # régénère app/index.html
-git tag v1.0.1 && git push --tags
-```
+1. `python tools/build.py` pour régénérer `app/index.html`, puis envoie les changements.
+2. Sur GitHub : *Releases* → *Draft a new release* → tag `v1.0.1` (*Create new tag*) → *Publish release*.
 
-Le workflow GitHub Actions construit `ZKX.exe` et crée la Release tout seul.
+GitHub Actions construit `ZKX.exe` et ajoute `ZKX-v1.0.1-Windows.zip` à la Release en quelques minutes.
 
 Sources des données : e7rtabot, Pocket Gamer, MMO Culture, Joytify, game.guide, TopUpLive, epic7db, Fribbels. Epic Seven est une marque de Smilegate ; ZKX est un projet de fan non officiel.
