@@ -24,7 +24,7 @@ a{color:var(--acc)}
 .app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
 aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,#111823,#0c1118);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:14px}
 .logo{font-family:var(--f-display);font-weight:700;font-size:20px;white-space:nowrap;letter-spacing:1px;line-height:1}
-.logo b{color:var(--acc)} .logo small{display:block;font-family:var(--f-body);font-size:12px;color:var(--muted);letter-spacing:0;margin-top:4px;font-weight:600}
+.logo b{color:var(--acc)} .logo small{display:block;white-space:normal;font-family:var(--f-body);font-size:12px;color:var(--muted);letter-spacing:0;margin-top:4px;font-weight:600}
 .nav{display:grid;gap:4px}
 .nav button{display:flex;align-items:center;gap:10px;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:800;color:var(--muted);text-align:left}
 .nav button:hover{color:var(--text);background:var(--panel)}
@@ -96,6 +96,38 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .empty{color:var(--muted);font-style:italic}
 .note{font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.55}
 .view[hidden]{display:none}
+/* captures */
+.capdrop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;color:var(--muted);background:var(--bg2);cursor:pointer;outline:none}
+.capdrop:focus-visible,.capdrop.hot{border-color:var(--acc);color:var(--text);background:#13232b}
+.capdrop b{color:var(--text)} kbd{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:0 6px;font-family:inherit;font-size:12.5px;color:var(--text)}
+.capwork{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:16px;margin-top:16px}
+.capstage{background:#07090d;border:1px solid var(--line);border-radius:12px;padding:8px;display:grid;place-items:center;min-height:240px;overflow:hidden}
+#cap-canvas{max-width:100%;touch-action:none;cursor:crosshair;display:block}
+.capside{display:flex;flex-direction:column;gap:10px}
+.capprev{display:flex;gap:10px;align-items:center}
+#cap-prev{width:96px;height:96px;border-radius:14px;border:1px solid var(--line);background:#07090d}
+.capside input[type=search]{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;box-sizing:border-box}
+.capres{display:flex;flex-direction:column;gap:4px;max-height:220px;overflow:auto}
+.capres button{display:flex;align-items:center;gap:8px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:6px 8px;cursor:pointer;color:var(--text)}
+.capres button[aria-pressed="true"]{border-color:var(--acc);box-shadow:inset 3px 0 0 var(--acc)}
+.capres .mini{margin-left:auto}
+.capqueue{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.capqueue img{width:72px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);opacity:.7}
+.capqueue img.cur{opacity:1;border-color:var(--acc)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.gal div{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px}
+.gal i{flex:none;width:40px;height:40px;border-radius:9px;background-size:cover;background-position:center}
+.gal span{flex:1;min-width:0;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gal button{flex:none;background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px;padding:4px}
+.gal button:hover{color:var(--bad)}
+@media (max-width:900px){.capwork{grid-template-columns:1fr}}
+/* appli Windows */
+#tbar{display:none}
+body.desk #tbar{display:flex;align-items:center;gap:8px;position:fixed;top:0;left:0;right:0;height:34px;padding-left:12px;background:#0a0e14;border-bottom:1px solid var(--line);z-index:50;-webkit-app-region:drag;font-family:var(--f-display);font-weight:700;letter-spacing:1px;font-size:14px;color:var(--muted)}
+body.desk #tbar b{color:var(--acc)}
+body.desk .app{padding-top:35px} body.desk aside{top:35px;height:calc(100vh - 35px)}
+body.desk .ov{top:35px}
+
 .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .tools input,.tools select,.picker-tools input,.picker-tools select{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
 .scroll{overflow-x:auto}
@@ -175,6 +207,7 @@ body.overlay #ovl, #ovl.pip{display:block}
 __JSZIP__
 </head>
 <body>
+<div id="tbar"><b>ZKX</b> Epic Seven</div>
 <div class="app">
 <aside>
   <div style="display:flex;align-items:flex-start;gap:8px"><div class="logo" style="flex:1"><b>ZKX</b><small>Epic Seven · teams · stuff · tier lists</small></div><button class="gear" id="gear" type="button" aria-label="Paramètres" title="Paramètres">⚙</button></div>
@@ -182,6 +215,7 @@ __JSZIP__
     <button role="tab" id="tab-conseils" aria-selected="true" aria-controls="v-conseils"><span class="ic">⚔</span>Conseils</button>
     <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
     <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
+    <button role="tab" id="tab-captures" aria-selected="false" aria-controls="v-captures"><span class="ic">📸</span>Mes captures</button>
   </nav>
   <div class="side-h">Ma box</div>
   <div class="side-actions">
@@ -247,6 +281,30 @@ __JSZIP__
     <div class="scroll"><table class="inv" id="tier-table"></table></div>
   </section>
 </div>
+<div class="view" id="v-captures" role="tabpanel" aria-labelledby="tab-captures" hidden>
+  <section class="card" style="margin-top:14px">
+    <h2>Mes captures du jeu</h2>
+    <p class="sub">Mets tes propres images de persos et d'artefacts : fais une capture du jeu avec <kbd>Win</kbd> + <kbd>Maj</kbd> + <kbd>S</kbd>, puis <kbd>Ctrl</kbd> + <kbd>V</kbd> ici. Tu peux aussi glisser des fichiers (.png, .jpg, .webp). Cadre le visage ou l'icône, choisis à qui c'est, enregistre.</p>
+    <div class="capdrop" id="cap-drop" tabindex="0" role="button" aria-label="Ajouter des captures : coller, glisser ou parcourir">📸 <b>Colle (Ctrl + V) ou glisse tes captures ici</b><br><span class="mini">ou clique pour choisir des fichiers · plusieurs à la fois, c'est possible</span></div>
+    <input id="cap-file" type="file" accept=".png,.jpg,.jpeg,.webp,image/*" multiple hidden>
+    <div class="capqueue" id="cap-queue"></div>
+    <div class="capwork" id="cap-work" hidden>
+      <div class="capstage"><canvas id="cap-canvas" aria-label="Capture : glisse pour choisir le carré à garder"></canvas></div>
+      <div class="capside">
+        <div class="capprev"><canvas id="cap-prev" width="128" height="128" aria-label="Aperçu"></canvas><p class="mini" style="margin:0">Glisse dans la capture pour dessiner le carré, puis déplace-le. Molette ou curseur : taille.</p></div>
+        <label class="mini" for="cap-size">Taille du cadre</label><input id="cap-size" type="range" min="16" max="100" value="40">
+        <div class="seg" role="group" aria-label="Type"><button type="button" id="cap-k-h" aria-pressed="true">Perso</button><button type="button" id="cap-k-a" aria-pressed="false">Artefact</button></div>
+        <input id="cap-q" type="search" placeholder="Rechercher (FR ou EN)" aria-label="Rechercher à qui attribuer l'image">
+        <div class="capres" id="cap-res"></div>
+        <div class="set-row"><button class="btn primary" type="button" id="cap-save" disabled>Enregistrer</button><button class="btn" type="button" id="cap-skip">Passer</button></div>
+        <p class="progress" id="cap-msg" aria-live="polite"></p>
+      </div>
+    </div>
+    <h3 style="margin-top:22px">Images enregistrées</h3>
+    <p class="mini" id="gal-count"></p>
+    <div class="gal" id="gal"></div>
+  </section>
+</div>
 <div id="ovl" aria-label="Overlay">
   <div class="ovhead"><strong>E7 · Overlay</strong><button class="btn sm" type="button" id="ov-mode">PvP</button><button class="btn sm" type="button" id="ov-exit">Quitter</button></div>
   <input id="ov-q" type="search" placeholder="Tape un perso (FR ou EN)…" aria-label="Chercher un perso" autocomplete="off">
@@ -283,7 +341,8 @@ __JSZIP__
     <div class="set-sec" id="app-sec" hidden>
       <h4>🖥 Application</h4>
       <p class="mini" style="margin:0" id="app-ver"></p>
-      <div class="set-row"><button class="btn" type="button" id="ontop" aria-pressed="false">📌 Toujours au premier plan : non</button></div>
+      <div class="set-row"><button class="btn" type="button" id="ontop" aria-pressed="false">📌 Toujours au premier plan : non</button><button class="btn" type="button" id="login" aria-pressed="false">🚀 Lancer ZKX au démarrage de Windows : non</button></div>
+      <p class="mini" style="margin:6px 0 0">Raccourci clavier partout dans Windows : <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Z</kbd> affiche/masque l'overlay. ZKX a aussi une icône près de l'horloge (clic droit pour le menu).</p>
       <p class="mini" style="margin:8px 0 0">Mises à jour : indique ton dépôt GitHub (ex. <code>pandazkx/zkx</code>). L'appli regarde la dernière version publiée dans « Releases » au démarrage.</p>
       <div class="set-row"><input id="repo" type="text" placeholder="pseudo/zkx" aria-label="Dépôt GitHub" style="flex:1;min-width:160px"><button class="btn primary" type="button" id="upd">Vérifier les mises à jour</button></div>
       <p class="progress" id="upd-msg" aria-live="polite"></p>
@@ -695,8 +754,10 @@ function heroDialog(name){
   } else {
     html += extraSections(h) + `<p class="note">Pas encore de données détaillées (partenaires, builds) pour ce perso : seuls les 30 meilleurs persos RTA en ont.</p>`;
   }
+  html = html.replace("</h3>", `</h3><button class="btn" type="button" data-capfor="${esc(h.n)}" style="margin-top:6px;padding:4px 10px;font-size:13px">📸 Mettre ma capture</button>`);
   document.getElementById("hero-dlg").innerHTML = html;
   currentHero = h.n;
+  const cb = document.querySelector("#hero-dlg [data-capfor]"); if (cb) cb.addEventListener("click", () => { const n = cb.dataset.capfor; closeOv("ov-hero"); openCaptures({ k: "h", id: n }); });
   wireArtSlots(document.getElementById("hero-dlg"));
   if (!document.getElementById("ov-hero").classList.contains("open")) openOv("ov-hero");
 }
@@ -736,8 +797,9 @@ document.addEventListener("click", e => { const c = e.target.closest("[data-hero
 document.querySelectorAll(".ov").forEach(o => o.addEventListener("click", e => { if (e.target === o){ closeOv(o.id); if (o.id === "ov-pick") renderAll(); } }));
 document.addEventListener("keydown", e => { if (e.key === "Escape") document.querySelectorAll(".ov.open").forEach(o => { closeOv(o.id); if (o.id === "ov-pick") renderAll(); }); });
 
-for (const id of ["conseils","stuff","tiers"]) document.getElementById("tab-" + id).addEventListener("click", () => {
-  for (const o of ["conseils","stuff","tiers"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
+for (const id of ["conseils","stuff","tiers","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+  if (id === "captures") renderGal();
+  for (const o of ["conseils","stuff","tiers","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
 ["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
 ["t-q","t-own"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
@@ -835,6 +897,114 @@ document.getElementById("reset-all").addEventListener("click", async () => {
 document.getElementById("pack-dir").addEventListener("change", async e => {
   const ent = [...e.target.files].map(f => [f.webkitRelativePath || f.name, async () => f]); await importPack(ent); e.target.value = "";
 });
+
+/* ---------- Mes captures ---------- */
+const CAP = { queue: [], cur: null, img: null, box: null, k: "h", sel: null, preset: null };
+const capCv = document.getElementById("cap-canvas"), capPv = document.getElementById("cap-prev");
+function openCaptures(preset){ CAP.preset = preset || null; document.getElementById("tab-captures").click(); if (preset){ setCapKind(preset.k); CAP.sel = preset.id; renderCapRes(); } document.getElementById("cap-drop").focus(); }
+function setCapKind(k){ CAP.k = k; document.getElementById("cap-k-h").setAttribute("aria-pressed", k === "h"); document.getElementById("cap-k-a").setAttribute("aria-pressed", k === "a"); CAP.sel = null; renderCapRes(); updCapSave(); }
+function capName(k, id){ if (k === "h"){ const h = BY[id]; return h ? dn(h) : id; } const n = Object.keys(ARTS).find(x => ARTS[x].key === id); return n || id; }
+function renderCapRes(){
+  const q = NRM(document.getElementById("cap-q").value || ""), box = document.getElementById("cap-res"); let items;
+  if (CAP.k === "h") items = DATA.filter(h => !q || NRM(h.n).includes(q) || (h.fr && NRM(h.fr).includes(q))).sort((a, b) => (owned.has(b.n) - owned.has(a.n)) || dn(a).localeCompare(dn(b))).map(h => [h.n, dn(h), (owned.has(h.n) ? "✓ " : "") + (dn2(h) || "")]);
+  else items = Object.entries(ARTS).filter(([n, a]) => !q || NRM(n).includes(q) || NRM(a.key).includes(q)).sort((a, b) => a[0].localeCompare(b[0])).map(([n, a]) => [a.key, n, a.class]);
+  if (CAP.sel && !items.slice(0, 40).some(i => i[0] === CAP.sel)) items.unshift(CAP.k === "h" ? [CAP.sel, capName("h", CAP.sel), "sélectionné"] : [CAP.sel, capName("a", CAP.sel), "sélectionné"]);
+  box.innerHTML = items.slice(0, 40).map(([id, lab, sub]) => `<button type="button" data-id="${esc(id)}" aria-pressed="${id === CAP.sel}">${esc(lab)}<span class="mini">${esc(sub || "")}</span></button>`).join("") || '<p class="mini">Aucun résultat.</p>';
+  box.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { CAP.sel = b.dataset.id; renderCapRes(); updCapSave(); }));
+}
+function updCapSave(){ const s = document.getElementById("cap-save"); s.disabled = !(CAP.img && CAP.sel); s.textContent = CAP.sel ? "Enregistrer pour " + capName(CAP.k, CAP.sel) : "Enregistrer"; }
+function capGuess(name){
+  if (!name) return; const nb = NRM(String(name).replace(/\.[a-z]+$/i, "").replace(/^(face_|icon_)/i, ""));
+  if (ANORM[nb]){ setCapKind("a"); CAP.sel = ANORM[nb]; } else if (HNORM[nb]){ setCapKind("h"); CAP.sel = HNORM[nb]; }
+}
+function addCaps(files){
+  const imgs = [...files].filter(f => f && (/^image\//.test(f.type) || /\.(png|jpe?g|webp)$/i.test(f.name || "")));
+  if (!imgs.length){ document.getElementById("cap-msg").textContent = "Ce n'est pas une image."; return; }
+  for (const f of imgs) CAP.queue.push({ f, url: URL.createObjectURL(f), name: f.name && !/^image\.(png|jpe?g)$/i.test(f.name) ? f.name : "" });
+  if (!CAP.cur) nextCap(); else renderQueue();
+}
+function renderQueue(){ document.getElementById("cap-queue").innerHTML = (CAP.cur ? [CAP.cur] : []).concat(CAP.queue).map((c, i) => `<img src="${c.url}" alt="" class="${i === 0 && CAP.cur ? "cur" : ""}">`).join(""); }
+function nextCap(){
+  if (CAP.cur) URL.revokeObjectURL(CAP.cur.url);
+  CAP.cur = CAP.queue.shift() || null; CAP.img = null; renderQueue();
+  const work = document.getElementById("cap-work");
+  if (!CAP.cur){ work.hidden = true; updCapSave(); return; }
+  const im = new Image();
+  im.onload = () => {
+    CAP.img = im; work.hidden = false;
+    const W = Math.min(im.width, 900), sc = W / im.width; capCv.width = W; capCv.height = Math.round(im.height * sc); CAP.sc = sc;
+    const s = Math.round(Math.min(im.width, im.height) * (im.width / im.height > 1.3 ? .35 : .9));
+    CAP.box = { x: Math.round((im.width - s) / 2), y: Math.round((im.height - s) / 2), s };
+    document.getElementById("cap-size").value = Math.round(s / Math.min(im.width, im.height) * 100);
+    if (CAP.preset){ setCapKind(CAP.preset.k); CAP.sel = CAP.preset.id; CAP.preset = null; } else capGuess(CAP.cur.name);
+    renderCapRes(); drawCap(); updCapSave(); document.getElementById("cap-msg").textContent = "";
+  };
+  im.onerror = () => { document.getElementById("cap-msg").textContent = "Image illisible, passée."; nextCap(); };
+  im.src = CAP.cur.url;
+}
+function clampBox(){ const b = CAP.box, im = CAP.img; b.s = Math.max(12, Math.min(b.s, im.width, im.height)); b.x = Math.max(0, Math.min(b.x, im.width - b.s)); b.y = Math.max(0, Math.min(b.y, im.height - b.s)); }
+function drawCap(){
+  if (!CAP.img) return; clampBox();
+  const x = capCv.getContext("2d"), sc = CAP.sc, b = CAP.box;
+  x.drawImage(CAP.img, 0, 0, capCv.width, capCv.height);
+  x.fillStyle = "rgba(0,0,0,.55)"; x.beginPath(); x.rect(0, 0, capCv.width, capCv.height); x.rect(b.x * sc, b.y * sc + b.s * sc, b.s * sc, -b.s * sc); x.fill("evenodd");
+  x.strokeStyle = "#35d0c4"; x.lineWidth = 2; x.strokeRect(b.x * sc, b.y * sc, b.s * sc, b.s * sc);
+  x.fillStyle = "#35d0c4"; x.fillRect((b.x + b.s) * sc - 7, (b.y + b.s) * sc - 7, 14, 14);
+  const p = capPv.getContext("2d"); p.clearRect(0, 0, 128, 128); p.drawImage(CAP.img, b.x, b.y, b.s, b.s, 0, 0, 128, 128);
+}
+(function(){
+  let drag = null;
+  const pt = e => { const r = capCv.getBoundingClientRect(); return { x: (e.clientX - r.left) * (capCv.width / r.width) / CAP.sc, y: (e.clientY - r.top) * (capCv.height / r.height) / CAP.sc }; };
+  capCv.addEventListener("pointerdown", e => { if (!CAP.img) return; capCv.setPointerCapture(e.pointerId); const p = pt(e), b = CAP.box, hs = 12 / CAP.sc;
+    if (Math.abs(p.x - (b.x + b.s)) < hs && Math.abs(p.y - (b.y + b.s)) < hs) drag = { m: "r" };
+    else if (p.x > b.x && p.x < b.x + b.s && p.y > b.y && p.y < b.y + b.s) drag = { m: "m", dx: p.x - b.x, dy: p.y - b.y };
+    else { drag = { m: "n", ox: p.x, oy: p.y }; CAP.box = { x: p.x, y: p.y, s: 12 }; } drawCap(); });
+  capCv.addEventListener("pointermove", e => { if (!drag) return; const p = pt(e), b = CAP.box;
+    if (drag.m === "m"){ b.x = p.x - drag.dx; b.y = p.y - drag.dy; }
+    else if (drag.m === "r"){ b.s = Math.max(p.x - b.x, p.y - b.y); }
+    else { const s = Math.max(Math.abs(p.x - drag.ox), Math.abs(p.y - drag.oy)); b.s = s; b.x = p.x < drag.ox ? drag.ox - s : drag.ox; b.y = p.y < drag.oy ? drag.oy - s : drag.oy; }
+    drawCap(); });
+  const end = () => { if (drag){ drag = null; const m = Math.min(CAP.img.width, CAP.img.height); document.getElementById("cap-size").value = Math.round(CAP.box.s / m * 100); } };
+  capCv.addEventListener("pointerup", end); capCv.addEventListener("pointercancel", end);
+  capCv.addEventListener("wheel", e => { if (!CAP.img) return; e.preventDefault(); const b = CAP.box, c = b.s / 2, ns = b.s * (e.deltaY > 0 ? 1.08 : 0.93); b.x += c - ns / 2; b.y += c - ns / 2; b.s = ns; drawCap(); }, { passive: false });
+  document.getElementById("cap-size").addEventListener("input", e => { if (!CAP.img) return; const b = CAP.box, m = Math.min(CAP.img.width, CAP.img.height), ns = m * e.target.value / 100, c = b.s / 2; b.x += c - ns / 2; b.y += c - ns / 2; b.s = ns; drawCap(); });
+  const drop = document.getElementById("cap-drop");
+  drop.addEventListener("click", () => document.getElementById("cap-file").click());
+  drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); document.getElementById("cap-file").click(); } });
+  document.getElementById("cap-file").addEventListener("change", e => { addCaps(e.target.files); e.target.value = ""; });
+  for (const el of [drop, document.getElementById("v-captures")]){
+    el.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("hot"); });
+    el.addEventListener("dragleave", () => drop.classList.remove("hot"));
+    el.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("hot"); addCaps(e.dataTransfer.files); });
+  }
+  document.addEventListener("paste", e => {
+    if (document.getElementById("v-captures").hidden || document.querySelector(".ov.open")) return;
+    const fs = [...(e.clipboardData ? e.clipboardData.items : [])].filter(i => i.kind === "file").map(i => i.getAsFile()).filter(Boolean);
+    if (fs.length){ e.preventDefault(); addCaps(fs); }
+  });
+  document.getElementById("cap-k-h").addEventListener("click", () => setCapKind("h"));
+  document.getElementById("cap-k-a").addEventListener("click", () => setCapKind("a"));
+  document.getElementById("cap-q").addEventListener("input", renderCapRes);
+  document.getElementById("cap-skip").addEventListener("click", nextCap);
+  document.getElementById("cap-save").addEventListener("click", async () => {
+    if (!CAP.img || !CAP.sel) return; const S = CAP.k === "h" ? 128 : 96, c = document.createElement("canvas"); c.width = c.height = S; const b = CAP.box;
+    const x = c.getContext("2d"); x.imageSmoothingQuality = "high"; x.drawImage(CAP.img, b.x, b.y, b.s, b.s, 0, 0, S, S);
+    let d = c.toDataURL("image/webp", .88); if (!d.startsWith("data:image/webp")) d = c.toDataURL("image/png");
+    const who = capName(CAP.k, CAP.sel);
+    if (CAP.k === "h"){ IMGS[CAP.sel] = d; await IDB.put("h:" + CAP.sel, d); } else { AIMGS[CAP.sel] = d; await IDB.put("a:" + CAP.sel, d); }
+    document.getElementById("cap-msg").textContent = "✓ Image enregistrée pour " + who + (IDB.db ? "." : " (non gardée après fermeture : stockage bloqué).");
+    CAP.sel = null; document.getElementById("cap-q").value = ""; renderAll(); renderGal(); updateImgCount(); const m = document.getElementById("cap-msg").textContent; nextCap(); document.getElementById("cap-msg").textContent = m;
+  });
+  renderCapRes();
+})();
+function renderGal(){
+  const hs = Object.keys(IMGS).filter(n => IMGS[n] && BY[n]).sort((a, b) => dn(BY[a]).localeCompare(dn(BY[b]))), as = Object.keys(AIMGS).filter(k => AIMGS[k]).sort();
+  document.getElementById("gal-count").textContent = `${hs.length} perso${hs.length > 1 ? "s" : ""} · ${as.length} artefact${as.length > 1 ? "s" : ""}. Clique sur ✕ pour retirer une image.`;
+  document.getElementById("gal").innerHTML = hs.map(n => `<div><i style="background-image:url('${IMGS[n]}')"></i><span title="${esc(dn(BY[n]))}">${esc(dn(BY[n]))}</span><button type="button" data-k="h" data-id="${esc(n)}" aria-label="Retirer l'image de ${esc(dn(BY[n]))}">✕</button></div>`).join("")
+    + as.map(k => `<div><i style="background-image:url('${AIMGS[k]}')"></i><span title="${esc(capName("a", k))}">🔱 ${esc(capName("a", k))}</span><button type="button" data-k="a" data-id="${esc(k)}" aria-label="Retirer l'image de ${esc(capName("a", k))}">✕</button></div>`).join("");
+  document.querySelectorAll("#gal button").forEach(b => b.addEventListener("click", async () => { const k = b.dataset.k, id = b.dataset.id;
+    if (k === "h"){ delete IMGS[id]; await IDB.put("h:" + id, null); } else { delete AIMGS[id]; await IDB.put("a:" + id, null); } renderGal(); renderAll(); updateImgCount(); }));
+}
 loadImgs();
 if (window.zkx){
   const Z = window.zkx, sec = document.getElementById("app-sec"); sec.hidden = false;
@@ -857,12 +1027,19 @@ if (window.zkx){
       const j = await r.json();
       if (newer(j.tag_name, Z.version)){
         document.getElementById("gear").classList.add("dot");
+        if (silent && window.Notification){ try { new Notification("ZKX " + j.tag_name + " est disponible", { body: "Ouvre ⚙ Paramètres → Application pour la télécharger." }); } catch(e) {} }
         um.innerHTML = `Nouvelle version <b>${esc(j.tag_name)}</b> disponible. <button class="btn primary" type="button" id="upd-go">Télécharger</button>`;
         document.getElementById("upd-go").addEventListener("click", () => Z.openExternal(j.html_url));
       } else if (!silent) um.textContent = "✓ Tu as la dernière version (" + Z.version + ").";
     } catch(e){ if (!silent) um.textContent = "Pas de connexion à GitHub."; }
   }
   document.getElementById("upd").addEventListener("click", () => checkUpd(false));
+  document.body.classList.add("desk");
+  if (Z.onToggleOverlay) Z.onToggleOverlay(() => { document.body.classList.contains("overlay") ? exitOverlay() : enterOverlay(); });
+  if (Z.onOpenCaptures) Z.onOpenCaptures(() => openCaptures());
+  const lb = document.getElementById("login");
+  if (lb && Z.getLogin){ const setL = v => { lb.textContent = "🚀 Lancer ZKX au démarrage de Windows : " + (v ? "oui" : "non"); lb.setAttribute("aria-pressed", v); };
+    setL(Z.getLogin()); lb.addEventListener("click", () => { const v = lb.getAttribute("aria-pressed") !== "true"; Z.setLogin(v); setL(v); }); }
   if (ri.value) checkUpd(true);
 }
 document.getElementById("ovbtn").addEventListener("click", enterOverlay);

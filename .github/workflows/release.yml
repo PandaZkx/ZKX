@@ -2,6 +2,7 @@ name: Publier une version
 on:
   release:
     types: [published]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -16,17 +17,21 @@ jobs:
         with:
           python-version: "3.12"
       - name: Version de l'appli = tag
+        if: github.event_name == 'release'
         shell: bash
         run: |
           V="${GITHUB_REF_NAME#v}"
           node -e "const f='app/package.json';const p=require('./'+f);p.version='$V';require('fs').writeFileSync(f,JSON.stringify(p,null,2))"
       - run: python tools/build.py
       - run: npm install
-      - run: npm run pack:win
-      - name: Zip
-        shell: pwsh
-        run: Compress-Archive -Path dist/ZKX-win32-x64 -DestinationPath "ZKX-${{ github.ref_name }}-Windows.zip"
+      - name: Installateur Windows
+        run: npx electron-builder --win nsis --x64 --publish never
       - uses: softprops/action-gh-release@v2
+        if: github.event_name == 'release'
         with:
-          files: ZKX-${{ github.ref_name }}-Windows.zip
-          generate_release_notes: true
+          files: dist/ZKX-Setup-*.exe
+      - uses: actions/upload-artifact@v4
+        if: github.event_name != 'release'
+        with:
+          name: ZKX-Setup
+          path: dist/ZKX-Setup-*.exe

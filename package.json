@@ -4,10 +4,46 @@
   "scripts": {
     "build": "python tools/build.py",
     "start": "electron app",
-    "pack:win": "electron-packager app ZKX --platform=win32 --arch=x64 --out=dist --overwrite --asar --icon=app/icon.ico"
+    "dist:win": "electron-builder --win nsis --x64 --publish never"
   },
   "devDependencies": {
-    "@electron/packager": "^20.3.0",
-    "electron": "45.2.1"
+    "electron": "45.2.1",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.pandazkx.zkx",
+    "productName": "ZKX",
+    "copyright": "PandaZkx",
+    "directories": {
+      "app": "app",
+      "output": "dist"
+    },
+    "electronVersion": "45.2.1",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "app/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ZKX",
+      "uninstallDisplayName": "ZKX",
+      "installerLanguages": [
+        "fr_FR"
+      ],
+      "language": "1036",
+      "artifactName": "ZKX-Setup-${version}.exe",
+      "runAfterFinish": true
+    }
   }
 }
