@@ -10,14 +10,15 @@
 <style>
 :root{
   /* HUD de jeu : menu latéral fixe + zone principale ; cartes à liseré de couleur d'élément ; accent sarcelle, or réservé aux tiers */
-  --bg:#09060d; --bg2:#100b17; --panel:#151020; --panel2:#1c1429; --line:#2d2140; --text:#efe9f7; --muted:#a395b8;
-  --acc:#a855f7; --acc2:#7e3fc6; --gold:#f0c35a; --gold2:#b48a2c; --good:#45c27a; --bad:#e0605a;
+  --acc:#a855f7;
+  --bg:color-mix(in srgb,var(--acc) 4%,#070509); --bg2:color-mix(in srgb,var(--acc) 6%,#0c0911); --panel:color-mix(in srgb,var(--acc) 8%,#100d16); --panel2:color-mix(in srgb,var(--acc) 11%,#14111b); --line:color-mix(in srgb,var(--acc) 20%,#221e29); --text:#efe9f7; --muted:color-mix(in srgb,var(--acc) 22%,#9a94a3);
+  --acc2:color-mix(in srgb,var(--acc) 72%,#000); --acc-bg:color-mix(in srgb,var(--acc) 24%,#0a0710); --acc-soft:color-mix(in srgb,var(--acc) 35%,#fff); --gold:#f0c35a; --gold2:#b48a2c; --good:#45c27a; --bad:#e0605a;
   --f-display:"Rajdhani", "Segoe UI", sans-serif; --f-body:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --r:14px; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.45}
-body{background:radial-gradient(1200px 600px at 80% -10%, #2a1244 0%, transparent 60%), var(--bg)}
+body{background:radial-gradient(1200px 600px at 80% -10%, var(--acc-bg) 0%, transparent 60%), var(--bg)}
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 a{color:var(--acc)}
@@ -35,7 +36,7 @@ aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradien
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:800;font-size:14px}
 .btn:hover{border-color:var(--acc2)}
 .btn.primary{background:var(--acc);color:#fff;border-color:var(--acc)}
-.btn.primary:hover{background:#c084fc}
+.btn.primary:hover{background:var(--acc-soft)}
 .btn.sm{padding:5px 10px;font-size:13px}
 .seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:8px;cursor:pointer;font-weight:800;color:var(--muted)}
@@ -103,8 +104,8 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .ban .kind.lim{color:var(--gold)} .ban .kind.live{color:var(--acc)}
 .ban b.t{font-family:var(--f-display);font-size:17px}
 .verdict{display:inline-block;font-weight:800;font-size:12.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
-.updbar{position:sticky;top:0;z-index:20;background:#2a1046;border:1px solid var(--acc);border-radius:12px;padding:8px 12px;margin:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.updbar[hidden]{display:none}
-.guide{display:grid;grid-template-columns:210px 1fr 1fr;gap:12px;margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:radial-gradient(120% 90% at 0% 0%,color-mix(in srgb,var(--elc) 22%,transparent),transparent 60%),linear-gradient(160deg,#1a0f2b,#0d0814)}
+.updbar{position:sticky;top:0;z-index:20;background:var(--acc-bg);border:1px solid var(--acc);border-radius:12px;padding:8px 12px;margin:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.updbar[hidden]{display:none}
+.guide{display:grid;grid-template-columns:210px 1fr 1fr;gap:12px;margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:radial-gradient(120% 90% at 0% 0%,color-mix(in srgb,var(--elc) 22%,transparent),transparent 60%),linear-gradient(160deg,var(--panel2),var(--bg))}
 .gcol{display:flex;flex-direction:column;gap:10px;min-width:0}
 .gleft{align-items:center;text-align:center;gap:6px}
 .gport{width:100%;aspect-ratio:1;border-radius:14px;background:#120b1d center/cover no-repeat;border:2px solid color-mix(in srgb,var(--elc) 60%,var(--line));display:grid;place-items:center;box-shadow:0 0 30px color-mix(in srgb,var(--elc) 25%,transparent)}
@@ -126,24 +127,50 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .gcost{display:grid;grid-template-columns:22px auto 1fr;gap:6px;align-items:baseline;margin:5px 0}
 @media (max-width:900px){.guide{grid-template-columns:1fr}.gport{max-width:220px}}
 .dsec{margin-top:14px}.dhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dhead h2{margin:0;flex:1}
-.dprog{width:120px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.dprog i{display:block;height:100%;background:var(--acc)}
+.dprog{width:120px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.dprog i{display:block;height:100%;background:var(--acc)}
 .ditem{display:flex;gap:10px;align-items:flex-start;padding:9px 6px;border-bottom:1px solid var(--line);cursor:pointer}
 .ditem input{margin-top:3px;accent-color:var(--acc);width:17px;height:17px;flex:none}
 .ditem.done{opacity:.5}.ditem.done b{text-decoration:line-through}
 .dprio{flex:none;font-size:11px;font-weight:800;border-radius:99px;padding:2px 8px;margin-top:1px;border:1px solid var(--line)}
-.dprio.p1{background:#2a1046;border-color:var(--acc);color:#e9d5ff}.dprio.p2{color:var(--text)}.dprio.p3{color:var(--muted)}
+.dprio.p1{background:var(--acc-bg);border-color:var(--acc);color:var(--acc-soft)}.dprio.p2{color:var(--text)}.dprio.p3{color:var(--muted)}
 .ditem .dx{margin-left:auto;padding:2px 8px;font-size:12px}
 .dadd{display:flex;gap:8px;margin-top:10px}.dadd input{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--text);font:inherit}
 .prgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
 .prslot{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px}
 .prin{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .prin input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:var(--text);font:inherit;font-size:14px}
-.prempty{display:grid;place-items:center;background:#1a1226;color:var(--muted);font-weight:800}
-.prart{display:grid;place-items:center;background:#1a1226}.prart .aico{width:100%;height:100%;margin:0;border-radius:inherit}
+.prempty{display:grid;place-items:center;background:var(--panel2);color:var(--muted);font-weight:800}
+.prart{display:grid;place-items:center;background:var(--panel2)}.prart .aico{width:100%;height:100%;margin:0;border-radius:inherit}
+.hue{position:relative;width:120px;height:120px;border-radius:50%;flex:none;cursor:crosshair;touch-action:none;background:conic-gradient(from 0deg,#ff3b3b,#ffb21f,#f7ff2e,#3bff6a,#2ef2ff,#3b6bff,#b23bff,#ff3bc4,#ff3b3b);box-shadow:0 0 18px color-mix(in srgb,var(--acc) 45%,transparent)}
+.hue-in{position:absolute;inset:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--acc) 55%,#fff),var(--acc) 55%,var(--acc2));border:3px solid var(--panel);pointer-events:none}
+.hue-dot{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:3px solid #fff;background:var(--acc);box-shadow:0 0 0 1px #0008,0 0 10px var(--acc);pointer-events:none}
+.swatches{display:flex;gap:6px;flex-wrap:wrap}.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}.sw:hover{transform:scale(1.12);border-color:#fff}
+#acc-pick{width:32px;height:24px;border:0;padding:0;background:none;cursor:pointer}
+.bans{grid-template-columns:repeat(auto-fill,minmax(280px,1fr)) !important;gap:14px !important}
+.poster{position:relative;overflow:hidden;padding:0 !important;min-height:330px;border:1.5px solid var(--neon) !important;background:#07050a !important;box-shadow:0 0 6px var(--neon),0 0 22px color-mix(in srgb,var(--neon) 40%,transparent),inset 0 0 22px color-mix(in srgb,var(--neon) 22%,transparent);transition:transform .2s}
+.poster:hover{transform:translateY(-3px)}
+.poster.live{animation:neon 2.8s ease-in-out infinite}
+@keyframes neon{50%{box-shadow:0 0 12px var(--neon),0 0 36px color-mix(in srgb,var(--neon) 60%,transparent),inset 0 0 28px color-mix(in srgb,var(--neon) 34%,transparent)}}
+@media (prefers-reduced-motion:reduce){.poster.live{animation:none}.poster:hover{transform:none}}
+.pbg{position:absolute;inset:0;background:center 18%/cover no-repeat;opacity:.7;filter:saturate(1.15)}
+.pbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,5,10,.05) 0%,rgba(7,5,10,.35) 35%,rgba(7,5,10,.9) 66%,rgba(7,5,10,.97) 100%)}
+.pbg-none{opacity:1;background:radial-gradient(circle at 75% 15%,color-mix(in srgb,var(--neon) 45%,transparent),transparent 55%),radial-gradient(circle at 10% 90%,color-mix(in srgb,var(--neon) 20%,transparent),transparent 50%),linear-gradient(160deg,#130d1d,#07050a)}
+.pin{position:relative;display:flex;flex-direction:column;gap:6px;padding:14px;min-height:330px;box-sizing:border-box}
+.poster .kind{align-self:flex-start;background:rgba(7,5,10,.72);border:1px solid var(--neon);color:var(--neon) !important;padding:3px 10px;border-radius:99px;backdrop-filter:blur(4px)}
+.phead{display:flex;gap:12px;align-items:center;margin-top:auto}
+.pface{width:86px;height:86px;border-radius:50%;background:#120c1c center/cover no-repeat;border:2px solid var(--neon);box-shadow:0 0 0 3px rgba(7,5,10,.8),0 0 18px var(--neon);flex:none;padding:0;cursor:pointer;display:grid;place-items:center;color:var(--text);font:800 26px var(--f-display)}
+span.pface{cursor:default}
+.pname{display:block;font-family:var(--f-display);font-size:23px;line-height:1.05;text-shadow:0 0 14px color-mix(in srgb,var(--neon) 75%,transparent),0 2px 4px #000}
+.poster .mini{text-shadow:0 1px 3px #000}
+.poster.over{opacity:.55;filter:grayscale(.6);animation:none}
+.gleft{position:relative;overflow:hidden;border:1.5px solid var(--neon);border-radius:14px;padding:12px;box-shadow:0 0 6px var(--neon),0 0 20px color-mix(in srgb,var(--neon) 35%,transparent),inset 0 0 20px color-mix(in srgb,var(--neon) 20%,transparent);background:#07050a}
+.gleft > *:not(.pbg){position:relative}
+.gleft .gport{border-color:var(--neon);box-shadow:0 0 18px var(--neon);border-radius:50%;background-color:transparent}
+.gleft .gname{text-shadow:0 0 14px color-mix(in srgb,var(--neon) 75%,transparent),0 2px 4px #000}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
-.rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
-.v-go{background:#2a1046;border-color:var(--acc);color:#e9d5ff} .v-ok{background:#1d1530;color:var(--text)} .v-no{background:#1a1016;color:#f0a3a3;border-color:#5a2730} .v-new{background:#16121f;color:var(--gold)}
+.rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
+.v-go{background:var(--acc-bg);border-color:var(--acc);color:var(--acc-soft)} .v-ok{background:var(--panel2);color:var(--text)} .v-no{background:#1a1016;color:#f0a3a3;border-color:#5a2730} .v-new{background:#16121f;color:var(--gold)}
 .pct{font-variant-numeric:tabular-nums;white-space:nowrap}
 /* captures */
 .capdrop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;color:var(--muted);background:var(--bg2);cursor:pointer;outline:none}
@@ -232,7 +259,7 @@ table.b td.n{font-variant-numeric:tabular-nums;text-align:right}
 .set-sec h4{margin:0 0 4px!important}
 .set-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .artslot{cursor:pointer;font-size:24px;color:var(--acc)}
-.artslot:hover,.artslot.armed{border-color:var(--acc);box-shadow:0 0 0 2px rgba(168,85,247,.35)}
+.artslot:hover,.artslot.armed{border-color:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 35%,transparent)}
 .aico{display:inline-block;width:20px;height:20px;border-radius:5px;background:center/contain no-repeat;vertical-align:-5px;margin-right:6px}
 /* overlay */
 #ovl{display:none}
@@ -440,6 +467,17 @@ __JSZIP__
       <h4>🔤 Affichage</h4>
       <div class="set-row"><button class="btn" id="lang" type="button" aria-pressed="true">Noms : FR</button><button class="btn" id="sklang" type="button" aria-pressed="true">Capacités : FR</button></div>
     </div>
+    <div class="set-sec">
+      <h4>🎨 Couleur de ZKX</h4>
+      <p class="mini" style="margin:0">Clique ou glisse dans le rond pour choisir la couleur de ton ZKX (le fond reste sombre). Elle est gardée pour la prochaine fois.</p>
+      <div class="set-row" style="align-items:center;gap:16px">
+        <div class="hue" id="hue" role="slider" tabindex="0" aria-label="Choisir la couleur de ZKX (flèches gauche et droite)" aria-valuemin="0" aria-valuemax="360"><span class="hue-in"></span><span class="hue-dot" id="hue-dot"></span></div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="swatches" id="swatches"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn" style="display:flex;gap:8px;align-items:center">Couleur exacte <input type="color" id="acc-pick" aria-label="Couleur exacte"></label><button class="btn" type="button" id="acc-reset">Violet d'origine</button></div>
+        </div>
+      </div>
+    </div>
     <div class="set-sec" id="app-sec" hidden>
       <h4>🖥 Application</h4>
       <p class="mini" style="margin:0" id="app-ver"></p>
@@ -472,6 +510,20 @@ __JSZIP__
 </div>
 
 <script>
+/* ---------- Couleur du thème ---------- */
+const ACC = () => getComputedStyle(document.documentElement).getPropertyValue("--acc").trim() || "#a855f7";
+const ACC_DEF = "#a855f7";
+function hsl2hex(h, s, l){ s /= 100; l /= 100; const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l), f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)); return "#" + [f(0), f(8), f(4)].map(x => Math.round(x * 255).toString(16).padStart(2, "0")).join(""); }
+function hex2hue(hex){ const m = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(hex || ""); if (!m) return 270; const [r, g, b] = m.slice(1).map(x => parseInt(x, 16) / 255), mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn; if (!d) return 0; let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; return (h * 60 + 360) % 360; }
+function setAcc(c, save){
+  document.documentElement.style.setProperty("--acc", c);
+  if (save){ try { c === ACC_DEF ? localStorage.removeItem("zkxacc") : localStorage.setItem("zkxacc", c); } catch(e) {} }
+  const pk = document.getElementById("acc-pick"); if (pk) pk.value = c;
+  const dot = document.getElementById("hue-dot"), hue = document.getElementById("hue");
+  if (dot && hue){ const a = (hex2hue(c) - 90) * Math.PI / 180, R = 46; dot.style.left = (60 + R * Math.cos(a)) + "px"; dot.style.top = (60 + R * Math.sin(a)) + "px"; hue.setAttribute("aria-valuenow", Math.round(hex2hue(c))); }
+  if (window.zkx && window.zkx.setTheme) window.zkx.setTheme(c);
+}
+try { const c = localStorage.getItem("zkxacc"); if (c) document.documentElement.style.setProperty("--acc", c); } catch(e) {}
 const DATA = __DATA__;
 const BY = Object.fromEntries(DATA.map(h => [h.n, h]));
 const ELCOLOR = {light:"#e9b843", dark:"#9a6ae0", fire:"#f07a45", ice:"#3fb6ef", wind:"#4fb357"};
@@ -921,12 +973,13 @@ function guideCost(h){
 }
 function guideHTML(h){
   const t = tierOf(h), arts = guideArts(h), sets = guideSets(h), R = guideRole(h), teams = guideTeams(h), C = guideCost(h);
-  const im = IMGS[h.n], b = h.base || (h.sk && h.sk.base);
+  const im = IMGS[h.n], b = h.base || (h.sk && h.sk.base), gpa = posterArt(h.build && h.build.art);
   const num = i => `<span class="gnum">${i + 1}</span>`;
   const pct = (u, wr) => [u != null ? `porté par ${String(u).replace(".", ",")} %` : "", wr != null ? `${String(wr).replace(".", ",")} % de victoires` : ""].filter(Boolean).join(" · ");
   const stars = +(h.stars || (h.sk && h.sk.stars) || 5);
   return `<div class="guide" style="--elc:${ELCOLOR[h.el]}">
-  <div class="gcol gleft">
+  <div class="gcol gleft" style="--neon:${gpa ? gpa.col : ELCOLOR[h.el]}">
+    <div class="pbg ${gpa ? "" : "pbg-none"}" ${gpa ? `style="background-image:url('${gpa.url}')"` : ""}></div>
     <div class="gport" ${im ? `style="background-image:url('${im}')"` : ""}>${im ? "" : badge(h, true)}</div>
     <div class="gname">${esc(dn(h))}</div>
     <div class="gstars">${"★".repeat(stars)}</div>
@@ -1186,6 +1239,13 @@ function heroValue(h){
 function wishTop(){
   return DATA.filter(wlEligible).filter(h => !owned.has(h.n)).map(h => heroInterest(h)).sort((a, b) => b - a).slice(0, 7);
 }
+const ART_URL = k => IMG_BASE + "art/" + k + ".webp";
+let ART_COL = {}; try { ART_COL = JSON.parse(localStorage.getItem("zkxartcol") || "{}") || {}; } catch(e) {}
+setTimeout(() => fetch(IMG_BASE + "art/colors.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => {
+  if (!j) return; ART_COL = j; try { localStorage.setItem("zkxartcol", JSON.stringify(j)); } catch(e) {}
+  const v = document.getElementById("v-pulls"); if (v && !v.hidden) renderBans();
+}).catch(() => {}), 500);
+function posterArt(name){ const k = name ? artKey(name) : null; return k && ART_COL[k] ? { url: ART_URL(k), col: ART_COL[k] } : null; }
 function renderBans(){
   const now = Date.now(), el = document.getElementById("bans");
   const list = BANNERS.filter(b => !b.end || new Date(b.end).getTime() > now - 14 * 864e5)
@@ -1196,15 +1256,24 @@ function renderBans(){
     const k = KI(b), st0 = banState(b, now);
     const st = b.perm ? "Permanent" : st0 === "soon" ? `À venir · dès le ${fmtD(b.start)}` : st0 === "over" ? `Terminée le ${fmtD(b.end)}` : `En cours${b.end ? " · jusqu'au " + fmtD(b.end) : ""}`;
     const h = b.hero ? BY[b.hero] : null;
-    let body;
-    if (b.kind === "covenant"){ const w = wishTop(); body = `<b class="t">Ta wish list</b><span class="mini">${w.length} persos conseillés plus bas</span>`; }
-    else if (!b.hero) body = `<b class="t">${esc(b.title || k.lab)}</b>`;
-    else { const [v, why] = verdict(h); body = `${h ? chip(h) : `<b class="t">${esc(b.hero)}</b>`}<div>${v} <span class="mini">${esc(why)}</span></div>`; }
+    const artName = b.art || (h && h.build && h.build.art) || (b.kind === "covenant" && ART_RANK[0] ? ART_RANK[0][0] : null);
+    const pa = posterArt(artName), neon = pa ? pa.col : h ? ELCOLOR[h.el] : b.kind === "galaxy" ? "#7dd3fc" : "var(--acc)";
+    let name, sub = "", verd = "";
+    if (b.kind === "covenant"){ name = "Ta liste de souhaits"; sub = "7 persos 5★ au choix"; }
+    else if (!b.hero){ name = b.title || k.lab; }
+    else { name = h ? dn(h) : b.hero; sub = h ? `${ELN[h.el]} · ${CLN[h.cl]}` : "Nouveau perso"; const [v, why] = verdict(h); verd = `<div>${v} <span class="mini">${esc(why)}</span></div>`; }
+    const face = h && IMGS[h.n] ? `<button type="button" class="pface" data-hero="${esc(h.n)}" aria-label="Fiche de ${esc(dn(h))}" style="background-image:url('${IMGS[h.n]}')"></button>`
+      : `<${h ? `button type="button" data-hero="${esc(h.n)}"` : "span"} class="pface pinit">${b.kind === "covenant" ? "🔮" : b.kind === "galaxy" ? "🌙" : esc(initials(b.hero || k.lab))}</${h ? "button" : "span"}>`;
     const odds = banOdds(b);
-    return `<div class="ban ${st0 === "over" ? "over" : ""}"><span class="kind ${k.lim ? "lim" : ""} ${st0 === "live" && !b.perm ? "live" : ""}">${esc(k.lab)} · ${esc(st)}</span>
-      ${body}
-      ${b.art ? `<span class="mini">Artefact : ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
-      ${odds ? `<span class="mini odds">${esc(odds)}</span>` : ""}${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}</div>`;
+    return `<div class="ban poster ${st0} ${b.perm ? "perm" : ""}" style="--neon:${neon}">
+      <div class="pbg ${pa ? "" : "pbg-none"}" ${pa ? `style="background-image:url('${pa.url}')"` : ""}></div>
+      <div class="pin">
+        <span class="kind">${esc(k.lab)} · ${esc(st)}</span>
+        <div class="phead">${face}<div style="min-width:0"><b class="pname">${esc(name)}</b>${sub ? `<div class="mini">${esc(sub)}</div>` : ""}</div></div>
+        ${verd}
+        ${b.art ? `<span class="mini">🗡 ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
+        ${odds ? `<span class="mini odds">${esc(odds)}</span>` : ""}${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}
+      </div></div>`;
   }).join("");
   el.querySelectorAll("[data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
   renderCompare(now);
@@ -1271,7 +1340,6 @@ function wlWhy(h){
 }
 function parseArts(s){ const out = []; String(s || "").split(";").forEach(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); if (m) out.push([m[1].trim(), parseFloat(m[2].replace(",", "."))]); else if (x.trim()) out.push([x.trim(), null]); }); return out; }
 function renderPulls(){
-  renderBans();
   document.getElementById("wl-mode").textContent = mode.toUpperCase();
   const incl = document.getElementById("wl-own").checked;
   const pool = DATA.filter(wlEligible).filter(h => incl || !owned.has(h.n)).map(h => [h, heroInterest(h) * (owned.has(h.n) ? .6 : 1)]).sort((a, b) => b[1] - a[1]);
@@ -1297,7 +1365,7 @@ function renderPulls(){
     const us = a.users.sort((x, y) => y[2] - x[2]).slice(0, 3).map(([h, u]) => `${esc(dn(h))}${u != null ? ` <span class="pct">(${P(u)})</span>` : ""}`).join(", ");
     return `<tr><td class="n">${i + 1}</td><td>${artIcon(n)}<b>${esc(n)}</b></td><td class="mini">${ARTS[n] ? esc(ARTS[n].class) : "—"}</td><td class="mini">${us}</td></tr>`;
   }).join("") + "</tbody>";
-  renderProphecy();
+  renderBans(); renderProphecy();
   document.querySelectorAll("#wl-heroes [data-hero], #wl-more [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
 }
 /* ---------- Invocation de la Prophétie (wish list du joueur) ---------- */
@@ -1479,8 +1547,8 @@ function drawCap(){
   const x = capCv.getContext("2d"), sc = CAP.sc, b = CAP.box;
   x.drawImage(CAP.img, 0, 0, capCv.width, capCv.height);
   x.fillStyle = "rgba(0,0,0,.55)"; x.beginPath(); x.rect(0, 0, capCv.width, capCv.height); x.rect(b.x * sc, b.y * sc + b.s * sc, b.s * sc, -b.s * sc); x.fill("evenodd");
-  x.strokeStyle = "#a855f7"; x.lineWidth = 2; x.strokeRect(b.x * sc, b.y * sc, b.s * sc, b.s * sc);
-  x.fillStyle = "#a855f7"; x.fillRect((b.x + b.s) * sc - 7, (b.y + b.s) * sc - 7, 14, 14);
+  x.strokeStyle = ACC(); x.lineWidth = 2; x.strokeRect(b.x * sc, b.y * sc, b.s * sc, b.s * sc);
+  x.fillStyle = ACC(); x.fillRect((b.x + b.s) * sc - 7, (b.y + b.s) * sc - 7, 14, 14);
   const p = capPv.getContext("2d"); p.clearRect(0, 0, 128, 128); p.drawImage(CAP.img, b.x, b.y, b.s, b.s, 0, 0, 128, 128);
 }
 (function(){
@@ -1592,6 +1660,23 @@ if (window.zkx){
     setL(Z.getLogin()); lb.addEventListener("click", () => { const v = lb.getAttribute("aria-pressed") !== "true"; Z.setLogin(v); setL(v); }); }
   if (ri.value && !Z.onUpdate) checkUpd(true);
 }
+/* réglage de la couleur */
+(function(){
+  const hue = document.getElementById("hue"), sw = document.getElementById("swatches");
+  const PRESETS = [["Violet", "#a855f7"], ["Bleu", "#3b82f6"], ["Cyan", "#22d3ee"], ["Vert", "#22c55e"], ["Or", "#f0b429"], ["Orange", "#f97316"], ["Rouge", "#ef4444"], ["Rose", "#ec4899"], ["Blanc", "#d9dde6"]];
+  sw.innerHTML = PRESETS.map(([n, c]) => `<button type="button" class="sw" style="background:${c}" data-c="${c}" title="${n}" aria-label="${n}"></button>`).join("");
+  sw.querySelectorAll(".sw").forEach(b => b.addEventListener("click", () => setAcc(b.dataset.c, true)));
+  const pick = e => { const r = hue.getBoundingClientRect(), x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+    const h = (Math.atan2(y, x) * 180 / Math.PI + 90 + 360) % 360; setAcc(hsl2hex(h, 88, 62), true); };
+  let drag = false;
+  hue.addEventListener("pointerdown", e => { drag = true; hue.setPointerCapture(e.pointerId); pick(e); });
+  hue.addEventListener("pointermove", e => { if (drag) pick(e); });
+  hue.addEventListener("pointerup", () => { drag = false; });
+  hue.addEventListener("keydown", e => { if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return; e.preventDefault(); const h = (hex2hue(ACC()) + (e.key === "ArrowRight" ? 10 : -10) + 360) % 360; setAcc(hsl2hex(h, 88, 62), true); });
+  document.getElementById("acc-pick").addEventListener("input", e => setAcc(e.target.value, true));
+  document.getElementById("acc-reset").addEventListener("click", () => setAcc(ACC_DEF, true));
+  setAcc(ACC(), false);
+})();
 document.getElementById("ovbtn").addEventListener("click", enterOverlay);
 document.getElementById("lang").addEventListener("click", () => { lang = lang === "fr" ? "en" : "fr"; try { localStorage.setItem("e7lang", lang); } catch(e) {}
   const b = document.getElementById("lang"); b.textContent = "Noms : " + lang.toUpperCase(); b.setAttribute("aria-pressed", lang === "fr"); renderAll(); });

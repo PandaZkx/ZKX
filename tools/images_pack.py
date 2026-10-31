@@ -38,8 +38,44 @@ def small(path, S, crop_top):
     return "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
+def neon(im):
+    """Couleur vive dominante (pour la bordure néon)."""
+    import colorsys
+    sm = im.convert("RGB").resize((40, 64))
+    buckets = {}
+    for r, g, b in sm.getdata():
+        h, sat, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+        if sat < .35 or v < .35:
+            continue
+        k = int(h * 24) % 24
+        buckets[k] = buckets.get(k, 0) + sat * v
+    if not buckets:
+        return None
+    k = max(buckets, key=buckets.get)
+    r, g, b = colorsys.hsv_to_rgb((k + .5) / 24, .78, 1)
+    return "#%02x%02x%02x" % (int(r * 255), int(g * 255), int(b * 255))
+
+
+def arts_big(src):
+    """data/art/<clé>.webp en grand (fond des affiches) + data/art/colors.json."""
+    dst = T.parent / "data" / "art"
+    dst.mkdir(parents=True, exist_ok=True)
+    colors = {}
+    for f in sorted((src / "artifacts").glob("*")):
+        k = AN.get(nrm(f.stem)) or re.sub(r"[^a-z0-9]+", "_", f.stem.lower()).strip("_")
+        im = Image.open(f).convert("RGBA")
+        im.thumbnail((300, 476), Image.LANCZOS)
+        im.save(dst / f"{k}.webp", "WEBP", quality=80, method=6)
+        c = neon(im)
+        if c:
+            colors[k] = c
+    (dst / "colors.json").write_text(json.dumps(colors, sort_keys=True), encoding="utf-8")
+    print("affiches :", len(colors), "artefacts en grand")
+
+
 def main(src):
     src = Path(src)
+    arts_big(src)
     out, miss = {"h": {}, "a": {}}, {"h": [], "a": []}
     for f in sorted((src / "heroes").glob("*")):
         k = HN.get(nrm(f.stem)) or HN.get(nrm(f.stem.replace("-and-", "-")))

@@ -1,8 +1,8 @@
 ## Nouveautés
 
-- 🔮 **Invocation de la Prophétie détaillée** : recopie ta liste de souhaits du jeu (7 persos + 7 artefacts). ZKX te dit pour chaque case s'il faut garder ou remplacer (et par qui), ce que vaut ta liste par rapport à la liste idéale, et tes chances selon le nombre d'invocations.
-- Noms des bannières comme dans le jeu (Invocation de la Prophétie, Invocation lunaire).
-- 🖼 Images des persos et artefacts téléchargées automatiquement pour tout le monde.
+- 🎴 **Affiches de bannières** : le perso en grand, son artefact (son arme) en fond, et une bordure néon de la couleur qui va avec l'image. Les bannières en cours pulsent doucement.
+- 📖 La fiche guide des persos a aussi son affiche néon.
+- 🎨 **Choisis la couleur de ZKX** : ⚙ Paramètres → Couleur de ZKX. Clique dans le rond de couleurs (ou une pastille, ou la couleur exacte). « Violet d'origine » pour revenir au thème de base.
 
 ## Installer
 
