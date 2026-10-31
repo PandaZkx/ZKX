@@ -2,7 +2,12 @@ name: Publier une version
 on:
   release:
     types: [published]
+  push:
+    tags: ["v*"]
   workflow_dispatch:
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -17,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Version de l'appli = tag
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
         shell: bash
         run: |
           V="${GITHUB_REF_NAME#v}"
@@ -29,14 +34,16 @@ jobs:
       - name: Installateur Windows
         run: npx electron-builder --win nsis --x64 --publish never
       - uses: softprops/action-gh-release@v2
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
         with:
+          name: ZKX ${{ github.ref_name }}
+          body_path: CHANGELOG-release.md
           files: |
             dist/ZKX-Setup-*.exe
             dist/ZKX-Setup-*.exe.blockmap
             dist/latest.yml
       - uses: actions/upload-artifact@v4
-        if: github.event_name != 'release'
+        if: github.event_name != 'release' && !startsWith(github.ref, 'refs/tags/v')
         with:
           name: ZKX-Setup
           path: dist/ZKX-Setup-*.exe
