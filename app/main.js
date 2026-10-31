@@ -103,10 +103,15 @@ ipcMain.on('fb-ready', () => { fbLast = ''; fbWatch(); fbCheck(true); });
 /* ---- Détection de la box à l'écran : lit les noms des héros dans la fenêtre « Epic Seven » (capture d'écran, rien d'autre) ---- */
 const OCR = { busy: false, last: '', timer: null, game: false };
 const ocr = require('./ocr');
+// la lecture d'écran ne doit jamais faire planter ZKX : en cas de souci, elle se met en pause jusqu'au prochain lancement
+let ocrBroken = false;
+function ocrFail(e){ ocrBroken = true; clearInterval(OCR.timer); OCR.timer = null; ocr.stop(); ocrSend({ s: 'err', m: 'lecture de l\'écran indisponible (' + String(e && e.message || e).slice(0, 120) + ')' }); }
+ocr.setErrorHandler(ocrFail);
+process.on('uncaughtException', e => { if (/tesseract|ocr|wasm/i.test(String(e && (e.stack || e.message) || e))) ocrFail(e); else console.error(e); });
 function ocrOn(){ return loadCfg().ocr !== false; }
 function ocrSend(d){ if (win) win.webContents.send('ocr', d); }
 async function ocrTick(){
-  if (OCR.busy || !win || !ocrOn()) return;
+  if (OCR.busy || !win || !ocrOn() || ocrBroken) return;
   OCR.busy = true;
   try {
     const srcs = await desktopCapturer.getSources({ types: ['window'], thumbnailSize: { width: 1600, height: 1000 }, fetchWindowIcons: false });
@@ -117,7 +122,7 @@ async function ocrTick(){
     if (sig === OCR.last) return;
     OCR.last = sig;
     ocrSend(Object.assign({ s: 'text' }, await ocr.readFrame(img, path.join(app.getPath('userData'), 'ocr'))));
-  } catch (e) { ocrSend({ s: 'err', m: String(e && e.message || e) }); }
+  } catch (e) { ocrFail(e); }
   finally { OCR.busy = false; }
 }
 function ocrStart(){ clearInterval(OCR.timer); OCR.timer = null; if (ocrOn()) OCR.timer = setInterval(ocrTick, 3000); }

@@ -1,11 +1,15 @@
 // Lecture des noms de héros sur une capture de la fenêtre du jeu (OCR local, rien n'est envoyé ni enregistré).
 const path = require('path');
 const { nativeImage } = require('electron');
-let worker = null;
+let worker = null, onError = null;
+function setErrorHandler(f){ onError = f; }
 async function getWorker(cacheDir){
   if (worker) return worker;
   const { createWorker } = require('tesseract.js');
-  worker = await createWorker('fra', 1, { langPath: path.join(__dirname, 'node_modules', '@tesseract.js-data', 'fra', '4.0.0'), gzip: true, cachePath: cacheDir });
+  try {
+    worker = await createWorker('fra', 1, { langPath: path.join(__dirname, 'node_modules', '@tesseract.js-data', 'fra', '4.0.0'), gzip: true, cachePath: cacheDir,
+      errorHandler: e => { const w = worker; worker = null; if (w) w.terminate().catch(() => {}); if (onError) onError(e); } });
+  } catch (e) { worker = null; throw e; }
   await worker.setParameters({ tessedit_pageseg_mode: '11' });
   return worker;
 }
@@ -30,4 +34,4 @@ async function readFrame(img, cacheDir){
   return { list, title: title + '\n' + name };
 }
 async function stop(){ if (worker){ const w = worker; worker = null; await w.terminate().catch(() => {}); } }
-module.exports = { readFrame, signature, stop };
+module.exports = { readFrame, signature, stop, setErrorHandler };
