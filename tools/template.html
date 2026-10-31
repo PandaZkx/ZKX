@@ -303,6 +303,8 @@ __JSZIP__
     <input id="file" type="file" accept=".json,application/json" hidden>
     <button class="btn fbauto" id="fb-auto" type="button" hidden>🔄 Import auto Fribbels</button>
     <p class="mini fbstat" id="fb-stat" hidden></p>
+    <button class="btn fbauto" id="ocr-toggle" type="button" hidden aria-pressed="false">👁 Repérer ma box à l'écran</button>
+    <p class="mini fbstat" id="ocr-stat" hidden></p>
     <button class="btn" id="manual" type="button">Cocher mes persos</button>
     <button class="btn" id="example" type="button">Box d'exemple</button>
   </div>
@@ -446,7 +448,7 @@ __JSZIP__
   <div class="card2" id="ov-team" style="margin-top:8px"></div>
   <p class="mini" id="ov-tip" style="margin-top:8px"></p>
 </div>
-<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde : à chaque « Save » dans Fribbels, ZKX se met à jour tout seul. Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
+<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde Fribbels (Documents\FribbelsOptimizerSaves\autosave.json), et « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre du jeu pour cocher tes persos tout seul (simple capture d'écran : ZKX ne touche pas au jeu). Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
 </div></main>
 </div>
 
@@ -1085,6 +1087,52 @@ if (window.zkx && window.zkx.onFribbels){
     btn.textContent = "🔄 Import auto : activé"; btn.setAttribute("aria-pressed", true);
   });
   idle(); Z.fribbelsReady();
+}
+/* détection de la box à l'écran (appli Windows) */
+const OCRN = []; DATA.forEach(h => { for (const v of [h.n, h.fr]) if (v) OCRN.push([NRM(v).replace(/[0-9]/g, ""), h.n]); });
+function levD(a, b){ const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i++){ const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function ocrMatch(line){
+  const toks = String(line).split(/\s+/).filter(t => /[A-Za-zÀ-ÿ]/.test(t)); let best = null;
+  for (let a = 0; a <= Math.min(1, toks.length - 1); a++) for (let z = 0; z <= Math.min(2, toks.length - 1 - a); z++){
+    const s = NRM(toks.slice(a, toks.length - z).join(" ")).replace(/[0-9]/g, ""); if (s.length < 3) continue;
+    for (const [k, n] of OCRN){
+      let sc = 1 - levD(s, k) / Math.max(s.length, k.length);
+      if (s.length >= 10 && k.length > s.length){ const pre = 1 - levD(s, k.slice(0, s.length)) / s.length; if (pre >= .85) sc = Math.max(sc, pre - .03); }
+      if (k.length <= 4 && s !== k) sc = Math.min(sc, .5);
+      if (!best || sc > best[0]) best = [sc, n];
+    }
+  }
+  return best && best[0] >= .8 ? best[1] : null;
+}
+if (window.zkx && window.zkx.onOcr){
+  const Z = window.zkx, st = document.getElementById("ocr-stat"), tg = document.getElementById("ocr-toggle");
+  const seen = {}, added = [];
+  const setTg = on => { tg.hidden = false; tg.textContent = "👁 Repérer ma box à l'écran : " + (on ? "oui" : "non"); tg.setAttribute("aria-pressed", on); if (!on){ st.hidden = true; } };
+  const say = h => { st.hidden = false; st.innerHTML = h; };
+  setTg(Z.ocrGet());
+  tg.addEventListener("click", () => { const v = tg.getAttribute("aria-pressed") !== "true"; Z.ocrSet(v); setTg(v); if (v) say("👁 En attente du jeu…"); });
+  Z.onOcr(d => {
+    if (tg.getAttribute("aria-pressed") !== "true") return;
+    if (d.s === "nogame") return say("👁 En attente d'Epic Seven…");
+    if (d.s === "game") return say("👁 Epic Seven trouvé : ouvre ton menu Héros, ZKX coche tes persos tout seul.");
+    if (d.s === "err") return say("⚠ Détection en pause : " + esc(d.m || "erreur"));
+    if (d.s !== "text") return;
+    const fresh = [], frameSeen = new Set();
+    for (const l of String(d.title || "").split("\n")){ const n = ocrMatch(l); if (n) frameSeen.add(n + "|t"); }
+    for (const l of String(d.list || "").split("\n")){ const n = ocrMatch(l); if (n) frameSeen.add(n + "|l"); }
+    for (const k of frameSeen){
+      const [n, src] = k.split("|"); seen[n] = (seen[n] || 0) + (src === "t" ? 2 : 1);
+      if (seen[n] >= 2 && !owned.has(n)){ if (isExample){ owned = new Set(); isExample = false; } owned.add(n); fresh.push(n); added.push(n); }
+    }
+    if (fresh.length){
+      renderAll(`👁 Vu à l'écran et ajouté à ta box : <b>${fresh.map(n => esc(DN(n))).join(", ")}</b>`);
+      say(`👁 ${added.length} perso${added.length > 1 ? "s" : ""} ajouté${added.length > 1 ? "s" : ""} depuis l'écran : ${added.slice(-6).map(n => esc(DN(n))).join(", ")}${added.length > 6 ? "…" : ""} <a href="#" id="ocr-undo">Annuler le dernier</a>`);
+      const u = document.getElementById("ocr-undo"); if (u) u.addEventListener("click", e => { e.preventDefault(); const n = added.pop(); if (n){ owned.delete(n); seen[n] = -99; renderAll(`${esc(DN(n))} retiré de ta box.`); say(`👁 ${esc(DN(n))} retiré (il ne sera plus ajouté jusqu'au prochain lancement).`); } });
+    }
+  });
+  if (Z.ocrGet()) say("👁 En attente d'Epic Seven…");
+  Z.ocrReady();
 }
 document.getElementById("file").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => importFribbels(r.result); r.readAsText(f); e.target.value = ""; });
 document.getElementById("example").addEventListener("click", () => { owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; renderAll("box d'exemple chargée"); });

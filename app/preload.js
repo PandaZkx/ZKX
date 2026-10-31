@@ -15,5 +15,9 @@ contextBridge.exposeInMainWorld('zkx', {
   fribbelsGet: () => ipcRenderer.sendSync('fb-get'),
   fribbelsOff: () => ipcRenderer.send('fb-off'),
   fribbelsReady: () => ipcRenderer.send('fb-ready'),
-  onFribbels: cb => ipcRenderer.on('fb', (_e, d) => cb(d))
+  onFribbels: cb => ipcRenderer.on('fb', (_e, d) => cb(d)),
+  ocrGet: () => ipcRenderer.sendSync('ocr-get'),
+  ocrSet: v => ipcRenderer.send('ocr-set', !!v),
+  ocrReady: () => ipcRenderer.send('ocr-ready'),
+  onOcr: cb => ipcRenderer.on('ocr', (_e, d) => cb(d))
 });

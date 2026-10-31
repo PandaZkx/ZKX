@@ -1,7 +1,9 @@
 ## Nouveautés
 
-- 🔄 **Import auto Fribbels** : bouton dans le menu de gauche (sous « Importer Fribbels »). Choisis ta sauvegarde Fribbels une seule fois : ensuite, à chaque « Save » dans Fribbels, ZKX recharge ta box et ton stuff tout seul (même si tu enregistres sous un autre nom dans le même dossier). « Arrêter » pour couper le suivi.
-- Rappel 1.5.0 : affiches néon des bannières, couleur de ZKX au choix (⚙ Paramètres).
+- 👁 **ZKX repère ta box à l'écran** : quand Epic Seven (client PC Stove) est ouvert, ZKX lit les noms des héros affichés dans la fenêtre du jeu et coche tout seul tes persos. Ouvre ton menu Héros et fais défiler la liste : ta box se remplit. Un nouveau perso tiré est ajouté dès qu'il passe dans ta liste.
+  - Simple capture de la fenêtre, lue sur ton PC puis jetée : ZKX ne touche pas au jeu, rien n'est envoyé.
+  - « Annuler le dernier » sous le bouton si un perso a été ajouté par erreur ; bouton « 👁 Repérer ma box à l'écran » pour couper.
+- 🔄 Import auto Fribbels : la sauvegarde à choisir est Documents\FribbelsOptimizerSaves\autosave.json.
 
 ## Installer
 

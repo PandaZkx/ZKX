@@ -51,6 +51,14 @@
         "owner": "PandaZkx",
         "repo": "ZKX"
       }
+    ],
+    "asar": false,
+    "files": [
+      "**/*",
+      "!node_modules/tesseract.js-core/*relaxedsimd*",
+      "!node_modules/tesseract.js-core/tesseract-core.*",
+      "!node_modules/tesseract.js-core/tesseract-core-simd.*",
+      "!node_modules/@tesseract.js-data/fra/4.0.0_best_int/**"
     ]
   }
 }

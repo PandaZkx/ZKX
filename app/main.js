@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell, Tray, Menu, globalShortcut, nativeImage, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, Tray, Menu, globalShortcut, nativeImage, dialog, desktopCapturer } = require('electron');
 const fs = require('fs');
 const path = require('path');
 let autoUpdater = null;
@@ -100,6 +100,30 @@ ipcMain.handle('fb-pick', async () => {
 ipcMain.on('fb-get', e => { e.returnValue = loadCfg().fribbels || null; });
 ipcMain.on('fb-off', () => { delete loadCfg().fribbels; saveCfg(); clearInterval(fbTimer); fbTimer = null; });
 ipcMain.on('fb-ready', () => { fbLast = ''; fbWatch(); fbCheck(true); });
+/* ---- Détection de la box à l'écran : lit les noms des héros dans la fenêtre « Epic Seven » (capture d'écran, rien d'autre) ---- */
+const OCR = { busy: false, last: '', timer: null, game: false };
+const ocr = require('./ocr');
+function ocrOn(){ return loadCfg().ocr !== false; }
+function ocrSend(d){ if (win) win.webContents.send('ocr', d); }
+async function ocrTick(){
+  if (OCR.busy || !win || !ocrOn()) return;
+  OCR.busy = true;
+  try {
+    const srcs = await desktopCapturer.getSources({ types: ['window'], thumbnailSize: { width: 1600, height: 1000 }, fetchWindowIcons: false });
+    const s = srcs.find(x => /^epic ?seven$/i.test(String(x.name).trim()));
+    if (!s || s.thumbnail.isEmpty()){ if (OCR.game){ OCR.game = false; ocrSend({ s: 'nogame' }); } return; }
+    if (!OCR.game){ OCR.game = true; ocrSend({ s: 'game' }); }
+    const img = s.thumbnail, sig = ocr.signature(img);
+    if (sig === OCR.last) return;
+    OCR.last = sig;
+    ocrSend(Object.assign({ s: 'text' }, await ocr.readFrame(img, path.join(app.getPath('userData'), 'ocr'))));
+  } catch (e) { ocrSend({ s: 'err', m: String(e && e.message || e) }); }
+  finally { OCR.busy = false; }
+}
+function ocrStart(){ clearInterval(OCR.timer); OCR.timer = null; if (ocrOn()) OCR.timer = setInterval(ocrTick, 3000); }
+ipcMain.on('ocr-get', e => { e.returnValue = ocrOn(); });
+ipcMain.on('ocr-set', (_e, v) => { loadCfg().ocr = !!v; saveCfg(); OCR.last = ''; if (!v && OCR.game){ OCR.game = false; } ocrStart(); });
+ipcMain.on('ocr-ready', () => { OCR.last = ''; OCR.game = false; ocrStart(); });
 app.on('second-instance', show);
 ipcMain.on('version', e => { e.returnValue = app.getVersion(); });
 ipcMain.on('get-login', e => { e.returnValue = app.getLoginItemSettings().openAtLogin; });
@@ -116,5 +140,5 @@ app.whenReady().then(() => {
   globalShortcut.register('CommandOrControl+Shift+Z', () => { show(); win.webContents.send('toggle-overlay'); });
 });
 app.on('before-quit', () => { quitting = true; });
-app.on('will-quit', () => globalShortcut.unregisterAll());
+app.on('will-quit', () => { globalShortcut.unregisterAll(); ocr.stop(); });
 app.on('window-all-closed', () => app.quit());

@@ -47,6 +47,8 @@ Onglet **📸 Mes captures** : capture le jeu avec **Win + Maj + S**, puis **Ctr
 
 **Import auto** (appli Windows) : clique sur « 🔄 Import auto Fribbels » et choisis ta sauvegarde une fois. Ensuite, chaque « Save » dans Fribbels met ZKX à jour tout seul.
 
+**Repérage à l'écran** (appli Windows, client PC Stove) : « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre Epic Seven (capture de la fenêtre + lecture du texte sur ton PC, rien n'est envoyé) et coche tes persos tout seul. Ouvre le menu Héros et fais défiler ta liste.
+
 ZKX ne lit pas le jeu et n'y touche pas. Ta box et tes images restent sur ton PC.
 
 ## Images
