@@ -1,7 +1,7 @@
 ## Nouveautés
 
-- 🔮 **Liste de souhaits plus lisible** : les 7 artefacts conseillés s'affichent en grandes cartes avec l'image de l'artefact, sa classe et qui le porte. Portraits des persos agrandis.
-- 🇫🇷 **Artefacts en français** partout (liste conseillée, ta liste de souhaits, fiches, bannières), avec le nom anglais en petit pour le retrouver à coup sûr. Tu peux taper le nom français ou anglais dans ta liste de souhaits.
+- 🏆 **Tier list : top 3** en podium (perso, son artefact en fond, néon) et **filtres** par élément (🔥 Feu, ❄ Glace, 🌿 Terre, ☀ Lumière, 🌙 Ténèbres) et par classe. Tri au choix : tier PvP, tier PvE, victoires RTA ou % joué.
+- 📊 **Données vérifiées** : stats RTA rafraîchies (31/10) pour 220 persos ; 22 persos qui n'avaient pas de grades DPS / TANK / Impact les ont maintenant (Charles, Violet, Lilibet, Mercedes, Armin…). Les persos trop peu joués en RTA (moins de 20 matchs) l'indiquent clairement au lieu d'une case vide, et le nombre de matchs RTA est affiché dans les fiches.
 
 ## Installer
 

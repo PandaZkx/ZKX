@@ -218,6 +218,23 @@ span.pface{cursor:default}
 #wl-heroes .chip .badge,#wl-more .chip .badge,#pr-h .badge,#cmp-table .chip .badge,#adv .chip .badge{width:58px !important;height:58px !important;font-size:18px}
 #wl-heroes .chip,#wl-more .chip{padding-top:6px;padding-bottom:6px}
 #wl-heroes .chip .en,#wl-more .chip .en{font-size:15px}
+.tfilters{display:flex;flex-direction:column;gap:6px;margin:4px 0 12px}
+.tfrow{display:flex;gap:6px;flex-wrap:wrap}
+.tf{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:5px 12px;font:700 13px var(--f-body);cursor:pointer}
+.tf:hover{color:var(--text)}.tf[aria-pressed="true"]{color:var(--text);border-color:var(--acc);background:var(--acc-bg)}
+.tf.el-fire[aria-pressed="true"]{border-color:#f07a45;background:#3a1a10}.tf.el-ice[aria-pressed="true"]{border-color:#3fb6ef;background:#0f2a3a}.tf.el-wind[aria-pressed="true"]{border-color:#4fb357;background:#12301a}.tf.el-light[aria-pressed="true"]{border-color:#e9b843;background:#3a2e0d}.tf.el-dark[aria-pressed="true"]{border-color:#9a6ae0;background:#24163a}
+.podium h3{margin:4px 0 10px}
+.pods{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:12px;align-items:end;margin-bottom:16px}
+.pod{--neon:var(--acc);position:relative;overflow:hidden;border:1.5px solid var(--neon);border-radius:16px;background:#07050a;color:var(--text);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 10px 14px;box-shadow:0 0 16px color-mix(in srgb,var(--neon) 35%,transparent);font:inherit;text-align:center}
+.pod > *:not(.pbg){position:relative}
+.pod .pbg{opacity:.55}
+.pod.p1{order:2;min-height:250px;box-shadow:0 0 26px color-mix(in srgb,var(--neon) 55%,transparent)}.pod.p2{order:1;min-height:215px}.pod.p3{order:3;min-height:200px}
+.podm{font-size:30px;line-height:1}
+.podf{width:84px;height:84px;border-radius:50%;background:#120c1c center/cover no-repeat;border:2px solid var(--neon);box-shadow:0 0 14px var(--neon);display:grid;place-items:center;font:800 24px var(--f-display)}
+.pod.p1 .podf{width:104px;height:104px}
+.podn{font:700 19px var(--f-display);line-height:1.1;text-shadow:0 0 12px color-mix(in srgb,var(--neon) 60%,transparent),0 2px 4px #000}
+.podv{font:700 16px var(--f-display)}
+@media (max-width:640px){.pods{grid-template-columns:1fr}.pod.p1,.pod.p2,.pod.p3{order:0;min-height:0}}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -411,7 +428,13 @@ __JSZIP__
     <div class="tools">
       <input id="t-q" type="search" placeholder="Rechercher un perso" aria-label="Rechercher dans la tier list">
       <select id="t-own" aria-label="Filtrer"><option value="">Tous les persos</option><option value="own">Seulement ma box</option><option value="miss">Ceux que je n'ai pas</option></select>
+      <select id="t-sort" aria-label="Trier par"><option value="pvp">Trier : tier PvP</option><option value="pve">Trier : tier PvE</option><option value="wr">Trier : victoires RTA</option><option value="pick">Trier : joué en RTA</option></select>
     </div>
+    <div class="tfilters">
+      <div class="tfrow" role="group" aria-label="Élément"><button type="button" class="tf" data-el="" aria-pressed="true">Tous</button><button type="button" class="tf el-fire" data-el="fire" aria-pressed="false">🔥 Feu</button><button type="button" class="tf el-ice" data-el="ice" aria-pressed="false">❄ Glace</button><button type="button" class="tf el-wind" data-el="wind" aria-pressed="false">🌿 Terre</button><button type="button" class="tf el-light" data-el="light" aria-pressed="false">☀ Lumière</button><button type="button" class="tf el-dark" data-el="dark" aria-pressed="false">🌙 Ténèbres</button></div>
+      <div class="tfrow" role="group" aria-label="Classe"><button type="button" class="tf" data-cl="" aria-pressed="true">Toutes classes</button><button type="button" class="tf" data-cl="knight" aria-pressed="false">Chevalier</button><button type="button" class="tf" data-cl="warrior" aria-pressed="false">Guerrier</button><button type="button" class="tf" data-cl="assassin" aria-pressed="false">Voleur</button><button type="button" class="tf" data-cl="ranger" aria-pressed="false">Archer</button><button type="button" class="tf" data-cl="mage" aria-pressed="false">Mage</button><button type="button" class="tf" data-cl="manauser" aria-pressed="false">Tisseur d'âme</button></div>
+    </div>
+    <div class="podium" id="podium"></div>
     <div class="scroll"><table class="inv" id="tier-table"></table></div>
   </section>
 </div>
@@ -681,13 +704,31 @@ function renderInv(){
   document.getElementById("stuff-sub").innerHTML = ITEMS.length ? `<b>${ITEMS.length}</b> pièces${itemsExample ? '<span class="tag-ex">EXEMPLE</span> — importe ta sauvegarde Fribbels pour voir ton vrai stuff' : " importées depuis Fribbels"} · ${L.length} affichées.` : "Aucune pièce : importe ta sauvegarde Fribbels.";
   document.getElementById("inv").innerHTML = L.slice(0, 400).map(it => `<tr><td>${SLOTFR[it.gear] || it.gear}</td><td>${esc(SETS[it.set] || it.set)}</td><td class="n">${it.level || ""}${it.enhance ? " +" + it.enhance : ""}</td><td>${it.main ? esc(fmtStat(it.main.type, it.main.value)) : ""}</td><td class="subs">${(it.substats || []).map(x => esc(fmtStat(x.type, x.value))).join(" · ")}</td><td class="n"><span class="sc ${scClass(it._s[sk])}">${it._s[sk]}</span></td><td>${it._who ? `<button type="button" class="btn" style="padding:3px 9px;font-size:13px" data-hero="${esc(it._who)}">${esc(DN(it._who))}</button>` : '<span class="mini">libre</span>'}</td></tr>`).join("") || `<tr><td colspan="7" class="empty">Aucune pièce ne correspond aux filtres.</td></tr>`;
 }
+const TF = { el: "", cl: "" };
+document.querySelectorAll(".tf").forEach(b => b.addEventListener("click", () => {
+  const k = b.dataset.el !== undefined ? "el" : "cl"; TF[k] = b.dataset[k];
+  document.querySelectorAll(`.tf[data-${k}]`).forEach(x => x.setAttribute("aria-pressed", x === b)); renderTiers();
+}));
 function renderTiers(){
-  const q = document.getElementById("t-q").value.trim().toLowerCase(), f = document.getElementById("t-own").value;
-  const S = META.sources;
-  const L = DATA.filter(h => (h.pvp != null || h.pve != null) && (!q || h.n.toLowerCase().includes(q) || (h.fr || "").toLowerCase().includes(q)) && (!f || (f === "own" ? owned.has(h.n) : !owned.has(h.n))))
-    .sort((a,b) => (b.pvp ?? -1) - (a.pvp ?? -1));
+  const q = document.getElementById("t-q").value.trim().toLowerCase(), f = document.getElementById("t-own").value, so = document.getElementById("t-sort").value;
+  const S = META.sources, el = TF.el, cl = TF.cl;
+  const val = h => so === "wr" ? (h.wr != null && (h.rta_n == null || h.rta_n >= 100) ? h.wr : -1) : so === "pick" ? (h.pick ?? -1) : (h[so] ?? -1);
+  const L = DATA.filter(h => (h.pvp != null || h.pve != null) && (!q || NRM(h.n).includes(NRM(q)) || (h.fr && NRM(h.fr).includes(NRM(q)))) && (!f || (f === "own" ? owned.has(h.n) : !owned.has(h.n))) && (!el || h.el === el) && (!cl || h.cl === cl))
+    .sort((a, b) => val(b) - val(a) || (b.pvp ?? -1) - (a.pvp ?? -1));
+  const lab = { pvp: "PvP", pve: "PvE", wr: "victoires RTA", pick: "joué en RTA" }[so];
+  const P3 = L.filter(h => val(h) >= 0).slice(0, 3), med = ["🥇", "🥈", "🥉"];
+  const keyv = h => so === "wr" ? P(h.wr) : so === "pick" ? P(h.pick) : `<span class="tier t-${h[so + "T"]}">${h[so + "T"]}</span> ${fmt(h[so])}/5`;
+  document.getElementById("podium").innerHTML = P3.length ? `<h3>Top 3 · ${esc(lab)}${el ? " · " + ELN[el] : ""}${cl ? " · " + CLN[cl] : ""}</h3><div class="pods">` + P3.map((h, i) => {
+    const pa = posterArt(h.build && h.build.art), im = IMGS[h.n];
+    return `<button type="button" class="pod p${i + 1}" data-hero="${esc(h.n)}" style="--neon:${pa ? pa.col : ELCOLOR[h.el]}">
+      <div class="pbg ${pa ? "" : "pbg-none"}" ${pa ? `style="background-image:url('${pa.url}')"` : ""}></div>
+      <span class="podm">${med[i]}</span>
+      <span class="podf" ${im ? `style="background-image:url('${im}')"` : ""}>${im ? "" : esc(initials(h.n))}</span>
+      <b class="podn">${esc(dn(h))}</b><span class="mini">${ELN[h.el]} · ${CLN[h.cl]}</span>
+      <span class="podv">${keyv(h)}</span>${owned.has(h.n) ? '<span class="hchip own">✓ dans ta box</span>' : ""}</button>`;
+  }).join("") + `</div>` : "";
   document.getElementById("tier-table").innerHTML = `<thead><tr><th>Perso</th><th>PvP</th><th>PvE</th><th>Win rate</th><th>Pick</th><th>DPS</th><th>TANK</th>${S.map(s => `<th title="${esc(s.lab)} · ${esc(s.date)}">${esc(s.lab.replace(/ \(.*/, "").replace("Pocket Gamer","PG"))}<br><span class="mini">${esc((s.lab.match(/\((.*)\)/)||["",""])[1])}</span></th>`).join("")}</tr></thead><tbody>` +
-    L.map(h => `<tr><td style="min-width:230px">${chip(h)}</td><td>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span>` : "—"}</td><td>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span>` : "—"}</td><td class="n">${h.wr != null ? String(h.wr).replace(".", ",") + " %" : "—"}</td><td class="n">${h.pick != null ? String(h.pick).replace(".", ",") + " %" : "—"}</td><td>${h.dd ? `<span class="g g-${h.dd}">${h.dd}</span>` : ""}</td><td>${h.ds ? `<span class="g g-${h.ds}">${h.ds}</span>` : ""}</td>${S.map(s => `<td>${h.src && h.src[s.k] ? esc(h.src[s.k]) : ""}</td>`).join("")}</tr>`).join("") + `</tbody>`;
+    L.map(h => `<tr><td style="min-width:230px">${chip(h)}</td><td>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span>` : "—"}</td><td>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span>` : "—"}</td><td class="n">${h.wr != null ? String(h.wr).replace(".", ",") + " %" : "—"}</td><td class="n">${h.pick != null ? String(h.pick).replace(".", ",") + " %" : "—"}</td><td>${h.dd ? `<span class="g g-${h.dd}">${h.dd}</span>` : `<span class="mini" title="Moins de 20 matchs RTA : pas assez de données">peu joué</span>`}</td><td>${h.ds ? `<span class="g g-${h.ds}">${h.ds}</span>` : `<span class="mini" title="Moins de 20 matchs RTA : pas assez de données">peu joué</span>`}</td>${S.map(s => `<td>${h.src && h.src[s.k] ? esc(h.src[s.k]) : ""}</td>`).join("")}</tr>`).join("") + `</tbody>`;
 }
 function stuffSection(h){
   let html = "";
@@ -1086,13 +1127,15 @@ function heroDialog(name){
   const tile = (lab, val, cls = "") => `<div class="hst ${cls}"><span>${lab}</span><b>${val}</b></div>`;
   const tierTile = (lab, t, sc) => tile(lab, t ? `<span class="tier t-${t}">${t}</span>${sc != null ? ` <small>${fmt(sc)}/5</small>` : ""}` : "—");
   const stats = [tierTile("PvP", h.pvpT, h.pvp), tierTile("PvE", h.pveT, h.pve)];
-  if (h.wr != null) stats.push(tile("Victoires RTA", P(h.wr), h.wr >= 52 ? "good" : h.wr < 47 ? "bad" : ""));
+  if (h.wr != null) stats.push(tile("Victoires RTA" + (h.rta_n != null && h.rta_n < 150 ? " *" : ""), P(h.wr), h.rta_n != null && h.rta_n < 150 ? "" : h.wr >= 52 ? "good" : h.wr < 47 ? "bad" : ""));
+  if (h.rta_n != null) stats.push(tile("Matchs RTA", NB(h.rta_n)));
   if (h.pick != null) stats.push(tile("Joué RTA", P(h.pick)));
   if (h.pre != null) stats.push(tile("Pré-ban", P(h.pre)));
   const tabs = [["guide", "📖 Guide"], ["skills", "✨ Compétences"], ["stats", "📊 Stats & builds"], ["stuff", "🧮 Mon stuff"], ["src", "🗂 Sources"]];
   // panneaux
+  const noG = !h.dd ? `<dt>Grades DPS / TANK</dt><dd class="mini">Pas assez joué en RTA${h.rta_n != null ? ` (${h.rta_n} matchs relevés)` : ""} pour le noter.</dd>` : "";
   const pStats = `<dl class="kv">
-    ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
+    ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}${noG}${h.dd && h.g_few ? `<dt></dt><dd class="mini">Grades calculés sur peu de matchs RTA (${h.rta_n}) : à prendre avec prudence.</dd>` : ""}
     ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd>${h.build.set ? `<b>${esc(h.build.set)}</b> · ` : ""}artefact ${artIcon(h.build.art)}<b>${esc(AN(h.build.art))}</b> ${buildNote(h.build)}</dd>` : ""}
     ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
     ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
@@ -1259,7 +1302,7 @@ for (const id of ["conseils","stuff","tiers","pulls","daily","captures"]) docume
   for (const o of ["conseils","stuff","tiers","pulls","daily","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
 ["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
-["t-q","t-own"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
+["t-q","t-own","t-sort"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
 document.querySelectorAll("th[data-sort]").forEach(th => th.addEventListener("click", () => { invSort = th.dataset.sort; renderInv(); }));
 const savedItems = store.get("e7items");
 if (savedItems && savedItems.items && savedItems.items.length) loadItems(savedItems, false); else loadItems(exampleItems(), true);
