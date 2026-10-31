@@ -106,6 +106,7 @@ def parse_sched(seg, ref):
 
 
 def clean_name(s):
+    s = re.sub(r"^[\s■•▶►\-*·]+", "", s or "")
     s = re.sub(r"^\s*\d\s*★?\s+(?=[A-Z])", "", s.strip())
     s = re.sub(r"\s*[!.]+$", "", s)
     return s.strip(" -:\"'")
@@ -147,7 +148,8 @@ def from_article(slug, raw):
         elif b["kind"] == "rateup" and re.search(r"only obtain[^.]{0,80}from this limited", head):
             b["kind"] = "limited"
         b["src"] = BASE + "/news/" + slug
-        out.append(b)
+        if not any(x["kind"] == b["kind"] and slugify(x.get("hero") or x.get("art")) == slugify(b.get("hero") or b.get("art")) and x["start"] == b["start"] for x in out):
+            out.append(b)
 
     d = parse_dru(title)
     if d:
@@ -223,10 +225,9 @@ def main():
                 continue
             old = next((x for x in banners if same(x, b)), None)
             if old:
-                if not old.get("manual"):
-                    for k in ("start", "end", "art", "kind", "src", "title", "note"):
-                        if b.get(k):
-                            old[k] = b[k]
+                for k in ("start", "end", "art", "kind", "src", "title", "note"):
+                    if b.get(k) and (not old.get("manual") or not old.get(k)):
+                        old[k] = b[k]
                 continue
             b["id"] = f'{b["kind"]}-{slugify(b.get("hero") or b.get("art") or b.get("title"))}-{b["start"][:10].replace("-", "")}'
             b.setdefault("note", "")
