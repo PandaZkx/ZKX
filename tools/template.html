@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZKX · Epic Seven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* HUD de jeu : menu latéral fixe + zone principale ; cartes à liseré de couleur d'élément ; accent sarcelle, or réservé aux tiers */
+  --bg:#0d1117; --bg2:#121821; --panel:#161d28; --panel2:#1c2533; --line:#263244; --text:#e6edf5; --muted:#8b9ab0;
+  --acc:#35d0c4; --acc2:#1f8f87; --gold:#f0c35a; --gold2:#b48a2c; --good:#45c27a; --bad:#e0605a;
+  --f-display:"Rajdhani", "Segoe UI", sans-serif; --f-body:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:14px; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.45}
+body{background:radial-gradient(1200px 600px at 80% -10%, #16283a 0%, transparent 60%), var(--bg)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+a{color:var(--acc)}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+aside{position:sticky;top:0;height:100vh;overflow:auto;background:linear-gradient(180deg,#111823,#0c1118);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:14px}
+.logo{font-family:var(--f-display);font-weight:700;font-size:20px;white-space:nowrap;letter-spacing:1px;line-height:1}
+.logo b{color:var(--acc)} .logo small{display:block;font-family:var(--f-body);font-size:12px;color:var(--muted);letter-spacing:0;margin-top:4px;font-weight:600}
+.nav{display:grid;gap:4px}
+.nav button{display:flex;align-items:center;gap:10px;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:800;color:var(--muted);text-align:left}
+.nav button:hover{color:var(--text);background:var(--panel)}
+.nav button[aria-selected="true"]{background:var(--panel2);border-color:var(--line);color:var(--text);box-shadow:inset 3px 0 0 var(--acc)}
+.nav .ic{width:22px;text-align:center}
+.side-h{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:6px 4px -6px}
+.side-actions{display:grid;gap:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:800;font-size:14px}
+.btn:hover{border-color:var(--acc2)}
+.btn.primary{background:var(--acc);color:#05201d;border-color:var(--acc)}
+.btn.primary:hover{background:#5ae0d5}
+.btn.sm{padding:5px 10px;font-size:13px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px;cursor:pointer;font-weight:800;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--acc);color:#05201d}
+main{padding:22px 26px 60px;min-width:0}
+.wrap{max-width:1280px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+header.top h1{font-family:var(--f-display);font-size:32px;margin:0;font-weight:700;letter-spacing:.5px;text-wrap:balance}
+header.top p{margin:2px 0 0;color:var(--muted);max-width:70ch}
+.status{color:var(--muted);font-size:13.5px}
+.status b{color:var(--text)}
+.tag-ex{display:inline-block;background:#3a2d10;color:var(--gold);border:1px solid var(--gold2);border-radius:999px;padding:0 8px;font-size:11px;font-weight:800;margin-left:6px;vertical-align:1px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.kpi .v{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+.kpi.acc .v{color:var(--acc)} .kpi.gold .v{color:var(--gold)}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}
+@media (max-width:1100px){.grid{grid-template-columns:1fr}}
+section.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+section.card h2{font-family:var(--f-display);font-size:21px;font-weight:700;margin:0;letter-spacing:.4px}
+section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
+.team{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--bg2)}
+.team.best{border-color:var(--acc2);background:linear-gradient(180deg,#132a2b,var(--bg2) 70%)}
+.team-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.team-head strong{font-family:var(--f-display);font-size:17px;letter-spacing:.4px}
+.score{font-family:var(--f-display);font-size:20px;color:var(--acc);font-weight:700;font-variant-numeric:tabular-nums}
+.members{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:640px){.members{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.why{margin:10px 0 0;font-size:13px;color:var(--muted)} .why b{color:var(--text)}
+/* chips & tiles */
+.chip{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--elc,var(--line));border-radius:10px;padding:7px 9px;cursor:pointer;min-width:0;text-align:left;width:100%}
+.chip:hover{border-color:var(--acc2);border-left-color:var(--elc)}
+.members .chip,.boxgrid .chip{flex-direction:column;align-items:center;text-align:center;padding:12px 8px 10px;border-left-width:1px;border-top:3px solid var(--elc);position:relative;gap:6px}
+.members .chip .tier,.boxgrid .chip .tier{position:absolute;top:6px;right:6px}
+.members .chip .badge,.boxgrid .chip .badge{width:56px;height:56px;font-size:17px}
+.members .chip .nm span,.boxgrid .chip .nm span{white-space:normal;overflow:visible}
+#ovl .members{grid-template-columns:repeat(2,minmax(0,1fr))}
+.chip .nm{min-width:0;flex:1;width:100%}
+.chip .nm span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip .nm .en{font-weight:800;font-size:13.5px}
+.chip .nm .frn{font-size:11.5px;color:var(--muted)}
+.chip .nm .prio{font-size:10.5px;font-weight:800;color:var(--acc);letter-spacing:.5px;white-space:normal;margin-top:2px}
+.badge{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:14px;color:#fff;position:relative;border:1px solid rgba(255,255,255,.18);text-shadow:0 1px 2px #000;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.badge.big{width:76px;height:76px;font-size:24px}
+.badge.img{background-size:cover;background-position:center top}
+.badge .cls{position:absolute;right:-6px;bottom:-6px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--gold)}
+.el-light{background:linear-gradient(145deg,#ffe49a,#b0821a)} .el-dark{background:linear-gradient(145deg,#c4a2f2,#4a2384)}
+.el-fire{background:linear-gradient(145deg,#ffb48d,#a7380f)} .el-ice{background:linear-gradient(145deg,#9fe0ff,#145f97)} .el-wind{background:linear-gradient(145deg,#b0e6b3,#2a7731)}
+.tier{flex:none;font-family:var(--f-display);font-weight:700;font-size:13px;padding:1px 7px;border-radius:6px;font-variant-numeric:tabular-nums;letter-spacing:.3px}
+.t-SS{background:linear-gradient(135deg,#f6d77a,#c8952c);color:#2a1d02} .t-S{background:#e0a640;color:#2a1d02} .t-A{background:#3fae6a;color:#04170c} .t-B{background:#3d7fc0;color:#fff} .t-C{background:#6b5aa8;color:#fff} .t-D{background:#4a4f5c;color:#ddd} .t-x{background:#2a313d;color:#9aa}
+.list{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.gain{font-family:var(--f-display);font-size:18px;font-weight:700;color:var(--good);font-variant-numeric:tabular-nums;white-space:nowrap}
+.reason{grid-column:1/-1;font-size:12.5px;color:var(--muted);margin:-2px 0 4px}
+.boxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.empty{color:var(--muted);font-style:italic}
+.note{font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.55}
+.view[hidden]{display:none}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.tools input,.tools select,.picker-tools input,.picker-tools select{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.scroll{overflow-x:auto}
+table.inv{width:100%;border-collapse:collapse;font-size:13.5px;min-width:880px}
+table.inv th{position:sticky;top:0;background:var(--panel2);text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap}
+table.inv td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.inv tbody tr:hover{background:#18212e}
+table.inv td.n{text-align:right;font-variant-numeric:tabular-nums}
+.sc{display:inline-block;min-width:40px;text-align:center;border-radius:6px;padding:1px 6px;font-weight:800;font-variant-numeric:tabular-nums}
+.sc-hi{background:#1f7a46} .sc-mid{background:#3d7fc0} .sc-lo{background:#8a6a1a} .sc-bad{background:#6b2525}
+.subs{color:var(--muted);font-size:12.5px}
+/* dialog */
+.ov{position:fixed;inset:0;background:rgba(4,8,14,.78);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow:auto;z-index:10}
+.ov.open{display:flex}
+.dlg{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:16px;max-width:800px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.dlg h3{font-family:var(--f-display);margin:0;font-size:26px;font-weight:700}
+.dlg h4{margin:18px 0 6px;font-family:var(--f-display);font-size:17px;letter-spacing:.4px;color:var(--acc)}
+.dlg .x{float:right}
+.kv{display:grid;grid-template-columns:190px 1fr;gap:6px 14px;margin:14px 0;font-size:14px}
+@media (max-width:560px){.kv{grid-template-columns:1fr}}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.g{display:inline-block;padding:0 7px;border-radius:5px;font-weight:800;font-size:12.5px}
+.g-SSS,.g-SS{background:#1f7a46} .g-S{background:#2f9a5c} .g-A{background:#3d7fc0} .g-B{background:#6b5aa8} .g-C{background:#8a6a1a} .g-D{background:#8b3a35} .g-F{background:#6b2525}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12.5px;background:var(--bg2)}
+.pill.own{border-color:var(--good);color:#bdf0d0}
+.pill.miss{opacity:.7}
+table.b{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+table.b th,table.b td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+table.b th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+table.b td.n{font-variant-numeric:tabular-nums;text-align:right}
+.cmp td.up{color:var(--good);font-weight:800} .cmp td.down{color:var(--bad);font-weight:800}
+.srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;margin-top:6px}
+.src{display:flex;justify-content:space-between;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px}
+.mini{font-size:12px;color:var(--muted)}
+.dropzone{margin-top:14px;border:1px dashed var(--acc2);border-radius:12px;padding:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);font-size:13.5px;background:#0f1a1e}
+.picker-tools{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.picker-tools input{flex:1;min-width:180px}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;max-height:58vh;overflow:auto;padding-right:4px}
+.pick label{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 8px;cursor:pointer}
+.pick input{accent-color:var(--acc);width:18px;height:18px}
+.pick label.on{border-color:var(--acc2);background:#10242a}
+.msg{margin-top:8px;font-size:13.5px}
+.skill{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:6px;font-size:13.5px}
+.skill b{color:var(--acc)} .skill .sb{display:block;margin-top:4px;color:var(--gold);font-size:12.5px}
+.artcard{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:6px}
+.artimg{flex:none;width:56px;height:56px;border-radius:10px;background:#0b1016 center/contain no-repeat;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold);font-size:22px}
+.progress{font-size:12.5px;color:var(--acc);min-height:1em}
+.gear.dot{position:relative}.gear.dot::after{content:"";position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:var(--acc)}
+.gear{flex:none;width:38px;height:38px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);font-size:20px;cursor:pointer;display:grid;place-items:center}
+.gear:hover{color:var(--acc);border-color:var(--acc2)}
+.set-sec{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
+.set-sec h4{margin:0 0 4px!important}
+.set-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.artslot{cursor:pointer;font-size:24px;color:var(--acc)}
+.artslot:hover,.artslot.armed{border-color:var(--acc);box-shadow:0 0 0 2px rgba(53,208,196,.35)}
+.aico{display:inline-block;width:20px;height:20px;border-radius:5px;background:center/contain no-repeat;vertical-align:-5px;margin-right:6px}
+/* overlay */
+#ovl{display:none}
+body.overlay .app{display:block} body.overlay aside, body.overlay main > .wrap > *:not(#ovl){display:none !important}
+body.overlay #ovl, #ovl.pip{display:block}
+#ovl{max-width:420px;margin:0 auto;padding:12px;background:var(--bg)}
+#ovl .ovhead{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+#ovl .ovhead strong{font-family:var(--f-display);color:var(--acc);font-size:19px;flex:1;letter-spacing:.5px}
+#ovl input{width:100%;background:var(--bg2);border:1px solid var(--acc2);border-radius:10px;padding:9px 11px;font-size:15px}
+#ovl .res{display:grid;gap:6px;margin:8px 0}
+#ovl .card2{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:13.5px}
+#ovl .card2 h5{margin:0 0 6px;font-size:16px;font-family:var(--f-display)}
+#ovl .line{margin:5px 0} #ovl .lab{color:var(--muted)}
+#ovl .pill{font-size:12px;padding:2px 8px}
+@media (max-width:820px){
+  .app{grid-template-columns:1fr} aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}
+  .nav{grid-auto-flow:column} .side-h{display:none} .side-actions{grid-auto-flow:column} main{padding:16px}
+}
+@media (prefers-reduced-motion:no-preference){.chip,.btn,.nav button{transition:background .15s,border-color .15s,color .15s}}
+</style>
+__JSZIP__
+</head>
+<body>
+<div class="app">
+<aside>
+  <div style="display:flex;align-items:flex-start;gap:8px"><div class="logo" style="flex:1"><b>ZKX</b><small>Epic Seven · teams · stuff · tier lists</small></div><button class="gear" id="gear" type="button" aria-label="Paramètres" title="Paramètres">⚙</button></div>
+  <nav class="nav" role="tablist" aria-label="Sections">
+    <button role="tab" id="tab-conseils" aria-selected="true" aria-controls="v-conseils"><span class="ic">⚔</span>Conseils</button>
+    <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
+    <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
+  </nav>
+  <div class="side-h">Ma box</div>
+  <div class="side-actions">
+    <label class="btn primary" for="file">Importer Fribbels (.json)</label>
+    <input id="file" type="file" accept=".json,application/json" hidden>
+    <button class="btn" id="manual" type="button">Cocher mes persos</button>
+    <button class="btn" id="example" type="button">Box d'exemple</button>
+  </div>
+  <div class="side-h">Affichage</div>
+  <div class="seg" role="group" aria-label="Mode de jeu"><button type="button" id="m-pvp" aria-pressed="true">PvP</button><button type="button" id="m-pve" aria-pressed="false">PvE</button></div>
+  <button class="btn" id="ovbtn" type="button">🪟 Mode overlay</button>
+</aside>
+<main><div class="wrap">
+<header class="top">
+  <div><h1>Tableau de bord</h1><p>Tes meilleures teams, les persos à chercher, ton stuff noté comme dans Fribbels. Tiers = consensus de 12 tier lists, données RTA du 30/10/2026. Compétences et stats de base : pack e7-sidekick-resources.</p></div>
+  <div class="status" id="status" aria-live="polite"></div>
+</header>
+<div class="kpis" id="kpis"></div>
+<div class="view" id="v-conseils" role="tabpanel" aria-labelledby="tab-conseils">
+<div class="grid">
+  <div>
+    <section class="card" aria-labelledby="h-teams">
+      <h2 id="h-teams">Meilleures teams</h2>
+      <p class="sub" id="teams-sub">Calculées avec le tier de chaque perso, les synergies connues et la présence d'un soigneur.</p>
+      <div id="teams"></div>
+    </section>
+    <section class="card" style="margin-top:18px" aria-labelledby="h-want">
+      <h2 id="h-want">Persos à chercher en priorité</h2>
+      <p class="sub">Ceux qui amélioreraient le plus ta meilleure team s'ils arrivaient dans ta box.</p>
+      <div class="list" id="want"></div>
+    </section>
+  </div>
+  <section class="card" aria-labelledby="h-box">
+    <h2 id="h-box">Ma box</h2>
+    <p class="sub">Triée par tier. Les 6 premiers sont à monter en priorité. Clique sur un perso pour voir sa fiche.</p>
+    <div class="boxgrid" id="box"></div>
+  </section>
+</div>
+
+</div>
+<div class="view" id="v-stuff" role="tabpanel" aria-labelledby="tab-stuff" hidden>
+  <section class="card" style="margin-top:14px">
+    <h2>Mon stuff</h2>
+    <p class="sub" id="stuff-sub"></p>
+    <div class="tools">
+      <select id="f-set" aria-label="Filtrer par set"></select>
+      <select id="f-slot" aria-label="Filtrer par emplacement"><option value="">Tous les emplacements</option><option>Weapon</option><option>Helmet</option><option>Armor</option><option>Necklace</option><option>Ring</option><option>Boots</option></select>
+      <select id="f-eq" aria-label="Filtrer par équipement"><option value="">Équipées ou non</option><option value="free">Non équipées</option><option value="eq">Équipées</option></select>
+      <select id="f-score" aria-label="Type de score"><option value="wss">Score global</option><option value="dps">Score DPS</option><option value="sup">Score support/tank</option></select>
+    </div>
+    <div class="scroll"><table class="inv"><thead><tr><th data-sort="slot">Emplacement</th><th data-sort="set">Set</th><th data-sort="lvl">Niv.</th><th>Stat principale</th><th>Sous-stats</th><th data-sort="score">Score ↓</th><th data-sort="who">Équipée sur</th></tr></thead><tbody id="inv"></tbody></table></div>
+    <p class="mini" style="margin-top:10px">Score = même formule que le « gear score » de Fribbels : chaque sous-stat est ramenée à l'équivalent d'un % d'attaque (vitesse ×2, crit ×1,6, dégâts crit ×1,14, stats plates converties). Plus c'est haut, meilleure est la pièce. Vert ≥ 70, olive ≥ 55, jaune ≥ 40.</p>
+  </section>
+</div>
+<div class="view" id="v-tiers" role="tabpanel" aria-labelledby="tab-tiers" hidden>
+  <section class="card" style="margin-top:14px">
+    <h2>Tier lists consensus</h2>
+    <p class="sub">Même calcul que dans le tableur : 6 sources PvP et 6 PvE pondérées. Clique sur un perso pour sa fiche complète.</p>
+    <div class="tools">
+      <input id="t-q" type="search" placeholder="Rechercher un perso" aria-label="Rechercher dans la tier list">
+      <select id="t-own" aria-label="Filtrer"><option value="">Tous les persos</option><option value="own">Seulement ma box</option><option value="miss">Ceux que je n'ai pas</option></select>
+    </div>
+    <div class="scroll"><table class="inv" id="tier-table"></table></div>
+  </section>
+</div>
+<div id="ovl" aria-label="Overlay">
+  <div class="ovhead"><strong>E7 · Overlay</strong><button class="btn sm" type="button" id="ov-mode">PvP</button><button class="btn sm" type="button" id="ov-exit">Quitter</button></div>
+  <input id="ov-q" type="search" placeholder="Tape un perso (FR ou EN)…" aria-label="Chercher un perso" autocomplete="off">
+  <div class="res" id="ov-res"></div>
+  <div id="ov-card"></div>
+  <div class="card2" id="ov-team" style="margin-top:8px"></div>
+  <p class="mini" id="ov-tip" style="margin-top:8px"></p>
+</div>
+<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour l'import automatique, exporte ta box depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Ta box et tes images restent dans ton navigateur. Pour mettre l'image d'un perso, ouvre sa fiche et colle-la. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
+</div></main>
+</div>
+
+<div class="ov" id="ov-hero" role="dialog" aria-modal="true" aria-labelledby="hero-title"><div class="dlg" id="hero-dlg"></div></div>
+<div class="ov" id="ov-set" role="dialog" aria-modal="true" aria-labelledby="set-title">
+  <div class="dlg">
+    <button class="btn x" type="button" id="set-close">Fermer</button>
+    <h3 id="set-title">⚙ Paramètres</h3>
+    <div class="set-sec">
+      <h4>🖼 Images des persos et des artefacts</h4>
+      <p class="mini" style="margin:0">Charge le pack e7-sidekick-resources, ou directement des images .png, .webp ou .jpg. Noms reconnus : nom du perso ou de l'artefact en anglais ou en français (ex. <code>frieren.webp</code>, <code>Lua.png</code>, <code>icon_mirrored_lotus_ring.png</code>) ou code du jeu (ex. <code>c1144.webp</code>). Les images restent dans ton navigateur.</p>
+      <div class="set-row">
+        <label class="btn primary" for="pack-png">Choisir des images (.png / .webp)</label><input id="pack-png" type="file" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg" multiple hidden>
+        <label class="btn" for="pack-dir">Choisir un dossier</label><input id="pack-dir" type="file" webkitdirectory multiple hidden>
+        <label class="btn" for="pack-zip">Choisir le .zip</label><input id="pack-zip" type="file" accept=".zip,application/zip" hidden>
+        <button class="btn" type="button" id="img-clear">Effacer toutes les images</button>
+      </div>
+      <p class="progress" id="pack-msg" aria-live="polite"></p>
+      <p class="mini" id="img-count"></p>
+    </div>
+    <div class="set-sec">
+      <h4>🔤 Affichage</h4>
+      <div class="set-row"><button class="btn" id="lang" type="button" aria-pressed="true">Noms : FR</button><button class="btn" id="sklang" type="button" aria-pressed="true">Capacités : FR</button></div>
+    </div>
+    <div class="set-sec" id="app-sec" hidden>
+      <h4>🖥 Application</h4>
+      <p class="mini" style="margin:0" id="app-ver"></p>
+      <div class="set-row"><button class="btn" type="button" id="ontop" aria-pressed="false">📌 Toujours au premier plan : non</button></div>
+      <p class="mini" style="margin:8px 0 0">Mises à jour : indique ton dépôt GitHub (ex. <code>pandazkx/zkx</code>). L'appli regarde la dernière version publiée dans « Releases » au démarrage.</p>
+      <div class="set-row"><input id="repo" type="text" placeholder="pseudo/zkx" aria-label="Dépôt GitHub" style="flex:1;min-width:160px"><button class="btn primary" type="button" id="upd">Vérifier les mises à jour</button></div>
+      <p class="progress" id="upd-msg" aria-live="polite"></p>
+    </div>
+    <div class="set-sec">
+      <h4>🗑 Données</h4>
+      <p class="mini" style="margin:0">Remet l'appli à zéro sur cet appareil (box, stuff importé, images).</p>
+      <div class="set-row"><button class="btn" type="button" id="reset-all">Tout réinitialiser</button></div>
+      <p class="progress" id="reset-msg" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+<div class="ov" id="ov-pick" role="dialog" aria-modal="true" aria-labelledby="pick-title">
+  <div class="dlg">
+    <button class="btn x" type="button" id="pick-close">Valider</button>
+    <h3 id="pick-title">Coche les persos que tu as</h3>
+    <div class="picker-tools">
+      <input id="q" type="search" placeholder="Rechercher (nom anglais ou français)" aria-label="Rechercher un perso">
+      <select id="fel" aria-label="Filtrer par élément"><option value="">Tous les éléments</option><option value="fire">🔥 Feu</option><option value="ice">❄ Glace</option><option value="wind">🌿 Terre</option><option value="light">☀ Lumière</option><option value="dark">🌙 Ténèbres</option></select>
+      <select id="fcl" aria-label="Filtrer par classe"><option value="">Toutes les classes</option><option value="knight">Chevalier</option><option value="warrior">Guerrier</option><option value="assassin">Voleur</option><option value="ranger">Archer</option><option value="mage">Mage</option><option value="manauser">Tisseur d'âme</option></select>
+      <button class="btn" type="button" id="pick-none">Tout décocher</button>
+    </div>
+    <div class="pick" id="pick"></div>
+  </div>
+</div>
+
+<script>
+const DATA = __DATA__;
+const BY = Object.fromEntries(DATA.map(h => [h.n, h]));
+const ELCOLOR = {light:"#e9b843", dark:"#9a6ae0", fire:"#f07a45", ice:"#3fb6ef", wind:"#4fb357"};
+const CLS = {knight:"⛨", warrior:"⚔", assassin:"🗡", ranger:"➶", mage:"✦", manauser:"✚"};
+const CLN = {knight:"Chevalier", warrior:"Guerrier", assassin:"Voleur", ranger:"Archer", mage:"Mage", manauser:"Tisseur d'âme"};
+const ELN = {light:"☀ Lumière", dark:"🌙 Ténèbres", fire:"🔥 Feu", ice:"❄ Glace", wind:"🌿 Terre"};
+const GTXT = {SSS:"énorme", SS:"très haut", S:"haut", A:"bon", B:"moyen", C:"faible", D:"très faible", F:"quasi nul"};
+const EXAMPLE = ["Lady of the Scales","Frieren","Arbiter Vildred","Genesis Ras","Estelle","School Nurse Yulha","Boss Arunka","Setsuka","Briar Witch Iseria","Tamarinne","Angelic Montmorancy","Ruele of Light","Belian","Harsetti","Maid Chloe","Aube","Krau","Seaside Bellona","Landy","Zio"];
+
+const META = __META__;
+const ARTS = __ARTS__;
+const SETS = {HealthSet:"PV",DefenseSet:"Défense",AttackSet:"Attaque",SpeedSet:"Vitesse",CriticalSet:"Critique",HitSet:"Coup",DestructionSet:"Destruction",LifestealSet:"Vol de vie",CounterSet:"Contre",ResistSet:"Résistance",UnitySet:"Unité",RageSet:"Rage",ImmunitySet:"Immunité",RevengeSet:"Vengeance",InjurySet:"Blessure",PenetrationSet:"Pénétration",ProtectionSet:"Protection",TorrentSet:"Torrent",ReversalSet:"Renversement",RiposteSet:"Riposte",WarfareSet:"Warfare",PursuitSet:"Poursuite",WeakeningSet:"Affaiblissement",FervorSet:"Fervor"};
+const FR2SET = Object.fromEntries(Object.entries(SETS).map(([k,v]) => [v,k]));
+const SLOTFR = {Weapon:"Arme",Helmet:"Casque",Armor:"Armure",Necklace:"Collier",Ring:"Anneau",Boots:"Bottes"};
+const STATFR = {Attack:"Att",AttackPercent:"Att %",Health:"PV",HealthPercent:"PV %",Defense:"Déf",DefensePercent:"Déf %",Speed:"Vit",CriticalHitChancePercent:"Crit %",CriticalHitDamagePercent:"Dég. crit %",EffectivenessPercent:"Eff %",EffectResistancePercent:"Rés %"};
+let ITEMS = [], HEROID = {}, itemsExample = false, invSort = "score";
+function wss(it){
+  const s = {}; for (const x of it.substats || []) s[x.type] = (s[x.type] || 0) + (+x.value || 0);
+  const g = k => s[k] || 0, A = 3.46/39, D = 4.99/31, H = 3.09/174;
+  const all = g("AttackPercent")+g("DefensePercent")+g("HealthPercent")+g("EffectResistancePercent")+g("EffectivenessPercent")+g("Speed")*2+g("CriticalHitDamagePercent")*8/7+g("CriticalHitChancePercent")*1.6+g("Attack")*A+g("Defense")*D+g("Health")*H;
+  const dps = g("AttackPercent")+g("Speed")*2+g("CriticalHitDamagePercent")*8/7+g("CriticalHitChancePercent")*1.6+g("Attack")*A;
+  const sup = g("DefensePercent")+g("HealthPercent")+g("EffectResistancePercent")+g("Speed")*2+g("Defense")*D+g("Health")*H;
+  return {wss: Math.round(all), dps: Math.round(dps), sup: Math.round(sup)};
+}
+function scClass(v){ return v >= 70 ? "sc-hi" : v >= 55 ? "sc-mid" : v >= 40 ? "sc-lo" : "sc-bad"; }
+function fmtStat(type, v){ return `${STATFR[type] || type} ${type.endsWith("Percent") ? v + " %" : v}`; }
+function heroRole(h){
+  const R = {SSS:7,SS:6,S:5,A:4,B:3,C:2,D:1,F:0};
+  if (h.dd && h.ds) return R[h.dd] >= R[h.ds] + 1 ? "dps" : (R[h.ds] >= R[h.dd] + 1 ? "sup" : (["manauser","knight"].includes(h.cl) ? "sup" : "dps"));
+  return ["manauser","knight"].includes(h.cl) ? "sup" : "dps";
+}
+function recSets(h){ if (!h.build) return []; return h.build.set.split(" + ").map(s => FR2SET[s.trim()]).filter(Boolean); }
+function heroStats(h, items){
+  const b = h.base; if (!b) return null;
+  const acc = {Attack:0,AttackPercent:0,Health:0,HealthPercent:0,Defense:0,DefensePercent:0,Speed:0,CriticalHitChancePercent:0,CriticalHitDamagePercent:0,EffectivenessPercent:0,EffectResistancePercent:0};
+  const sets = {};
+  for (const it of items){
+    if (it.main) acc[it.main.type] = (acc[it.main.type] || 0) + (+it.main.value || 0);
+    for (const x of it.substats || []) acc[x.type] = (acc[x.type] || 0) + (+x.value || 0);
+    sets[it.set] = (sets[it.set] || 0) + 1;
+  }
+  const n = k => sets[k] || 0, pair = k => Math.floor(n(k) / 2), four = k => n(k) >= 4 ? 1 : 0;
+  const atk = b[0] + b[0]*acc.AttackPercent/100 + acc.Attack + four("AttackSet")*.45*b[0];
+  const hp = b[1] + b[1]*acc.HealthPercent/100 + acc.Health + pair("HealthSet")*.2*b[1] - pair("TorrentSet")*.1*b[1] + four("WarfareSet")*.2*b[1];
+  const def = b[2] + b[2]*acc.DefensePercent/100 + acc.Defense + pair("DefenseSet")*.2*b[2];
+  const spd = b[3] + acc.Speed + four("SpeedSet")*.25*b[3] + four("RevengeSet")*.12*b[3] + four("ReversalSet")*.15*b[3];
+  const cr = Math.min(100, b[4] + acc.CriticalHitChancePercent + pair("CriticalSet")*12);
+  const cd = b[5] + acc.CriticalHitDamagePercent + four("DestructionSet")*60;
+  const eff = b[6] + acc.EffectivenessPercent + pair("HitSet")*20;
+  const res = b[7] + acc.EffectResistancePercent + pair("ResistSet")*20;
+  return [atk, def, hp, spd, cr, cd, eff, res].map(Math.round);
+}
+function itemsOf(name){ return ITEMS.filter(it => it._who === name); }
+function bestPieces(h){
+  const role = heroRole(h), rs = new Set(recSets(h)), out = {};
+  for (const it of ITEMS){
+    const s = it._s[role === "dps" ? "dps" : "sup"] + (rs.has(it.set) ? 12 : 0) + (it.main && ((role === "dps" && /Attack|Critical/.test(it.main.type)) || (role === "sup" && /Health|Defense|Resistance|Effectiveness/.test(it.main.type)) || it.main.type === "Speed") ? 6 : 0);
+    if (!out[it.gear] || s > out[it.gear].s) out[it.gear] = {it, s};
+  }
+  return ["Weapon","Helmet","Armor","Necklace","Ring","Boots"].map(g => out[g]).filter(Boolean);
+}
+function loadItems(data, example){
+  ITEMS = (data.items || []).filter(it => it && it.gear && it.set);
+  HEROID = {};
+  for (const h of data.heroes || []) if (h.id != null) HEROID[h.id] = (NORM[norm(h.name)] || h.name);
+  for (const it of ITEMS){ it._s = wss(it); it._who = it.equippedByName ? (NORM[norm(it.equippedByName)] || it.equippedByName) : (it.equippedById != null ? HEROID[it.equippedById] : null) || null; }
+  itemsExample = !!example;
+}
+function exampleItems(){
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const SUB = ["AttackPercent","HealthPercent","DefensePercent","Speed","CriticalHitChancePercent","CriticalHitDamagePercent","EffectivenessPercent","EffectResistancePercent"];
+  const ROLL = {AttackPercent:[4,8],HealthPercent:[4,8],DefensePercent:[4,8],Speed:[2,5],CriticalHitChancePercent:[3,5],CriticalHitDamagePercent:[4,7],EffectivenessPercent:[4,8],EffectResistancePercent:[4,8]};
+  const MAIN = {Weapon:["Attack",515],Helmet:["Health",2765],Armor:["Defense",310],Necklace:["CriticalHitDamagePercent",70],Ring:["HealthPercent",65],Boots:["Speed",45]};
+  const plan = [["Lady of the Scales",["SpeedSet","SpeedSet","SpeedSet","SpeedSet","ResistSet","ResistSet"]],["Frieren",["SpeedSet","SpeedSet","SpeedSet","SpeedSet","TorrentSet","TorrentSet"]],["Arbiter Vildred",["DestructionSet","DestructionSet","DestructionSet","DestructionSet","TorrentSet","TorrentSet"]],[null,["SpeedSet","ImmunitySet","CriticalSet","HealthSet","DestructionSet","ResistSet"]],[null,["SpeedSet","HitSet","CounterSet","ImmunitySet","AttackSet","DefenseSet"]]];
+  const items = []; let id = 1;
+  for (const [who, sets] of plan) ["Weapon","Helmet","Armor","Necklace","Ring","Boots"].forEach((g, i) => {
+    const used = new Set([MAIN[g][0]]), subs = [];
+    while (subs.length < 4){ const k = SUB[Math.floor(rnd()*SUB.length)]; if (used.has(k)) continue; used.add(k);
+      const rolls = 1 + Math.floor(rnd()*3), [lo,hi] = ROLL[k]; let v = 0; for (let r=0;r<rolls;r++) v += lo + Math.round(rnd()*(hi-lo)); subs.push({type:k, value:v}); }
+    items.push({id:id++, gear:g, set:sets[i], level:88, enhance:15, rank:"Epic", main:{type:MAIN[g][0], value:MAIN[g][1]}, substats:subs, equippedByName:who || undefined});
+  });
+  return {heroes:[], items};
+}
+function renderInv(){
+  const fs = document.getElementById("f-set"), cur = fs.value;
+  const present = [...new Set(ITEMS.map(i => i.set))].sort((a,b) => (SETS[a]||a).localeCompare(SETS[b]||b));
+  fs.innerHTML = `<option value="">Tous les sets</option>` + present.map(s => `<option value="${esc(s)}">${esc(SETS[s] || s)}</option>`).join(""); fs.value = present.includes(cur) ? cur : "";
+  const sl = document.getElementById("f-slot").value, eq = document.getElementById("f-eq").value, sk = document.getElementById("f-score").value;
+  let L = ITEMS.filter(it => (!fs.value || it.set === fs.value) && (!sl || it.gear === sl) && (!eq || (eq === "eq" ? it._who : !it._who)));
+  const key = {score: it => -it._s[sk], slot: it => it.gear, set: it => SETS[it.set] || it.set, lvl: it => -(it.level || 0), who: it => it._who || "~"}[invSort];
+  L.sort((a,b) => { const x = key(a), y = key(b); return x < y ? -1 : x > y ? 1 : 0; });
+  document.getElementById("stuff-sub").innerHTML = ITEMS.length ? `<b>${ITEMS.length}</b> pièces${itemsExample ? '<span class="tag-ex">EXEMPLE</span> — importe ta sauvegarde Fribbels pour voir ton vrai stuff' : " importées depuis Fribbels"} · ${L.length} affichées.` : "Aucune pièce : importe ta sauvegarde Fribbels.";
+  document.getElementById("inv").innerHTML = L.slice(0, 400).map(it => `<tr><td>${SLOTFR[it.gear] || it.gear}</td><td>${esc(SETS[it.set] || it.set)}</td><td class="n">${it.level || ""}${it.enhance ? " +" + it.enhance : ""}</td><td>${it.main ? esc(fmtStat(it.main.type, it.main.value)) : ""}</td><td class="subs">${(it.substats || []).map(x => esc(fmtStat(x.type, x.value))).join(" · ")}</td><td class="n"><span class="sc ${scClass(it._s[sk])}">${it._s[sk]}</span></td><td>${it._who ? `<button type="button" class="btn" style="padding:3px 9px;font-size:13px" data-hero="${esc(it._who)}">${esc(DN(it._who))}</button>` : '<span class="mini">libre</span>'}</td></tr>`).join("") || `<tr><td colspan="7" class="empty">Aucune pièce ne correspond aux filtres.</td></tr>`;
+}
+function renderTiers(){
+  const q = document.getElementById("t-q").value.trim().toLowerCase(), f = document.getElementById("t-own").value;
+  const S = META.sources;
+  const L = DATA.filter(h => (h.pvp != null || h.pve != null) && (!q || h.n.toLowerCase().includes(q) || (h.fr || "").toLowerCase().includes(q)) && (!f || (f === "own" ? owned.has(h.n) : !owned.has(h.n))))
+    .sort((a,b) => (b.pvp ?? -1) - (a.pvp ?? -1));
+  document.getElementById("tier-table").innerHTML = `<thead><tr><th>Perso</th><th>PvP</th><th>PvE</th><th>Win rate</th><th>Pick</th><th>DPS</th><th>TANK</th>${S.map(s => `<th title="${esc(s.lab)} · ${esc(s.date)}">${esc(s.lab.replace(/ \(.*/, "").replace("Pocket Gamer","PG"))}<br><span class="mini">${esc((s.lab.match(/\((.*)\)/)||["",""])[1])}</span></th>`).join("")}</tr></thead><tbody>` +
+    L.map(h => `<tr><td style="min-width:230px">${chip(h)}</td><td>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span>` : "—"}</td><td>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span>` : "—"}</td><td class="n">${h.wr != null ? String(h.wr).replace(".", ",") + " %" : "—"}</td><td class="n">${h.pick != null ? String(h.pick).replace(".", ",") + " %" : "—"}</td><td>${h.dd ? `<span class="g g-${h.dd}">${h.dd}</span>` : ""}</td><td>${h.ds ? `<span class="g g-${h.ds}">${h.ds}</span>` : ""}</td>${S.map(s => `<td>${h.src && h.src[s.k] ? esc(h.src[s.k]) : ""}</td>`).join("")}</tr>`).join("") + `</tbody>`;
+}
+function stuffSection(h){
+  let html = "";
+  const mine = itemsOf(h.n);
+  if (mine.length){
+    const st = heroStats(h, mine), tgt = h.fr_avg ? h.fr_avg.map(Number) : null;
+    const lab = ["Attaque","Défense","PV","Vitesse","Crit %","Dég. crit %","Efficacité %","Résistance %"];
+    html += `<h4>🧮 Ton stuff actuel (${mine.length} pièce${mine.length>1?"s":""})</h4><table class="b cmp"><thead><tr><th>Stat</th><th>Toi</th>${tgt ? "<th>Moyenne des joueurs</th><th>Écart</th>" : ""}</tr></thead><tbody>` +
+      lab.map((l, i) => { const d = tgt ? st[i] - tgt[i] : 0; return `<tr><td>${l}</td><td class="n">${st[i]}</td>${tgt ? `<td class="n">${tgt[i]}</td><td class="n ${d >= 0 ? "up" : "down"}">${d >= 0 ? "+" : ""}${d}</td>` : ""}</tr>`; }).join("") +
+      `</tbody></table><p class="mini">Stats calculées comme Fribbels (stats de base 6★ éveillé + pièces + bonus de sets), sans l'artefact ni l'imprint : l'attaque et les PV réels sont un peu plus hauts.</p>`;
+  }
+  if (ITEMS.length){
+    const bp = bestPieces(h);
+    if (bp.length){
+      html += `<h4>🎒 Meilleures pièces de ton inventaire pour ${esc(dn(h))}</h4><p class="mini">Profil ${heroRole(h) === "dps" ? "DPS (attaque, crit, vitesse)" : "support/tank (PV, défense, résistance, vitesse)"}${recSets(h).length ? ", bonus pour les sets conseillés : " + recSets(h).map(s => SETS[s]).join(" + ") : ""}.</p><table class="b"><thead><tr><th>Emplacement</th><th>Set</th><th>Principale</th><th>Sous-stats</th><th>Score</th><th>Actuellement</th></tr></thead><tbody>` +
+        bp.map(({it}) => `<tr><td>${SLOTFR[it.gear]}</td><td>${esc(SETS[it.set] || it.set)}</td><td>${it.main ? esc(fmtStat(it.main.type, it.main.value)) : ""}</td><td class="subs">${(it.substats||[]).map(x => esc(fmtStat(x.type, x.value))).join(" · ")}</td><td class="n"><span class="sc ${scClass(it._s.wss)}">${it._s.wss}</span></td><td>${it._who === h.n ? "✓ déjà sur lui" : it._who ? "sur " + esc(DN(it._who)) : "libre"}</td></tr>`).join("") + `</tbody></table>`;
+    }
+  }
+  return html;
+}
+function artKey(name){ return (ARTS[name] && ARTS[name].key) || String(name).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
+function artIcon(name){ const im = AIMGS[artKey(name)]; return im ? `<span class="aico" style="background-image:url('${im}')" aria-hidden="true"></span>` : ""; }
+let pasteTarget = null;
+function artCard(name){
+  const a = ARTS[name], im = AIMGS[artKey(name)];
+  return `<div class="artcard"><div class="artimg" ${im ? `style="background-image:url('${im}')"` : ""} aria-hidden="true">${im ? "" : "🔱"}</div>
+    <div style="flex:1;min-width:0"><b>${esc(name)}</b>${a ? ` <span class="mini">· ${esc(a.class)} · ${esc(a.stars)}★</span><div style="font-size:13px;margin-top:3px">${esc(sklang === "fr" && a.skill_fr ? a.skill_fr : a.skill)}</div>` : '<div class="mini">Effet pas encore dans les données.</div>'}</div></div>`;
+}
+function setArtImg(name, file){
+  if (!file || !file.type.startsWith("image/")) return;
+  const k = artKey(name);
+  blobToSmall(file, 96, d => { if (!d) return; AIMGS[k] = d; IDB.put("a:" + k, d); pasteTarget = null; if (currentHero) heroDialog(currentHero); renderAll(); });
+}
+function wireArtSlots(root){ return;
+  root.querySelectorAll(".artslot").forEach(s => {
+    s.addEventListener("click", () => { pasteTarget = s.dataset.art; root.querySelectorAll(".artslot").forEach(x => x.classList.toggle("armed", x === s));
+      const m = s.parentElement.querySelector(".artmsg"); if (m) m.textContent = " → prête : fais Ctrl+V"; });
+    s.addEventListener("dragover", e => e.preventDefault());
+    s.addEventListener("drop", e => { e.preventDefault(); e.stopPropagation(); setArtImg(s.dataset.art, e.dataTransfer.files[0]); });
+  });
+  root.querySelectorAll(".artfile").forEach(i => i.addEventListener("change", e => setArtImg(i.dataset.art, e.target.files[0])));
+  root.querySelectorAll(".artdel").forEach(b => b.addEventListener("click", () => { const k = artKey(b.dataset.art); delete AIMGS[k]; IDB.put("a:" + k, null); heroDialog(currentHero); renderAll(); }));
+}
+const STFR = {"Critical Hit Chance":"Chances crit.","Critical Hit Damage":"Dégâts crit.","Effect Resistance":"Résistance","Effectiveness":"Précision","Attack":"Attaque","Defense":"Défense","Health":"PV","Speed":"Vitesse","Dual Attack Chance":"Chances d'attaque combinée"};
+const stFr = x => { x = String(x || ""); if (sklang !== "fr") return x; for (const [k, v] of Object.entries(STFR)) if (x.startsWith(k)) return v + x.slice(k.length); return x; };
+function infoSections(h){
+  if (!h.sk) return "";
+  const s = h.sk, FRS = sklang === "fr" && s.skills_fr, SK = FRS ? s.skills_fr : s.skills, SB = (FRS ? s.sb_fr : s.sb) || [];
+  let html = `<h4>📜 Infos</h4><div class="pills"><span class="pill">${esc(s.stars)}★</span>${s.type ? `<span class="pill">${s.type === "Limited" ? "Limité" : "Permanent"}</span>` : ""}${s.rel ? `<span class="pill">Sorti le ${esc(s.rel.split("-").reverse().join("/"))}</span>` : ""}${s.self ? `<span class="pill">Imprint perso : ${esc(stFr(s.self).replace(",", " "))}</span>` : ""}${s.imprint ? `<span class="pill">Imprint équipe : ${esc(stFr(s.imprint.split(",").slice(0,2).join(" ")))}</span>` : ""}</div>
+    <p class="mini" style="margin:6px 0 0">Stats de base 6★ éveillé : Att ${s.base[0]} · PV ${s.base[1]} · Déf ${s.base[2]} · Vit ${s.base[3]} · Crit ${s.base[4]} % · Dég. crit ${s.base[5]} % · Eff ${s.base[6]} % · Rés ${s.base[7]} %</p>`;
+  html += `<h4>✨ Compétences</h4>` + SK.map((x, i) => x ? `<div class="skill"><b>S${i+1}</b> — ${esc(x)}${SB[i] ? `<span class="sb">🔥 Soulburn ${esc(SB[i])}</span>` : ""}</div>` : "").join("");
+  return html;
+}
+function extraSections(h){
+  const otherArts = [...new Set((h.builds || []).map(b => b.art))].filter(a => !h.build || a !== h.build.art);
+  let html = (h.build ? `<h4>🔱 Artefact conseillé</h4>` + artCard(h.build.art) + (otherArts.length ? `<h4>🔱 Autres artefacts joués</h4>` + otherArts.map(artCard).join("") : "") : "") + infoSections(h) + `<h4>📊 Tier par source</h4><div class="srcgrid">${META.sources.map(s => `<div class="src"><span>${esc(s.lab)}<br><span class="mini">${esc(s.date)}</span></span><b>${h.src && h.src[s.k] ? esc(h.src[s.k]) : "—"}</b></div>`).join("")}</div>`;
+  if (h.fr_sets || h.fr_arts) html += `<h4>🛠 Stuffs enregistrés par les joueurs (Fribbels)</h4><p style="margin:0">${h.fr_sets ? "<b>Sets :</b> " + esc(h.fr_sets) + "<br>" : ""}${h.fr_arts ? "<b>Artefacts :</b> " + esc(h.fr_arts) : ""}</p><p class="mini">Fribbels mélange PvE et PvP : ça peut différer des builds RTA.</p>`;
+  if (h.syn){
+    const teams = [{lab:"Team principale", t:[h.n, ...h.syn]}];
+    const alt = DATA.find(x => x.beats && x.n !== h.n && !h.syn.includes(x.n) && x.beats.includes(h.beaten[0]));
+    if (alt) teams.push({lab:"Anti-" + DN(h.beaten[0]), t:[h.n, h.syn[0], h.syn[1], alt.n]});
+    if (h.n === "Lady of the Scales"){
+      teams.push({lab:"Attaque Arène", t:["Lady of the Scales","School Nurse Yulha","Setsuka","Benimaru"]}, {lab:"Défense Arène", t:["Genesis Ras","Lady of the Scales","Setsuka","Frieren"]}, {lab:"Attaque Guerre de guilde", t:["Haru","Lady of the Scales","Rhianna and Luciella"]});
+    }
+    html += `<h4>👥 Teams conseillées</h4>` + teams.map(x => { const have = x.t.filter(n => owned.has(n)).length;
+      return `<div class="team"><div class="team-head"><strong>${esc(x.lab)}</strong><span class="mini">${have}/${x.t.length} dans ta box</span></div><div class="members">${x.t.map(n => BY[n] ? chip(BY[n]) : "").join("")}</div></div>`; }).join("");
+  }
+  return html + stuffSection(h);
+}
+
+let lang = "fr", sklang = "fr";
+try { sklang = localStorage.getItem("e7sklang") || "fr"; } catch(e) {}
+try { lang = localStorage.getItem("e7lang") || "fr"; } catch(e) {}
+const dn = h => (lang === "fr" && h.fr) ? h.fr : h.n;
+const dn2 = h => (lang === "fr" && h.fr) ? h.n : (h.fr || "");
+const DN = n => BY[n] ? dn(BY[n]) : n;
+let owned = new Set(), mode = "pvp", isExample = false;
+
+const store = {get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const initials = n => { const p = n.replace("&"," ").split(/\s+/).filter(w => /[A-Za-z]/.test(w[0])); return (p.length > 1 ? p[0][0] + p[p.length-1][0] : n.slice(0,2)).toUpperCase(); };
+const sc = h => (mode === "pvp" ? h.pvp : h.pve) ?? 2.0;
+const tierOf = h => (mode === "pvp" ? h.pvpT : h.pveT) || "x";
+const fmt = x => x.toFixed(2).replace(".", ",");
+
+let IMGS = {}, AIMGS = {};
+const IDB = {
+  db: null,
+  open(){ return new Promise(res => { try { const r = indexedDB.open("e7conseiller", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("imgs");
+    r.onsuccess = () => { this.db = r.result; res(true); }; r.onerror = () => res(false); } catch(e){ res(false); } }); },
+  put(k, v){ return new Promise(res => { try { const tx = this.db.transaction("imgs", "readwrite"); v == null ? tx.objectStore("imgs").delete(k) : tx.objectStore("imgs").put(v, k); tx.oncomplete = () => res(true); tx.onerror = () => res(false); } catch(e){ res(false); } }); },
+  all(){ return new Promise(res => { try { const out = {}, rq = this.db.transaction("imgs").objectStore("imgs").openCursor();
+    rq.onsuccess = () => { const c = rq.result; if (c){ out[c.key] = c.value; c.continue(); } else res(out); }; rq.onerror = () => res({}); } catch(e){ res({}); } }); }
+};
+function saveImgs(){ if (!IDB.db) return false; for (const [n, v] of Object.entries(IMGS)) IDB.put("h:" + n, v); return true; }
+async function loadImgs(){
+  if (!(await IDB.open())) return;
+  try { const old = JSON.parse(localStorage.getItem("e7imgs") || "null"); if (old){ for (const [n, v] of Object.entries(old)) await IDB.put("h:" + n, v); localStorage.removeItem("e7imgs"); } } catch(e) {}
+  const all = await IDB.all();
+  for (const [k, v] of Object.entries(all)){ if (k.startsWith("h:")) IMGS[k.slice(2)] = v; else if (k.startsWith("a:")) AIMGS[k.slice(2)] = v; }
+  renderAll();
+}
+const KEY2N = Object.fromEntries(DATA.filter(h => h.key).map(h => [h.key, h.n]));
+const NRM = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+const HNORM = {}; DATA.forEach(h => { [h.n, h.fr, h.key, h.code].forEach(v => { if (v && !HNORM[NRM(v)]) HNORM[NRM(v)] = h.n; }); });
+const ANORM = {}; Object.entries(ARTS).forEach(([n, a]) => { ANORM[NRM(n)] = a.key; ANORM[NRM(a.key)] = a.key; });
+function blobToSmall(blob, S, cb){
+  const url = URL.createObjectURL(blob), img = new Image();
+  img.onload = () => { const c = document.createElement("canvas"); c.width = c.height = S; const x = c.getContext("2d");
+    const s = Math.min(img.width, img.height); x.drawImage(img, (img.width - s) / 2, 0, s, s, 0, 0, S, S); URL.revokeObjectURL(url);
+    let d = c.toDataURL("image/webp", .82); if (!d.startsWith("data:image/webp")) d = c.toDataURL("image/png"); cb(d); };
+  img.onerror = () => { URL.revokeObjectURL(url);
+    if (!window.createImageBitmap) return cb(null);
+    createImageBitmap(blob).then(bm => { const c = document.createElement("canvas"); c.width = c.height = S; const s = Math.min(bm.width, bm.height);
+      c.getContext("2d").drawImage(bm, (bm.width - s) / 2, 0, s, s, 0, 0, S, S); let d = c.toDataURL("image/webp", .82); if (!d.startsWith("data:image/webp")) d = c.toDataURL("image/png"); cb(d); }).catch(() => cb(null)); };
+  img.src = url;
+}
+const ARTKEYS = new Set(Object.values(ARTS).map(x => x.key));
+async function importPack(entries){
+  const msg = document.getElementById("pack-msg");
+  const jobs = [], seen = new Set();
+  for (let [path, getBlob] of entries){
+    const p = path.replace(/\\/g, "/").toLowerCase(), f = p.split("/").pop();
+    if (!/\.(png|webp|jpe?g)$/.test(f) || f.startsWith("banner_")) continue;
+    const ext = f.split(".").pop(), mime = ext === "webp" ? "image/webp" : ext === "png" ? "image/png" : "image/jpeg", gb0 = getBlob;
+    getBlob = async () => { const b = await gb0(); return b && b.type ? b : new Blob([b], { type: mime }); };
+    const base = f.replace(/\.(png|webp|jpe?g)$/, "");
+    if (base.startsWith("icon_") && !seen.has("a:" + base.slice(5))){ seen.add("a:" + base.slice(5)); jobs.push(["a", base.slice(5), getBlob, 96]); continue; }
+    if (KEY2N[base] && !p.includes("/skills/") && !p.includes("/artifacts/") && !seen.has("h:" + base)){ seen.add("h:" + base); jobs.push(["h", KEY2N[base], getBlob, 128]); continue; }
+    if (ARTKEYS.has(base) && p.includes("artifact") && !seen.has("a:" + base)){ seen.add("a:" + base); jobs.push(["a", base, getBlob, 96]); continue; }
+    if (p.includes("/skills/") || base.startsWith("banner")) continue;
+    const nb = NRM(base.replace(/^(face_|portrait_|icon_|art_|artifact_)/, "")), nb2 = nb.replace(/(face|portrait|icon|small|s|l|fu)$/, "");
+    const hn = HNORM[nb] || HNORM[nb2] || (/^c\d{4}/.test(nb) && HNORM[nb.slice(0, 5)]);
+    const ak = ANORM[nb] || ANORM[nb2];
+    if (ak && (p.includes("artifact") || !hn) && !seen.has("a:" + ak)){ seen.add("a:" + ak); jobs.push(["a", ak, getBlob, 96]); continue; }
+    if (hn && !seen.has("h:" + hn)){ seen.add("h:" + hn); jobs.push(["h", hn, getBlob, 128]); }
+  }
+  if (!jobs.length){ msg.textContent = "Aucune image reconnue. Les fichiers doivent porter le nom du perso/artefact ou son code (ex. frieren.webp, c1144.png) : les portraits sont dans images/heroes/face, les artefacts dans images/artifacts."; return; }
+  let done = 0, ok = 0;
+  for (const [kind, key, getBlob, S] of jobs){
+    const blob = await getBlob();
+    const d = await new Promise(r => blobToSmall(blob, S, r));
+    if (d){ ok++; if (kind === "h"){ IMGS[key] = d; await IDB.put("h:" + key, d); } else { AIMGS[key] = d; await IDB.put("a:" + key, d); } }
+    if (++done % 25 === 0) msg.textContent = `Import… ${done}/${jobs.length}`;
+  }
+  updateImgCount();
+  msg.textContent = `✓ ${ok} images chargées${IDB.db ? "" : " (non gardées : ton navigateur bloque le stockage)"}.`;
+  renderAll();
+}
+function badge(h, big){
+  const im = IMGS[h.n];
+  return im ? `<span class="badge img${big?" big":""}" style="background-image:url('${im}')" aria-hidden="true"><span class="cls">${CLS[h.cl]}</span></span>`
+            : `<span class="badge el-${h.el}${big?" big":""}" aria-hidden="true">${esc(initials(h.n))}<span class="cls">${CLS[h.cl]}</span></span>`;
+}
+function shrink(file, cb){
+  const r = new FileReader();
+  r.onload = () => { const img = new Image(); img.onload = () => {
+      const S = 160, c = document.createElement("canvas"); c.width = c.height = S; const x = c.getContext("2d");
+      const s = Math.min(img.width, img.height); x.drawImage(img, (img.width - s) / 2, 0, s, s, 0, 0, S, S);
+      cb(c.toDataURL("image/jpeg", .85)); };
+    img.onerror = () => cb(null); img.src = r.result; };
+  r.readAsDataURL(file);
+}
+let currentHero = null;
+function setImg(file){
+  if (!currentHero || !file || !file.type.startsWith("image/")) return;
+  shrink(file, url => { const msg = document.getElementById("img-msg");
+    if (!url){ msg.textContent = "Image illisible, essaie un autre fichier."; return; }
+    IMGS[currentHero] = url; IDB.put("h:" + currentHero, url);
+    if (!IDB.db){ msg.textContent = "Image ajoutée, mais ton navigateur ne peut pas la garder après fermeture."; }
+    const h = currentHero; heroDialog(h); renderAll(); });
+}
+function chip(h, extra=""){
+  const t = tierOf(h);
+  return `<button type="button" class="chip" style="--elc:${ELCOLOR[h.el]}" data-hero="${esc(h.n)}" aria-label="Fiche de ${esc(dn(h))}">${badge(h)}<span class="nm"><span class="en">${esc(dn(h))}</span><span class="frn">${esc(dn2(h) || ELN[h.el] + " · " + CLN[h.cl])}</span>${extra}</span><span class="tier t-${t}">${t === "x" ? "—" : t}</span></button>`;
+}
+function pairSyn(a, b){ let s = 0; if (a.syn && a.syn.includes(b.n)) s += .45; if (b.syn && b.syn.includes(a.n)) s += .45; return s; }
+function teamScore(t){
+  let s = 0, syn = 0, heal = 0;
+  for (const h of t){ s += sc(h); if (h.cl === "manauser") heal++; }
+  for (let i=0;i<t.length;i++) for (let j=i+1;j<t.length;j++) syn += pairSyn(t[i], t[j]);
+  let role = heal === 0 ? -.4 : (heal > 2 ? -.3 * (heal - 2) : 0);
+  return {total: s + syn + role, syn, role, heal};
+}
+function combos(arr, k, cb, start=0, cur=[]){
+  if (cur.length === k){ cb(cur.slice()); return; }
+  for (let i=start;i<arr.length;i++){ cur.push(arr[i]); combos(arr, k, cb, i+1, cur); cur.pop(); }
+}
+function pool(n){ return [...owned].map(x => BY[x]).filter(Boolean).sort((a,b) => sc(b) - sc(a)).slice(0, n); }
+function bestTeams(limit=5){
+  const P = pool(20), res = [];
+  if (P.length < 4) return res;
+  combos(P, 4, t => res.push({t, ...teamScore(t)}));
+  res.sort((a,b) => b.total - a.total);
+  const out = [], used = new Set();
+  for (const r of res){ const key = r.t.map(h=>h.n).sort().join("|"); if (used.has(key)) continue;
+    if (out.some(o => o.t.filter(h => r.t.includes(h)).length >= 3)) continue;
+    used.add(key); out.push(r); if (out.length >= limit) break; }
+  return out;
+}
+function synText(t){
+  const pairs = [];
+  for (let i=0;i<t.length;i++) for (let j=i+1;j<t.length;j++) if (pairSyn(t[i], t[j]) > 0) pairs.push(`<b>${esc(dn(t[i]))}</b> + <b>${esc(dn(t[j]))}</b>`);
+  return pairs;
+}
+function renderTeams(){
+  const el = document.getElementById("teams");
+  const T = bestTeams();
+  if (!T.length){ el.innerHTML = `<p class="empty">Il faut au moins 4 persos dans ta box.</p>`; return; }
+  el.innerHTML = T.map((r, i) => {
+    const pairs = synText(r.t);
+    const why = [];
+    if (pairs.length) why.push(`Combos : ${pairs.join(" · ")}.`); else why.push("Pas de combo connu entre ces persos : la team repose sur leur tier.");
+    if (r.heal === 0) why.push("Attention : pas de tisseur d'âme pour soigner.");
+    return `<div class="team${i===0?" best":""}"><div class="team-head"><strong>${i===0?"Team n°1 conseillée":"Alternative "+i}</strong><span class="score" title="Somme des notes /5 + bonus de synergie">${fmt(r.total)} pts</span></div>
+      <div class="members">${r.t.map(h => chip(h)).join("")}</div><p class="why">${why.join(" ")}</p></div>`;
+  }).join("");
+}
+function renderWant(){
+  const el = document.getElementById("want");
+  const base = bestTeams(1)[0];
+  if (!base){ el.innerHTML = `<p class="empty">Charge ta box pour voir les suggestions.</p>`; return; }
+  const P = pool(16);
+  const cands = DATA.filter(h => !owned.has(h.n) && (mode === "pvp" ? h.pvp : h.pve) != null).sort((a,b) => sc(b) - sc(a)).slice(0, 60);
+  const out = [];
+  for (const c of cands){
+    let best = null;
+    combos(P, 3, t => { const s = teamScore([c, ...t]); if (!best || s.total > best.total) best = {...s, t:[c, ...t]}; });
+    if (best && best.total > base.total + .01) out.push({c, gain: best.total - base.total, t: best.t});
+  }
+  out.sort((a,b) => b.gain - a.gain);
+  if (!out.length){ el.innerHTML = `<p class="empty">Ta meilleure team est déjà au top pour ce mode.</p>`; return; }
+  el.innerHTML = out.slice(0, 8).map(o => {
+    const mates = o.t.slice(1).filter(h => pairSyn(o.c, h) > 0).map(h => dn(h));
+    const reason = mates.length ? `Se combine avec ${mates.map(esc).join(", ")} que tu as déjà.` : `Tier ${tierOf(o.c)} : renforce ta team par sa puissance.`;
+    return `<div class="row">${chip(o.c)}<span class="gain">+${fmt(o.gain)} pts</span><span class="reason">${reason} Team obtenue : ${o.t.map(h=>esc(dn(h))).join(", ")}.</span></div>`;
+  }).join("");
+}
+function renderBox(){
+  const el = document.getElementById("box");
+  const L = [...owned].map(x => BY[x]).filter(Boolean).sort((a,b) => sc(b) - sc(a));
+  el.innerHTML = L.length ? L.map((h, i) => chip(h, i < 6 ? `<span class="prio">À MONTER${h.build ? " · " + esc(h.build.set) : ""}</span>` : (h.build ? `<span class="frn">${esc(h.build.set)}</span>` : ""))).join("") : `<p class="empty">Ta box est vide.</p>`;
+}
+function renderStatus(msg){
+  const n = owned.size;
+  document.getElementById("status").innerHTML = `${isExample?'<span class="tag-ex">EXEMPLE</span> ':""}Mode <b>${mode.toUpperCase()}</b>${msg ? " · " + msg : ""}`;
+}
+function updateImgCount(){ const el = document.getElementById("img-count"); if (el) el.textContent = `Images enregistrées : ${Object.keys(IMGS).length} persos, ${Object.keys(AIMGS).length} artefacts.`; }
+function renderKpis(){
+  const own = [...owned].map(n => BY[n]).filter(Boolean), top = own.filter(h => ["SS","S"].includes(tierOf(h))).length, bt = bestTeams(1)[0];
+  document.getElementById("kpis").innerHTML = `<div class="kpi acc"><div class="v">${own.length}</div><div class="l">persos dans ta box${isExample ? " (exemple)" : ""}</div></div>
+    <div class="kpi gold"><div class="v">${top}</div><div class="l">persos tier SS / S en ${mode.toUpperCase()}</div></div>
+    <div class="kpi"><div class="v">${bt ? fmt(bt.total) : "—"}</div><div class="l">score de ta meilleure team</div></div>
+    <div class="kpi"><div class="v">${ITEMS.length}</div><div class="l">pièces de stuff${itemsExample ? " (exemple)" : ""}</div></div>`;
+}
+function renderAll(msg){ renderStatus(msg); renderKpis(); renderTeams(); renderWant(); renderBox(); renderInv(); renderTiers(); if (typeof ovRender === 'function' && ovEl()) ovRender(); store.set("e7box", {owned:[...owned], mode, isExample}); }
+
+function heroDialog(name){
+  const h = BY[name]; if (!h) return;
+  const grade = (k, lab) => h[k] ? `<dt>${lab}</dt><dd><span class="g g-${h[k]}">${h[k]}</span> ${GTXT[h[k]]}</dd>` : "";
+  const pills = (arr) => (arr || []).map(n => `<span class="pill ${owned.has(n)?"own":"miss"}">${owned.has(n)?"✓ ":""}${esc(DN(n))}</span>`).join("") || "—";
+  let html = `<button class="btn x" type="button" data-close>Fermer</button>
+  <div style="display:flex;gap:12px;align-items:center">${badge(h)}<div><h3 id="hero-title">${esc(dn(h))}</h3><div style="color:var(--muted)">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]} ${owned.has(h.n)?'· <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
+  <dl class="kv">
+    <dt>Tier PvP</dt><dd>${h.pvpT ? `<span class="tier t-${h.pvpT}">${h.pvpT}</span> ${fmt(h.pvp)}/5 · ${h.pvpN} source${h.pvpN>1?"s":""}` : "non classé"}</dd>
+    <dt>Tier PvE</dt><dd>${h.pveT ? `<span class="tier t-${h.pveT}">${h.pveT}</span> ${fmt(h.pve)}/5 · ${h.pveN} source${h.pveN>1?"s":""}` : "non classé"}</dd>
+    ${h.wr != null ? `<dt>Win rate RTA</dt><dd>${String(h.wr).replace(".", ",")} %${h.pick != null ? ` · joué ${String(h.pick).replace(".", ",")} %` : ""}${h.pre != null ? ` · pré-ban ${String(h.pre).replace(".", ",")} %` : ""}${h.post != null ? ` · post-ban ${String(h.post).replace(".", ",")} %` : ""}</dd>` : ""}
+    ${grade("dd","⚔ DPS")}${grade("ds","🛡 TANK (encaisse)")}${grade("ts","⭐ Impact global")}
+    ${h.build ? `<dt>🎯 Stuff conseillé</dt><dd><b>${esc(h.build.set)}</b> · artefact ${artIcon(h.build.art)}<b>${esc(h.build.art)}</b> (${String(h.build.wr).replace(".", ",")} % de victoires)</dd>` : ""}
+    ${h.stats ? `<dt>Stats à viser</dt><dd>${esc(h.stats)}</dd>` : ""}
+    ${h.fr_avg ? `<dt>Moyenne des joueurs</dt><dd>Att ${h.fr_avg[0]} · Déf ${h.fr_avg[1]} · PV ${h.fr_avg[2]} · Vit ${h.fr_avg[3]} · Crit ${h.fr_avg[4]} % · Dég. crit ${h.fr_avg[5]} % · Eff ${h.fr_avg[6]} % · Rés ${h.fr_avg[7]} %</dd>` : ""}
+  </dl>`;
+  if (h.syn){
+    html += `<h4>🤝 Se combine bien avec</h4><div class="pills">${pills(h.syn)}</div>
+      <h4>✅ Bat</h4><div class="pills">${pills(h.beats)}</div>
+      <h4>❌ Contré par</h4><div class="pills">${pills(h.beaten)}</div>
+      <h4>Builds RTA les plus joués</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
+      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(b.art)}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`;
+    html += extraSections(h);
+  } else {
+    html += extraSections(h) + `<p class="note">Pas encore de données détaillées (partenaires, builds) pour ce perso : seuls les 30 meilleurs persos RTA en ont.</p>`;
+  }
+  document.getElementById("hero-dlg").innerHTML = html;
+  currentHero = h.n;
+  wireArtSlots(document.getElementById("hero-dlg"));
+  if (!document.getElementById("ov-hero").classList.contains("open")) openOv("ov-hero");
+}
+let lastFocus = null;
+function openOv(id){ lastFocus = document.activeElement; const o = document.getElementById(id); o.classList.add("open"); const b = o.querySelector("button"); if (b) b.focus(); }
+function closeOv(id){ if (id === "ov-hero") currentHero = null; document.getElementById(id).classList.remove("open"); if (lastFocus) lastFocus.focus(); }
+
+function renderPicker(){
+  const q = document.getElementById("q").value.trim().toLowerCase(), fe = document.getElementById("fel").value, fc = document.getElementById("fcl").value;
+  const L = DATA.filter(h => (!fe || h.el === fe) && (!fc || h.cl === fc) && (!q || h.n.toLowerCase().includes(q) || (h.fr || "").toLowerCase().includes(q)))
+    .sort((a,b) => dn(a).localeCompare(dn(b)));
+  document.getElementById("pick").innerHTML = L.map((h, i) => `<label class="${owned.has(h.n)?"on":""}" for="pk${i}"><input type="checkbox" id="pk${i}" data-n="${esc(h.n)}" ${owned.has(h.n)?"checked":""}>${badge(h)}<span class="nm" style="min-width:0"><span class="en" style="display:block;font-weight:700;font-size:13.5px">${esc(dn(h))}</span><span style="display:block;font-size:12px;color:var(--muted)">${esc(dn2(h) || CLN[h.cl])}</span></span></label>`).join("") || `<p class="empty">Aucun perso trouvé.</p>`;
+}
+
+const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
+const NORM = Object.fromEntries(DATA.map(h => [norm(h.n), h.n]));
+function importFribbels(text){
+  let data; try { data = JSON.parse(text); } catch(e){ return renderAll("⚠ Fichier illisible : choisis le fichier .json sauvegardé depuis Fribbels."); }
+  const heroes = Array.isArray(data) ? data : (data.heroes || []);
+  if (!heroes.length) return renderAll("⚠ Aucun héros trouvé dans ce fichier : vérifie que c'est bien la sauvegarde Fribbels.");
+  const got = new Set(); let miss = 0;
+  for (const h of heroes){ const k = NORM[norm(h.name || h)]; if (k) got.add(k); else miss++; }
+  owned = got; isExample = false;
+  if (data.items){ loadItems(data, false); try { localStorage.setItem("e7items", JSON.stringify({heroes: data.heroes.map(h => ({id: h.id, name: h.name})), items: data.items})); } catch(e) {} }
+  renderAll(`Import Fribbels : <b>${got.size}</b> persos reconnus${data.items ? `, <b>${ITEMS.length}</b> pièces de stuff` : ""}${miss ? `, ${miss} ignorés (doublons ou persos hors classement)` : ""}`);
+}
+
+document.getElementById("file").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => importFribbels(r.result); r.readAsText(f); e.target.value = ""; });
+document.getElementById("example").addEventListener("click", () => { owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; renderAll("box d'exemple chargée"); });
+document.getElementById("manual").addEventListener("click", () => { renderPicker(); openOv("ov-pick"); });
+document.getElementById("pick-close").addEventListener("click", () => { closeOv("ov-pick"); renderAll(); });
+document.getElementById("pick-none").addEventListener("click", () => { owned.clear(); renderPicker(); });
+["q","fel","fcl"].forEach(id => document.getElementById(id).addEventListener("input", renderPicker));
+document.getElementById("pick").addEventListener("change", e => { const n = e.target.dataset.n; if (!n) return; if (e.target.checked) owned.add(n); else owned.delete(n); isExample = false; e.target.closest("label").classList.toggle("on", e.target.checked); });
+for (const m of ["pvp","pve"]) document.getElementById("m-"+m).addEventListener("click", () => { mode = m; document.getElementById("m-pvp").setAttribute("aria-pressed", m==="pvp"); document.getElementById("m-pve").setAttribute("aria-pressed", m==="pve"); renderAll(); });
+document.addEventListener("click", e => { const c = e.target.closest("[data-hero]"); if (c) heroDialog(c.dataset.hero); if (e.target.closest("[data-close]")) closeOv("ov-hero"); });
+document.querySelectorAll(".ov").forEach(o => o.addEventListener("click", e => { if (e.target === o){ closeOv(o.id); if (o.id === "ov-pick") renderAll(); } }));
+document.addEventListener("keydown", e => { if (e.key === "Escape") document.querySelectorAll(".ov.open").forEach(o => { closeOv(o.id); if (o.id === "ov-pick") renderAll(); }); });
+
+for (const id of ["conseils","stuff","tiers"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+  for (const o of ["conseils","stuff","tiers"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
+});
+["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
+["t-q","t-own"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
+document.querySelectorAll("th[data-sort]").forEach(th => th.addEventListener("click", () => { invSort = th.dataset.sort; renderInv(); }));
+const savedItems = store.get("e7items");
+if (savedItems && savedItems.items && savedItems.items.length) loadItems(savedItems, false); else loadItems(exampleItems(), true);
+
+function ovCard(h){
+  const counters = DATA.filter(x => owned.has(x.n) && ((x.beats && x.beats.includes(h.n)) || (h.beaten && h.beaten.includes(x.n))));
+  const pl = arr => (arr || []).map(n => `<span class="pill ${owned.has(n)?"own":"miss"}">${owned.has(n)?"✓ ":""}${esc(DN(n))}</span>`).join("") || '<span class="mini">—</span>';
+  return `<div class="card2"><div style="display:flex;gap:8px;align-items:center">${badge(h)}<div style="flex:1;min-width:0"><h5 style="margin:0">${esc(dn(h))}</h5><div class="mini">${esc(dn2(h))} ${dn2(h)?"· ":""}${ELN[h.el]} · ${CLN[h.cl]}${owned.has(h.n)?' · <b style="color:var(--good)">dans ta box</b>':""}</div></div></div>
+    <div class="line"><span class="lab">Tier :</span> PvP ${h.pvpT?`<span class="tier t-${h.pvpT}">${h.pvpT}</span>`:"—"} · PvE ${h.pveT?`<span class="tier t-${h.pveT}">${h.pveT}</span>`:"—"}${h.wr!=null?` · ${String(h.wr).replace(".",",")} % win`:""}</div>
+    ${h.dd?`<div class="line"><span class="lab">DPS</span> <span class="g g-${h.dd}">${h.dd}</span> · <span class="lab">TANK</span> <span class="g g-${h.ds}">${h.ds}</span></div>`:""}
+    ${h.build?`<div class="line"><span class="lab">Stuff :</span> <b>${esc(h.build.set)}</b> · ${artIcon(h.build.art)}${esc(h.build.art)}</div>`:""}
+    ${h.stats?`<div class="line"><span class="lab">Viser :</span> ${esc(h.stats)}</div>`:""}
+    ${h.syn?`<div class="line"><span class="lab">🤝 Avec :</span></div><div class="pills">${pl(h.syn)}</div><div class="line"><span class="lab">❌ Contré par :</span></div><div class="pills">${pl(h.beaten)}</div>`:""}
+    <div class="line"><span class="lab">🛡 Dans ta box pour le contrer :</span></div><div class="pills">${counters.length ? counters.map(x => `<span class="pill own">✓ ${esc(dn(x))}</span>`).join("") : '<span class="mini">aucun counter connu dans ta box</span>'}</div></div>`;
+}
+function ovRender(){
+  const root = ovEl(); if (!root) return;
+  const q = root.querySelector("#ov-q").value.trim().toLowerCase();
+  const res = root.querySelector("#ov-res");
+  if (q){
+    const L = DATA.filter(h => h.n.toLowerCase().includes(q) || (h.fr || "").toLowerCase().includes(q)).sort((a,b) => (b.pvp ?? 0) - (a.pvp ?? 0)).slice(0, 5);
+    res.innerHTML = L.map(h => chip(h)).join("") || '<p class="empty">Aucun perso trouvé.</p>';
+  } else res.innerHTML = "";
+  const bt = bestTeams(1)[0];
+  root.querySelector("#ov-team").innerHTML = bt ? `<h5 style="margin:0 0 6px;color:var(--gold)">Ta meilleure team ${mode.toUpperCase()}</h5><div class="pills">${bt.t.map(h => `<span class="pill own">${esc(dn(h))}</span>`).join("")}</div>` : '<span class="mini">Charge ta box pour voir ta meilleure team.</span>';
+  root.querySelector("#ov-mode").textContent = mode.toUpperCase();
+}
+let pipWin = null;
+const ovEl = () => document.getElementById("ovl") || (pipWin && pipWin.document.getElementById("ovl"));
+function setupOverlay(){
+  const root = document.getElementById("ovl");
+  root.querySelector("#ov-q").addEventListener("input", ovRender);
+  root.addEventListener("click", e => {
+    const c = e.target.closest("[data-hero]");
+    if (c){ e.stopPropagation(); root.querySelector("#ov-card").innerHTML = ovCard(BY[c.dataset.hero]); root.querySelector("#ov-res").innerHTML = ""; root.querySelector("#ov-q").value = ""; }
+    if (e.target.id === "ov-mode"){ mode = mode === "pvp" ? "pve" : "pvp"; document.getElementById("m-pvp").setAttribute("aria-pressed", mode==="pvp"); document.getElementById("m-pve").setAttribute("aria-pressed", mode==="pve"); renderAll(); }
+    if (e.target.id === "ov-exit") exitOverlay();
+  });
+}
+async function enterOverlay(){
+  const root = document.getElementById("ovl");
+  if (window.zkx){ document.body.classList.add("overlay"); window.zkx.overlay(true);
+    root.querySelector("#ov-tip").textContent = "La fenêtre ZKX reste au-dessus du jeu (mode fenêtré ou plein écran fenêtré). Tu peux la déplacer et la redimensionner.";
+    ovRender(); root.querySelector("#ov-q").focus(); return; }
+  if (window.documentPictureInPicture){
+    try {
+      pipWin = await documentPictureInPicture.requestWindow({width: 400, height: 680});
+      document.querySelectorAll('style, link[rel="stylesheet"]').forEach(s => pipWin.document.head.appendChild(s.cloneNode(true)));
+      pipWin.document.body.style.margin = "0"; pipWin.document.body.style.background = "#0b0b0e";
+      root.classList.add("pip"); pipWin.document.body.appendChild(root);
+      root.querySelector("#ov-tip").textContent = "Cette fenêtre reste au-dessus de tes autres fenêtres (et du jeu s'il est en mode fenêtré ou plein écran fenêtré).";
+      pipWin.addEventListener("pagehide", () => { root.classList.remove("pip"); document.querySelector("main .wrap").appendChild(root); pipWin = null; });
+      ovRender(); return;
+    } catch(e) { /* fallback below */ }
+  }
+  document.body.classList.add("overlay");
+  root.querySelector("#ov-tip").innerHTML = "Ton navigateur ne permet pas la fenêtre toujours au premier plan ici. Réduis cette fenêtre à côté du jeu, ou ouvre le fichier téléchargé dans <b>Chrome ou Edge</b> pour la vraie fenêtre flottante. Sous Windows, <b>PowerToys</b> (Win + Ctrl + T) garde aussi n'importe quelle fenêtre au premier plan.";
+  ovRender(); root.querySelector("#ov-q").focus();
+}
+function exitOverlay(){
+  if (pipWin){ pipWin.close(); return; }
+  document.body.classList.remove("overlay"); if (window.zkx) window.zkx.overlay(false);
+}
+
+setupOverlay();
+document.getElementById("pack-zip").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return; const msg = document.getElementById("pack-msg");
+  if (!window.JSZip){ msg.textContent = "Lecture du zip impossible hors connexion : dézippe-le et choisis le dossier."; return; }
+  msg.textContent = "Ouverture du zip…";
+  try { const z = await JSZip.loadAsync(f); const ent = []; z.forEach((p, file) => { if (!file.dir) ent.push([p, () => file.async("blob")]); }); await importPack(ent); }
+  catch(err){ msg.textContent = "Zip illisible : essaie avec le dossier dézippé."; }
+  e.target.value = "";
+});
+document.getElementById("pack-png").addEventListener("change", async e => {
+  const ent = [...e.target.files].map(f => [f.name, async () => f]); await importPack(ent); e.target.value = "";
+});
+document.getElementById("gear").addEventListener("click", () => { updateImgCount(); openOv("ov-set"); });
+document.getElementById("set-close").addEventListener("click", () => closeOv("ov-set"));
+document.getElementById("img-clear").addEventListener("click", async () => {
+  for (const n of Object.keys(IMGS)) await IDB.put("h:" + n, null); for (const k of Object.keys(AIMGS)) await IDB.put("a:" + k, null);
+  IMGS = {}; AIMGS = {}; document.getElementById("pack-msg").textContent = "Images effacées."; renderAll(); updateImgCount();
+});
+document.getElementById("reset-all").addEventListener("click", async () => {
+  const b = document.getElementById("reset-all");
+  if (!b.dataset.confirm){ b.dataset.confirm = "1"; b.textContent = "Clique encore pour confirmer"; return; }
+  delete b.dataset.confirm; b.textContent = "Tout réinitialiser";
+  try { ["e7box","e7items","e7lang","e7sklang"].forEach(k => localStorage.removeItem(k)); } catch(e) {}
+  for (const n of Object.keys(IMGS)) await IDB.put("h:" + n, null); for (const k of Object.keys(AIMGS)) await IDB.put("a:" + k, null);
+  IMGS = {}; AIMGS = {}; owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; loadItems(exampleItems(), true);
+  document.getElementById("reset-msg").textContent = "Appli remise à zéro (box d'exemple rechargée)."; renderAll("remise à zéro"); updateImgCount();
+});
+document.getElementById("pack-dir").addEventListener("change", async e => {
+  const ent = [...e.target.files].map(f => [f.webkitRelativePath || f.name, async () => f]); await importPack(ent); e.target.value = "";
+});
+loadImgs();
+if (window.zkx){
+  const Z = window.zkx, sec = document.getElementById("app-sec"); sec.hidden = false;
+  document.getElementById("app-ver").textContent = "ZKX version " + Z.version + " (appli Windows).";
+  let onTop = false; const tb = document.getElementById("ontop");
+  const setTop = v => { onTop = v; Z.setOnTop(v); tb.textContent = "📌 Toujours au premier plan : " + (v ? "oui" : "non"); tb.setAttribute("aria-pressed", v); };
+  tb.addEventListener("click", () => setTop(!onTop));
+  const ri = document.getElementById("repo"), um = document.getElementById("upd-msg");
+  ri.value = "PandaZkx/ZKX"; try { ri.value = localStorage.getItem("zkxrepo") || ri.value; } catch(e) {}
+  const newer = (a, b) => { const p = s => String(s).replace(/^v/i, "").split(".").map(n => parseInt(n) || 0); const x = p(a), y = p(b);
+    for (let i = 0; i < 3; i++){ if ((x[i]||0) !== (y[i]||0)) return (x[i]||0) > (y[i]||0); } return false; };
+  async function checkUpd(silent){
+    const repo = ri.value.trim().replace(/^https?:\/\/github\.com\//, "").replace(/\/$/, "");
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo)){ if (!silent) um.textContent = "Indique le dépôt sous la forme pseudo/nom."; return; }
+    try { localStorage.setItem("zkxrepo", repo); } catch(e) {}
+    if (!silent) um.textContent = "Vérification…";
+    try {
+      const r = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, { headers: { Accept: "application/vnd.github+json" } });
+      if (!r.ok){ if (!silent) um.textContent = r.status === 404 ? "Aucune version publiée trouvée sur ce dépôt." : "GitHub ne répond pas (" + r.status + ")."; return; }
+      const j = await r.json();
+      if (newer(j.tag_name, Z.version)){
+        document.getElementById("gear").classList.add("dot");
+        um.innerHTML = `Nouvelle version <b>${esc(j.tag_name)}</b> disponible. <button class="btn primary" type="button" id="upd-go">Télécharger</button>`;
+        document.getElementById("upd-go").addEventListener("click", () => Z.openExternal(j.html_url));
+      } else if (!silent) um.textContent = "✓ Tu as la dernière version (" + Z.version + ").";
+    } catch(e){ if (!silent) um.textContent = "Pas de connexion à GitHub."; }
+  }
+  document.getElementById("upd").addEventListener("click", () => checkUpd(false));
+  if (ri.value) checkUpd(true);
+}
+document.getElementById("ovbtn").addEventListener("click", enterOverlay);
+document.getElementById("lang").addEventListener("click", () => { lang = lang === "fr" ? "en" : "fr"; try { localStorage.setItem("e7lang", lang); } catch(e) {}
+  const b = document.getElementById("lang"); b.textContent = "Noms : " + lang.toUpperCase(); b.setAttribute("aria-pressed", lang === "fr"); renderAll(); });
+document.getElementById("lang").textContent = "Noms : " + lang.toUpperCase();
+function setSkBtn(){ const b = document.getElementById("sklang"); b.textContent = "Capacités : " + sklang.toUpperCase(); b.setAttribute("aria-pressed", sklang === "fr"); }
+document.getElementById("sklang").addEventListener("click", () => { sklang = sklang === "fr" ? "en" : "fr"; try { localStorage.setItem("e7sklang", sklang); } catch(e) {} setSkBtn(); if (currentHero) heroDialog(currentHero); renderAll(); });
+setSkBtn();
+const saved = store.get("e7box");
+if (saved && saved.owned && saved.owned.length){ owned = new Set(saved.owned.filter(n => BY[n])); mode = saved.mode || "pvp"; isExample = !!saved.isExample;
+  document.getElementById("m-pvp").setAttribute("aria-pressed", mode==="pvp"); document.getElementById("m-pve").setAttribute("aria-pressed", mode==="pve"); renderAll("box retrouvée"); }
+else { owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; renderAll("box d'exemple : importe la tienne ou coche tes persos"); }
+</script>
+</body>
+</html>

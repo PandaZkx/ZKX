@@ -1,0 +1,8 @@
+{
+  "name": "zkx",
+  "productName": "ZKX",
+  "version": "1.0.0",
+  "description": "ZKX - conseiller Epic Seven (teams, stuff, tier lists)",
+  "main": "main.js",
+  "author": "PandaZkx"
+}

@@ -1,0 +1,32 @@
+name: Publier une version
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Version de l'appli = tag
+        shell: bash
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          node -e "const f='app/package.json';const p=require('./'+f);p.version='$V';require('fs').writeFileSync(f,JSON.stringify(p,null,2))"
+      - run: python tools/build.py
+      - run: npm install
+      - run: npm run pack:win
+      - name: Zip
+        shell: pwsh
+        run: Compress-Archive -Path dist/ZKX-win32-x64 -DestinationPath "ZKX-${{ github.ref_name }}-Windows.zip"
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: ZKX-${{ github.ref_name }}-Windows.zip
+          generate_release_notes: true

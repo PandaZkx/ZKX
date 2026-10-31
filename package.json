@@ -1,0 +1,13 @@
+{
+  "name": "zkx-build",
+  "private": true,
+  "scripts": {
+    "build": "python tools/build.py",
+    "start": "electron app",
+    "pack:win": "electron-packager app ZKX --platform=win32 --arch=x64 --out=dist --overwrite --asar --icon=app/icon.ico"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "45.2.1"
+  }
+}
