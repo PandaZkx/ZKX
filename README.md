@@ -45,6 +45,8 @@ Onglet **📸 Mes captures** : capture le jeu avec **Win + Maj + S**, puis **Ctr
 1. Dans l'optimiseur Fribbels : onglet *Importer* → importe ton stuff → **Save**.
 2. Dans ZKX : charge le fichier `.json` obtenu.
 
+**Import auto** (appli Windows) : clique sur « 🔄 Import auto Fribbels » et choisis ta sauvegarde une fois. Ensuite, chaque « Save » dans Fribbels met ZKX à jour tout seul.
+
 ZKX ne lit pas le jeu et n'y touche pas. Ta box et tes images restent sur ton PC.
 
 ## Images

@@ -1,8 +1,7 @@
 ## Nouveautés
 
-- 🎴 **Affiches de bannières** : le perso en grand, son artefact (son arme) en fond, et une bordure néon de la couleur qui va avec l'image. Les bannières en cours pulsent doucement.
-- 📖 La fiche guide des persos a aussi son affiche néon.
-- 🎨 **Choisis la couleur de ZKX** : ⚙ Paramètres → Couleur de ZKX. Clique dans le rond de couleurs (ou une pastille, ou la couleur exacte). « Violet d'origine » pour revenir au thème de base.
+- 🔄 **Import auto Fribbels** : bouton dans le menu de gauche (sous « Importer Fribbels »). Choisis ta sauvegarde Fribbels une seule fois : ensuite, à chaque « Save » dans Fribbels, ZKX recharge ta box et ton stuff tout seul (même si tu enregistres sous un autre nom dans le même dossier). « Arrêter » pour couper le suivi.
+- Rappel 1.5.0 : affiches néon des bannières, couleur de ZKX au choix (⚙ Paramètres).
 
 ## Installer
 

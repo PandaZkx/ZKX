@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, shell, Tray, Menu, globalShortcut, nativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, Tray, Menu, globalShortcut, nativeImage, dialog } = require('electron');
+const fs = require('fs');
 const path = require('path');
 let autoUpdater = null;
 try { ({ autoUpdater } = require('electron-updater')); } catch (e) { autoUpdater = null; }
@@ -58,6 +59,47 @@ function setupUpdater(){
   setTimeout(check, 8000);
   setInterval(check, 4 * 3600 * 1000);
 }
+/* ---- Import Fribbels automatique : surveille le dossier de la sauvegarde choisie ---- */
+const CFG = () => path.join(app.getPath('userData'), 'zkx-config.json');
+let cfg = null, fbTimer = null, fbLast = '';
+function loadCfg(){ if (cfg) return cfg; try { cfg = JSON.parse(fs.readFileSync(CFG(), 'utf8')); } catch (e) { cfg = {}; } return cfg; }
+function saveCfg(){ try { fs.writeFileSync(CFG(), JSON.stringify(cfg)); } catch (e) {} }
+function fbNewest(){
+  const f = loadCfg().fribbels; if (!f) return null;
+  let best = null;
+  try { const st = fs.statSync(f); best = { p: f, m: st.mtimeMs }; } catch (e) {}
+  try {
+    const dir = path.dirname(f);
+    for (const n of fs.readdirSync(dir)){
+      if (!/\.json$/i.test(n)) continue;
+      const p = path.join(dir, n); let st; try { st = fs.statSync(p); } catch (e) { continue; }
+      if (!best || st.mtimeMs > best.m) best = { p, m: st.mtimeMs };
+    }
+  } catch (e) {}
+  return best;
+}
+function fbCheck(force){
+  if (!win || !loadCfg().fribbels) return;
+  const b = fbNewest();
+  if (!b){ win.webContents.send('fb', { s: 'missing', path: cfg.fribbels }); return; }
+  const key = b.p + '|' + b.m; if (!force && key === fbLast) return;
+  fs.readFile(b.p, 'utf8', (e, txt) => {
+    if (e || !/"heroes"|"items"/.test(txt.slice(0, 2000000))) return;
+    fbLast = key;
+    if (b.p !== cfg.fribbels){ cfg.fribbels = b.p; saveCfg(); }
+    win.webContents.send('fb', { s: 'data', path: b.p, mtime: b.m, text: txt });
+  });
+}
+function fbWatch(){ clearInterval(fbTimer); fbTimer = null; if (loadCfg().fribbels) fbTimer = setInterval(() => fbCheck(false), 4000); }
+ipcMain.handle('fb-pick', async () => {
+  const r = await dialog.showOpenDialog(win, { title: 'Choisis ta sauvegarde Fribbels (.json)', defaultPath: loadCfg().fribbels || app.getPath('documents'),
+    filters: [{ name: 'Sauvegarde Fribbels', extensions: ['json'] }], properties: ['openFile'] });
+  if (r.canceled || !r.filePaths[0]) return null;
+  cfg.fribbels = r.filePaths[0]; saveCfg(); fbLast = ''; fbWatch(); fbCheck(true); return cfg.fribbels;
+});
+ipcMain.on('fb-get', e => { e.returnValue = loadCfg().fribbels || null; });
+ipcMain.on('fb-off', () => { delete loadCfg().fribbels; saveCfg(); clearInterval(fbTimer); fbTimer = null; });
+ipcMain.on('fb-ready', () => { fbLast = ''; fbWatch(); fbCheck(true); });
 app.on('second-instance', show);
 ipcMain.on('version', e => { e.returnValue = app.getVersion(); });
 ipcMain.on('get-login', e => { e.returnValue = app.getLoginItemSettings().openAtLogin; });

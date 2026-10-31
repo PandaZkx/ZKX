@@ -10,5 +10,10 @@ contextBridge.exposeInMainWorld('zkx', {
   onOpenCaptures: cb => ipcRenderer.on('open-captures', () => cb()),
   checkUpdate: () => ipcRenderer.send('upd-check'),
   installUpdate: () => ipcRenderer.send('upd-install'),
-  onUpdate: cb => ipcRenderer.on('upd', (_e, d) => cb(d))
+  onUpdate: cb => ipcRenderer.on('upd', (_e, d) => cb(d)),
+  fribbelsPick: () => ipcRenderer.invoke('fb-pick'),
+  fribbelsGet: () => ipcRenderer.sendSync('fb-get'),
+  fribbelsOff: () => ipcRenderer.send('fb-off'),
+  fribbelsReady: () => ipcRenderer.send('fb-ready'),
+  onFribbels: cb => ipcRenderer.on('fb', (_e, d) => cb(d))
 });

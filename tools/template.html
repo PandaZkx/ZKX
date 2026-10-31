@@ -167,6 +167,8 @@ span.pface{cursor:default}
 .gleft > *:not(.pbg){position:relative}
 .gleft .gport{border-color:var(--neon);box-shadow:0 0 18px var(--neon);border-radius:50%;background-color:transparent}
 .gleft .gname{text-shadow:0 0 14px color-mix(in srgb,var(--neon) 75%,transparent),0 2px 4px #000}
+.fbauto[aria-pressed="true"]{border-color:var(--acc);box-shadow:inset 3px 0 0 var(--acc)}
+.fbstat{margin:2px 2px 0;line-height:1.35}.fbstat a{color:var(--acc)}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -299,6 +301,8 @@ __JSZIP__
   <div class="side-actions">
     <label class="btn primary" for="file">Importer Fribbels (.json)</label>
     <input id="file" type="file" accept=".json,application/json" hidden>
+    <button class="btn fbauto" id="fb-auto" type="button" hidden>🔄 Import auto Fribbels</button>
+    <p class="mini fbstat" id="fb-stat" hidden></p>
     <button class="btn" id="manual" type="button">Cocher mes persos</button>
     <button class="btn" id="example" type="button">Box d'exemple</button>
   </div>
@@ -442,7 +446,7 @@ __JSZIP__
   <div class="card2" id="ov-team" style="margin-top:8px"></div>
   <p class="mini" id="ov-tip" style="margin-top:8px"></p>
 </div>
-<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour l'import automatique, exporte ta box depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
+<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde : à chaque « Save » dans Fribbels, ZKX se met à jour tout seul. Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
 </div></main>
 </div>
 
@@ -1059,6 +1063,29 @@ function importFribbels(text){
   renderAll(`Import Fribbels : <b>${got.size}</b> persos reconnus${data.items ? `, <b>${ITEMS.length}</b> pièces de stuff` : ""}${miss ? `, ${miss} ignorés (doublons ou persos hors classement)` : ""}`);
 }
 
+/* import Fribbels automatique (appli Windows) */
+if (window.zkx && window.zkx.onFribbels){
+  const Z = window.zkx, btn = document.getElementById("fb-auto"), st = document.getElementById("fb-stat");
+  const short = p => String(p || "").split(/[\\/]/).pop();
+  const show = (txt) => { st.hidden = false; st.innerHTML = txt; };
+  const idle = () => { const p = Z.fribbelsGet(); btn.textContent = p ? "🔄 Import auto : activé" : "🔄 Import auto Fribbels"; btn.setAttribute("aria-pressed", !!p);
+    if (p) show(`Suivi de <b>${esc(short(p))}</b> : fais « Save » dans Fribbels, ZKX se met à jour tout seul. <a href="#" id="fb-off">Arrêter</a>`); else st.hidden = true; wireOff(); };
+  const wireOff = () => { const o = document.getElementById("fb-off"); if (o) o.addEventListener("click", e => { e.preventDefault(); Z.fribbelsOff(); idle(); }); };
+  btn.hidden = false;
+  btn.addEventListener("click", async () => { const p = await Z.fribbelsPick(); if (p) idle(); });
+  Z.onFribbels(d => {
+    if (d.s === "missing"){ show(`⚠ Sauvegarde Fribbels introuvable (${esc(short(d.path))}). <a href="#" id="fb-off">Arrêter</a> ou reclique sur le bouton pour la rechoisir.`); wireOff(); return; }
+    if (d.s !== "data") return;
+    const last = store.get("zkxfb") || {};
+    if (last.path === d.path && last.mtime === d.mtime && store.get("e7box")) { idle(); return; }
+    importFribbels(d.text);
+    store.set("zkxfb", { path: d.path, mtime: d.mtime });
+    const t = new Date(d.mtime).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    show(`✓ Box et stuff mis à jour depuis <b>${esc(short(d.path))}</b> (sauvegarde de ${t}). <a href="#" id="fb-off">Arrêter</a>`); wireOff();
+    btn.textContent = "🔄 Import auto : activé"; btn.setAttribute("aria-pressed", true);
+  });
+  idle(); Z.fribbelsReady();
+}
 document.getElementById("file").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => importFribbels(r.result); r.readAsText(f); e.target.value = ""; });
 document.getElementById("example").addEventListener("click", () => { owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; renderAll("box d'exemple chargée"); });
 document.getElementById("manual").addEventListener("click", () => { renderPicker(); openOv("ov-pick"); });
