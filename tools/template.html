@@ -406,7 +406,7 @@ __JSZIP__
     <h3 id="set-title">⚙ Paramètres</h3>
     <div class="set-sec">
       <h4>🖼 Images des persos et des artefacts</h4>
-      <p class="mini" style="margin:0">Charge le pack e7-sidekick-resources, ou directement des images .png, .webp ou .jpg. Noms reconnus : nom du perso ou de l'artefact en anglais ou en français (ex. <code>frieren.webp</code>, <code>Lua.png</code>, <code>icon_mirrored_lotus_ring.png</code>) ou code du jeu (ex. <code>c1144.webp</code>). Les images restent dans ton navigateur.</p>
+      <p class="mini" style="margin:0">Les images des persos et des artefacts se téléchargent toutes seules (pack partagé de ZKX, mis à jour avec l'appli). Tu peux quand même mettre les tiennes : elles passent avant celles du pack. Charge le pack e7-sidekick-resources, ou directement des images .png, .webp ou .jpg. Noms reconnus : nom du perso ou de l'artefact en anglais ou en français (ex. <code>frieren.webp</code>, <code>Lua.png</code>, <code>icon_mirrored_lotus_ring.png</code>) ou code du jeu (ex. <code>c1144.webp</code>). Les images restent dans ton navigateur.</p>
       <div class="set-row">
         <label class="btn primary" for="pack-png">Choisir des images (.png / .webp)</label><input id="pack-png" type="file" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg" multiple hidden>
         <label class="btn" for="pack-dir">Choisir un dossier</label><input id="pack-dir" type="file" webkitdirectory multiple hidden>
@@ -646,10 +646,28 @@ const IDB = {
     r.onupgradeneeded = () => r.result.createObjectStore("imgs");
     r.onsuccess = () => { this.db = r.result; res(true); }; r.onerror = () => res(false); } catch(e){ res(false); } }); },
   put(k, v){ return new Promise(res => { try { const tx = this.db.transaction("imgs", "readwrite"); v == null ? tx.objectStore("imgs").delete(k) : tx.objectStore("imgs").put(v, k); tx.oncomplete = () => res(true); tx.onerror = () => res(false); } catch(e){ res(false); } }); },
+  get(k){ return new Promise(res => { try { const rq = this.db.transaction("imgs").objectStore("imgs").get(k); rq.onsuccess = () => res(rq.result || null); rq.onerror = () => res(null); } catch(e){ res(null); } }); },
   all(){ return new Promise(res => { try { const out = {}, rq = this.db.transaction("imgs").objectStore("imgs").openCursor();
     rq.onsuccess = () => { const c = rq.result; if (c){ out[c.key] = c.value; c.continue(); } else res(out); }; rq.onerror = () => res({}); } catch(e){ res({}); } }); }
 };
-function saveImgs(){ if (!IDB.db) return false; for (const [n, v] of Object.entries(IMGS)) IDB.put("h:" + n, v); return true; }
+/* images partagées (data/images.json sur GitHub) : remplissent les trous, tes propres images restent prioritaires */
+const IMG_BASE = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/";
+let SHARED = null;
+function applyShared(){ if (!SHARED) return; for (const [k, v] of Object.entries(SHARED.h || {})) if (!IMGS[k]) IMGS[k] = v; for (const [k, v] of Object.entries(SHARED.a || {})) if (!AIMGS[k]) AIMGS[k] = v; }
+async function syncSharedImgs(){
+  if (IDB.db){ SHARED = await IDB.get("shared"); if (SHARED){ applyShared(); renderAll(); updateImgCount(); } }
+  try {
+    const m = await (await fetch(IMG_BASE + "images_v.json?t=" + Date.now(), { cache: "no-store" })).json();
+    if (SHARED && SHARED.v === m.v) return;
+    const msg = document.getElementById("pack-msg"); if (msg) msg.textContent = "Téléchargement des images partagées…";
+    const p = await (await fetch(IMG_BASE + "images.json?v=" + m.v)).json();
+    if (!p || !p.h) return;
+    SHARED = p; if (IDB.db) await IDB.put("shared", p);
+    applyShared(); renderAll(); updateImgCount();
+    if (msg) msg.textContent = `✓ Images partagées à jour (${Object.keys(p.h).length} persos, ${Object.keys(p.a || {}).length} artefacts).`;
+  } catch(e) {}
+}
+function saveImgs(){ if (!IDB.db) return false; for (const [n, v] of Object.entries(IMGS)) if (!SHARED || !SHARED.h || SHARED.h[n] !== v) IDB.put("h:" + n, v); return true; }
 async function loadImgs(){
   if (!(await IDB.open())) return;
   try { const old = JSON.parse(localStorage.getItem("e7imgs") || "null"); if (old){ for (const [n, v] of Object.entries(old)) await IDB.put("h:" + n, v); localStorage.removeItem("e7imgs"); } } catch(e) {}
@@ -1066,7 +1084,7 @@ document.getElementById("gear").addEventListener("click", () => { updateImgCount
 document.getElementById("set-close").addEventListener("click", () => closeOv("ov-set"));
 document.getElementById("img-clear").addEventListener("click", async () => {
   for (const n of Object.keys(IMGS)) await IDB.put("h:" + n, null); for (const k of Object.keys(AIMGS)) await IDB.put("a:" + k, null);
-  IMGS = {}; AIMGS = {}; document.getElementById("pack-msg").textContent = "Images effacées."; renderAll(); updateImgCount();
+  IMGS = {}; AIMGS = {}; applyShared(); document.getElementById("pack-msg").textContent = SHARED ? "Tes images sont effacées : les images partagées restent." : "Images effacées."; renderAll(); updateImgCount();
 });
 document.getElementById("reset-all").addEventListener("click", async () => {
   const b = document.getElementById("reset-all");
@@ -1432,7 +1450,7 @@ function renderGal(){
   document.querySelectorAll("#gal button").forEach(b => b.addEventListener("click", async () => { const k = b.dataset.k, id = b.dataset.id;
     if (k === "h"){ delete IMGS[id]; await IDB.put("h:" + id, null); } else { delete AIMGS[id]; await IDB.put("a:" + id, null); } renderGal(); renderAll(); updateImgCount(); }));
 }
-loadImgs();
+loadImgs().then(syncSharedImgs);
 if (window.zkx){
   const Z = window.zkx, sec = document.getElementById("app-sec"); sec.hidden = false;
   document.getElementById("app-ver").textContent = "ZKX version " + Z.version + " (appli Windows).";

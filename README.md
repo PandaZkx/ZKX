@@ -49,6 +49,9 @@ ZKX ne lit pas le jeu et n'y touche pas. Ta box et tes images restent sur ton PC
 
 ## Images
 
+Les images des persos et des artefacts se téléchargent toutes seules (`data/images.json`, rechargé quand il change). Pour mettre à jour le pack partagé : mets les images dans un dossier avec `heroes/` et `artifacts/` (noms comme `abyssal-yufine.webp`), lance `python tools/images_pack.py <dossier>` puis envoie `data/images.json` et `data/images_v.json` sur GitHub. Pas besoin de nouvelle version de l'appli.
+
+
 ⚙ → *Images* : charge le pack e7-sidekick-resources (dossier ou .zip) ou tes propres `.png` / `.webp`, nommés comme le perso, l'artefact ou son code (`c1144.webp`).
 
 ## Pour publier une nouvelle version (dev)
