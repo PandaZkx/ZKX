@@ -7,5 +7,8 @@ contextBridge.exposeInMainWorld('zkx', {
   getLogin: () => ipcRenderer.sendSync('get-login'),
   setLogin: v => ipcRenderer.send('set-login', !!v),
   onToggleOverlay: cb => ipcRenderer.on('toggle-overlay', () => cb()),
-  onOpenCaptures: cb => ipcRenderer.on('open-captures', () => cb())
+  onOpenCaptures: cb => ipcRenderer.on('open-captures', () => cb()),
+  checkUpdate: () => ipcRenderer.send('upd-check'),
+  installUpdate: () => ipcRenderer.send('upd-install'),
+  onUpdate: cb => ipcRenderer.on('upd', (_e, d) => cb(d))
 });

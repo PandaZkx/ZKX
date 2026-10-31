@@ -24,12 +24,17 @@ jobs:
           node -e "const f='app/package.json';const p=require('./'+f);p.version='$V';require('fs').writeFileSync(f,JSON.stringify(p,null,2))"
       - run: python tools/build.py
       - run: npm install
+      - name: Dépendances de l'appli (mise à jour auto)
+        run: npm install --prefix app --omit=dev --no-package-lock
       - name: Installateur Windows
         run: npx electron-builder --win nsis --x64 --publish never
       - uses: softprops/action-gh-release@v2
         if: github.event_name == 'release'
         with:
-          files: dist/ZKX-Setup-*.exe
+          files: |
+            dist/ZKX-Setup-*.exe
+            dist/ZKX-Setup-*.exe.blockmap
+            dist/latest.yml
       - uses: actions/upload-artifact@v4
         if: github.event_name != 'release'
         with:

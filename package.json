@@ -4,7 +4,7 @@
   "scripts": {
     "build": "python tools/build.py",
     "start": "electron app",
-    "dist:win": "electron-builder --win nsis --x64 --publish never"
+    "dist:win": "npm install --prefix app --omit=dev && electron-builder --win nsis --x64 --publish never"
   },
   "devDependencies": {
     "electron": "45.2.1",
@@ -44,6 +44,13 @@
       "language": "1036",
       "artifactName": "ZKX-Setup-${version}.exe",
       "runAfterFinish": true
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "PandaZkx",
+        "repo": "ZKX"
+      }
+    ]
   }
 }

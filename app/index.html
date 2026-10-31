@@ -103,6 +103,10 @@ section.card .sub{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
 .ban .kind.lim{color:var(--gold)} .ban .kind.live{color:var(--acc)}
 .ban b.t{font-family:var(--f-display);font-size:17px}
 .verdict{display:inline-block;font-weight:800;font-size:12.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.updbar{position:sticky;top:0;z-index:20;background:#2a1046;border:1px solid var(--acc);border-radius:12px;padding:8px 12px;margin:10px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.updbar[hidden]{display:none}
+.ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
+.cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
+.rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:#1d1530;overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
 .v-go{background:#2a1046;border-color:var(--acc);color:#e9d5ff} .v-ok{background:#1d1530;color:var(--text)} .v-no{background:#1a1016;color:#f0a3a3;border-color:#5a2730} .v-new{background:#16121f;color:var(--gold)}
 .pct{font-variant-numeric:tabular-nums;white-space:nowrap}
 /* captures */
@@ -256,6 +260,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   <div class="status" id="status" aria-live="polite"></div>
 </header>
 <div class="kpis" id="kpis"></div>
+<div class="updbar" id="upd-bar" hidden>⬆ ZKX <b></b> est téléchargée. <button class="btn primary" type="button" id="upd-bar-go">Redémarrer et installer</button></div>
 <div class="view" id="v-conseils" role="tabpanel" aria-labelledby="tab-conseils">
 <div class="grid">
   <div>
@@ -308,6 +313,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     <h2>Bannières du moment</h2>
     <p class="sub" id="ban-sub"></p>
     <div class="bans" id="bans"></div>
+  </section>
+  <section class="card" style="margin-top:18px">
+    <h2>Où mettre tes bookmarks ?</h2>
+    <p class="sub" id="cmp-sub"></p>
+    <div id="cmp-best"></div>
+    <div class="scroll"><table class="inv" id="cmp-table"></table></div>
+    <div id="cmp-mystic"></div>
+    <p class="mini" style="margin-top:10px">Rentabilité = valeur du perso pour toi ÷ bookmarks moyens pour l'avoir (×1000). Un perso que tu as déjà compte pour un tiers (imprint seulement). Taux officiels : 1 % sur une bannière vedette avec garantie à la 121e, 1,25 % de 5★ sur l'alliance. Les cadeaux du compteur d'invocations (bookmarks rendus, copie bonus) ne sont pas comptés.</p>
   </section>
   <section class="card" style="margin-top:18px">
     <h2>Ma wish list conseillée</h2>
@@ -383,7 +396,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <p class="mini" style="margin:0" id="app-ver"></p>
       <div class="set-row"><button class="btn" type="button" id="ontop" aria-pressed="false">📌 Toujours au premier plan : non</button><button class="btn" type="button" id="login" aria-pressed="false">🚀 Lancer ZKX au démarrage de Windows : non</button></div>
       <p class="mini" style="margin:6px 0 0">Raccourci clavier partout dans Windows : <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Z</kbd> affiche/masque l'overlay. ZKX a aussi une icône près de l'horloge (clic droit pour le menu).</p>
-      <p class="mini" style="margin:8px 0 0">Mises à jour : indique ton dépôt GitHub (ex. <code>pandazkx/zkx</code>). L'appli regarde la dernière version publiée dans « Releases » au démarrage.</p>
+      <p class="mini" style="margin:8px 0 0">Mises à jour automatiques : ZKX regarde les « Releases » de ce dépôt au démarrage puis toutes les 4 h, télécharge la nouvelle version en fond et l'installe quand tu fermes l'appli (ou tout de suite avec le bouton).</p>
       <div class="set-row"><input id="repo" type="text" placeholder="pseudo/zkx" aria-label="Dépôt GitHub" style="flex:1;min-width:160px"><button class="btn primary" type="button" id="upd">Vérifier les mises à jour</button></div>
       <p class="progress" id="upd-msg" aria-live="polite"></p>
     </div>
@@ -941,17 +954,49 @@ document.getElementById("pack-dir").addEventListener("change", async e => {
 
 
 /* ---------- Invocations ---------- */
-const BANNERS = [
-  { kind: "Mystique (Moonlight)", lim: false, hero: "Bunny Girl Great Detective Moro", art: null, start: "2026-10-29T03:00:00Z", end: null, note: "Nouveau héros Moonlight, sur l'invocation mystique (médailles mystiques). Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %." },
-  { kind: "Drop rate up", lim: false, hero: "Bunny Girl Mafia Yufine", art: "A Boss's Dignity", start: "2026-11-05T03:00:00Z", end: "2026-11-26T02:59:00Z", note: "Bannière classique : le perso rejoint ensuite l'invocation d'alliance (et donc la wish list)." },
-  { kind: "Limitée", lim: true, hero: "Mei Lin", art: "Flame Dragon's Jewel", start: "2026-10-08T03:00:00Z", end: "2026-10-29T02:59:00Z", note: "Collab Chaos Zero Nightmare." },
-  { kind: "Limitée", lim: true, hero: "Haru", art: "Custom-Made Power Anchor", start: "2026-09-17T03:00:00Z", end: "2026-10-08T02:59:00Z", note: "Collab Chaos Zero Nightmare." },
-  { kind: "Drop rate up", lim: false, hero: "Uncharted Pioneer Politis", art: "Light and Darkness", start: "2026-09-03T03:00:00Z", end: "2026-09-24T02:59:00Z", note: "" }
-];
-const BAN_DATE = "31/10/2026";
+const BAN_EMBED = {
+  "updated": "2026-10-31T02:30:00Z",
+  "banners": [
+    { "id": "perm-covenant", "kind": "covenant", "perm": true, "hero": null, "art": null, "start": "2018-01-01T00:00:00Z", "end": null, "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie." },
+    { "id": "perm-galaxy", "kind": "galaxy", "perm": true, "hero": null, "art": null, "start": "2018-01-01T00:00:00Z", "end": null, "note": "Invocation Moonlight permanente (marque-pages galactiques). Pas de vedette ni de garantie : garde-les pour les événements Moonlight." },
+    { "id": "mystic-moro-20261029", "kind": "mystic", "manual": true, "hero": "Bunny Girl Great Detective Moro", "art": null, "start": "2026-10-29T03:00:00Z", "end": null, "note": "Nouveau héros Moonlight. Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %." },
+    { "id": "rateup-mafia-yufine-20261105", "kind": "rateup", "manual": true, "hero": "Bunny Girl Mafia Yufine", "art": "A Boss's Dignity", "start": "2026-11-05T03:00:00Z", "end": "2026-11-26T02:59:00Z", "note": "Le perso rejoint ensuite l'invocation d'alliance (et donc la wish list)." },
+    { "id": "limited-mei-lin-20261008", "kind": "collab", "manual": true, "hero": "Mei Lin", "art": "Flame Dragon's Jewel", "start": "2026-10-08T03:00:00Z", "end": "2026-10-29T02:59:00Z", "note": "Collab Chaos Zero Nightmare." },
+    { "id": "limited-haru-20260917", "kind": "collab", "manual": true, "hero": "Haru", "art": "Custom-Made Power Anchor", "start": "2026-09-17T03:00:00Z", "end": "2026-10-08T02:59:00Z", "note": "Collab Chaos Zero Nightmare." }
+  ],
+  "seen": []
+}
+;
+const BAN_URL = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/banners.json";
+let BANFILE = BAN_EMBED;
+try { const c = JSON.parse(localStorage.getItem("zkxbanners") || "null"); if (c && Array.isArray(c.banners) && (c.updated || "") > (BANFILE.updated || "")) BANFILE = c; } catch(e) {}
+let BANNERS = BANFILE.banners || [], banOnline = null;
+async function refreshBanners(){
+  try {
+    const r = await fetch(BAN_URL + "?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw new Error(r.status);
+    const j = await r.json(); if (!j || !Array.isArray(j.banners)) throw new Error("format");
+    banOnline = true;
+    if ((j.updated || "") >= (BANFILE.updated || "")){ BANFILE = j; BANNERS = j.banners; try { localStorage.setItem("zkxbanners", JSON.stringify(j)); } catch(e) {} }
+  } catch(e){ banOnline = false; }
+  const v = document.getElementById("v-pulls"); if (v && !v.hidden) renderPulls();
+}
+setTimeout(refreshBanners, 800); setInterval(refreshBanners, 3 * 3600e3);
+const KIND = {
+  covenant: { lab: "Invocation d'alliance", cur: "bm", p: .0125 },
+  rateup: { lab: "Drop rate up", cur: "bm", p: .01, pity: 120 },
+  limited: { lab: "Limitée", cur: "bm", p: .01, pity: 120, lim: true },
+  collab: { lab: "Collab (limitée)", cur: "bm", p: .01, pity: 120, lim: true },
+  class: { lab: "Invocation de classe", cur: "bm" },
+  mystic: { lab: "Mystique (Moonlight)", cur: "mm", pity: 200 },
+  "special-mystic": { lab: "Mystique spéciale", cur: "mm" },
+  galaxy: { lab: "Moonlight (galactique)", cur: "gb" }
+};
+const KI = b => KIND[b.kind] || { lab: b.kind || "Bannière", cur: "bm", p: .01, pity: 120, lim: !!b.lim };
 const LIMITED_ARTS = ["Guiding Light", "Wall of Order", "Unfading Memories", "Dreamlike Holiday", "Proof of Friendship", "Glorious Flag", "Fan of Light and Dark", "Magic Bubble Maker", "Mirrored Lotus Ring", "Flame Dragon's Jewel", "Custom-Made Power Anchor"];
 const fmtD = s => new Date(s).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
 const P = v => v == null ? "—" : String(v).replace(".", ",") + " %";
+const NB = n => Math.round(n).toLocaleString("fr-FR");
+const expPulls = (p, pity) => (1 - Math.pow(1 - p, pity + 1)) / p;
 function buildNote(b){
   if (!b) return "";
   if (b.src === "banner") return " (artefact de sa bannière, pas encore de stats joueurs)";
@@ -966,20 +1011,92 @@ function verdict(h){
   if (t === "B") return ['<span class="verdict v-ok">Si tu en as besoin</span>', `Tier B : utile dans certaines teams, pas prioritaire.`];
   return ['<span class="verdict v-no">Passe ton tour</span>', `Tier ${t === "x" ? "non classé" : t} en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];
 }
+function banState(b, now){
+  const s = new Date(b.start).getTime(), e = b.end ? new Date(b.end).getTime() : Infinity;
+  return now < s ? "soon" : now > e ? "over" : "live";
+}
+function banOdds(b){
+  const k = KI(b);
+  if (b.kind === "covenant") return "1,25 % de 5★ à chaque invocation, tiré dans ta wish list · pas de garantie";
+  if (k.cur === "bm" && k.p && k.pity) return `${P(k.p * 100)} par invocation · garanti à la ${k.pity + 1}e · ≈ ${NB(expPulls(k.p, k.pity) * 5)} bookmarks en moyenne, ${NB((k.pity + 1) * 5)} au pire`;
+  if (b.kind === "mystic") return "Garanti en 200 invocations (10 000 médailles) · le compteur se garde d'une bannière à l'autre";
+  if (b.kind === "class") return "Un 5★ au hasard de la classe · artefact garanti avec le compteur d'invocations";
+  return "";
+}
+function heroValue(h){
+  if (!h) return { v: 4, est: true };
+  let v = Math.max(.5, heroInterest(h)); if (owned.has(h.n)) v *= .35;
+  return { v, est: false };
+}
+function wishTop(){
+  return DATA.filter(wlEligible).filter(h => !owned.has(h.n)).map(h => heroInterest(h)).sort((a, b) => b - a).slice(0, 7);
+}
 function renderBans(){
   const now = Date.now(), el = document.getElementById("bans");
-  const list = BANNERS.filter(b => !b.end || new Date(b.end).getTime() > now - 21 * 864e5).sort((a, b) => new Date(b.start) - new Date(a.start));
-  document.getElementById("ban-sub").textContent = `Vérifié le ${BAN_DATE}. Une bannière à venir s'affiche à l'avance, une terminée reste 3 semaines.`;
+  const list = BANNERS.filter(b => !b.end || new Date(b.end).getTime() > now - 14 * 864e5)
+    .sort((a, b) => (!!a.perm - !!b.perm) || ({ live: 0, soon: 1, over: 2 }[banState(a, now)] - { live: 0, soon: 1, over: 2 }[banState(b, now)]) || new Date(b.start) - new Date(a.start));
+  const upd = BANFILE.updated ? new Date(BANFILE.updated).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }) : "?";
+  document.getElementById("ban-sub").textContent = `Liste mise à jour le ${upd} · ${banOnline ? "synchronisée en ligne" : banOnline === false ? "hors ligne, dernière liste connue" : "synchronisation…"}. Les nouvelles bannières arrivent toutes seules, sans réinstaller l'appli.`;
   el.innerHTML = list.map(b => {
-    const s = new Date(b.start).getTime(), e = b.end ? new Date(b.end).getTime() : Infinity;
-    const st = now < s ? `À venir · dès le ${fmtD(b.start)}` : now > e ? `Terminée le ${fmtD(b.end)}` : `En cours${b.end ? " · jusqu'au " + fmtD(b.end) : ""}`;
-    const h = BY[b.hero], [v, why] = verdict(h);
-    return `<div class="ban"><span class="kind ${b.lim ? "lim" : ""} ${now >= s && now <= e ? "live" : ""}">${esc(b.kind)} · ${esc(st)}</span>
-      ${h ? chip(h) : `<b class="t">${esc(b.hero)}</b>`}
+    const k = KI(b), st0 = banState(b, now);
+    const st = b.perm ? "Permanent" : st0 === "soon" ? `À venir · dès le ${fmtD(b.start)}` : st0 === "over" ? `Terminée le ${fmtD(b.end)}` : `En cours${b.end ? " · jusqu'au " + fmtD(b.end) : ""}`;
+    const h = b.hero ? BY[b.hero] : null;
+    let body;
+    if (b.kind === "covenant"){ const w = wishTop(); body = `<b class="t">Ta wish list</b><span class="mini">${w.length} persos conseillés plus bas</span>`; }
+    else if (!b.hero) body = `<b class="t">${esc(b.title || k.lab)}</b>`;
+    else { const [v, why] = verdict(h); body = `${h ? chip(h) : `<b class="t">${esc(b.hero)}</b>`}<div>${v} <span class="mini">${esc(why)}</span></div>`; }
+    const odds = banOdds(b);
+    return `<div class="ban ${st0 === "over" ? "over" : ""}"><span class="kind ${k.lim ? "lim" : ""} ${st0 === "live" && !b.perm ? "live" : ""}">${esc(k.lab)} · ${esc(st)}</span>
+      ${body}
       ${b.art ? `<span class="mini">Artefact : ${artIcon(b.art)}${esc(b.art)}</span>` : ""}
-      <div>${v} <span class="mini">${esc(why)}</span></div>${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}</div>`;
+      ${odds ? `<span class="mini odds">${esc(odds)}</span>` : ""}${b.note ? `<span class="mini">${esc(b.note)}</span>` : ""}</div>`;
   }).join("");
   el.querySelectorAll("[data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
+  renderCompare(now);
+}
+function renderCompare(now){
+  const rows = [];
+  for (const b of BANNERS){
+    const k = KI(b), st = banState(b, now);
+    if (k.cur !== "bm" || st === "over" || (st === "soon" && new Date(b.start).getTime() - now > 21 * 864e5)) continue;
+    if (b.kind === "covenant"){
+      const w = wishTop(); if (!w.length) continue;
+      const v = w.reduce((a, x) => a + x, 0) / w.length, avg = 5 / .0125;
+      rows.push({ b, st, lab: "Invocation d'alliance", who: "1 perso au hasard parmi tes 7 de la wish list", v, est: false, avg, max: null, odds: "1,25 % (un des 7)" });
+    } else if (k.p && k.pity){
+      const h = b.hero ? BY[b.hero] : null, hv = heroValue(h), avg = expPulls(k.p, k.pity) * 5;
+      rows.push({ b, st, lab: k.lab, h, who: h ? dn(h) : (b.hero || "?"), v: hv.v, est: hv.est, avg, max: (k.pity + 1) * 5, odds: P(k.p * 100), own: h && owned.has(h.n) });
+    } else rows.push({ b, st, lab: k.lab, who: b.title || b.art || "", v: null, avg: null });
+  }
+  const rated = rows.filter(r => r.v != null).map(r => (r.rent = r.v / r.avg * 1000, r)).sort((a, b) => b.rent - a.rent);
+  const other = rows.filter(r => r.v == null), top = rated.length ? rated[0].rent : 1;
+  document.getElementById("cmp-sub").innerHTML = `Toutes ces bannières se paient en <b>bookmarks d'alliance</b> (5 par invocation). On compare ce que le perso vaut <b>pour toi</b> (tier ${mode.toUpperCase()}, stats RTA, déjà dans ta box ou pas) au nombre moyen de bookmarks pour l'avoir, garantie comprise.`;
+  const best = rated[0], second = rated[1];
+  let msg = "";
+  if (best){
+    if (best.b.kind === "covenant") msg = `💤 <b>Aucune bannière vedette ne bat ta wish list en ce moment.</b> Garde tes bookmarks pour l'alliance ou une prochaine bannière.`;
+    else {
+      msg = `🏆 <b>Le plus rentable : ${esc(best.who)}</b> (${esc(best.lab)}${best.st === "soon" ? ", à venir" : ""})`;
+      if (second) msg += ` · environ <b>${String((best.rent / second.rent).toFixed(1)).replace(".", ",")}×</b> plus de valeur par bookmark que ${second.b.kind === "covenant" ? "l'invocation d'alliance" : esc(second.who)}.`;
+      if (KI(best.b).lim) msg += ` Perso limité : il ne revient pas avant longtemps.`;
+      msg += ` Prévois <b>${NB(best.max)} bookmarks</b> pour être sûr de l'avoir.`;
+    }
+  }
+  document.getElementById("cmp-best").innerHTML = msg ? `<p class="cmpbest">${msg}</p>` : `<p class="mini">Pas de bannière à comparer pour l'instant.</p>`;
+  document.getElementById("cmp-table").innerHTML = `<thead><tr><th>#</th><th>Bannière</th><th>Perso</th><th>Valeur pour toi</th><th>Chance / invoc.</th><th>Coût moyen</th><th>Garanti à</th><th>Rentabilité</th></tr></thead><tbody>` +
+    rated.map((r, i) => `<tr><td class="n">${i + 1}</td><td>${esc(r.lab)}${r.st === "soon" ? ' <span class="mini">(à venir)</span>' : ""}</td><td>${r.h ? chip(r.h) : `<span class="mini">${esc(r.who)}</span>`}</td>
+      <td class="n">${String(r.v.toFixed(1)).replace(".", ",")}${r.est ? ' <span class="mini">(estimé)</span>' : ""}${r.own ? ' <span class="mini">déjà dans ta box</span>' : ""}</td>
+      <td class="n pct">${esc(r.odds)}</td><td class="n">${NB(r.avg)} bm</td><td class="n">${r.max ? NB(r.max) + " bm" : "—"}</td>
+      <td><span class="rbar"><i style="width:${Math.max(4, Math.round(r.rent / top * 100))}%"></i></span> <span class="mini">${String(r.rent.toFixed(1)).replace(".", ",")}</span></td></tr>`).join("") +
+    other.map(r => `<tr><td></td><td>${esc(r.lab)}</td><td class="mini">${esc(r.who)}</td><td colspan="5" class="mini">Perso au hasard : pas comparable.</td></tr>`).join("") + "</tbody>";
+  document.querySelectorAll("#cmp-table [data-hero]").forEach(c => c.addEventListener("click", () => heroDialog(c.dataset.hero)));
+  const my = BANNERS.filter(b => (b.kind === "mystic" || b.kind === "special-mystic") && banState(b, now) !== "over");
+  document.getElementById("cmp-mystic").innerHTML = my.length ? `<h3 style="margin-top:16px">Médailles mystiques</h3>` + my.map(b => {
+    const h = b.hero ? BY[b.hero] : null;
+    if (b.kind === "special-mystic") return `<p class="mini">Mystique spéciale en cours : tu choisis un Moonlight sorti il y a plus de 6 mois. C'est souvent le meilleur moment pour viser un Moonlight précis.</p>`;
+    const t = h ? tierOf(h) : null, go = t && "SS S".split(" ").includes(t) && !owned.has(h.n);
+    return `<p class="cmpbest">${go ? "✅" : h ? "💤" : "❔"} <b>${esc(h ? dn(h) : b.hero || "?")}</b> : ${h ? (owned.has(h.n) ? "tu l'as déjà, garde tes médailles." : go ? `tier ${t}, ça vaut tes médailles si tu peux aller jusqu'à la garantie (200 invocations).` : `tier ${t === "x" ? "non classé" : t}, mieux vaut garder tes médailles pour un Moonlight plus fort.`) : "nouveau Moonlight, pas encore de stats : attends les retours RTA avant de vider tes médailles."} <span class="mini">Le compteur de garantie se garde, rien ne presse.</span></p>`;
+  }).join("") : "";
 }
 const WL_EL = new Set(["fire", "ice", "wind"]);
 function wlEligible(h){ return h.stars === 5 && WL_EL.has(h.el) && h.type === "Common"; }
@@ -1008,7 +1125,7 @@ function renderPulls(){
   document.getElementById("wl-heroes").innerHTML = head + "<tbody>" + pool.slice(0, 7).map(row).join("") + "</tbody>";
   document.getElementById("wl-more").innerHTML = head + "<tbody>" + pool.slice(7, 17).map((x, i) => row(x, i + 7)).join("") + "</tbody>";
   // artefacts
-  const A = {}, limArts = new Set(BANNERS.filter(b => b.lim && b.art).map(b => b.art).concat(LIMITED_ARTS));
+  const A = {}, limArts = new Set(BANNERS.filter(b => KI(b).lim && b.art).map(b => b.art).concat(LIMITED_ARTS));
   for (const h of DATA){
     if (!h.build || !h.build.art) continue;
     const list = parseArts(h.fr_arts); if (!list.some(x => x[0] === h.build.art)) list.unshift([h.build.art, h.build.use ?? 50]);
@@ -1162,14 +1279,33 @@ if (window.zkx){
       } else if (!silent) um.textContent = "✓ Tu as la dernière version (" + Z.version + ").";
     } catch(e){ if (!silent) um.textContent = "Pas de connexion à GitHub."; }
   }
-  document.getElementById("upd").addEventListener("click", () => checkUpd(false));
+  if (Z.onUpdate){
+    let manual = false;
+    const showUpd = d => {
+      if (d.s === "checking"){ if (manual) um.textContent = "Vérification…"; }
+      else if (d.s === "none"){ if (manual) um.textContent = "✓ Tu as la dernière version (" + Z.version + ")."; manual = false; }
+      else if (d.s === "available") um.textContent = "Nouvelle version " + d.v + " trouvée, téléchargement en cours…";
+      else if (d.s === "progress") um.textContent = "Téléchargement de la mise à jour : " + d.p + " %";
+      else if (d.s === "ready"){
+        document.getElementById("gear").classList.add("dot");
+        um.innerHTML = `ZKX <b>${esc(d.v)}</b> est prête. Elle s'installera à la fermeture de ZKX. <button class="btn primary" type="button" id="upd-go">Redémarrer et installer</button>`;
+        document.getElementById("upd-go").addEventListener("click", () => Z.installUpdate());
+        const bar = document.getElementById("upd-bar"); if (bar){ bar.hidden = false; bar.querySelector("b").textContent = d.v; }
+      }
+      else if (d.s === "dev"){ manual = false; checkUpd(false); }
+      else if (d.s === "error"){ if (manual) um.textContent = "Mise à jour impossible pour l'instant : " + (d.m || "erreur") + "."; manual = false; }
+    };
+    Z.onUpdate(showUpd);
+    document.getElementById("upd").addEventListener("click", () => { manual = true; um.textContent = "Vérification…"; Z.checkUpdate(); });
+    const ub = document.getElementById("upd-bar-go"); if (ub) ub.addEventListener("click", () => Z.installUpdate());
+  } else document.getElementById("upd").addEventListener("click", () => checkUpd(false));
   document.body.classList.add("desk");
   if (Z.onToggleOverlay) Z.onToggleOverlay(() => { document.body.classList.contains("overlay") ? exitOverlay() : enterOverlay(); });
   if (Z.onOpenCaptures) Z.onOpenCaptures(() => openCaptures());
   const lb = document.getElementById("login");
   if (lb && Z.getLogin){ const setL = v => { lb.textContent = "🚀 Lancer ZKX au démarrage de Windows : " + (v ? "oui" : "non"); lb.setAttribute("aria-pressed", v); };
     setL(Z.getLogin()); lb.addEventListener("click", () => { const v = lb.getAttribute("aria-pressed") !== "true"; Z.setLogin(v); setL(v); }); }
-  if (ri.value) checkUpd(true);
+  if (ri.value && !Z.onUpdate) checkUpd(true);
 }
 document.getElementById("ovbtn").addEventListener("click", enterOverlay);
 document.getElementById("lang").addEventListener("click", () => { lang = lang === "fr" ? "en" : "fr"; try { localStorage.setItem("e7lang", lang); } catch(e) {}

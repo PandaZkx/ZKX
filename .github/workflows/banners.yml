@@ -1,0 +1,38 @@
+name: Bannières (mise à jour auto)
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - tools/banners_update.py
+      - .github/workflows/banners.yml
+permissions:
+  contents: write
+concurrency:
+  group: banners
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lire les annonces et mettre à jour data/banners.json
+        run: python tools/banners_update.py
+      - name: Enregistrer si quelque chose a changé
+        shell: bash
+        run: |
+          git config user.name "zkx-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "${{ github.event_name }}" = "schedule" ] && git diff --quiet -- data/banners.json; then
+            git checkout -- data/banners_log.txt 2>/dev/null || true
+            echo "Rien de nouveau."; exit 0
+          fi
+          git add data/banners.json data/banners_log.txt
+          git diff --cached --quiet && { echo "Rien de nouveau."; exit 0; }
+          git commit -m "Bannières : mise à jour automatique"
+          git pull --rebase origin main && git push

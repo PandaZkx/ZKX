@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain, shell, Tray, Menu, globalShortcut, nativeImage } = require('electron');
 const path = require('path');
+let autoUpdater = null;
+try { ({ autoUpdater } = require('electron-updater')); } catch (e) { autoUpdater = null; }
 let win, tray, normalBounds = null, quitting = false;
 if (!app.requestSingleInstanceLock()) { app.quit(); }
 app.setAppUserModelId('com.pandazkx.zkx');
@@ -36,6 +38,26 @@ function makeTray(){
   ]));
   tray.on('click', show);
 }
+function setupUpdater(){
+  const send = (s, x) => { if (win) win.webContents.send('upd', Object.assign({ s }, x || {})); };
+  ipcMain.on('upd-check', () => { if (!autoUpdater || !app.isPackaged) return send('dev'); autoUpdater.checkForUpdates().catch(e => send('error', { m: String(e && e.message || e) })); });
+  ipcMain.on('upd-install', () => { if (!autoUpdater) return; quitting = true; setImmediate(() => autoUpdater.quitAndInstall(true, true)); });
+  if (!autoUpdater || !app.isPackaged) return;
+  autoUpdater.autoDownload = true;
+  autoUpdater.autoInstallOnAppQuit = true;
+  autoUpdater.on('checking-for-update', () => send('checking'));
+  autoUpdater.on('update-available', i => send('available', { v: i.version }));
+  autoUpdater.on('update-not-available', () => send('none', { v: app.getVersion() }));
+  autoUpdater.on('download-progress', p => send('progress', { p: Math.round(p.percent || 0) }));
+  autoUpdater.on('update-downloaded', i => {
+    send('ready', { v: i.version });
+    if (tray && tray.displayBalloon) tray.displayBalloon({ iconType: 'info', title: 'ZKX ' + i.version + ' est prête', content: "La mise à jour s'installera à la fermeture de ZKX (ou tout de suite depuis ⚙ → Application)." });
+  });
+  autoUpdater.on('error', e => send('error', { m: String(e && e.message || e) }));
+  const check = () => autoUpdater.checkForUpdates().catch(() => {});
+  setTimeout(check, 8000);
+  setInterval(check, 4 * 3600 * 1000);
+}
 app.on('second-instance', show);
 ipcMain.on('version', e => { e.returnValue = app.getVersion(); });
 ipcMain.on('get-login', e => { e.returnValue = app.getLoginItemSettings().openAtLogin; });
@@ -48,7 +70,7 @@ ipcMain.on('overlay', (_e, on) => {
 });
 ipcMain.on('open', (_e, url) => { if (/^https:\/\/github\.com\//.test(url)) shell.openExternal(url); });
 app.whenReady().then(() => {
-  create(); makeTray();
+  create(); makeTray(); setupUpdater();
   globalShortcut.register('CommandOrControl+Shift+Z', () => { show(); win.webContents.send('toggle-overlay'); });
 });
 app.on('before-quit', () => { quitting = true; });
