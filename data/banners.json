@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T02:30:00Z",
+  "updated": "2026-10-31T02:40:54Z",
   "banners": [
     {
       "id": "perm-covenant",
@@ -60,7 +60,43 @@
       "start": "2026-09-17T03:00:00Z",
       "end": "2026-10-08T02:59:00Z",
       "note": "Collab Chaos Zero Nightmare."
+    },
+    {
+      "kind": "mystic",
+      "hero": "Successor Taeyou",
+      "art": null,
+      "start": "2026-10-08T03:00:00Z",
+      "end": "2026-10-29T02:59:00Z",
+      "src": "https://epic7db.com/news/108-thu-update-content",
+      "id": "mystic-successor-taeyou-20261008",
+      "note": ""
     }
   ],
-  "seen": []
+  "seen": [
+    "101-thu-update-content",
+    "1029-thu-version-87-1st-update-content",
+    "108-thu-update-content",
+    "416-thu-update-content",
+    "423-thu-update-content",
+    "430-thu-update-content",
+    "514-thu-update-content",
+    "521-thu-update-content",
+    "528-thu-update-content",
+    "57-thu-update-content",
+    "611-thu-update-content",
+    "618-thu-update-content",
+    "625-thu-update-content",
+    "64-thu-update-content",
+    "72-thu-update-content",
+    "723-thu-update-content",
+    "730-thu-update-content",
+    "79-thu-update-content",
+    "813-thu-update-content",
+    "820-thu-update-content",
+    "827-thu-update-content",
+    "86-thu-update-content",
+    "910-thu-update-content",
+    "924-thu-update-content",
+    "93-thu-update-content-edited-at-0945"
+  ]
 }
