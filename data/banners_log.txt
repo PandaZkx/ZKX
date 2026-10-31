@@ -1,31 +1,5 @@
-2026-10-31T02:40:54.072993+00:00
+2026-10-31T02:42:48.004195+00:00
 sitemap : 888 articles ['1030-fri-patch-information', '1029-thu-patch-information', '1029-thu-maintenance-notice', 'patch-notes', 'pick-the-best-shorts-of-e7wc-2026-week-3', 'great-detectives-daily-investigation-lucky-board-party-event', 'bunny-girl-moros-great-detective-debut-find-the-missing-alky', 'tier-lists-are-live', 'events', 'launching-the-best-epic-seven-discord-bot', 'hero-rta-data-is-live', 'epic7db-is-live', '1029-thu-version-87-1st-update-content', '108-thu-maintenance-notice', '108-thu-update-content']
 articles trouvés : 80 ['1030-fri-patch-information', '1029-thu-patch-information', '1029-thu-maintenance-notice', 'patch-notes', 'pick-the-best-shorts-of-e7wc-2026-week-3', 'bunny-girl-moros-great-detective-debut-find-the-missing-alky', 'great-detectives-daily-investigation-lucky-board-party-event', 'events', 'launching-the-best-epic-seven-discord-bot', 'hero-rta-data-is-live', 'tier-lists-are-live', 'epic7db-is-live', '1029-thu-version-87-1st-update-content', '108-thu-maintenance-notice', '108-thu-update-content', '1021-wed-patch-information', '101-thu-update-content', '924-thu-update-content', '923-wed-patch-information', 'golden-scales-of-abundance-event', 'epic-road-special-event', 'a-special-drink-prepared-by-the-great-detective-special-pack-sales-notice', '3000-day-celebration-server-cooperation-special-event', '42-day-journey-record-of-the-journey-check-in-event', 'bunny-girl-party-hall-lobby-special-pack-sale-notice', 'trusty-sidekick-alencias-case-files-event', '922-tue-patch-information', '917-thu-maintenance-notice', '910-thu-patch-information', '910-thu-update-content', '93-thu-update-content-edited-at-0945', '91-tue-patch-information', '831-mon-patch-information', '828-fri-patch-information', '827-thu-maintenance-notice', '827-thu-update-content', 'temporary-maintenance-notice-for-match-history-site-on-824-mon', '820-thu-update-content', '813-thu-update-content', '812-wed-patch-information']
-articles à lire : 25
-- 1029-thu-version-87-1st-update-content | 10/29 (Thu) Version 8.7 1st Update Content -> [('rateup', 'Bunny Girl Mafia Yufine', "A Boss's Dignity", '2026-11-05', '2026-11-26'), ('mystic', 'Bunny Girl Great Detective Moro', None, '2026-10-29', '2026-11-19')]
-- 108-thu-update-content | 10/8 (Thu) Update Content -> [('limited', 'Mei Lin', "Flame Dragon's Jewel", '2026-10-08', '2026-10-29'), ('mystic', 'Successor Taeyou', None, '2026-10-08', '2026-10-29')]
-  + ajoutée : mystic-successor-taeyou-20261008
-- 101-thu-update-content | 10/1 (Thu) Update Content -> []
-- 924-thu-update-content | 9/24 (Thu) Update Content -> []
-- 910-thu-update-content | 9/10 (Thu) Update Content -> []
-- 93-thu-update-content-edited-at-0945 | 9/3 (Thu) Update Content (Edited at 09:45) -> [('rateup', 'Uncharted Pioneer Politis', 'Light and Darkness', '2026-09-03', '2026-09-24')]
-- 827-thu-update-content | 8/27 (Thu) Update Content -> [('mystic', '■ Lisette', None, '2026-08-27', '2026-09-17'), ('class', None, 'Master of the Nightmare', '2026-08-27', '2026-09-03'), ('mystic', 'Lisette', None, '2026-08-27', '2026-09-17')]
-- 820-thu-update-content | 8/20 (Thu) Update Content -> [('class', None, 'Cure-All Magic Wand', '2026-08-20', '2026-08-27')]
-- 813-thu-update-content | 8/13 (Thu) Update Content -> [('class', None, 'M.O.A.S', '2026-08-13', '2026-08-20')]
-- 730-thu-update-content | 7/30 (Thu) Update Content -> []
-- 86-thu-update-content | 8/6 (Thu) Update Content -> [('mystic', 'Lone Wolf Peira', None, '2026-08-06', '2026-08-27')]
-- 723-thu-update-content | 7/23 (Thu) Update Content -> [('limited', 'Aube', None, '2026-07-23', '2026-08-13')]
-- 79-thu-update-content | 7/9 (Thu) Update Content -> []
-- 72-thu-update-content | 7/2 (Thu) Update Content -> [('mystic', 'Bystander Hwayoung', None, '2026-07-02', '2026-07-16')]
-- 625-thu-update-content | 6/25 (Thu) Update Content -> [('limited', 'Eye of the Abyss Fumyr', 'Refracted Desire', '2026-06-25', '2026-07-16')]
-- 618-thu-update-content | 6/18 (Thu) Update Content -> [('rateup', 'Setsuka', 'Lethal Whispers', '2026-06-18', '2026-06-25')]
-- 64-thu-update-content | 6/4 (Thu) Update Content -> [('mystic', '■ Rhianna and Luciella', None, '2026-06-04', '2026-07-02'), ('mystic', 'Rhianna and Luciella', None, '2026-06-04', '2026-07-02'), ('rateup', 'Eligos', "An Offer You Can't Refuse", '2026-06-04', '2026-06-11')]
-- 611-thu-update-content | 6/11 (Thu) Update Content -> [('rateup', 'Aubade Ludwig', 'Aubade Orb', '2026-06-11', '2026-07-02')]
-- 528-thu-update-content | 5/28 (Thu) Update Content -> [('rateup', 'Haste and Rhianna', 'Luciella', '2026-05-28', '2026-06-04')]
-- 521-thu-update-content | 5/21 (Thu) Update Content -> [('rateup', 'Ivana', "Excommunicant's Censer", '2026-05-21', '2026-06-11')]
-- 514-thu-update-content | 5/14 (Thu) Update Content -> [('rateup', 'Schniel', 'Homage to Tarman', '2026-05-14', '2026-05-21'), ('mystic', 'Hellion Lua', None, '2026-05-14', '2026-06-04')]
-- 57-thu-update-content | 5/7 (Thu) Update Content -> [('rateup', 'Abigail', 'Golden Rose', '2026-05-07', '2026-05-14')]
-- 430-thu-update-content | 4/30 (Thu) Update Content -> [('rateup', 'Estelle', 'With a Little Friend', '2026-04-30', '2026-05-21')]
-- 423-thu-update-content | 4/23 (Thu) Update Content -> [('mystic', '■ Salome', None, '2026-04-23', '2026-05-14'), ('rateup', 'Senya', 'Spear of a New Dawn', '2026-04-23', '2026-04-30'), ('mystic', 'Salome', None, '2026-04-23', '2026-05-14')]
-- 416-thu-update-content | 4/16 (Thu) Update Content -> [('rateup', 'Ran', 'Sword of Winter Shadow', '2026-04-16', '2026-04-23')]
-bannières : 7 | changement : True
+articles à lire : 0
+bannières : 7 | changement : False
