@@ -52,15 +52,23 @@ def list_slugs():
             if s not in slugs:
                 slugs.append(s)
         time.sleep(1)
-    if not slugs:
-        try:
-            x = get(BASE + "/sitemap.xml")
-            found = re.findall(r"<loc>\s*https?://(?:www\.)?epic7db\.com/news/([a-z0-9][a-z0-9\-]*)/?\s*</loc>(?:\s*<lastmod>([^<]+)</lastmod>)?", x)
-            found.sort(key=lambda t: t[1], reverse=True)
-            slugs = [s for s, _ in found][:60]
-            log("sitemap :", len(slugs), "articles")
-        except Exception as e:
-            log("sitemap échec :", e)
+    try:
+        x = get(BASE + "/sitemap.xml")
+        locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", x)
+        subs = [u for u in locs if u.endswith(".xml")]
+        for u in subs[:6]:
+            try:
+                x += get(u)
+            except Exception as e:
+                log("sous-sitemap échec :", u, e)
+        found = re.findall(r"<loc>\s*https?://(?:www\.)?epic7db\.com/news/([a-z0-9][a-z0-9\-]*)/?\s*</loc>(?:\s*<lastmod>([^<]+)</lastmod>)?", x)
+        found.sort(key=lambda t: t[1], reverse=True)
+        log("sitemap :", len(found), "articles", [s for s, _ in found[:15]])
+        for s, _ in found[:80]:
+            if s not in slugs:
+                slugs.append(s)
+    except Exception as e:
+        log("sitemap échec :", e)
     log("articles trouvés :", len(slugs), slugs[:40])
     return slugs
 
