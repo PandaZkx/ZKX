@@ -1259,8 +1259,8 @@ function heroDialog(name){
   </dl>` + (h.syn ? `<h4>🤝 Se combine bien avec</h4><div class="pills">${pills(h.syn)}</div>
       <h4>✅ Bat</h4><div class="pills">${pills(h.beats)}</div>
       <h4>❌ Contré par</h4><div class="pills">${pills(h.beaten)}</div>
-      <h4>Builds RTA les plus joués</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
-      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(AN(b.art))}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>`
+      ${h.builds && h.builds.length ? `<h4>Builds RTA les plus joués (anciennes données)</h4><table class="b"><thead><tr><th>Set</th><th>Artefact</th><th>Victoires</th><th>Usage</th></tr></thead><tbody>
+      ${h.builds.map(b => `<tr><td>${esc(b.set)}</td><td>${artIcon(b.art)}${esc(AN(b.art))}</td><td class="n">${String(b.wr).replace(".", ",")} %</td><td class="n">${b.use} %</td></tr>`).join("")}</tbody></table>` : `<p class="mini">Builds RTA détaillés : onglet ⚔ RTA.</p>`}`
       : `<p class="note">Partenaires, counters et builds RTA détaillés : seulement pour les 30 meilleurs persos RTA.</p>`) + secFribbels(h);
   const stuff = stuffSection(h);
   const panes = {
