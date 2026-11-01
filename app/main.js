@@ -139,6 +139,16 @@ ipcMain.on('overlay', (_e, on) => {
   if (on){ if (win.isMaximized()) win.unmaximize(); normalBounds = win.getBounds(); win.setAlwaysOnTop(true, 'screen-saver'); win.setBounds({ width: 420, height: 740 }); }
   else { win.setAlwaysOnTop(false); if (normalBounds) win.setBounds(normalBounds); }
 });
+let coachWin = null;
+ipcMain.on('coach-open', () => {
+  if (coachWin && !coachWin.isDestroyed()){ coachWin.show(); coachWin.focus(); return; }
+  coachWin = new BrowserWindow({ width: 1280, height: 860, title: 'Epic7Coach · Live Draft', icon: ICON, backgroundColor: '#0b0b10', autoHideMenuBar: true,
+    webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false, partition: 'persist:epic7coach' } });
+  coachWin.removeMenu();
+  coachWin.loadURL('https://epic7coach.com/live-draft');
+  coachWin.webContents.setWindowOpenHandler(({ url }) => { if (/^https:\/\/([a-z0-9-]+\.)*epic7coach\.com\//.test(url)) return { action: 'allow' }; if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
+  coachWin.on('closed', () => { coachWin = null; });
+});
 ipcMain.on('open', (_e, url) => { if (/^https:\/\/github\.com\//.test(url)) shell.openExternal(url); });
 app.whenReady().then(() => {
   create(); makeTray(); setupUpdater();

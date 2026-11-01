@@ -32,6 +32,12 @@ Les bannières se mettent à jour toutes seules : un robot GitHub (`.github/work
 
 Clique sur un perso : la fiche commence par une vue **guide** (artefacts et sets classés, stats principales par pièce, sous-stats et stats à viser, 3 équipes conseillées, coût pour l'avoir et le monter), puis tous les détails (tiers par source, compétences, builds RTA…).
 
+## Live draft
+
+Onglet **⚔ Live draft** : note la draft RTA au fur et à mesure (pré-bans, picks 1-2-2-2-2-1, ban final). ZKX conseille à chaque étape avec les données RTA de la semaine (Epic7Coach) : force du perso, combos avec ton équipe, counters contre l'adversaire, ordre de pick habituel, et propose seulement tes persos si tu veux. Le bouton « Live Draft Epic7Coach » ouvre leur outil (leur modèle, ton compte, leurs limites).
+
+Les données Epic7Coach sont récupérées deux fois par semaine par `.github/workflows/coach.yml` (`tools/coach_update.py`, une requête par seconde, pages publiques) dans `data/coach.json`, que l'appli recharge en ligne.
+
 ## Daily / Hebdo
 
 Onglet **📅 Daily / Hebdo** : la liste de ce qu'il faut faire en priorité à chaque reset (jour, semaine, mois), avec des cases qui se décochent toutes seules, le compte à rebours avant le reset de ton serveur, des alertes sur les bannières qui se terminent ou arrivent, et tes propres tâches.

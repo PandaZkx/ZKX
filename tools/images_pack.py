@@ -22,6 +22,13 @@ for h in DATA:
     for v in (h["n"], h.get("fr"), h.get("key"), h.get("code")):
         if v and nrm(v) not in HN:
             HN[nrm(v)] = h["n"]
+# héros ajoutés par les données Epic7Coach (mêmes règles que l'appli)
+_cf = T.parent / "data" / "coach.json"
+if _cf.exists():
+    _codes = {h.get("code") for h in DATA}
+    for _c, _x in json.loads(_cf.read_text(encoding="utf-8")).get("heroes", {}).items():
+        if _c not in _codes and _x.get("en") and ((_x.get("star") or 0) >= 5 or (_x.get("n") or 0) >= 30):
+            HN.setdefault(nrm(_x["en"]), _x["en"])
 for n, a in ARTS.items():
     AN[nrm(n)] = a["key"]
     AN[nrm(a["key"])] = a["key"]
@@ -75,7 +82,8 @@ def arts_big(src):
 
 def main(src):
     src = Path(src)
-    arts_big(src)
+    if "--arts" in sys.argv or not (T.parent / "data" / "art" / "colors.json").exists():
+        arts_big(src)
     out, miss = {"h": {}, "a": {}}, {"h": [], "a": []}
     for f in sorted((src / "heroes").glob("*")):
         k = HN.get(nrm(f.stem)) or HN.get(nrm(f.stem.replace("-and-", "-")))
@@ -99,5 +107,5 @@ def main(src):
 
 
 if __name__ == "__main__":
-    m = main(sys.argv[1] if len(sys.argv) > 1 else ".")
+    m = main(next((a for a in sys.argv[1:] if not a.startswith("--")), "."))
     print("ex. non reconnus :", m["h"][:40], m["a"][:20])

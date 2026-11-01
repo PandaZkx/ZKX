@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('zkx', {
   setOnTop: v => ipcRenderer.send('ontop', !!v),
   overlay: on => ipcRenderer.send('overlay', !!on),
   openExternal: url => ipcRenderer.send('open', String(url)),
+  openCoach: () => ipcRenderer.send('coach-open'),
   getLogin: () => ipcRenderer.sendSync('get-login'),
   setLogin: v => ipcRenderer.send('set-login', !!v),
   onToggleOverlay: cb => ipcRenderer.on('toggle-overlay', () => cb()),

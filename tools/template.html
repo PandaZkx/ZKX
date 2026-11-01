@@ -235,6 +235,36 @@ span.pface{cursor:default}
 .podn{font:700 19px var(--f-display);line-height:1.1;text-shadow:0 0 12px color-mix(in srgb,var(--neon) 60%,transparent),0 2px 4px #000}
 .podv{font:700 16px var(--f-display)}
 @media (max-width:640px){.pods{grid-template-columns:1fr}.pod.p1,.pod.p2,.pod.p3{order:0;min-height:0}}
+.hstats.rta{margin:8px 0}
+.obar{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;margin:4px 0;font-size:14px}
+.obar i{height:9px;border-radius:99px;background:var(--panel2);overflow:hidden;display:block}.obar i b{display:block;height:100%;background:var(--acc)}
+.obar em{font-style:normal;text-align:right;color:var(--muted)}
+.dbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.dgrid{display:grid;grid-template-columns:minmax(200px,1fr) minmax(320px,1.6fr) minmax(200px,1fr);gap:14px;align-items:start}
+.dside{border-radius:14px;padding:12px;background:var(--panel2);border:1px solid var(--line)}
+.dside.mine{border-color:#3b82f6;box-shadow:0 0 14px #3b82f633}.dside.foe{border-color:#ef4444;box-shadow:0 0 14px #ef444433}
+.dside h3{margin:0 0 8px}
+.dpb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-bottom:10px}.dslot{min-width:0}
+.dpicks{display:flex;flex-direction:column;gap:6px}
+.dslot{position:relative;display:flex;align-items:center;gap:8px;padding:6px;border-radius:10px;background:var(--bg2);border:1px dashed var(--line);color:var(--text);cursor:default;text-align:left;font:inherit;min-height:52px}
+.dslot.full{border-style:solid;cursor:pointer}.dslot.pb{min-height:44px}.dslot.pb .badge{width:32px;height:32px}
+.dslot.cur{border:2px solid var(--acc);box-shadow:0 0 12px var(--acc)}
+.dslot.banned{opacity:.5}.dslot.banned .badge{filter:grayscale(1)}
+.dsb{position:absolute;right:8px;font:800 11px var(--f-body);color:#fff;background:#b91c1c;border-radius:6px;padding:2px 6px}
+.dsn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:14px}
+.dsempty{background:var(--panel) !important;color:var(--muted)}
+.dnow{border-radius:14px;padding:14px;background:var(--panel2);border:1.5px solid var(--acc);display:flex;flex-direction:column;gap:8px}
+.dnow.enemy{border-color:#ef4444}.dnow > b{font:700 22px var(--f-display)}.dnow p{margin:0}
+.dnow input{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--text);font:inherit}
+.dres{display:flex;flex-wrap:wrap;gap:6px}
+.dq{display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px;border-radius:99px;background:var(--bg2);border:1px solid var(--line);color:var(--text);cursor:pointer;font:600 13px var(--f-body)}
+.dq .badge{width:28px;height:28px}
+.drecs{display:flex;flex-direction:column;gap:6px}
+.drec{display:flex;gap:10px;align-items:center;padding:8px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);color:var(--text);cursor:pointer;text-align:left;font:inherit}
+.drec:hover{border-color:var(--acc)}.drec.top{border-color:var(--acc);background:var(--acc-bg)}
+.drt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.dpos{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}.dpos > span:not(.badge){flex:1}
+@media (max-width:1000px){.dgrid{grid-template-columns:1fr}}
 .ban.over{opacity:.55} .ban .odds{color:var(--text);opacity:.85}
 .cmpbest{background:var(--panel2);border:1px solid var(--acc);border-radius:12px;padding:10px 12px;margin:10px 0}
 .rbar{display:inline-block;vertical-align:middle;width:110px;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.rbar i{display:block;height:100%;background:var(--acc)}
@@ -360,6 +390,7 @@ __JSZIP__
     <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
     <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
     <button role="tab" id="tab-pulls" aria-selected="false" aria-controls="v-pulls"><span class="ic">🎰</span>Invocations</button>
+    <button role="tab" id="tab-draft" aria-selected="false" aria-controls="v-draft"><span class="ic">⚔</span>Live draft</button>
     <button role="tab" id="tab-daily" aria-selected="false" aria-controls="v-daily"><span class="ic">📅</span>Daily / Hebdo</button>
     <button role="tab" id="tab-captures" aria-selected="false" aria-controls="v-captures"><span class="ic">📸</span>Mes captures</button>
   </nav>
@@ -483,6 +514,9 @@ __JSZIP__
     <div class="artgrid" id="wl-arts"></div>
   </section>
 </div>
+<div class="view" id="v-draft" role="tabpanel" aria-labelledby="tab-draft" hidden>
+  <section class="card" style="margin-top:14px"><div id="draft"></div></section>
+</div>
 <div class="view" id="v-daily" role="tabpanel" aria-labelledby="tab-daily" hidden>
   <section class="card" style="margin-top:14px">
     <h2>À faire à chaque reset</h2>
@@ -525,7 +559,7 @@ __JSZIP__
   <div class="card2" id="ov-team" style="margin-top:8px"></div>
   <p class="mini" id="ov-tip" style="margin-top:8px"></p>
 </div>
-<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde Fribbels (Documents\FribbelsOptimizerSaves\autosave.json), et « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre du jeu pour cocher tes persos tout seul (simple capture d'écran : ZKX ne touche pas au jeu). Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>. Les partenaires, counters et builds détaillés existent pour les 30 meilleurs persos RTA ; pour les autres, l'appli se base sur leur tier.</p>
+<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde Fribbels (Documents\FribbelsOptimizerSaves\autosave.json), et « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre du jeu pour cocher tes persos tout seul (simple capture d'écran : ZKX ne touche pas au jeu). Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>, <a href="https://epic7coach.com/">Epic7Coach</a> (stats RTA de la semaine, alliés, counters, builds, mis à jour deux fois par semaine).</p>
 </div></main>
 </div>
 
@@ -620,7 +654,66 @@ const META = __META__;
 const ARTS = __ARTS__;
 const ARTFR = __ARTFR__;
 const ARTEN = Object.fromEntries(Object.entries(ARTFR).map(([en, fr]) => [fr, en]));
-const ACL = { "Knight": "Chevalier", "Warrior": "Guerrier", "Thief": "Voleur", "Ranger": "Archer", "Mage": "Mage", "Soul Weaver": "Tisseur d'âme", "General": "Toutes classes" };
+const ACL = { "Knight": "Chevalier", "Warrior": "Guerrier", "Thief": "Voleur", "Ranger": "Archer", "Mage": "Mage", "Soul Weaver": "Tisseur d'âme", "General": "Toutes classes", "Common": "Toutes classes" };
+/* ---------- Données Epic7Coach (RTA de la semaine, counters, builds) ---------- */
+let COACH = __COACH__;
+try { const c = JSON.parse(localStorage.getItem("zkxcoach") || "null"); if (c && c.heroes && (c.generated || "") > ((COACH && COACH.generated) || "")) COACH = c; } catch(e) {}
+const SETK = { speed: "Vitesse", cri: "Critique", cri_dmg: "Destruction", acc: "Coup", res: "Résistance", max_hp: "PV", def: "Défense", att: "Attaque", vampire: "Vol de vie", counter: "Contre", immune: "Immunité", coop: "Unité", rage: "Rage", penetrate: "Pénétration", scar: "Blessure", shield: "Protection", torrent: "Torrent", revenge: "Vengeance", reversal: "Renversement", riposte: "Riposte", warfare: "Warfare", pursuit: "Poursuite", weakening: "Affaiblissement", fervor: "Fervor", chase: "Poursuite", might: "Fervor", opener: "Warfare", revenant: "Renversement", weak: "Affaiblissement" };
+const setName = k => SETK[k] || (COACH && COACH.sets && COACH.sets[k]) || k;
+function setCombo(arr){ const c = {}; (arr || []).forEach(k => c[k] = (c[k] || 0) + 1); return Object.entries(c).map(([k, n]) => setName(k) + (n > 1 ? " ×" + n : "")).join(" + "); }
+const CODE2N = {};
+const ARTC = {};
+const ELMAP = { fire: "fire", ice: "ice", earth: "wind", wind: "wind", light: "light", dark: "dark" };
+const CLMAP = { warrior: "warrior", knight: "knight", thief: "assassin", assassin: "assassin", ranger: "ranger", mage: "mage", soul_weaver: "manauser", manauser: "manauser" };
+function applyCoach(){
+  if (!COACH || !COACH.heroes) return;
+  DATA.forEach(h => { if (h.code) CODE2N[h.code] = h.n; });
+  // artefacts
+  for (const [c, a] of Object.entries(COACH.arts || {})){
+    if (!a.en) continue; ARTC[c] = a.en;
+    if (!ARTS[a.en]) ARTS[a.en] = { key: String(a.en).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""), class: a.cl === "Common" ? "General" : a.cl, stars: a.star, skill: a.d || "" };
+    else { if (!ARTS[a.en].skill && a.d) ARTS[a.en].skill = a.d; if (!ARTS[a.en].class && a.cl) ARTS[a.en].class = a.cl === "Common" ? "General" : a.cl; }
+    ARTS[a.en].rta = a;
+  }
+  // nouveaux héros (5★ ou joués en RTA)
+  for (const [c, x] of Object.entries(COACH.heroes)){
+    if (CODE2N[c] || !x.en) continue;
+    if (!(x.star >= 5 || (x.n || 0) >= 30)) continue;
+    const nh = { n: x.en, fr: "", el: ELMAP[x.el] || "fire", cl: CLMAP[x.cl] || "warrior", stars: x.star || 5, type: null, code: c, base: [0, 0, 0, 0, 15, 150, 0, 0], src: {}, pvp: null, pve: null, added: true };
+    DATA.push(nh); BY[nh.n] = nh; CODE2N[c] = nh.n;
+  }
+  for (const h of DATA){
+    const x = h.code && COACH.heroes[h.code]; if (!x) continue;
+    h.c = x;
+    if ((x.n || 0) >= 30){ h.wr = +(x.wr * 100).toFixed(1); h.pick = +(x.pick * 100).toFixed(1); h.pre = +(x.preban * 100).toFixed(1); h.ban = +((x.ban || 0) * 100).toFixed(1); h.rta_n = x.n; h.rta_src = "coach"; }
+    const nm = c => CODE2N[c];
+    if (x.allies && x.allies.length) h.syn = x.allies.map(a => nm(a[0])).filter(Boolean).slice(0, 3);
+    if (x.good && x.good.length) h.beats = x.good.map(a => nm(a[0])).filter(Boolean).slice(0, 3);
+    if (x.bad && x.bad.length) h.beaten = x.bad.map(a => nm(a[0])).filter(Boolean).slice(0, 3);
+    if (x.arts && x.arts.length && ARTC[x.arts[0][0]]){
+      const a = x.arts[0];
+      h.build = Object.assign({}, h.build || {}, { art: ARTC[a[0]], wr: +(a[2] * 100).toFixed(1), use: +(a[1] * 100).toFixed(1), src: "coach" });
+      h.alt_arts = x.arts.slice(1).map(a => ARTC[a[0]]).filter(Boolean);
+    }
+    if (x.sets && x.sets.length){ h.build = Object.assign({}, h.build || {}, { set: setCombo(x.sets[0][0]), setuse: +(x.sets[0][1] * 100).toFixed(1) }); }
+    if (!h.sk && x.skills && x.skills.length){
+      h.sk = { stars: String(x.star || h.stars || 5), type: h.type || "", base: h.base, skills: x.skills.map(s => s.d || ""), sb: x.skills.map(s => s.sb || ""), self: null, imprint: null, coach: true };
+    }
+    if (x.imprint && h.sk && !h.sk.imprintTxt) h.sk.imprintTxt = x.imprint;
+    if (h.pvp == null && x.n >= 300){
+      const t = x.pick >= .15 && x.wr >= .5 ? ["S", 4.0] : x.pick >= .05 && x.wr >= .48 ? ["A", 3.4] : x.pick >= .01 ? ["B", 2.8] : ["C", 2.2];
+      h.pvpT = t[0]; h.pvp = t[1]; h.pvpN = 0; h.rtaTier = true;
+    }
+  }
+}
+applyCoach();
+setTimeout(() => fetch("https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/coach.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => {
+  if (!j || !j.heroes || (j.generated || "") <= ((COACH && COACH.generated) || "")) return;
+  COACH = j; try { localStorage.setItem("zkxcoach", JSON.stringify(j)); } catch(e) {}
+  applyCoach(); renderAll();
+}).catch(() => {}), 1500);
+const coachName = c => CODE2N[c] || (COACH && COACH.heroes[c] && COACH.heroes[c].en) || c;
+const pc = x => x == null ? "—" : String((x * 100).toFixed(1)).replace(".", ",") + " %";
 const SETS = {HealthSet:"PV",DefenseSet:"Défense",AttackSet:"Attaque",SpeedSet:"Vitesse",CriticalSet:"Critique",HitSet:"Coup",DestructionSet:"Destruction",LifestealSet:"Vol de vie",CounterSet:"Contre",ResistSet:"Résistance",UnitySet:"Unité",RageSet:"Rage",ImmunitySet:"Immunité",RevengeSet:"Vengeance",InjurySet:"Blessure",PenetrationSet:"Pénétration",ProtectionSet:"Protection",TorrentSet:"Torrent",ReversalSet:"Renversement",RiposteSet:"Riposte",WarfareSet:"Warfare",PursuitSet:"Poursuite",WeakeningSet:"Affaiblissement",FervorSet:"Fervor"};
 const FR2SET = Object.fromEntries(Object.entries(SETS).map(([k,v]) => [v,k]));
 const SLOTFR = {Weapon:"Arme",Helmet:"Casque",Armor:"Armure",Necklace:"Collier",Ring:"Anneau",Boots:"Bottes"};
@@ -782,7 +875,7 @@ function infoSections(h){
   if (!h.sk) return "";
   const s = h.sk, FRS = sklang === "fr" && s.skills_fr, SK = FRS ? s.skills_fr : s.skills, SB = (FRS ? s.sb_fr : s.sb) || [];
   let html = `<h4>📜 Infos</h4><div class="pills"><span class="pill">${esc(s.stars)}★</span>${s.type ? `<span class="pill">${s.type === "Limited" ? "Limité" : "Permanent"}</span>` : ""}${s.rel ? `<span class="pill">Sorti le ${esc(s.rel.split("-").reverse().join("/"))}</span>` : ""}${s.self ? `<span class="pill">Imprint perso : ${esc(stFr(s.self).replace(",", " "))}</span>` : ""}${s.imprint ? `<span class="pill">Imprint équipe : ${esc(stFr(s.imprint.split(",").slice(0,2).join(" ")))}</span>` : ""}</div>
-    <p class="mini" style="margin:6px 0 0">Stats de base 6★ éveillé : Att ${s.base[0]} · PV ${s.base[1]} · Déf ${s.base[2]} · Vit ${s.base[3]} · Crit ${s.base[4]} % · Dég. crit ${s.base[5]} % · Eff ${s.base[6]} % · Rés ${s.base[7]} %</p>`;
+    ${s.base && s.base[0] ? "" : "<!--"}<p class="mini" style="margin:6px 0 0">Stats de base 6★ éveillé : Att ${s.base[0]} · PV ${s.base[1]} · Déf ${s.base[2]} · Vit ${s.base[3]} · Crit ${s.base[4]} % · Dég. crit ${s.base[5]} % · Eff ${s.base[6]} % · Rés ${s.base[7]} %</p>${s.base && s.base[0] ? "" : "-->"}`;
   html += `<h4>✨ Compétences</h4>` + SK.map((x, i) => x ? `<div class="skill"><b>S${i+1}</b> — ${esc(x)}${SB[i] ? `<span class="sb">🔥 Soulburn ${esc(SB[i])}</span>` : ""}</div>` : "").join("");
   return html;
 }
@@ -1015,6 +1108,7 @@ function renderAll(msg){ renderStatus(msg); renderKpis(); renderTeams(); renderW
 function pctList(s){ return String(s || "").split(";").map(x => { const m = x.trim().match(/^(.+?)\s+([\d.,]+)\s*%$/); return m ? [m[1].trim(), parseFloat(m[2].replace(",", "."))] : (x.trim() ? [x.trim(), null] : null); }).filter(Boolean); }
 function guideArts(h){
   const L = [], add = (n, u, wr) => { if (n && !L.some(x => x[0] === n)) L.push([n, u, wr]); };
+  if (h.c && h.c.arts && h.c.n >= 30) h.c.arts.forEach(a => ARTC[a[0]] && add(ARTC[a[0]], +(a[1] * 100).toFixed(1), +(a[2] * 100).toFixed(1)));
   if (h.build && h.build.art) add(h.build.art, h.build.use, h.build.wr);
   (h.builds || []).forEach(b => add(b.art, b.use, b.wr));
   pctList(h.fr_arts).forEach(([n, u]) => add(n, u));
@@ -1023,6 +1117,7 @@ function guideArts(h){
 }
 function guideSets(h){
   const L = [], add = (n, u, wr) => { if (n && !L.some(x => x[0] === n)) L.push([n, u, wr]); };
+  if (h.c && h.c.sets && h.c.n >= 30) h.c.sets.forEach(x => add(setCombo(x[0]), +(x[1] * 100).toFixed(1), +(x[2] * 100).toFixed(1)));
   (h.builds || []).forEach(b => add(b.set, b.use, b.wr));
   pctList(h.fr_sets).forEach(([n, u]) => add(n, u));
   if (!L.length && h.build && h.build.set) add(h.build.set, h.build.setuse);
@@ -1104,7 +1199,7 @@ function guideHTML(h){
     </div>
   </div>
   <div class="gcol">
-    <div class="gbox"><h5>🎯 Stats à viser</h5>${h.stats ? `<p style="margin:0 0 6px">${esc(h.stats)}</p><p class="mini" style="margin:0">Fourchette des joueurs RTA.</p>` : R.tgt.length ? `<div class="gtgt">${R.tgt.map(([k, v], i) => `<div>${num(i)}<span>${esc(k)}</span><b>${esc(String(v))}</b></div>`).join("")}</div><p class="mini" style="margin:6px 0 0">Moyenne des joueurs Fribbels : vise au moins ça.</p>` : '<p class="mini">Pas encore de données.</p>'}</div>
+    <div class="gbox"><h5>🎯 Stats à viser</h5>${h.c && h.c.target && h.c.target.stats && h.c.n >= 30 ? `<div class="gtgt">${[["spd","Vitesse",""],["atk","Attaque",""],["hp","PV",""],["def","Défense",""],["crit","Crit"," %"],["cdmg","Dég. crit"," %"],["eff","Efficacité"," %"],["res","Résistance"," %"]].filter(([k]) => h.c.target.stats[k] && h.c.target.stats[k][1] > (k === "crit" ? 15 : k === "cdmg" ? 150 : k === "eff" || k === "res" ? 0 : 1)).slice(0, 6).map(([k, l, u], i) => `<div>${num(i)}<span>${l}</span><b>${NB(h.c.target.stats[k][1])}${u}</b></div>`).join("")}</div><p class="mini" style="margin:6px 0 0">Médiane des joueurs RTA de la semaine (onglet ⚔ RTA pour les fourchettes).</p>` : h.stats ? `<p style="margin:0 0 6px">${esc(h.stats)}</p><p class="mini" style="margin:0">Fourchette des joueurs RTA.</p>` : R.tgt.length ? `<div class="gtgt">${R.tgt.map(([k, v], i) => `<div>${num(i)}<span>${esc(k)}</span><b>${esc(String(v))}</b></div>`).join("")}</div><p class="mini" style="margin:6px 0 0">Moyenne des joueurs Fribbels : vise au moins ça.</p>` : '<p class="mini">Pas encore de données.</p>'}</div>
     <div class="gbox"><h5>👥 Équipes</h5>${teams.length ? teams.map(x => `<div class="gteam"><div class="gmem">${x.t.map(m => `<button type="button" class="gm" data-hero="${esc(m.n)}" title="${esc(dn(m))}">${badge(m)}<span class="gmn">${esc(dn(m))}</span></button>`).join("")}</div><span class="mini">${esc(x.lab)}${x.t.every(m => m.n === h.n || owned.has(m.n)) ? " · ✓ tout dans ta box" : ""}</span></div>`).join("") : '<p class="mini">Pas assez de données.</p>'}</div>
     <div class="gbox"><h5>💰 Coût</h5><p style="margin:0 0 6px"><b>${esc(C.get[0])} :</b> ${esc(C.get[1])}</p>${C.up.map(([i, k, v]) => `<div class="gcost"><span>${i}</span><b>${esc(k)}</b><span class="mini">${esc(v)}</span></div>`).join("")}</div>
   </div></div>`;
@@ -1117,6 +1212,27 @@ function secArts(h){
 }
 function secSources(h){ return `<h4>📊 Tier par source</h4><div class="srcgrid">${META.sources.map(s => `<div class="src"><span>${esc(s.lab)}<br><span class="mini">${esc(s.date)}</span></span><b>${h.src && h.src[s.k] ? esc(h.src[s.k]) : "—"}</b></div>`).join("")}</div>`; }
 function secFribbels(h){ return (h.fr_sets || h.fr_arts) ? `<h4>🛠 Stuffs enregistrés par les joueurs (Fribbels)</h4><p style="margin:0">${h.fr_sets ? "<b>Sets :</b> " + esc(h.fr_sets) + "<br>" : ""}${h.fr_arts ? "<b>Artefacts :</b> " + esc(h.fr_arts) : ""}</p><p class="mini">Fribbels mélange PvE et PvP : ça peut différer des builds RTA.</p>` : ""; }
+function secRTA(h){
+  const x = h.c;
+  if (!x || !(x.n >= 1)) return `<p class="note">Pas de données RTA de la semaine pour ce perso (il n'a pas été joué dans les matchs relevés par Epic7Coach).</p>`;
+  const few = x.n < 30;
+  const chipN = (c, extra) => { const n = coachName(c), hh = BY[n]; return `<span class="pill ${hh && owned.has(hh.n) ? "own" : ""}" ${hh ? `data-hero="${esc(hh.n)}" style="cursor:pointer"` : ""}>${hh && IMGS[hh.n] ? `<span class="aico" style="background-image:url('${IMGS[hh.n]}');border-radius:50%"></span>` : ""}${esc(hh ? DN(hh.n) : n)}${extra ? ` <b>${extra}</b>` : ""}</span>`; };
+  const bar = (lab, v) => `<div class="obar"><span>${lab}</span><i><b style="width:${Math.round((v || 0) * 100)}%"></b></i><em>${pc(v)}</em></div>`;
+  const tagFr = { joker_pick: "Joker (souvent pris en dernier pour contrer)", opener: "Ouvreur", flex_pick: "Pick flexible" };
+  let html = `<p class="mini">Données ${esc(COACH.source)} · semaine du ${esc((COACH.range || [])[0] || "?")} au ${esc((COACH.range || [])[1] || "?")} · ${NB(COACH.matches || 0)} matchs RTA${few ? ` · <b>seulement ${x.n} matchs pour ce perso : à prendre avec prudence</b>` : ""}.</p>
+  <div class="hstats rta">${[["Matchs", NB(x.n)], ["Victoires", pc(x.wr)], ["Pris dans", pc(x.pick)], ["Pré-ban", pc(x.preban)], ["Ban final", pc(x.ban)], ...(x.pos ? [["Position", "n°" + x.pos + ` <small>${pc(x.pos_rate)}</small>`]] : [])].map(([a, b]) => `<div class="hst"><span>${a}</span><b>${b}</b></div>`).join("")}</div>
+  <h4>🕑 Quand il est pris</h4>${bar("Tôt (picks 1-2)", x.early)}${bar("Milieu (pick 3)", x.mid)}${bar("Tard (picks 4-5)", x.late)}${x.tag ? `<p class="mini">Rôle en draft : ${esc(tagFr[x.tag] || x.tag)}</p>` : ""}`;
+  if (x.allies && x.allies.length) html += `<h4>🤝 Joué le plus souvent avec</h4><div class="pills">${x.allies.slice(0, 8).map(a => chipN(a[0], pc(a[1]))).join("")}</div>`;
+  if (x.good && x.good.length) html += `<h4>✅ Gagne bien contre</h4><div class="pills">${x.good.slice(0, 8).map(a => chipN(a[0], pc(a[1]))).join("")}</div><p class="mini">% = ses victoires quand ce perso est en face.</p>`;
+  if (x.bad && x.bad.length) html += `<h4>❌ Souffre contre</h4><div class="pills">${x.bad.slice(0, 8).map(a => chipN(a[0], pc(a[1]))).join("")}</div>`;
+  if (x.sets && x.sets.length) html += `<h4>💎 Sets joués en RTA</h4><table class="b"><thead><tr><th>Sets</th><th>Joué</th><th>Victoires</th></tr></thead><tbody>${x.sets.map(s => `<tr><td>${esc(setCombo(s[0]))}</td><td class="n">${pc(s[1])}</td><td class="n">${pc(s[2])}</td></tr>`).join("")}</tbody></table>`;
+  if (x.arts && x.arts.length) html += `<h4>🔱 Artefacts joués en RTA</h4><div class="artgrid">${x.arts.filter(a => ARTC[a[0]]).map(a => { const n = ARTC[a[0]]; return `<div class="artc" style="--neon:${ART_COL[artKey(n)] || "var(--acc)"}">${artBig(n, "md")}<div class="artt"><b>${esc(AN(n))}</b>${ANen(n) ? `<span class="mini">${esc(n)}</span>` : ""}<span class="mini">Joué ${pc(a[1])} · victoires ${pc(a[2])}</span></div></div>`; }).join("")}</div>`;
+  if (x.target && x.target.stats){
+    const L = [["spd", "Vitesse", ""], ["atk", "Attaque", ""], ["hp", "PV", ""], ["def", "Défense", ""], ["crit", "Crit", " %"], ["cdmg", "Dég. crit", " %"], ["eff", "Efficacité", " %"], ["res", "Résistance", " %"]];
+    html += `<h4>🎯 Stats des joueurs (build ${esc((x.target.set || []).map(([k, n]) => setName(k) + (n === 4 ? " (4)" : "")).join(" + "))})</h4><table class="b"><thead><tr><th>Stat</th><th>Moitié des joueurs entre</th><th>Médiane</th></tr></thead><tbody>${L.filter(([k]) => x.target.stats[k]).map(([k, l, u]) => { const [a, m, b] = x.target.stats[k]; return `<tr><td>${l}</td><td class="n">${NB(a)}${u} – ${NB(b)}${u}</td><td class="n"><b>${NB(m)}${u}</b></td></tr>`; }).join("")}</tbody></table>`;
+  }
+  return html;
+}
 function heroDialog(name){
   const h = BY[name]; if (!h) return;
   const grade = (k, lab) => h[k] ? `<dt>${lab}</dt><dd><span class="g g-${h[k]}">${h[k]}</span> ${GTXT[h[k]]}</dd>` : "";
@@ -1131,7 +1247,7 @@ function heroDialog(name){
   if (h.rta_n != null) stats.push(tile("Matchs RTA", NB(h.rta_n)));
   if (h.pick != null) stats.push(tile("Joué RTA", P(h.pick)));
   if (h.pre != null) stats.push(tile("Pré-ban", P(h.pre)));
-  const tabs = [["guide", "📖 Guide"], ["skills", "✨ Compétences"], ["stats", "📊 Stats & builds"], ["stuff", "🧮 Mon stuff"], ["src", "🗂 Sources"]];
+  const tabs = [["guide", "📖 Guide"], ["rta", "⚔ RTA"], ["skills", "✨ Compétences"], ["stats", "📊 Stats & builds"], ["stuff", "🧮 Mon stuff"], ["src", "🗂 Sources"]];
   // panneaux
   const noG = !h.dd ? `<dt>Grades DPS / TANK</dt><dd class="mini">Pas assez joué en RTA${h.rta_n != null ? ` (${h.rta_n} matchs relevés)` : ""} pour le noter.</dd>` : "";
   const pStats = `<dl class="kv">
@@ -1149,6 +1265,7 @@ function heroDialog(name){
   const stuff = stuffSection(h);
   const panes = {
     guide: guideHTML(h),
+    rta: secRTA(h),
     skills: (infoSections(h) || `<p class="note">Pas encore le texte des compétences de ce perso.</p>`) + secArts(h),
     stats: pStats,
     stuff: stuff || `<p class="note">${ITEMS.length ? "Aucune pièce de ton stuff n'est équipée sur ce perso." : "Importe ta sauvegarde Fribbels (ou active l'import auto) pour voir ton stuff et les meilleures pièces de ton inventaire pour ce perso."}</p>`,
@@ -1292,14 +1409,15 @@ const PAGE_TXT = { conseils: null,
   stuff: ["Mon stuff", "Tes pièces notées comme dans Fribbels (gear score) : filtre par set, emplacement ou perso équipé."],
   tiers: ["Tier lists", "Consensus de 12 tier lists (6 PvP, 6 PvE) et stats RTA. Clique sur un perso pour sa fiche."],
   pulls: ["Invocations", "Les bannières du moment, où mettre tes bookmarks selon ta box, et ta liste de souhaits."],
+  draft: ["Live draft", "Ton assistant de pick / ban RTA : note les choix au fur et à mesure, ZKX te conseille à chaque étape."],
   daily: ["Daily / Hebdo", "Ce qu'il faut faire en priorité à chaque reset."],
   captures: ["Mes captures", "Tes propres images de persos et d'artefacts, prises dans le jeu."] };
 const PAGE_DEF = [document.getElementById("page-h").textContent, document.getElementById("page-p").innerHTML];
-for (const id of ["conseils","stuff","tiers","pulls","daily","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
+for (const id of ["conseils","stuff","tiers","pulls","draft","daily","captures"]) document.getElementById("tab-" + id).addEventListener("click", () => {
   const t = PAGE_TXT[id] || PAGE_DEF; document.getElementById("page-h").textContent = t[0]; document.getElementById("page-p").innerHTML = t[1];
   document.getElementById("kpis").hidden = id !== "conseils";
-  if (id === "captures") renderGal(); if (id === "pulls") renderPulls(); if (id === "daily") renderDaily();
-  for (const o of ["conseils","stuff","tiers","pulls","daily","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
+  if (id === "captures") renderGal(); if (id === "pulls") renderPulls(); if (id === "daily") renderDaily(); if (id === "draft") renderDraft();
+  for (const o of ["conseils","stuff","tiers","pulls","draft","daily","captures"]){ document.getElementById("tab-" + o).setAttribute("aria-selected", o === id); document.getElementById("v-" + o).hidden = o !== id; }
 });
 ["f-set","f-slot","f-eq","f-score"].forEach(id => document.getElementById(id).addEventListener("change", renderInv));
 ["t-q","t-own","t-sort"].forEach(id => document.getElementById(id).addEventListener("input", renderTiers));
@@ -1728,6 +1846,123 @@ document.getElementById("pr-fill").addEventListener("click", () => {
 });
 document.getElementById("pr-clear").addEventListener("click", () => { PR.set({ h: [], a: [] }); renderProphecy(); });
 document.getElementById("wl-own").addEventListener("change", renderPulls);
+/* ---------- Live draft (assistant pick / ban) ---------- */
+const DR = { first: true, boxOnly: true, pbm: [null, null], pbe: [null, null], me: [null, null, null, null, null], en: [null, null, null, null, null], bm: null, be: null, q: "" };
+try { const s = JSON.parse(localStorage.getItem("zkxdraft") || "null"); if (s) Object.assign(DR, s, { q: "" }); } catch(e) {}
+const drSave = () => { try { localStorage.setItem("zkxdraft", JSON.stringify(DR)); } catch(e) {} };
+function drSteps(){
+  const st = [["pbm", 0, "Ton pré-ban 1"], ["pbm", 1, "Ton pré-ban 2"], ["pbe", 0, "Pré-ban adverse 1"], ["pbe", 1, "Pré-ban adverse 2"]];
+  const A = DR.first ? "me" : "en", B = DR.first ? "en" : "me", seq = [[A, 0], [B, 0], [B, 1], [A, 1], [A, 2], [B, 2], [B, 3], [A, 3], [A, 4], [B, 4]];
+  let nm = 0, ne = 0;
+  for (const [side, i] of seq) st.push([side, i, side === "me" ? `Ton pick ${++nm}` : `Pick adverse ${++ne}`]);
+  st.push(["bm", 0, "Ton ban final (un de ses 5)"], ["be", 0, "Son ban final (un de tes 5)"]);
+  return st;
+}
+const drGet = (k, i) => k === "bm" || k === "be" ? DR[k] : DR[k][i];
+const drSet = (k, i, v) => { if (k === "bm" || k === "be") DR[k] = v; else DR[k][i] = v; };
+function drCur(){ return drSteps().find(([k, i]) => !drGet(k, i)) || null; }
+const drUsed = () => new Set([...DR.pbm, ...DR.pbe, ...DR.me, ...DR.en].filter(Boolean));
+const cx = n => (BY[n] && BY[n].c) || null;
+function drStrength(h){
+  const x = h.c; let s = (sc(h) - 3) * .45;
+  if (x && x.n >= 30){ const conf = Math.min(1, x.n / 1500); s += (x.wr - .5) * 12 * conf + Math.log10(1 + x.pick * 100) * .7; }
+  return s;
+}
+const inList = (list, n) => (list || []).find(a => coachName(a[0]) === n);
+function drPickScore(n, mine, foes, pickIdx){
+  const h = BY[n], x = h.c || {}, why = [];
+  let s = drStrength(h);
+  for (const p of mine){ const px = cx(p) || {}, a = (x.n || 0) >= 200 ? inList(x.allies, p) : null, b = (px.n || 0) >= 200 ? inList(px.allies, n) : null, r = Math.min(.6, Math.max(a ? a[1] : 0, b ? b[1] : 0)); if (r > .05){ s += r * 4; why.push(`souvent joué avec ${DN(p)} (${pc(r)})`); } }
+  for (const e of foes){
+    const ex = cx(e) || {}, ok = q => q && (q[3] || 0) >= 40, g0 = inList(x.good, e), b0 = inList(x.bad, e), eg0 = inList(ex.good, n), eb0 = inList(ex.bad, n);
+    const g = ok(g0) ? g0 : null, b = ok(b0) ? b0 : null, eg = ok(eg0) ? eg0 : null, eb = ok(eb0) ? eb0 : null;
+    if (g){ s += g[2] * 22; why.push(`bat ${DN(e)} (${pc(g[1])})`); }
+    if (eb){ s += eb[2] * 16; if (!g) why.push(`${DN(e)} souffre contre lui`); }
+    if (b){ s -= b[2] * 22; why.push(`⚠ souffre contre ${DN(e)} (${pc(b[1])})`); }
+    if (eg){ s -= eg[2] * 16; if (!b) why.push(`⚠ ${DN(e)} le bat`); }
+  }
+  if (x.order && pickIdx != null){ const r = x.order[String(pickIdx + 1)] || 0; s += r * 1.2; if (r > .35) why.push(pickIdx < 2 ? "pick d'ouverture classique" : "souvent pris à ce moment"); }
+  if (pickIdx === 4 && x.joker){ s += .4; why.push("bon dernier pick (joker)"); }
+  if (x.n >= 30) why.unshift(`${pc(x.wr)} de victoires, pris dans ${pc(x.pick)} des matchs`);
+  return [s, why];
+}
+function drPool(side){
+  const used = drUsed(), mineBox = side === "me" && DR.boxOnly && !isExample && owned.size;
+  return DATA.filter(h => !used.has(h.n) && ((h.c && h.c.n >= 30) || (h.pvp != null && !h.c)) && (!mineBox || owned.has(h.n)));
+}
+function drRecs(step){
+  if (!step) return [];
+  const [k, i] = step, me = DR.me.filter(Boolean), en = DR.en.filter(Boolean);
+  if (k === "pbm" || k === "pbe"){
+    const enemyBox = k === "pbm";
+    return drPool("any").map(h => { const x = h.c || {}; let s = drStrength(h) + (x.preban || 0) * 9 + (x.pick || 0) * 2; const why = [];
+      if (x.preban) why.push(`pré-banni dans ${pc(x.preban)} des matchs`);
+      if (enemyBox && owned.size && !isExample){ const hits = [...owned].filter(o => inList(x.good, o)).slice(0, 2); if (hits.length){ s += .6 * hits.length; why.push(`bat ${hits.map(DN).join(", ")} de ta box`); } }
+      if (!enemyBox && owned.has(h.n)){ s += .3; why.push("dans ta box : l'adversaire peut vouloir te l'enlever"); }
+      return [h.n, s, why]; }).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  }
+  if (k === "me" || k === "en"){
+    const mine = k === "me" ? me : en, foes = k === "me" ? en : me, idx = (k === "me" ? DR.me : DR.en).filter(Boolean).length;
+    return drPool(k).map(h => { const [s, why] = drPickScore(h.n, mine, foes, idx); return [h.n, s, why]; }).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  }
+  if (k === "bm" || k === "be"){
+    const targets = k === "bm" ? en : me, foes = k === "bm" ? me : en;
+    return targets.map(n => { const others = targets.filter(t => t !== n); const [s, why] = drPickScore(n, others, foes, null); const x = cx(n) || {}; if (x.ban) why.push(`banni en final dans ${pc(x.ban)} des cas`); return [n, s + (x.ban || 0) * 4, why]; }).sort((a, b) => b[1] - a[1]);
+  }
+  return [];
+}
+function drSlot(k, i, lab){
+  const n = drGet(k, i), h = n && BY[n], cur = drCur(), on = cur && cur[0] === k && cur[1] === i;
+  const banned = !!n && ((k === "me" && DR.be === n) || (k === "en" && DR.bm === n));
+  return `<button type="button" class="dslot ${k.startsWith("pb") ? "pb" : ""} ${on ? "cur" : ""} ${banned ? "banned" : ""} ${n ? "full" : ""}" data-dk="${k}" data-di="${i}" title="${n ? "Clique pour retirer" : esc(lab)}">
+    ${h ? badge(h) : `<span class="badge dsempty">${k.startsWith("pb") ? "⛔" : i + 1}</span>`}<span class="dsn">${h ? esc(dn(h)) : `<span class="mini">${esc(lab)}</span>`}</span>${banned ? '<span class="dsb">BANNI</span>' : ""}</button>`;
+}
+function renderDraft(){
+  const box = document.getElementById("draft"); if (!box) return;
+  const cur = drCur(), steps = drSteps(), recs = drRecs(cur);
+  const lab = (k, i) => (steps.find(s => s[0] === k && s[1] === i) || [])[2] || "";
+  const side = (k, pb, title, cls) => `<div class="dside ${cls}"><h3>${title}</h3><div class="dpb">${[0, 1].map(i => drSlot(pb, i, lab(pb, i))).join("")}</div><div class="dpicks">${[0, 1, 2, 3, 4].map(i => drSlot(k, i, lab(k, i))).join("")}</div></div>`;
+  const doneAll = !cur, me4 = DR.me.filter(n => n && n !== DR.be);
+  let center;
+  if (doneAll){
+    const pos = me4.map(n => { const x = cx(n) || {}; return [n, +x.pos || 5, x.pos_rate || 0]; }).sort((a, b) => a[1] - b[1] || b[2] - a[2]).map((r, i) => [r[0], i + 1]);
+    center = `<div class="dnow done"><b>Draft terminée</b><p class="mini">Ton équipe finale et sa position conseillée (d'après les matchs RTA) :</p>${pos.map(([n, p]) => `<div class="dpos">${badge(BY[n])}<span>${esc(DN(n))}</span><b>Position ${p}</b></div>`).join("")}<button class="btn" type="button" id="dr-reset2">Nouvelle draft</button></div>`;
+  } else {
+    const [k] = cur, enemyTurn = k === "pbe" || k === "en" || k === "be";
+    const ttl = { pbm: "Qui pré-bannir ?", pbe: "Qu'a pré-banni l'adversaire ?", me: "Quel perso prendre ?", en: "Qu'a pris l'adversaire ?", bm: "Quel perso adverse bannir ?", be: "Qu'a banni l'adversaire chez toi ?" }[k];
+    const sub = { pbm: "Les plus dangereux en ce moment (pré-ban, victoires, et ceux qui battent tes persos).", pbe: "Ses choix les plus probables : clique dessus ou cherche-le.", me: (DR.boxOnly && !isExample ? "Parmi ta box. " : "") + "Classés selon la force du perso, ses combos avec ton équipe et ses counters contre la sienne.", en: "Ses picks les plus probables face à ton équipe : clique sur celui qu'il a pris.", bm: "Le perso adverse le plus menaçant pour ton équipe.", be: "Le perso de ton équipe qu'il a le plus de raisons de bannir." }[k];
+    center = `<div class="dnow ${enemyTurn ? "enemy" : ""}"><span class="mini">${esc(lab(cur[0], cur[1]))}</span><b>${ttl}</b><p class="mini">${sub}</p>
+      <input type="search" id="dr-q" placeholder="Chercher un perso (FR ou EN)" value="${esc(DR.q)}" aria-label="Chercher un perso">
+      <div id="dr-res" class="dres"></div>
+      <div class="drecs">${recs.map(([n, s, why], j) => `<button type="button" class="drec ${j === 0 ? "top" : ""}" data-pick="${esc(n)}">${badge(BY[n])}<span class="drt"><b>${j === 0 && !enemyTurn ? "👉 " : ""}${esc(dn(BY[n]))}</b><span class="mini">${esc(why.slice(0, 3).join(" · ") || "—")}</span></span></button>`).join("") || '<p class="mini">Aucune suggestion.</p>'}</div></div>`;
+  }
+  box.innerHTML = `<div class="dbar">
+      <div class="seg" role="group" aria-label="Ordre de pick"><button type="button" id="dr-first" aria-pressed="${DR.first}">Je pick en 1er</button><button type="button" id="dr-second" aria-pressed="${!DR.first}">En 2nd</button></div>
+      <label class="mini" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="dr-box" ${DR.boxOnly ? "checked" : ""}> Proposer seulement mes persos ${isExample ? "(importe ta box d'abord)" : ""}</label>
+      <button class="btn" type="button" id="dr-undo">↶ Annuler</button><button class="btn" type="button" id="dr-reset">Nouvelle draft</button>
+      <button class="btn primary" type="button" id="dr-coach">🔗 Live Draft Epic7Coach</button></div>
+    <div class="dgrid">${side("me", "pbm", "🟦 Ton équipe", "mine")}${center}${side("en", "pbe", "🟥 Adversaire", "foe")}</div>
+    <p class="mini">Suggestions calculées par ZKX avec les données RTA de la semaine d'Epic7Coach (${NB((COACH && COACH.matches) || 0)} matchs) : victoires, alliés fréquents, counters et ordre de pick. Le bouton « Live Draft Epic7Coach » ouvre leur outil (leur propre modèle, avec ton compte et leurs limites).</p>`;
+  const set = v => { const c = drCur(); if (!c) return; drSet(c[0], c[1], v); DR.q = ""; drSave(); renderDraft(); };
+  box.querySelectorAll("[data-pick]").forEach(b => b.addEventListener("click", () => set(b.dataset.pick)));
+  box.querySelectorAll(".dslot.full").forEach(b => b.addEventListener("click", () => { drSet(b.dataset.dk, +b.dataset.di, null); drSave(); renderDraft(); }));
+  const q = document.getElementById("dr-q");
+  if (q){
+    const res = document.getElementById("dr-res"), used = drUsed();
+    const show = () => { DR.q = q.value; const t = NRM(q.value); res.innerHTML = t.length < 2 ? "" : DATA.filter(h => !used.has(h.n) && (NRM(h.n).includes(t) || (h.fr && NRM(h.fr).includes(t)))).slice(0, 12).map(h => `<button type="button" class="dq" data-pick="${esc(h.n)}">${badge(h)}<span>${esc(dn(h))}</span></button>`).join("");
+      res.querySelectorAll("[data-pick]").forEach(b => b.addEventListener("click", () => set(b.dataset.pick))); };
+    q.addEventListener("input", show); show();
+    q.addEventListener("keydown", e => { if (e.key === "Enter"){ const f = res.querySelector("[data-pick]"); if (f) set(f.dataset.pick); } });
+  }
+  const reset = () => { Object.assign(DR, { pbm: [null, null], pbe: [null, null], me: [null, null, null, null, null], en: [null, null, null, null, null], bm: null, be: null, q: "" }); drSave(); renderDraft(); };
+  document.getElementById("dr-reset").addEventListener("click", reset);
+  const r2 = document.getElementById("dr-reset2"); if (r2) r2.addEventListener("click", reset);
+  document.getElementById("dr-undo").addEventListener("click", () => { const filled = drSteps().filter(([k, i]) => drGet(k, i)); const l = filled[filled.length - 1]; if (l){ drSet(l[0], l[1], null); drSave(); renderDraft(); } });
+  document.getElementById("dr-first").addEventListener("click", () => { DR.first = true; drSave(); renderDraft(); });
+  document.getElementById("dr-second").addEventListener("click", () => { DR.first = false; drSave(); renderDraft(); });
+  document.getElementById("dr-box").addEventListener("change", e => { DR.boxOnly = e.target.checked; drSave(); renderDraft(); });
+  document.getElementById("dr-coach").addEventListener("click", () => { if (window.zkx && window.zkx.openCoach) window.zkx.openCoach(); else window.open("https://epic7coach.com/live-draft", "_blank"); });
+}
 /* ---------- Daily / Hebdo ---------- */
 const SERVERS = { europe: { lab: "Europe", h: 3 }, global: { lab: "Global", h: 10 }, asia: { lab: "Asie / Corée / Japon", h: 18 } };
 const DAILY_TASKS = {
