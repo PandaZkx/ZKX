@@ -1,0 +1,31 @@
+{
+  "free": {
+    "title": "Standard",
+    "body": [
+      "기본 추천 모델을 무료로 사용할 수 있습니다.",
+      "수동 입력 기반 픽/밴 참고",
+      "무료 이용 가능",
+      "게임 클라이언트 접근 없음",
+      "자동 입력, 오버레이, 계정 연동 없음"
+    ]
+  },
+  "premium": {
+    "title": "Supporter Plus",
+    "body": [
+      "Supporter Plus 모델 사용 가능",
+      "서비스 운영 및 모델 개선 후원",
+      "일부 후원자용 기능 접근",
+      "Discord Supporter 역할"
+    ]
+  },
+  "vip": {
+    "title": "Lab Access",
+    "body": [
+      "Lab Access 모델 사용 가능",
+      "실험적 Lab 모델 접근",
+      "자주 업데이트되는 베타 분석 모델 사용",
+      "모델 변경사항 및 테스트 기능 우선 접근",
+      "Discord Lab Access 역할"
+    ]
+  }
+}
