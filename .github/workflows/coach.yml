@@ -1,21 +1,31 @@
-name: Sonde epic7coach (diagnostic)
+name: Données Epic7Coach (mise à jour auto)
+# Deux fois par semaine : stats RTA, counters, builds… depuis les pages publiques d'epic7coach.com
 on:
+  schedule:
+    - cron: "41 15 * * 0,3"
+  workflow_dispatch:
   push:
     branches: [main]
-    paths: [tools/diag/coach_probe.py, .github/workflows/coach.yml]
-  workflow_dispatch:
+    paths: [tools/coach_update.py, .github/workflows/coach.yml]
 permissions:
   contents: write
+concurrency:
+  group: coach
+  cancel-in-progress: false
 jobs:
-  probe:
+  update:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install playwright && python -m playwright install --with-deps chromium
-      - run: python tools/diag/coach_probe.py || true
-      - shell: bash
+      - run: python tools/coach_update.py
+      - name: Enregistrer si ça a changé
+        shell: bash
         run: |
           git config user.name "zkx-bot"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/_src && git commit -m "Diagnostic epic7coach" && git pull --rebase origin main && git push || echo rien
+          git add data/coach.json
+          git diff --cached --quiet && { echo "Rien de nouveau."; exit 0; }
+          git commit -m "Données Epic7Coach : mise à jour automatique"
+          git pull --rebase origin main && git push
