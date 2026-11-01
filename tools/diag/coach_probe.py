@@ -2,7 +2,7 @@
 import json, re, sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-OUT = Path("data/_src/coach"); OUT.mkdir(parents=True, exist_ok=True)
+OUT = Path("data/_src/coach2"); OUT.mkdir(parents=True, exist_ok=True)
 log = []
 saved = {}
 def on_resp(r):
@@ -28,7 +28,7 @@ with sync_playwright() as p:
     links = sorted(set(pg.eval_on_selector_all("a[href]", "els => els.map(e => e.href)")))
     (OUT / "links.txt").write_text("\n".join(links), encoding="utf-8")
     # visite quelques pages internes
-    inner = [l for l in links if "epic7coach.com" in l][:12]
+    inner = ["https://epic7coach.com/heroes/c1144", "https://epic7coach.com/heroes/c5154"]
     for l in inner:
         try:
             pg.goto(l, wait_until="networkidle", timeout=60000); pg.wait_for_timeout(2500)
