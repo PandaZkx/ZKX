@@ -1,9 +1,8 @@
 ## Nouveautés
 
-- 🆕 **Tous les persos du jeu sont dans ZKX** (391) : en plus des nouveaux 5★ (Bunny Girl Mafia Yufine, Bunny Girl Great Detective Moro, Ilynav…), les 3★ et 4★ (Victorika, Romann, Leo, Silk, Rose…) sont connus. La détection de ta box à l'écran les reconnaît aussi maintenant.
-- 🖼 **Portraits ajoutés automatiquement** pour les persos qui n'en avaient pas (Mafia Yufine, Moro, Lisette, Renoa et 130 autres).
-- 🏆 **Tier list : tri « méta RTA de la semaine »** (pick, pré-ban et victoires de la semaine, données Epic7Coach), toujours à jour.
-- 📊 Données RTA de la semaine rafraîchies (stats, counters, builds).
+- 🎰 Nouvelle bannière à venir : **Bunny Girl♥Lineup avec Bunny Girl Maid Cecilia** (attendue dès le 26/11).
+- Les persos tout juste sortis (Bunny Girl Mafia Yufine…) sont marqués « Nouveau · pas encore de stats » au lieu de « Passe ton tour ».
+- Infos ajoutées : Shadow Rose dans la mystique de Moro, invocations d'alliance gratuites (Fonderie) jusqu'au 31/12.
 
 ## Installer
 

@@ -1727,7 +1727,7 @@ document.getElementById("pack-dir").addEventListener("change", async e => {
 
 /* ---------- Invocations ---------- */
 const BAN_EMBED = {
-  "updated": "2026-10-31T02:40:54Z",
+  "updated": "2026-11-09T12:00:00Z",
   "banners": [
     {
       "id": "perm-covenant",
@@ -1737,7 +1737,7 @@ const BAN_EMBED = {
       "art": null,
       "start": "2018-01-01T00:00:00Z",
       "end": null,
-      "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie."
+      "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie. 🎁 Invocations d'alliance gratuites (Fonderie) jusqu'au 31/12."
     },
     {
       "id": "perm-galaxy",
@@ -1757,7 +1757,7 @@ const BAN_EMBED = {
       "art": null,
       "start": "2026-10-29T03:00:00Z",
       "end": "2026-11-19T02:59:00Z",
-      "note": "Nouveau héros Moonlight. Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %."
+      "note": "Avec Shadow Rose (4★ Moonlight). Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %."
     },
     {
       "id": "rateup-mafia-yufine-20261105",
@@ -1798,6 +1798,17 @@ const BAN_EMBED = {
       "src": "https://epic7db.com/news/108-thu-update-content",
       "id": "mystic-successor-taeyou-20261008",
       "note": ""
+    },
+    {
+      "id": "lineup-bunny-girl-maid-cecilia-20261126",
+      "kind": "lineup",
+      "manual": true,
+      "hero": "Bunny Girl Maid Cecilia",
+      "art": null,
+      "start": "2026-11-26T03:00:00Z",
+      "end": null,
+      "title": "Bunny Girl♥Lineup",
+      "note": "Nouvelle héroïne. Date attendue (pas encore officielle) ; taux et garantie pas encore annoncés."
     }
   ],
   "seen": [
@@ -1855,9 +1866,10 @@ const KIND = {
   class: { lab: "Invocation de classe", cur: "bm" },
   mystic: { lab: "Mystique (Moonlight)", cur: "mm", pity: 200 },
   "special-mystic": { lab: "Mystique spéciale", cur: "mm" },
-  galaxy: { lab: "Invocation lunaire", cur: "gb" }
+  galaxy: { lab: "Invocation lunaire", cur: "gb" },
+  lineup: { lab: "Bannière lineup", cur: "bm" }
 };
-const KI = b => KIND[b.kind] || { lab: b.kind || "Bannière", cur: "bm", p: .01, pity: 120, lim: !!b.lim };
+const KI = b => Object.assign({}, KIND[b.kind] || { lab: "Bannière", cur: "bm", lim: !!b.lim }, b.title ? { lab: b.title } : {});
 const LIMITED_ARTS = ["Guiding Light", "Wall of Order", "Unfading Memories", "Dreamlike Holiday", "Proof of Friendship", "Glorious Flag", "Fan of Light and Dark", "Magic Bubble Maker", "Mirrored Lotus Ring", "Flame Dragon's Jewel", "Custom-Made Power Anchor"];
 const fmtD = s => new Date(s).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
 const P = v => v == null ? "—" : String(v).replace(".", ",") + " %";
@@ -1871,6 +1883,7 @@ function buildNote(b){
 }
 function verdict(h){
   if (!h) return ['<span class="verdict v-new">Nouveau · pas encore de stats</span>', "Attends les premiers retours RTA ou prends-le s'il te plaît."];
+  if (h.pvp == null && h.pve == null) return ['<span class="verdict v-new">Nouveau · pas encore de stats</span>', h.c && h.c.n ? `Seulement ${h.c.n} match${h.c.n > 1 ? "s" : ""} RTA relevé${h.c.n > 1 ? "s" : ""} : attends quelques jours de retours.` : "Attends les premiers retours RTA ou prends-le s'il te plaît."];
   const t = tierOf(h), wr = h.wr;
   if (t === "SS" || t === "S") return ['<span class="verdict v-go">Fonce</span>', `Tier ${t} en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];
   if (t === "A") return ['<span class="verdict v-ok">Bon pull</span>', `Tier A en ${mode.toUpperCase()}${wr != null ? " · " + P(wr) + " de victoires" : ""}.`];

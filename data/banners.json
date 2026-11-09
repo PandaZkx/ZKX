@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T02:40:54Z",
+  "updated": "2026-11-09T12:00:00Z",
   "banners": [
     {
       "id": "perm-covenant",
@@ -9,7 +9,7 @@
       "art": null,
       "start": "2018-01-01T00:00:00Z",
       "end": null,
-      "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie."
+      "note": "Invocation permanente. Chaque 5★ héros vient de ta wish list (7 persos). Pas de garantie. 🎁 Invocations d'alliance gratuites (Fonderie) jusqu'au 31/12."
     },
     {
       "id": "perm-galaxy",
@@ -29,7 +29,7 @@
       "art": null,
       "start": "2026-10-29T03:00:00Z",
       "end": "2026-11-19T02:59:00Z",
-      "note": "Nouveau héros Moonlight. Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %."
+      "note": "Avec Shadow Rose (4★ Moonlight). Les 30 premières invocations d'un nouveau Moonlight 5★ sont à -30 %."
     },
     {
       "id": "rateup-mafia-yufine-20261105",
@@ -70,6 +70,17 @@
       "src": "https://epic7db.com/news/108-thu-update-content",
       "id": "mystic-successor-taeyou-20261008",
       "note": ""
+    },
+    {
+      "id": "lineup-bunny-girl-maid-cecilia-20261126",
+      "kind": "lineup",
+      "manual": true,
+      "hero": "Bunny Girl Maid Cecilia",
+      "art": null,
+      "start": "2026-11-26T03:00:00Z",
+      "end": null,
+      "title": "Bunny Girl♥Lineup",
+      "note": "Nouvelle héroïne. Date attendue (pas encore officielle) ; taux et garantie pas encore annoncés."
     }
   ],
   "seen": [
