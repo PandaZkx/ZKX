@@ -118,6 +118,32 @@ def main():
     for a in arts_stats:
         c = a.get("artifact_id") or a.get("artifact_code")
         A.setdefault(c, {}).update({"use": r3(a.get("global_use_rate")), "wr": r3(a.get("win_rate")), "n": a.get("total_count")})
+    # portraits des héros qui n'ont pas d'image dans le pack partagé (nouveaux persos, 3-4★)
+    root = OUT.parent.parent
+    names = {h.get("code"): h.get("n") for h in json.loads((root / "tools" / "data.json").read_text(encoding="utf-8"))}
+    try:
+        have = set(json.loads((root / "data" / "images.json").read_text(encoding="utf-8")).get("h", {}))
+    except Exception:
+        have = set()
+    icodir = root / "data" / "hero_icons"; icodir.mkdir(exist_ok=True)
+    icons = []
+    for c, e in H.items():
+        f = icodir / f"{c}.png"
+        if f.exists():
+            icons.append(c); continue
+        if (names.get(c) or e.get("en")) in have or not e.get("en"):
+            continue
+        for u in (f"https://epic7coach.com/images/{c}_s.png", f"https://epic7coach.com/data/images/{c}_s.png"):
+            try:
+                req = urllib.request.Request(u, headers={"User-Agent": UA["User-Agent"]})
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    b = r.read()
+                time.sleep(1)
+                if b[:4] == b"\x89PNG" and len(b) > 500:
+                    f.write_bytes(b); icons.append(c); break
+            except Exception as ex:
+                log.append(f"portrait {c} : {ex}")
+    log.append(f"portraits ajoutés : {len(icons)}")
     out = {
         "source": "Epic7Coach (epic7coach.com)",
         "range": [meta.get("range_start"), meta.get("range_end")] if meta else None,
@@ -125,9 +151,10 @@ def main():
         "generated": meta.get("generated_at") if meta else None,
         "heroes": H, "arts": A,
         "sets": {k: v.get("en") for k, v in set_labels.items() if not k.startswith("set_")},
+        "icons": sorted(icons),
     }
     old = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
-    if old.get("generated") == out["generated"] and old.get("heroes") == out["heroes"]:
+    if old.get("generated") == out["generated"] and old.get("heroes") == out["heroes"] and old.get("icons") == out["icons"]:
         print("Rien de nouveau.")
         return 0
     OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
