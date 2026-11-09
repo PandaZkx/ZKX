@@ -459,7 +459,7 @@ __JSZIP__
     <div class="tools">
       <input id="t-q" type="search" placeholder="Rechercher un perso" aria-label="Rechercher dans la tier list">
       <select id="t-own" aria-label="Filtrer"><option value="">Tous les persos</option><option value="own">Seulement ma box</option><option value="miss">Ceux que je n'ai pas</option></select>
-      <select id="t-sort" aria-label="Trier par"><option value="pvp">Trier : tier PvP</option><option value="pve">Trier : tier PvE</option><option value="wr">Trier : victoires RTA</option><option value="pick">Trier : joué en RTA</option></select>
+      <select id="t-sort" aria-label="Trier par"><option value="pvp">Trier : tier PvP</option><option value="pve">Trier : tier PvE</option><option value="wr">Trier : victoires RTA</option><option value="pick">Trier : joué en RTA</option><option value="meta">Trier : méta RTA de la semaine</option></select>
     </div>
     <div class="tfilters">
       <div class="tfrow" role="group" aria-label="Élément"><button type="button" class="tf" data-el="" aria-pressed="true">Tous</button><button type="button" class="tf el-fire" data-el="fire" aria-pressed="false">🔥 Feu</button><button type="button" class="tf el-ice" data-el="ice" aria-pressed="false">❄ Glace</button><button type="button" class="tf el-wind" data-el="wind" aria-pressed="false">🌿 Terre</button><button type="button" class="tf el-light" data-el="light" aria-pressed="false">☀ Lumière</button><button type="button" class="tf el-dark" data-el="dark" aria-pressed="false">🌙 Ténèbres</button></div>
@@ -675,11 +675,10 @@ function applyCoach(){
     else { if (!ARTS[a.en].skill && a.d) ARTS[a.en].skill = a.d; if (!ARTS[a.en].class && a.cl) ARTS[a.en].class = a.cl === "Common" ? "General" : a.cl; }
     ARTS[a.en].rta = a;
   }
-  // nouveaux héros (5★ ou joués en RTA)
+  // tous les héros du jeu absents de ZKX (nouveaux persos, 3-4★…)
   for (const [c, x] of Object.entries(COACH.heroes)){
-    if (CODE2N[c] || !x.en) continue;
-    if (!(x.star >= 5 || (x.n || 0) >= 30)) continue;
-    const nh = { n: x.en, fr: "", el: ELMAP[x.el] || "fire", cl: CLMAP[x.cl] || "warrior", stars: x.star || 5, type: null, code: c, base: [0, 0, 0, 0, 15, 150, 0, 0], src: {}, pvp: null, pve: null, added: true };
+    if (CODE2N[c] || !x.en || !ELMAP[x.el] || !CLMAP[x.cl] || BY[x.en]) continue;
+    const nh = { n: x.en, fr: "", el: ELMAP[x.el], cl: CLMAP[x.cl], stars: x.star || 3, type: null, code: c, base: [0, 0, 0, 0, 15, 150, 0, 0], src: {}, pvp: null, pve: null, added: true, minor: (x.star || 0) < 5 };
     DATA.push(nh); BY[nh.n] = nh; CODE2N[c] = nh.n;
   }
   for (const h of DATA){
@@ -805,12 +804,13 @@ document.querySelectorAll(".tf").forEach(b => b.addEventListener("click", () => 
 function renderTiers(){
   const q = document.getElementById("t-q").value.trim().toLowerCase(), f = document.getElementById("t-own").value, so = document.getElementById("t-sort").value;
   const S = META.sources, el = TF.el, cl = TF.cl;
-  const val = h => so === "wr" ? (h.wr != null && (h.rta_n == null || h.rta_n >= 100) ? h.wr : -1) : so === "pick" ? (h.pick ?? -1) : (h[so] ?? -1);
-  const L = DATA.filter(h => (h.pvp != null || h.pve != null) && (!q || NRM(h.n).includes(NRM(q)) || (h.fr && NRM(h.fr).includes(NRM(q)))) && (!f || (f === "own" ? owned.has(h.n) : !owned.has(h.n))) && (!el || h.el === el) && (!cl || h.cl === cl))
+  const meta = h => h.c && h.c.n >= 300 ? h.c.pick * 100 + h.c.preban * 60 + (h.c.wr - .5) * 100 : -1;
+  const val = h => so === "meta" ? meta(h) : so === "wr" ? (h.wr != null && (h.rta_n == null || h.rta_n >= 100) ? h.wr : -1) : so === "pick" ? (h.pick ?? -1) : (h[so] ?? -1);
+  const L = DATA.filter(h => (h.pvp != null || h.pve != null || (so === "meta" && meta(h) >= 0)) && (!q || NRM(h.n).includes(NRM(q)) || (h.fr && NRM(h.fr).includes(NRM(q)))) && (!f || (f === "own" ? owned.has(h.n) : !owned.has(h.n))) && (!el || h.el === el) && (!cl || h.cl === cl))
     .sort((a, b) => val(b) - val(a) || (b.pvp ?? -1) - (a.pvp ?? -1));
-  const lab = { pvp: "PvP", pve: "PvE", wr: "victoires RTA", pick: "joué en RTA" }[so];
+  const lab = { pvp: "PvP", pve: "PvE", wr: "victoires RTA", pick: "joué en RTA", meta: "méta RTA de la semaine" }[so];
   const P3 = L.filter(h => val(h) >= 0).slice(0, 3), med = ["🥇", "🥈", "🥉"];
-  const keyv = h => so === "wr" ? P(h.wr) : so === "pick" ? P(h.pick) : `<span class="tier t-${h[so + "T"]}">${h[so + "T"]}</span> ${fmt(h[so])}/5`;
+  const keyv = h => so === "meta" ? `joué ${pc(h.c.pick)} · ${pc(h.c.wr)} vict.` : so === "wr" ? P(h.wr) : so === "pick" ? P(h.pick) : `<span class="tier t-${h[so + "T"]}">${h[so + "T"]}</span> ${fmt(h[so])}/5`;
   document.getElementById("podium").innerHTML = P3.length ? `<h3>Top 3 · ${esc(lab)}${el ? " · " + ELN[el] : ""}${cl ? " · " + CLN[cl] : ""}</h3><div class="pods">` + P3.map((h, i) => {
     const pa = posterArt(h.build && h.build.art), im = IMGS[h.n];
     return `<button type="button" class="pod p${i + 1}" data-hero="${esc(h.n)}" style="--neon:${pa ? pa.col : ELCOLOR[h.el]}">
@@ -926,8 +926,10 @@ const IDB = {
 /* images partagées (data/images.json sur GitHub) : remplissent les trous, tes propres images restent prioritaires */
 const IMG_BASE = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/";
 let SHARED = null;
-function applyShared(){ if (!SHARED) return; for (const [k, v] of Object.entries(SHARED.h || {})) if (!IMGS[k]) IMGS[k] = v; for (const [k, v] of Object.entries(SHARED.a || {})) if (!AIMGS[k]) AIMGS[k] = v; }
+function iconFallback(){ const ic = new Set((COACH && COACH.icons) || []); for (const h of DATA) if (!IMGS[h.n] && h.code && ic.has(h.code)) IMGS[h.n] = IMG_BASE + "hero_icons/" + h.code + ".png"; }
+function applyShared(){ iconFallback(); if (!SHARED) return; for (const [k, v] of Object.entries(SHARED.h || {})) if (!IMGS[k]) IMGS[k] = v; for (const [k, v] of Object.entries(SHARED.a || {})) if (!AIMGS[k]) AIMGS[k] = v; }
 async function syncSharedImgs(){
+  iconFallback(); renderAll();
   if (IDB.db){ SHARED = await IDB.get("shared"); if (SHARED){ applyShared(); renderAll(); updateImgCount(); } }
   try {
     const m = await (await fetch(IMG_BASE + "images_v.json?t=" + Date.now(), { cache: "no-store" })).json();
@@ -940,7 +942,7 @@ async function syncSharedImgs(){
     if (msg) msg.textContent = `✓ Images partagées à jour (${Object.keys(p.h).length} persos, ${Object.keys(p.a || {}).length} artefacts).`;
   } catch(e) {}
 }
-function saveImgs(){ if (!IDB.db) return false; for (const [n, v] of Object.entries(IMGS)) if (!SHARED || !SHARED.h || SHARED.h[n] !== v) IDB.put("h:" + n, v); return true; }
+function saveImgs(){ if (!IDB.db) return false; for (const [n, v] of Object.entries(IMGS)) if ((!SHARED || !SHARED.h || SHARED.h[n] !== v) && !/^https?:/.test(v)) IDB.put("h:" + n, v); return true; }
 async function loadImgs(){
   if (!(await IDB.open())) return;
   try { const old = JSON.parse(localStorage.getItem("e7imgs") || "null"); if (old){ for (const [n, v] of Object.entries(old)) await IDB.put("h:" + n, v); localStorage.removeItem("e7imgs"); } } catch(e) {}
