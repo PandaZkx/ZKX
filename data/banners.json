@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T12:00:00Z",
+  "updated": "2026-11-13T06:37:19Z",
   "banners": [
     {
       "id": "perm-covenant",
@@ -49,7 +49,8 @@
       "art": "Flame Dragon's Jewel",
       "start": "2026-10-08T03:00:00Z",
       "end": "2026-10-29T02:59:00Z",
-      "note": "Collab Chaos Zero Nightmare."
+      "note": "Collab Chaos Zero Nightmare.",
+      "src": "https://epic7db.com/news/mei-lin-flame-dragons-jewel-limited-drop-rate-up"
     },
     {
       "id": "limited-haru-20260917",
@@ -114,6 +115,19 @@
     "86-thu-update-content",
     "910-thu-update-content",
     "924-thu-update-content",
-    "93-thu-update-content-edited-at-0945"
+    "93-thu-update-content-edited-at-0945",
+    "bonus-covenant-bookmarks-summon-payback-event",
+    "chaos-zero-nightmare-collaboration-celebration-dellangs-pop-up-shop-open",
+    "czn-collab-discipline-committee-members-sweet-gift-pack-sales-notice",
+    "czn-collab-flame-dragons-crimson-blaze-pack-sales-notice",
+    "czn-collaboration-celebration-coupon-dimensional-exploration-review-event",
+    "epic-seven-x-chaos-zero-nightmare-collaboration-celebration-special-event",
+    "epic-seven-x-czn-collaboration-celebration-heart-pounding-lucky-board-event",
+    "epic-seven-x-czn-collaboration-celebration-together-with-mei-lin-event",
+    "eye-of-the-abyss-fumyr-refracted-desire-drop-rate-up",
+    "haru-custom-made-power-anchor-limited-drop-rate-up",
+    "mei-lin-flame-dragons-jewel-limited-drop-rate-up",
+    "thief-class-summon-master-of-the-nightmare-drop-rate-up",
+    "uncharted-pioneer-politis-light-and-darkness-drop-rate-up"
   ]
 }
