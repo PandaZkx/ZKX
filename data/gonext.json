@@ -1,0 +1,907 @@
+{
+  "game": "Go Next!",
+  "updated": "2026-11-16",
+  "patch": "14/11/2026",
+  "about": "Horde survivor à la 3e personne de Mixidev, sorti le 9/11/2026 sur Steam. Les armes tirent toutes seules, toi tu bouges : course sur les murs, dash, glissade, piqué, bunny hop. 4 emplacements d'arme (niveau 50 puis enclume), 11 raretés d'arme et 10 d'objet (de Commun à Galaxie), armure (chapeau, anneau, ceinture, pantalon), coop en ligne jusqu'à 4.",
+  "counts": {
+    "weapons": 71,
+    "items": 131,
+    "characters": 24,
+    "worlds": 11
+  },
+  "sources": [
+    "Page Steam du jeu (app 5064170)",
+    "Notes de patch 10/11, 12/11, 13/11 et 14/11/2026 (Steam / SteamDB)",
+    "Communauté Steam de Go Next!"
+  ],
+  "stats": {
+    "atkspd": "Vitesse d'attaque",
+    "projsize": "Taille de projectile",
+    "crit": "Critique",
+    "dmg": "Dégâts",
+    "hp": "PV / survie",
+    "move": "Vitesse de déplacement",
+    "luck": "Chance",
+    "xp": "XP",
+    "range": "Portée"
+  },
+  "roles": {
+    "zone": "Nettoyage de horde",
+    "boss": "Tueur de boss / élites",
+    "ctrl": "Contrôle (ralentir, poison)",
+    "surv": "Survie",
+    "eco": "Économie (chance, XP, coffres)",
+    "mob": "Mobilité"
+  },
+  "types": {
+    "orbit": "Orbite",
+    "minion": "Invocation",
+    "melee": "Mêlée",
+    "proj": "Projectile",
+    "aoe": "Zone",
+    "beam": "Foudre / rayon",
+    "luck": "Hasard"
+  },
+  "characters": [
+    {
+      "id": "agent-bald",
+      "name": "Agent Bald",
+      "roles": [
+        "boss"
+      ],
+      "likes": [
+        "crit",
+        "range",
+        "proj"
+      ],
+      "dislikes": [
+        "melee"
+      ],
+      "passive": "Plus il est loin de sa cible, plus il tape : bonus de ×1,0 à moins de 1 m jusqu'à ×1,35 à 5 m et plus. +0,5 % de critique par niveau.",
+      "tip": "Garde tes distances : armes à projectiles, pas de mêlée."
+    },
+    {
+      "id": "frogita",
+      "name": "Frogita",
+      "roles": [
+        "eco",
+        "zone"
+      ],
+      "likes": [
+        "xp"
+      ],
+      "passive": "Son fouet (Snag) arrache des cristaux d'XP aux monstres : +1 cristal tous les 15 niveaux, 25 dégâts par niveau. Festin : XP ×1,12.",
+      "tip": "Monte très vite en niveau : idéale pour lancer le build tôt."
+    },
+    {
+      "id": "freaky-panda",
+      "name": "Freaky Panda",
+      "roles": [
+        "surv"
+      ],
+      "likes": [
+        "hp"
+      ],
+      "passive": "Rancune (Grudge) pendant 4 s. Dernier carré : reste à 1 PV au lieu de mourir, une fois par minute.",
+      "tip": "Pardonne les erreurs : bon perso pour apprendre les cartes difficiles."
+    },
+    {
+      "id": "mustafa",
+      "name": "Mustafa",
+      "roles": [
+        "eco"
+      ],
+      "likes": [
+        "luck"
+      ],
+      "passive": "+1 % de chance par coffre ouvert, pour toute la run. Un coffre acheté sur 10 est gratuit.",
+      "tip": "Ouvre tout ce que tu croises : sa chance grimpe avec les coffres."
+    },
+    {
+      "id": "cluckson",
+      "name": "Cluckson",
+      "roles": [
+        "surv",
+        "mob"
+      ],
+      "likes": [
+        "move",
+        "hp"
+      ],
+      "passive": "En sprint : −25 % de dégâts subis et soin de 1 %.",
+      "tip": "Le perso le plus solide si tu ne t'arrêtes jamais de courir."
+    },
+    {
+      "id": "cosmic-prince",
+      "name": "Cosmic Prince",
+      "roles": [
+        "ctrl"
+      ],
+      "likes": [
+        "slow"
+      ],
+      "passive": "Les monstres ralentis subissent +20 % de dégâts, +0,3 % par niveau.",
+      "tip": "Cherche tout ce qui ralentit ou gèle."
+    },
+    {
+      "id": "verdicta",
+      "name": "Verdicta",
+      "roles": [
+        "boss"
+      ],
+      "likes": [],
+      "passive": "Exécute les boss sous 5 % de PV. Le seuil d'exécution des monstres monte de 15 % à 35 % avec le niveau. 1 exécution sur 4 donne un carreau gratuit.",
+      "tip": "En coop, les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse."
+    },
+    {
+      "id": "kaiju-kun",
+      "name": "Kaiju-Kun",
+      "roles": [
+        "surv",
+        "boss"
+      ],
+      "likes": [
+        "hp"
+      ],
+      "passive": "3 plaques d'armure (+1 tous les 20 niveaux, max 8) qui se remettent plus vite avec le niveau. Leurs éclats font 20 % des PV max du monstre.",
+      "tip": "Les éclats en % de PV en font un bon tueur d'élites."
+    },
+    {
+      "id": "zorp",
+      "name": "Zorp",
+      "roles": [
+        "eco",
+        "zone"
+      ],
+      "likes": [
+        "xp"
+      ],
+      "passive": "Rayon de soucoupe : +2 % de taille par niveau, dure 4 s et donne ×3 XP. Les lumières de la soucoupe indiquent quand il est prêt.",
+      "tip": "Utilise le rayon sur les gros paquets pour tripler l'XP."
+    },
+    {
+      "id": "tenzai",
+      "name": "Tenzai",
+      "roles": [
+        "mob",
+        "zone"
+      ],
+      "likes": [
+        "move",
+        "melee"
+      ],
+      "sig": "Katana",
+      "sigSure": false,
+      "passive": "Chaque kill rend 25 % du dash. Sa coupe tape 2 % plus fort par niveau.",
+      "tip": "Enchaîne les dash dans la horde : chaque kill recharge."
+    },
+    {
+      "id": "mister-jackpot",
+      "name": "Mister Jackpot",
+      "roles": [
+        "eco"
+      ],
+      "likes": [
+        "luck"
+      ],
+      "sig": "Wheel of Fortune",
+      "sigSure": false,
+      "passive": "Les cartes face cachée ont une rareté de plus. Chaque choix à l'aveugle donne +1 % de chance pour la run.",
+      "tip": "Prends les cartes face cachée : c'est tout son intérêt."
+    },
+    {
+      "id": "lillia",
+      "name": "Lillia",
+      "roles": [
+        "ctrl",
+        "zone"
+      ],
+      "likes": [
+        "poison"
+      ],
+      "passive": "Ses vues donnent des bonus (1 % tous les 250 vues). Le poison d'un monstre qui meurt se propage à 2 voisins.",
+      "tip": "Le poison viral nettoie les paquets serrés."
+    },
+    {
+      "id": "plaguey",
+      "name": "Plaguey",
+      "roles": [
+        "zone",
+        "ctrl"
+      ],
+      "likes": [
+        "poison"
+      ],
+      "passive": "Les effets de vitalité qui touchent au moins 4 cibles ajoutent des dégâts pour toute la run.",
+      "tip": "Le médecin de peste : plus la horde est dense, plus il grossit."
+    },
+    {
+      "id": "dr-singularity",
+      "name": "Dr. Singularity",
+      "roles": [
+        "zone",
+        "boss"
+      ],
+      "likes": [],
+      "sig": "Trou noir",
+      "sigSure": false,
+      "passive": "L'explosion finale gagne 50 % des dégâts infligés. Fait apparaître des mini trous noirs (1, +1 tous les 25 niveaux).",
+      "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser."
+    },
+    {
+      "id": "professor-mole",
+      "name": "Professor Mole",
+      "roles": [
+        "zone"
+      ],
+      "likes": [
+        "melee"
+      ],
+      "sig": "Drill",
+      "sigSure": true,
+      "passive": "Garde sa série de kills si la cible suivante est à moins de 5 m. La pointe de la foreuse gagne +1 % par cumul (jusqu'à ×2).",
+      "tip": "Reste collé aux paquets pour ne jamais casser la série."
+    },
+    {
+      "id": "pink-zeppelin",
+      "name": "Pink Zeppelin",
+      "roles": [
+        "zone"
+      ],
+      "likes": [
+        "atkspd"
+      ],
+      "sig": "Vinyl",
+      "sigSure": false,
+      "passive": "Un riff joue tous les 2 lancers, à 60 % de puissance +1 % par niveau.",
+      "tip": "Plus tu tires vite, plus il y a de riffs."
+    },
+    {
+      "id": "cynja",
+      "name": "Cynja",
+      "roles": [
+        "zone"
+      ],
+      "likes": [
+        "atkspd"
+      ],
+      "sig": "Shuriken",
+      "sigSure": false,
+      "passive": "Chance de relancer : 50 % +0,5 % par niveau (max 75 %).",
+      "tip": "Les relances doublent presque ses projectiles en fin de run."
+    },
+    {
+      "id": "boingo",
+      "name": "Boingo",
+      "roles": [
+        "zone",
+        "mob"
+      ],
+      "likes": [
+        "move"
+      ],
+      "passive": "25 dégâts par niveau. Chaque rebond de chaîne ajoute +40 %. Le rayon de son écrasement grandit de 2 % par niveau.",
+      "tip": "Saute dans les paquets : l'écrasement fait le ménage."
+    },
+    {
+      "id": "auresaurus-jr",
+      "name": "Auresaurus Jr.",
+      "roles": [
+        "mob",
+        "zone"
+      ],
+      "likes": [
+        "move"
+      ],
+      "passive": "Enchaîne 12 figures pour appeler un météore (il tombe en 2,5 s). Toucher le sol trop longtemps coûte 3 figures. Cumul de sauts : max 10 sauts (+50 % de vitesse).",
+      "tip": "Ne touche jamais le sol : bunny hop et course sur les murs."
+    },
+    {
+      "id": "zeus",
+      "name": "Zeus",
+      "roles": [
+        "zone"
+      ],
+      "likes": [
+        "atkspd"
+      ],
+      "sig": "Zeus Lightning",
+      "sigSure": false,
+      "passive": "Zeus version culturiste des années 80. Passif pas encore détaillé dans les notes de patch.",
+      "tip": ""
+    },
+    {
+      "id": "nekage",
+      "name": "Nekage",
+      "roles": [],
+      "likes": [],
+      "passive": "Passif pas encore détaillé dans les notes de patch.",
+      "tip": ""
+    },
+    {
+      "id": "al-pachinko",
+      "name": "Al Pachinko",
+      "roles": [
+        "eco"
+      ],
+      "likes": [
+        "luck"
+      ],
+      "sig": "Heads or Tails",
+      "sigSure": false,
+      "passive": "Le gangster qui règle tout à pile ou face. Passif pas encore détaillé dans les notes de patch.",
+      "tip": ""
+    },
+    {
+      "id": "gumi",
+      "name": "Gumi",
+      "roles": [
+        "mob"
+      ],
+      "likes": [
+        "move"
+      ],
+      "passive": "Série de course : jusqu'à +60 % de vitesse. Le bonus est plafonné et ne ralentit jamais un build déjà plus rapide.",
+      "tip": "Le perso le plus rapide : parfait pour kiter."
+    },
+    {
+      "id": "tv-head",
+      "name": "TV Head",
+      "roles": [
+        "zone",
+        "surv"
+      ],
+      "likes": [
+        "atkspd",
+        "hp"
+      ],
+      "sig": "Electrostatic Generator",
+      "sigSure": true,
+      "passive": "+5 % de PV et de cadence de tir, −5 % de vitesse de déplacement. Ramasse des Glitch Cartridges.",
+      "tip": "Nouveau perso du 14/11."
+    }
+  ],
+  "weapons": [
+    {
+      "id": "solar-system",
+      "name": "Solar System",
+      "type": "orbit",
+      "roles": [
+        "zone",
+        "surv"
+      ],
+      "uses": [
+        "atkspd",
+        "projsize"
+      ],
+      "note": "Fait orbiter jusqu'à 30 planètes autour de toi. Accélère avec la vitesse d'attaque et grossit avec la taille de projectile (patch 14/11)."
+    },
+    {
+      "id": "asteroid-belt",
+      "name": "Asteroid Belt",
+      "type": "orbit",
+      "roles": [
+        "zone",
+        "surv"
+      ],
+      "uses": [
+        "atkspd",
+        "projsize"
+      ],
+      "note": "Anneau de rochers. Mêmes bonus que Solar System depuis le 14/11."
+    },
+    {
+      "id": "goblin-catapult",
+      "name": "Goblin Catapult",
+      "type": "minion",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
+    },
+    {
+      "id": "goblin-jockey",
+      "name": "Goblin Jockey",
+      "type": "minion",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
+    },
+    {
+      "id": "hungry-mimic",
+      "name": "Hungry Mimic",
+      "type": "minion",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
+    },
+    {
+      "id": "drill",
+      "name": "Drill",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Série de kills gardée si la cible suivante est à moins de 5 m ; les dégâts de zone de la pointe montent de 1 % par coup, jusqu'au double."
+    },
+    {
+      "id": "shuriken",
+      "name": "Shuriken",
+      "type": "proj",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Une étoile rattrapée est relancée gratuitement : 50 % de chance (+0,5 % par niveau, max 75 %)."
+    },
+    {
+      "id": "bowling-strike",
+      "name": "Bowling Strike",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "La boule roule dans la ligne de monstres la plus dense et touche chacun une fois. Assez de quilles : STRIKE ! +50 %."
+    },
+    {
+      "id": "fallout",
+      "name": "Fallout",
+      "type": "aoe",
+      "roles": [
+        "zone",
+        "ctrl"
+      ],
+      "uses": [],
+      "note": "Nuage qui grossit tant qu'il vit (Growing Threat). Nerfé le 12/11."
+    },
+    {
+      "id": "void-tentacles",
+      "name": "Void Tentacles",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Slam : dégâts fixes comptés ×6 (au lieu de ×15) ; une faille en plus tombe sur son propre paquet. Nerfé le 14/11."
+    },
+    {
+      "id": "chainsaw",
+      "name": "Chainsaw",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Nerfée le 12/11."
+    },
+    {
+      "id": "web-shot",
+      "name": "Web Shot",
+      "type": "proj",
+      "roles": [
+        "ctrl"
+      ],
+      "uses": [],
+      "note": "Nerfé le 12/11."
+    },
+    {
+      "id": "heads-or-tails",
+      "name": "Heads or Tails",
+      "type": "luck",
+      "roles": [
+        "boss"
+      ],
+      "uses": [
+        "luck"
+      ],
+      "note": "Pile ou face. Nerfé le 12/11, projectile 3D."
+    },
+    {
+      "id": "donation",
+      "name": "Donation",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": "Buffé le 12/11."
+    },
+    {
+      "id": "vinyl",
+      "name": "Vinyl",
+      "type": "proj",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Vole jusqu'à 16 m (11/11)."
+    },
+    {
+      "id": "zeus-lightning",
+      "name": "Zeus Lightning",
+      "type": "beam",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Foudre de Zeus."
+    },
+    {
+      "id": "wheel-of-fortune",
+      "name": "Wheel of Fortune",
+      "type": "luck",
+      "roles": [],
+      "uses": [
+        "luck"
+      ],
+      "note": "Roue de la fortune."
+    },
+    {
+      "id": "mjolnir",
+      "name": "Mjolnir",
+      "type": "proj",
+      "roles": [
+        "boss"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "dragon-egg",
+      "name": "Dragon Egg",
+      "type": "minion",
+      "roles": [],
+      "uses": [],
+      "note": "Œuf de dragon."
+    },
+    {
+      "id": "playing-card",
+      "name": "Playing Card",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "judgment-arrow",
+      "name": "Judgment Arrow",
+      "type": "proj",
+      "roles": [
+        "boss"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "gravity-cannon",
+      "name": "Gravity Cannon",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "katana",
+      "name": "Katana",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "pyromaniac",
+      "name": "Pyromaniac",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "burning-forge",
+      "name": "Burning Forge",
+      "type": "aoe",
+      "roles": [],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11."
+    },
+    {
+      "id": "hot-potato",
+      "name": "Hot Potato",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": ""
+    },
+    {
+      "id": "circular-saw",
+      "name": "Circular Saw",
+      "type": "proj",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": ""
+    }
+  ],
+  "items": [
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "roles": [
+        "surv"
+      ],
+      "gives": [
+        "hp"
+      ],
+      "note": "Te fait revivre ; l'explosion de résurrection touche chaque monstre à 10 m, une fois (14/11)."
+    },
+    {
+      "id": "pocket-black-hole",
+      "name": "Pocket Black Hole",
+      "roles": [
+        "zone"
+      ],
+      "gives": [],
+      "note": "Fait une part des dégâts d'un coup. Nerfé le 13/11. La page Steam le cite aussi comme arme."
+    },
+    {
+      "id": "zombie-missile",
+      "name": "Zombie Missile",
+      "roles": [
+        "zone"
+      ],
+      "gives": [],
+      "note": "Les kills des missiles ne relancent plus l'objet (11/11)."
+    },
+    {
+      "id": "ignition",
+      "name": "Ignition",
+      "roles": [
+        "zone"
+      ],
+      "gives": [
+        "dmg"
+      ],
+      "note": "Fait une part des dégâts d'un coup. Rééquilibré le 11/11."
+    },
+    {
+      "id": "hot-take",
+      "name": "Hot Take",
+      "roles": [],
+      "gives": [
+        "dmg"
+      ],
+      "note": "Fait une part des dégâts d'un coup."
+    },
+    {
+      "id": "shockwave",
+      "name": "Shockwave",
+      "roles": [
+        "zone"
+      ],
+      "gives": [],
+      "note": "Rééquilibré le 11/11, nouveau visuel."
+    },
+    {
+      "id": "bowling-ball",
+      "name": "Bowling Ball",
+      "roles": [],
+      "gives": [],
+      "note": "Rééquilibré le 11/11."
+    },
+    {
+      "id": "ice-cube-tray",
+      "name": "Ice Cube Tray",
+      "roles": [
+        "ctrl"
+      ],
+      "gives": [],
+      "note": "Rééquilibré le 11/11."
+    },
+    {
+      "id": "smite",
+      "name": "Smite",
+      "roles": [
+        "boss"
+      ],
+      "gives": [],
+      "note": "Rééquilibré le 11/11."
+    },
+    {
+      "id": "bogo-soul",
+      "name": "BOGO Soul",
+      "roles": [],
+      "gives": [],
+      "note": "Rééquilibré le 11/11."
+    },
+    {
+      "id": "spike-protein",
+      "name": "Spike Protein",
+      "roles": [],
+      "gives": [],
+      "note": "Rééquilibré le 11/11."
+    },
+    {
+      "id": "pocket-lint",
+      "name": "Pocket Lint",
+      "roles": [],
+      "gives": [],
+      "note": "Peu commun, +200 % (11/11)."
+    },
+    {
+      "id": "refrigerator",
+      "name": "Refrigerator",
+      "roles": [
+        "surv"
+      ],
+      "gives": [],
+      "note": "Légendaire gratuit pour chaque sauvegarde (14/11)."
+    },
+    {
+      "id": "electrostatic-generator",
+      "name": "Electrostatic Generator",
+      "roles": [
+        "zone"
+      ],
+      "gives": [],
+      "note": "Objet de départ de TV Head, que tout le monde peut gagner."
+    },
+    {
+      "id": "necromancers-punchcard",
+      "name": "Necromancer's Punchcard",
+      "roles": [],
+      "gives": [],
+      "note": ""
+    }
+  ],
+  "maps": [
+    {
+      "name": "Medieval Fortress",
+      "boss": "Golem",
+      "note": "Remparts sur lesquels courir. Carte 1."
+    },
+    {
+      "name": "Pyramid Necropolis",
+      "boss": "Sphinx",
+      "note": "Le rayon du Sphinx ne touche plus qu'une fois (12/11)."
+    },
+    {
+      "name": "Hanging Gardens",
+      "boss": "",
+      "note": "Tomber ne tue plus (12/11)."
+    },
+    {
+      "name": "Mystic Hollow",
+      "boss": "",
+      "note": "Tomber ne tue plus (12/11)."
+    },
+    {
+      "name": "Synthcity",
+      "boss": "",
+      "note": "Toits de ville, superboss scellé."
+    },
+    {
+      "name": "Pirate Archipelago",
+      "boss": "",
+      "note": "Attention : les monstres nagent."
+    },
+    {
+      "name": "Coliseum Ruins",
+      "boss": "",
+      "note": "70 braseros à allumer."
+    },
+    {
+      "name": "Extraterrestrial Base",
+      "boss": "",
+      "note": "Un trou noir mange une planète par minute."
+    }
+  ],
+  "rules": [
+    "Carte 2 : dégâts au contact ×1,6 par rapport à la carte 1. Carte 3 : ×10 dès 0:00.",
+    "À partir de 10:00, les monstres normaux arrêtent de marcher et volent vers toi ; ils n'apparaissent plus dans un cône de 90° devant toi.",
+    "Les dégâts des monstres grimpent doucement jusqu'à 20:00, puis s'emballent.",
+    "Les montées de niveau non choisies sont gardées d'une carte à l'autre.",
+    "Maintenir la touche de ciblage secondaire : « Elites & Bosses First ».",
+    "Sanctuaires : PV contre or, machine à capsules, ou avancer l'horloge d'une minute et garder ses kills.",
+    "Coffres maudits : meilleur butin, gardés par des élites.",
+    "Coop : chaque joueur a sa couleur, les exploits d'équipe débloquent des persos pour tout le monde."
+  ],
+  "presets": [
+    {
+      "name": "Forteresse orbitale",
+      "char": "tv-head",
+      "weapons": [
+        "solar-system",
+        "asteroid-belt",
+        "goblin-catapult",
+        "mjolnir"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "projsize",
+        "hp"
+      ],
+      "why": "Les orbites protègent pendant que tu bouges, et vitesse d'attaque + taille de projectile boostent les 3 premières armes en même temps."
+    },
+    {
+      "name": "Taupe foreuse",
+      "char": "professor-mole",
+      "weapons": [
+        "drill",
+        "chainsaw",
+        "solar-system",
+        "fallout"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "dmg",
+        "hp",
+        "move"
+      ],
+      "why": "Professor Mole et la Drill partagent la même série de kills à 5 m : reste collé aux paquets."
+    },
+    {
+      "name": "Bourreau",
+      "char": "verdicta",
+      "weapons": [
+        "mjolnir",
+        "judgment-arrow",
+        "solar-system",
+        "fallout"
+      ],
+      "items": [
+        "smite",
+        "phoenix"
+      ],
+      "stats": [
+        "dmg",
+        "crit"
+      ],
+      "why": "Verdicta exécute les boss et les élites : on lui donne de quoi les faire descendre vite."
+    },
+    {
+      "name": "Ninja relance",
+      "char": "cynja",
+      "weapons": [
+        "shuriken",
+        "vinyl",
+        "solar-system",
+        "goblin-catapult"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "projsize"
+      ],
+      "why": "Les relances de Cynja et le retour gratuit du Shuriken montent tous les deux jusqu'à 75 %."
+    }
+  ]
+}

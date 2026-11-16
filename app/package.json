@@ -1,8 +1,8 @@
 {
   "name": "zkx",
   "productName": "ZKX",
-  "version": "2.1.1",
-  "description": "ZKX - conseiller Epic Seven (teams, stuff, tier lists)",
+  "version": "2.2.0",
+  "description": "ZKX - conseiller Epic Seven et Go Next! (teams, stuff, tier lists, builds)",
   "main": "main.js",
   "author": "PandaZkx",
   "dependencies": {

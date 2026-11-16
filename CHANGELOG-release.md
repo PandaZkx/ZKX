@@ -1,8 +1,11 @@
 ## Nouveautés
 
-- 🎰 Nouvelle bannière à venir : **Bunny Girl♥Lineup avec Bunny Girl Maid Cecilia** (attendue dès le 26/11).
-- Les persos tout juste sortis (Bunny Girl Mafia Yufine…) sont marqués « Nouveau · pas encore de stats » au lieu de « Passe ton tour ».
-- Infos ajoutées : Shadow Rose dans la mystique de Moro, invocations d'alliance gratuites (Fonderie) jusqu'au 31/12.
+- 🎮 **Nouveau jeu : Go Next!** En haut de la fenêtre, choisis **Epic Seven** ou **Go Next!**.
+- 📚 **Données** : les 24 persos (passifs du patch du 14/11), les armes, objets et cartes connus. Ajoute ou corrige ce que tu découvres en jeu.
+- ⇄ **Comparer** : 2 ou 3 persos, armes ou objets côte à côte, avec ce qui va bien avec chacun.
+- 🛠 **Builds** : perso + 4 armes + objets + stats prioritaires, avec note de cohérence, synergies et points à revoir. Builds tout prêts, sauvegarde et code à partager.
+- 🤝 **Team up** : prépare une run coop à 4, vois les rôles couverts et ce qui manque. Partage la team avec un code.
+- Les données Go Next! se mettent à jour toutes seules depuis GitHub (`data/gonext.json`).
 
 ## Installer
 

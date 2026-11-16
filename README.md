@@ -2,7 +2,7 @@
 
 trust le boug
 
-ZKX est une appli Windows de conseil pour **Epic Seven** : tier list consensus, teams, stuff conseillé, fiches des 240 persos (compétences en FR/EN), import de ta box depuis Fribbels et mode overlay au-dessus du jeu.
+ZKX est une appli Windows de conseil pour **Epic Seven** (et maintenant **Go Next!**) : tier list consensus, teams, stuff conseillé, fiches des 240 persos (compétences en FR/EN), import de ta box depuis Fribbels et mode overlay au-dessus du jeu.
 
 ## Télécharger
 
@@ -27,6 +27,17 @@ Onglet **🎰 Invocations** :
 - la **wish list conseillée** de l'invocation d'alliance (7 persos + 7 artefacts 5★), avec % de victoires, % de jeu et pré-ban en RTA.
 
 Les bannières se mettent à jour toutes seules : un robot GitHub (`.github/workflows/banners.yml`) lit les annonces du jeu toutes les 6 h et met à jour `data/banners.json`, que l'appli recharge en ligne. Pour corriger une bannière à la main, modifie ce fichier et ajoute `"manual": true` à l'entrée.
+
+## Go Next!
+
+En haut de la fenêtre, passe de **Epic Seven** à **Go Next!** :
+
+- **📚 Données** : persos (passifs), armes, objets et cartes connus d'après la page Steam et les notes de patch. « ＋ Ajouter » / « ✏ Corriger » pour compléter avec ce que tu vois en jeu (reste sur ton PC ; *Infos → Exporter mes ajouts* pour les envoyer).
+- **⇄ Comparer** : 2 ou 3 éléments côte à côte.
+- **🛠 Builds** : perso, 4 armes, objets clés, stats prioritaires ; ZKX note la cohérence et liste synergies et trous. Code `GN1.…` à partager.
+- **🤝 Team up** : jusqu'à 4 joueurs, rôles couverts et ce qui manque.
+
+Les données sont dans `data/gonext.json` (rechargé en ligne, pas besoin de nouvelle version). Les ajouts exportés par les joueurs (`zkx-gonext-ajouts.json`) se recopient dans ce fichier ; pense à changer `updated`.
 
 ## Fiches persos
 

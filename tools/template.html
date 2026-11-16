@@ -377,15 +377,73 @@ body.overlay #ovl, #ovl.pip{display:block}
   .nav{grid-auto-flow:column} .side-h{display:none} .side-actions{grid-auto-flow:column} main{padding:16px}
 }
 @media (prefers-reduced-motion:no-preference){.chip,.btn,.nav button{transition:background .15s,border-color .15s,color .15s}}
+/* ===== Sélecteur de jeu + Go Next! ===== */
+.gsw{display:inline-flex;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:2px;-webkit-app-region:no-drag;margin-left:10px}
+.gsw button{background:transparent;border:0;border-radius:7px;padding:3px 12px;cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:13.5px;letter-spacing:.6px;color:var(--muted)}
+.gsw button:hover{color:var(--text)}
+.gsw button[aria-selected="true"]{background:var(--acc);color:#fff}
+aside .gsw{margin:0;display:flex}
+aside .gsw button{flex:1}
+body.desk aside .gsw{display:none}
+body:not(.gn) .gnonly{display:none!important}
+body.gn .e7only{display:none!important}
+body.gn #kpis,body.gn #status{display:none}
+.gnslot input,.gnslot select{width:100%;min-width:0}
+aside .gsw button{padding:6px 4px;white-space:nowrap;font-size:13px}
+body.gn .wrap>.view:not(.gnv){display:none!important}
+.gnsub{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.gnsub button{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:800;color:var(--muted)}
+.gnsub button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.gngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.gncard{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gnc,var(--acc));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.gncard h3{margin:0;font-family:var(--f-display);font-size:18px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:8px}
+.gncard p{margin:0;font-size:13.5px}
+.gncard .acts{display:flex;gap:6px;margin-top:auto;flex-wrap:wrap}
+.gnav{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:14px;color:#fff;background:linear-gradient(145deg,var(--gnc,var(--acc)),#120b1d);border:1px solid rgba(255,255,255,.15)}
+.gt{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:700;background:var(--bg2);color:var(--muted);white-space:nowrap}
+.gt.r{color:var(--text);border-color:color-mix(in srgb,var(--acc) 50%,var(--line))}
+.gt.s{color:var(--gold);border-color:var(--gold2)}
+.gt.me{color:#9fe0ff;border-color:#145f97}
+.gtags{display:flex;flex-wrap:wrap;gap:4px}
+.gnb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:1100px){.gnb{grid-template-columns:1fr}}
+.gnform{display:grid;gap:8px}
+.gnform label{display:grid;gap:4px;font-size:12.5px;font-weight:800;color:var(--muted)}
+.gnform input,.gnform select,.gnform textarea{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--text);font:inherit;font-weight:600}
+.gnform textarea{min-height:70px;resize:vertical}
+.gn2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gnchk{display:flex;flex-wrap:wrap;gap:6px}
+.gnchk label{display:inline-flex;flex-direction:row;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;cursor:pointer;color:var(--text);font-size:12.5px}
+.gnchk label:has(input:checked){border-color:var(--acc);background:var(--acc-bg)}
+.gnscore{font-family:var(--f-display);font-size:44px;font-weight:700;color:var(--acc);line-height:1}
+.gnlist{margin:6px 0 0;padding-left:0;list-style:none;display:grid;gap:5px;font-size:13.5px}
+.gnlist li{padding:6px 10px;border-radius:9px;background:var(--bg2);border:1px solid var(--line)}
+.gnlist li.ok{border-left:3px solid var(--good)} .gnlist li.ko{border-left:3px solid var(--gold)}
+.gnbars{display:grid;gap:6px;margin-top:8px}
+.gnbar{display:grid;grid-template-columns:170px 1fr 28px;gap:8px;align-items:center;font-size:12.5px}
+.gnbar i{display:block;height:8px;border-radius:99px;background:var(--bg2);overflow:hidden}
+.gnbar i b{display:block;height:100%;background:var(--acc);border-radius:99px}
+.gnbar.zero{color:var(--gold)}
+.gnsaved{display:grid;gap:6px;margin-top:8px}
+.gnsaved .row{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 10px}
+.gnteam{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:1000px){.gnteam{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gnslot{align-content:start;background:var(--panel2);border:1px solid var(--line);border-top:3px solid var(--gnc,var(--line));border-radius:12px;padding:10px;display:grid;gap:6px}
+table.gncmp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.gncmp th,table.gncmp td{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.gncmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.4px;width:150px}
+.gnwarn{background:#2a1d08;border:1px solid var(--gold2);color:#f6dfa4;border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:12px}
+body:not(.gn) .gnv{display:none!important}
 </style>
 __JSZIP__
 </head>
 <body>
-<div id="tbar"><b>ZKX</b> Epic Seven</div>
+<div id="tbar"><b>ZKX</b><div class="gsw" role="tablist" aria-label="Jeu"><button type="button" role="tab" data-game="e7" aria-selected="true">Epic Seven</button><button type="button" role="tab" data-game="gn" aria-selected="false">Go Next!</button></div></div>
 <div class="app">
 <aside>
   <div style="display:flex;align-items:flex-start;gap:8px"><div class="logo" style="flex:1"><b>ZKX</b><small>Epic Seven · teams · stuff · tier lists</small></div><button class="gear" id="gear" type="button" aria-label="Paramètres" title="Paramètres">⚙</button></div>
-  <nav class="nav" role="tablist" aria-label="Sections">
+  <div class="gsw" role="tablist" aria-label="Jeu"><button type="button" role="tab" data-game="e7" aria-selected="true">Epic Seven</button><button type="button" role="tab" data-game="gn" aria-selected="false">Go Next!</button></div>
+  <nav class="nav e7only" role="tablist" aria-label="Sections">
     <button role="tab" id="tab-conseils" aria-selected="true" aria-controls="v-conseils"><span class="ic">⚔</span>Conseils</button>
     <button role="tab" id="tab-stuff" aria-selected="false" aria-controls="v-stuff"><span class="ic">🛡</span>Mon stuff</button>
     <button role="tab" id="tab-tiers" aria-selected="false" aria-controls="v-tiers"><span class="ic">★</span>Tier lists</button>
@@ -394,8 +452,15 @@ __JSZIP__
     <button role="tab" id="tab-daily" aria-selected="false" aria-controls="v-daily"><span class="ic">📅</span>Daily / Hebdo</button>
     <button role="tab" id="tab-captures" aria-selected="false" aria-controls="v-captures"><span class="ic">📸</span>Mes captures</button>
   </nav>
-  <div class="side-h">Ma box</div>
-  <div class="side-actions">
+  <nav class="nav gnonly" role="tablist" aria-label="Sections Go Next!">
+    <button role="tab" id="tab-gn-data" aria-selected="true" aria-controls="v-gn-data"><span class="ic">📚</span>Données</button>
+    <button role="tab" id="tab-gn-cmp" aria-selected="false" aria-controls="v-gn-cmp"><span class="ic">⇄</span>Comparer</button>
+    <button role="tab" id="tab-gn-build" aria-selected="false" aria-controls="v-gn-build"><span class="ic">🛠</span>Builds</button>
+    <button role="tab" id="tab-gn-team" aria-selected="false" aria-controls="v-gn-team"><span class="ic">🤝</span>Team up</button>
+    <button role="tab" id="tab-gn-info" aria-selected="false" aria-controls="v-gn-info"><span class="ic">ℹ</span>Infos &amp; patchs</button>
+  </nav>
+  <div class="side-h e7only">Ma box</div>
+  <div class="side-actions e7only">
     <label class="btn primary" for="file">Importer Fribbels (.json)</label>
     <input id="file" type="file" accept=".json,application/json" hidden>
     <button class="btn fbauto" id="fb-auto" type="button" hidden>🔄 Import auto Fribbels</button>
@@ -405,9 +470,9 @@ __JSZIP__
     <button class="btn" id="manual" type="button">Cocher mes persos</button>
     <button class="btn" id="example" type="button">Box d'exemple</button>
   </div>
-  <div class="side-h">Affichage</div>
-  <div class="seg" role="group" aria-label="Mode de jeu"><button type="button" id="m-pvp" aria-pressed="true">PvP</button><button type="button" id="m-pve" aria-pressed="false">PvE</button></div>
-  <button class="btn" id="ovbtn" type="button">🪟 Mode overlay</button>
+  <div class="side-h e7only">Affichage</div>
+  <div class="seg e7only" role="group" aria-label="Mode de jeu"><button type="button" id="m-pvp" aria-pressed="true">PvP</button><button type="button" id="m-pve" aria-pressed="false">PvE</button></div>
+  <button class="btn e7only" id="ovbtn" type="button">🪟 Mode overlay</button>
 </aside>
 <main><div class="wrap">
 <header class="top">
@@ -551,6 +616,56 @@ __JSZIP__
     <div class="gal" id="gal"></div>
   </section>
 </div>
+<div class="view gnv" id="v-gn-data" role="tabpanel" aria-labelledby="tab-gn-data" hidden>
+<section class="card">
+  <div class="gnsub" id="gn-kind" role="group" aria-label="Catégorie"></div>
+  <div class="tools"><input id="gn-q" type="search" placeholder="Chercher (nom, effet…)" aria-label="Chercher"><select id="gn-f" aria-label="Filtrer"></select><button class="btn" type="button" id="gn-add">＋ Ajouter</button><span class="mini" id="gn-count"></span></div>
+  <div class="gngrid" id="gn-grid"></div>
+  <p class="note" id="gn-data-note"></p>
+</section>
+</div>
+<div class="view gnv" id="v-gn-cmp" role="tabpanel" aria-labelledby="tab-gn-cmp" hidden>
+<section class="card">
+  <h2>Comparer</h2>
+  <p class="sub">Choisis 2 ou 3 persos, armes ou objets pour les voir côte à côte, avec ce qui va bien avec chacun.</p>
+  <div class="gnsub" id="gn-cmp-kind" role="group" aria-label="Catégorie"></div>
+  <div class="tools" id="gn-cmp-sel"></div>
+  <div class="scroll" id="gn-cmp-out"></div>
+</section>
+</div>
+<div class="view gnv" id="v-gn-build" role="tabpanel" aria-labelledby="tab-gn-build" hidden>
+<div class="gnb">
+<section class="card">
+  <h2>Mon build</h2>
+  <p class="sub">Perso, 4 armes, objets clés et stats à prendre en priorité sur les cartes de niveau.</p>
+  <div class="gnform" id="gn-bform"></div>
+  <div class="tools" style="margin-top:12px"><button class="btn primary" type="button" id="gn-bsave">💾 Enregistrer</button><button class="btn" type="button" id="gn-bnew">Nouveau</button><button class="btn" type="button" id="gn-bshare">🔗 Copier le code</button><button class="btn" type="button" id="gn-bimp">📥 Coller un code</button></div>
+  <p class="mini" id="gn-bmsg" aria-live="polite"></p>
+</section>
+<section class="card">
+  <h2>Analyse</h2>
+  <div id="gn-bana"></div>
+</section>
+</div>
+<section class="card" style="margin-top:18px">
+  <h2>Builds tout prêts et enregistrés</h2>
+  <p class="sub">Clique pour charger. Les builds tout prêts sont faits à partir des notes de patch : adapte-les selon ce qui tombe.</p>
+  <div class="gnsaved" id="gn-bsaved"></div>
+</section>
+</div>
+<div class="view gnv" id="v-gn-team" role="tabpanel" aria-labelledby="tab-gn-team" hidden>
+<section class="card">
+  <h2>Team up (coop jusqu'à 4)</h2>
+  <p class="sub">Mets le perso de chaque joueur (et son build si vous en avez un). ZKX regarde ce que l'équipe couvre et ce qui manque.</p>
+  <div class="gnteam" id="gn-team"></div>
+  <div class="tools" style="margin-top:12px"><button class="btn" type="button" id="gn-tshare">🔗 Copier le code de la team</button><button class="btn" type="button" id="gn-timp">📥 Coller un code</button><button class="btn" type="button" id="gn-tclear">Vider</button><span class="mini" id="gn-tmsg" aria-live="polite"></span></div>
+</section>
+<section class="card" style="margin-top:18px"><h2>Analyse de la team</h2><div id="gn-tana"></div></section>
+</div>
+<div class="view gnv" id="v-gn-info" role="tabpanel" aria-labelledby="tab-gn-info" hidden>
+<section class="card" id="gn-info"></section>
+</div>
+<div class="ov" id="ov-gn" role="dialog" aria-modal="true" aria-labelledby="gn-dlg-t"><div class="dlg" style="max-width:640px" id="gn-dlg"></div></div>
 <div id="ovl" aria-label="Overlay">
   <div class="ovhead"><strong>E7 · Overlay</strong><button class="btn sm" type="button" id="ov-mode">PvP</button><button class="btn sm" type="button" id="ov-exit">Quitter</button></div>
   <input id="ov-q" type="search" placeholder="Tape un perso (FR ou EN)…" aria-label="Chercher un perso" autocomplete="off">
@@ -559,7 +674,7 @@ __JSZIP__
   <div class="card2" id="ov-team" style="margin-top:8px"></div>
   <p class="mini" id="ov-tip" style="margin-top:8px"></p>
 </div>
-<p class="note">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde Fribbels (Documents\FribbelsOptimizerSaves\autosave.json), et « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre du jeu pour cocher tes persos tout seul (simple capture d'écran : ZKX ne touche pas au jeu). Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>, <a href="https://epic7coach.com/">Epic7Coach</a> (stats RTA de la semaine, alliés, counters, builds, mis à jour deux fois par semaine).</p>
+<p class="note e7only">L'appli ne lit pas le jeu et n'y touche pas. Pour importer ta box, sauvegarde-la depuis l'optimiseur Fribbels (onglet Importer → Save), puis charge le fichier ici. Dans l'appli Windows, « 🔄 Import auto Fribbels » suit ta sauvegarde Fribbels (Documents\FribbelsOptimizerSaves\autosave.json), et « 👁 Repérer ma box à l'écran » lit les noms des héros affichés dans la fenêtre du jeu pour cocher tes persos tout seul (simple capture d'écran : ZKX ne touche pas au jeu). Ta box et tes images restent dans ton navigateur. Pour mettre tes propres images de persos et d'artefacts, va dans l'onglet 📸 Mes captures. Sources : <a href="https://e7rtabot.com/stats">e7rtabot</a>, <a href="https://www.pocketgamer.com/epic-seven/tier-list/">Pocket Gamer</a>, <a href="https://mmoculture.com/tips-guides/epic-seven-tier-list/">MMO Culture</a>, <a href="https://www.joytify.com/blog/en-us/rpg-others/rpg-epic-seven-tier-list/">Joytify</a>, <a href="https://www.game.guide/epic-seven-tier-list">game.guide</a>, <a href="https://www.topuplive.com/news/epic-seven-tier-list-2026.html">TopUpLive</a>, <a href="https://epic7db.com/">epic7db</a>, <a href="https://epic7coach.com/">Epic7Coach</a> (stats RTA de la semaine, alliés, counters, builds, mis à jour deux fois par semaine).</p>
 </div></main>
 </div>
 
@@ -2222,6 +2337,388 @@ const saved = store.get("e7box");
 if (saved && saved.owned && saved.owned.length){ owned = new Set(saved.owned.filter(n => BY[n])); mode = saved.mode || "pvp"; isExample = !!saved.isExample;
   document.getElementById("m-pvp").setAttribute("aria-pressed", mode==="pvp"); document.getElementById("m-pve").setAttribute("aria-pressed", mode==="pve"); renderAll("box retrouvée"); }
 else { owned = new Set(EXAMPLE.filter(n => BY[n])); isExample = true; renderAll("box d'exemple : importe la tienne ou coche tes persos"); }
+/* ===== Go Next! : données, comparateur, builds, team up ===== */
+(function(){
+const GN_URL = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/gonext.json";
+const $ = id => document.getElementById(id);
+const ls = { get(k, d){ try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } }, set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} } };
+let BASE = __GONEXT__;
+{ const c = ls.get("gn-data", null); if (c && c.characters && (c.updated || "") > (BASE.updated || "")) BASE = c; }
+let edits = ls.get("gn-edits", {}); for (const k of ["characters","weapons","items"]) edits[k] = edits[k] || {};
+let GN, BY = {};
+const KINDS = { characters: ["Persos", "perso"], weapons: ["Armes", "arme"], items: ["Objets", "objet"] };
+const EFFECTS = { slow: "Ralentit / gèle", poison: "Poison" };
+const COLORS = { zone: "#a855f7", boss: "#ef4444", ctrl: "#22d3ee", surv: "#22c55e", eco: "#f0b429", mob: "#3b82f6",
+  orbit: "#a855f7", minion: "#22c55e", melee: "#ef4444", proj: "#3b82f6", aoe: "#f97316", beam: "#22d3ee", luck: "#f0b429" };
+function merge(){
+  GN = JSON.parse(JSON.stringify(BASE)); BY = {};
+  for (const k of Object.keys(KINDS)){
+    GN[k] = GN[k] || [];
+    for (const id in edits[k]){
+      const e = edits[k][id], i = GN[k].findIndex(x => x.id === id);
+      if (e === null){ if (i >= 0) GN[k].splice(i, 1); continue; }
+      if (i >= 0) GN[k][i] = Object.assign({}, GN[k][i], e, { mine: true }); else GN[k].push(Object.assign({}, e, { id, mine: true, added: true }));
+    }
+    GN[k].sort((a, b) => a.name.localeCompare(b.name));
+    for (const x of GN[k]) BY[k + ":" + x.id] = x;
+  }
+}
+merge();
+const C = id => BY["characters:" + id], W = id => BY["weapons:" + id], I = id => BY["items:" + id];
+const SN = s => (GN.stats && GN.stats[s]) || EFFECTS[s] || (GN.types && GN.types[s]) || s;
+const RN = r => (GN.roles && GN.roles[r]) || r;
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ini = n => esc(String(n).split(/[\s.\-]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase());
+const col = x => COLORS[x.type] || COLORS[(x.roles || [])[0]] || "var(--acc)";
+const slug = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function copy(txt, msgEl){
+  const ok = () => { if (msgEl) msgEl.textContent = "Copié ! Envoie-le à tes potes."; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, () => fallback());
+  else fallback();
+  function fallback(){ const t = document.createElement("textarea"); t.value = txt; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); ok(); } catch(e){ prompt("Copie ce code :", txt); } t.remove(); }
+}
+const enc = o => "GN1." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+const dec = s => { s = String(s || "").trim(); if (!s.startsWith("GN1.")) throw new Error("code"); return JSON.parse(decodeURIComponent(escape(atob(s.slice(4))))); };
+
+/* ---------- jeu actif ---------- */
+const GAMES = { e7: "Epic Seven", gn: "Go Next!" };
+const GN_PAGES = {
+  data: ["Go Next! · Données", "Persos, armes, objets et cartes connus, d'après la page Steam et les notes de patch. Ajoute ou corrige ce que tu découvres en jeu."],
+  cmp: ["Go Next! · Comparer", "Deux ou trois éléments côte à côte."],
+  build: ["Go Next! · Builds", "Monte ton build et vois ses synergies et ses trous."],
+  team: ["Go Next! · Team up", "Prépare une run coop à 2, 3 ou 4."],
+  info: ["Go Next! · Infos & patchs", "Règles utiles, cartes, sources et mise à jour des données."] };
+let gnTab = ls.get("gn-tab", "data");
+let game = ls.get("zkx-game", "e7");
+function setGame(g){
+  game = g === "gn" ? "gn" : "e7"; ls.set("zkx-game", game);
+  document.body.classList.toggle("gn", game === "gn");
+  document.querySelectorAll("[data-game]").forEach(b => b.setAttribute("aria-selected", b.dataset.game === game));
+  document.title = "ZKX · " + GAMES[game];
+  const tb = document.querySelector("#tbar .gname"); if (tb) tb.textContent = GAMES[game];
+  const lg = document.querySelector(".logo small"); if (lg) lg.textContent = game === "gn" ? "Go Next! · builds · team up · données" : "Epic Seven · teams · stuff · tier lists";
+  if (game === "gn"){ showGn(gnTab); refresh(); }
+  else { const t = document.querySelector('.nav.e7only [role=tab][aria-selected="true"]'); if (t) t.click(); }
+}
+function showGn(t){
+  gnTab = GN_PAGES[t] ? t : "data"; ls.set("gn-tab", gnTab);
+  for (const k in GN_PAGES){ $("tab-gn-" + k).setAttribute("aria-selected", k === gnTab); $("v-gn-" + k).hidden = k !== gnTab; }
+  $("page-h").textContent = GN_PAGES[gnTab][0]; $("page-p").textContent = GN_PAGES[gnTab][1];
+  render();
+}
+function render(){ ({ data: renderData, cmp: renderCmp, build: renderBuild, team: renderTeam, info: renderInfo })[gnTab](); }
+document.querySelectorAll("[data-game]").forEach(b => b.addEventListener("click", () => setGame(b.dataset.game)));
+for (const k in GN_PAGES) $("tab-gn-" + k).addEventListener("click", () => showGn(k));
+
+/* ---------- mise à jour en ligne ---------- */
+let fetched = false, onlineMsg = "";
+function refresh(force){
+  if (fetched && !force) return; fetched = true; onlineMsg = "Vérification des données en ligne…";
+  fetch(GN_URL + "?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => {
+    if (j && j.characters && (j.updated || "") > (BASE.updated || "")){ BASE = j; ls.set("gn-data", j); merge(); onlineMsg = "Données mises à jour (" + j.updated + ")."; render(); }
+    else onlineMsg = "Données à jour (" + BASE.updated + ").";
+    if (gnTab === "info") renderInfo();
+  }).catch(() => { onlineMsg = "Hors ligne : données intégrées du " + BASE.updated + "."; if (gnTab === "info") renderInfo(); });
+}
+
+/* ---------- carte d'un élément ---------- */
+function tagsOf(kind, x){
+  const t = [];
+  if (x.type) t.push(`<span class="gt">${esc(SN(x.type))}</span>`);
+  (x.roles || []).forEach(r => t.push(`<span class="gt r">${esc(RN(r))}</span>`));
+  if (kind === "characters") (x.likes || []).forEach(s => t.push(`<span class="gt s">aime : ${esc(SN(s))}</span>`));
+  (x.uses || []).forEach(s => t.push(`<span class="gt s">monte avec : ${esc(SN(s))}</span>`));
+  (x.gives || []).forEach(s => t.push(`<span class="gt s">donne : ${esc(SN(s))}</span>`));
+  (x.effects || []).forEach(s => t.push(`<span class="gt s">${esc(SN(s))}</span>`));
+  if (x.mine) t.push(`<span class="gt me">${x.added ? "ajouté par toi" : "corrigé par toi"}</span>`);
+  return `<div class="gtags">${t.join("")}</div>`;
+}
+function card(kind, x){
+  const txt = kind === "characters" ? x.passive : x.note;
+  const sig = kind === "characters" && x.sig ? `<p class="mini">Arme de départ : <b>${esc(x.sig)}</b>${x.sigSure ? "" : " (probable)"}</p>` : "";
+  return `<article class="gncard" style="--gnc:${col(x)}"><h3><span class="gnav">${ini(x.name)}</span>${esc(x.name)}</h3>${tagsOf(kind, x)}
+    ${txt ? `<p>${esc(txt)}</p>` : `<p class="mini">Effet pas encore renseigné.</p>`}${sig}${x.tip ? `<p class="mini">💡 ${esc(x.tip)}</p>` : ""}
+    <div class="acts"><button class="btn sm" type="button" data-gncmp="${kind}:${esc(x.id)}">⇄ Comparer</button><button class="btn sm" type="button" data-gnedit="${kind}:${esc(x.id)}">✏ Corriger</button></div></article>`;
+}
+
+/* ---------- Données ---------- */
+let dKind = "characters";
+function filterOpts(kind){
+  if (kind === "weapons") return [["", "Tous les types"], ...Object.entries(GN.types).map(([k, v]) => ["t:" + k, v]), ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v])];
+  if (kind === "maps") return [["", "Tout"]];
+  return [["", "Tous les rôles"], ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v])];
+}
+function renderData(){
+  $("gn-kind").innerHTML = [...Object.entries(KINDS).map(([k, v]) => [k, v[0]]), ["maps", "Cartes"]].map(([k, l]) => `<button type="button" data-k="${k}" aria-pressed="${k === dKind}">${l}</button>`).join("");
+  const f = $("gn-f"), cur = f.value; f.innerHTML = filterOpts(dKind).map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join(""); if ([...f.options].some(o => o.value === cur)) f.value = cur;
+  f.hidden = dKind === "maps"; $("gn-add").hidden = dKind === "maps";
+  const q = $("gn-q").value.trim().toLowerCase();
+  if (dKind === "maps"){
+    const m = (GN.maps || []).filter(x => !q || JSON.stringify(x).toLowerCase().includes(q));
+    $("gn-grid").innerHTML = m.map(x => `<article class="gncard"><h3><span class="gnav">${ini(x.name)}</span>${esc(x.name)}</h3>${x.boss ? `<div class="gtags"><span class="gt r">Boss : ${esc(x.boss)}</span></div>` : ""}<p>${esc(x.note)}</p></article>`).join("");
+    $("gn-count").textContent = `${(GN.maps || []).length} / ${GN.counts.worlds} mondes connus`;
+    $("gn-data-note").textContent = "";
+    return;
+  }
+  const fv = f.value;
+  const list = GN[dKind].filter(x => (!q || JSON.stringify(x).toLowerCase().includes(q)) && (!fv || (fv[0] === "t" ? x.type === fv.slice(2) : (x.roles || []).includes(fv.slice(2)))));
+  $("gn-grid").innerHTML = list.length ? list.map(x => card(dKind, x)).join("") : '<p class="empty">Rien ne correspond.</p>';
+  $("gn-count").textContent = `${GN[dKind].length} / ${GN.counts[dKind]} ${KINDS[dKind][0].toLowerCase()} renseignés`;
+  $("gn-data-note").textContent = GN[dKind].length < GN.counts[dKind] ? `Le jeu en compte ${GN.counts[dKind]}, mais seuls ceux cités sur Steam ou dans les patchs sont là. Utilise « Ajouter » pour ceux que tu croises (menu Unlocks du jeu) : ils servent tout de suite dans les builds.` : "";
+}
+$("gn-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ dKind = b.dataset.k; $("gn-q").value = ""; $("gn-f").value = ""; renderData(); } });
+$("gn-q").addEventListener("input", renderData); $("gn-f").addEventListener("change", renderData);
+$("gn-add").addEventListener("click", () => editDlg(dKind, null));
+
+/* ---------- fenêtre d'ajout / correction ---------- */
+function chk(name, opts, sel){ return `<div class="gnchk">${Object.entries(opts).map(([k, v]) => `<label><input type="checkbox" name="${name}" value="${k}"${(sel || []).includes(k) ? " checked" : ""}>${esc(v)}</label>`).join("")}</div>`; }
+function editDlg(kind, id){
+  const x = id ? BY[kind + ":" + id] : { name: "", roles: [] };
+  const allLikes = Object.assign({}, GN.stats, GN.types, EFFECTS);
+  let f = `<button class="btn sm x" type="button" data-gnx>✕</button><h3 id="gn-dlg-t">${id ? "Corriger" : "Ajouter"} : ${esc(KINDS[kind][1])}</h3>
+  <p class="mini">Reste sur ton PC. Pour le partager à tout le monde, utilise « Exporter mes ajouts » dans Infos et envoie le fichier à PandaZkx.</p>
+  <form class="gnform" id="gn-ef"><label>Nom (comme dans le jeu)<input name="name" required value="${esc(x.name)}"${id && !x.added ? " readonly" : ""}></label>`;
+  if (kind === "weapons") f += `<label>Type<select name="type">${Object.entries(GN.types).map(([k, v]) => `<option value="${k}"${x.type === k ? " selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
+  f += `<label>Rôles${chk("roles", GN.roles, x.roles)}</label>`;
+  if (kind === "characters") f += `<label>Aime (stats, types d'arme, effets)${chk("likes", allLikes, x.likes)}</label><label>Déteste${chk("dislikes", GN.types, x.dislikes)}</label>
+    <div class="gn2"><label>Arme de départ<input name="sig" value="${esc(x.sig || "")}"></label><label>Sûr ?<select name="sigSure"><option value="1"${x.sigSure ? " selected" : ""}>Oui</option><option value=""${x.sigSure ? "" : " selected"}>Probable</option></select></label></div>
+    <label>Passif<textarea name="passive">${esc(x.passive || "")}</textarea></label><label>Conseil<input name="tip" value="${esc(x.tip || "")}"></label>`;
+  if (kind === "weapons") f += `<label>Monte avec${chk("uses", GN.stats, x.uses)}</label><label>Effets${chk("effects", EFFECTS, x.effects)}</label><label>Effet / notes<textarea name="note">${esc(x.note || "")}</textarea></label>`;
+  if (kind === "items") f += `<label>Donne${chk("gives", GN.stats, x.gives)}</label><label>Effets${chk("effects", EFFECTS, x.effects)}</label><label>Effet / notes<textarea name="note">${esc(x.note || "")}</textarea></label>`;
+  f += `<div class="tools" style="margin:6px 0 0"><button class="btn primary" type="submit">Enregistrer</button>${id && x.mine ? `<button class="btn" type="button" id="gn-ereset">${x.added ? "🗑 Supprimer" : "↺ Revenir aux données ZKX"}</button>` : ""}</div></form>`;
+  $("gn-dlg").innerHTML = f; openOv("ov-gn");
+  $("gn-ef").addEventListener("submit", e => {
+    e.preventDefault(); const fd = new FormData(e.target), o = {};
+    o.name = String(fd.get("name") || "").trim(); if (!o.name) return;
+    for (const k of ["roles","likes","dislikes","uses","gives","effects"]) if (e.target.querySelector(`[name=${k}]`)) o[k] = fd.getAll(k);
+    for (const k of ["type","sig","passive","tip","note"]) if (fd.has(k)) o[k] = String(fd.get(k)).trim();
+    if (fd.has("sigSure")) o.sigSure = !!fd.get("sigSure");
+    const nid = id || slug(o.name) || ("x" + Date.now());
+    edits[kind][nid] = Object.assign({}, edits[kind][nid] || {}, o); ls.set("gn-edits", edits); merge(); closeOv("ov-gn"); render();
+  });
+  const rs = $("gn-ereset"); if (rs) rs.addEventListener("click", () => { delete edits[kind][id]; ls.set("gn-edits", edits); merge(); closeOv("ov-gn"); render(); });
+}
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-gnx]")) closeOv("ov-gn");
+  const ed = e.target.closest("[data-gnedit]"); if (ed){ const [k, id] = ed.dataset.gnedit.split(":"); editDlg(k, id); }
+  const cp = e.target.closest("[data-gncmp]"); if (cp){ const [k, id] = cp.dataset.gncmp.split(":"); if (cKind !== k){ cKind = k; cSel = []; } if (!cSel.includes(id)) cSel = [...cSel, id].slice(-3); showGn("cmp"); }
+});
+$("ov-gn").addEventListener("click", e => { if (e.target.id === "ov-gn") closeOv("ov-gn"); });
+
+/* ---------- liens entre éléments ---------- */
+function goesWith(kind, x){
+  const out = [];
+  if (kind === "characters"){
+    const likes = x.likes || [];
+    GN.weapons.forEach(w => { const why = [];
+      if (x.sig && w.name === x.sig) why.push("arme de départ");
+      if (likes.includes(w.type)) why.push(SN(w.type));
+      (w.uses || []).filter(s => likes.includes(s)).forEach(s => why.push(SN(s)));
+      (w.effects || []).filter(s => likes.includes(s)).forEach(s => why.push(SN(s)));
+      if ((x.dislikes || []).includes(w.type)) return;
+      if (why.length) out.push(`${w.name} (${why.join(", ")})`); });
+    GN.items.forEach(i => { const why = [...(i.gives || []), ...(i.effects || [])].filter(s => likes.includes(s)); if (why.length) out.push(`${i.name} (${why.map(SN).join(", ")})`); });
+  } else if (kind === "weapons"){
+    GN.characters.forEach(c => { if ((c.dislikes || []).includes(x.type)) return; const why = [];
+      if (c.sig === x.name) why.push("son arme de départ");
+      if ((c.likes || []).includes(x.type)) why.push(SN(x.type));
+      [...(x.uses || []), ...(x.effects || [])].filter(s => (c.likes || []).includes(s)).forEach(s => why.push(SN(s)));
+      if (why.length) out.push(`${c.name} (${why.join(", ")})`); });
+    GN.weapons.forEach(w => { if (w.id === x.id) return; const s = (w.uses || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push(`${w.name} (même stat : ${s.map(SN).join(", ")})`); });
+    GN.items.forEach(i => { const s = (i.gives || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push(`${i.name} (donne ${s.map(SN).join(", ")})`); });
+  } else {
+    const g = [...(x.gives || []), ...(x.effects || [])];
+    GN.weapons.forEach(w => { const s = (w.uses || []).filter(u => g.includes(u)); if (s.length) out.push(`${w.name} (${s.map(SN).join(", ")})`); });
+    GN.characters.forEach(c => { const s = (c.likes || []).filter(u => g.includes(u)); if (s.length) out.push(`${c.name} (${s.map(SN).join(", ")})`); });
+  }
+  return out;
+}
+
+/* ---------- Comparer ---------- */
+let cKind = "characters", cSel = [];
+function renderCmp(){
+  $("gn-cmp-kind").innerHTML = Object.entries(KINDS).map(([k, v]) => `<button type="button" data-k="${k}" aria-pressed="${k === cKind}">${v[0]}</button>`).join("");
+  const opts = sel => `<option value="">—</option>` + GN[cKind].map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("");
+  $("gn-cmp-sel").innerHTML = [0, 1, 2].map(i => `<select data-ci="${i}" aria-label="Élément ${i + 1}">${opts(cSel[i])}</select>`).join("");
+  const xs = cSel.map(id => BY[cKind + ":" + id]).filter(Boolean);
+  if (xs.length < 2){ $("gn-cmp-out").innerHTML = '<p class="empty">Choisis au moins 2 éléments (ou clique sur « ⇄ Comparer » dans Données).</p>'; return; }
+  const rows = [["Rôles", x => (x.roles || []).map(RN).join(", ") || "—"]];
+  if (cKind === "weapons") rows.push(["Type", x => SN(x.type)], ["Monte avec", x => (x.uses || []).map(SN).join(", ") || "—"]);
+  if (cKind === "items") rows.push(["Donne", x => (x.gives || []).map(SN).join(", ") || "—"]);
+  if (cKind === "characters") rows.push(["Aime", x => (x.likes || []).map(SN).join(", ") || "—"], ["Évite", x => (x.dislikes || []).map(SN).join(", ") || "—"], ["Arme de départ", x => x.sig ? x.sig + (x.sigSure ? "" : " (probable)") : "—"], ["Passif", x => x.passive || "—"], ["Conseil", x => x.tip || "—"]);
+  else rows.push(["Effet", x => x.note || "—"]);
+  rows.push(["Va bien avec", x => { const g = goesWith(cKind, x); return g.length ? g.slice(0, 8).join(" · ") + (g.length > 8 ? ` · +${g.length - 8}` : "") : "rien de repéré pour l'instant"; }]);
+  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => `<td>${esc(f(x))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+$("gn-cmp-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ cKind = b.dataset.k; cSel = []; renderCmp(); } });
+$("gn-cmp-sel").addEventListener("change", e => { const s = e.target.closest("[data-ci]"); if (s){ cSel[+s.dataset.ci] = s.value; cSel = cSel.map(v => v || ""); renderCmp(); } });
+
+/* ---------- analyse d'un build ---------- */
+function analyze(b){
+  const c = C(b.char), ws = (b.weapons || []).map(W).filter(Boolean), its = (b.items || []).map(I).filter(Boolean);
+  const pros = [], cons = []; let pts = 0;
+  const prio = new Set(b.stats || []), gives = new Set(prio); its.forEach(i => (i.gives || []).forEach(s => gives.add(s)));
+  const effects = new Set(); [...ws, ...its].forEach(x => (x.effects || []).forEach(s => effects.add(s)));
+  if (!c) cons.push("Choisis un perso.");
+  if (ws.length < 4) cons.push(`${4 - ws.length} emplacement(s) d'arme vide(s).`);
+  const ids = ws.map(w => w.id); if (new Set(ids).size < ids.length) cons.push("La même arme est mise deux fois.");
+  for (const w of ws){ const hit = (w.uses || []).filter(s => gives.has(s)); if (hit.length){ pts += 6 * hit.length; pros.push(`${w.name} profite de ${hit.map(SN).join(" et ")}.`); } }
+  const cnt = {}; ws.forEach(w => (w.uses || []).forEach(s => cnt[s] = (cnt[s] || 0) + 1));
+  for (const s in cnt) if (cnt[s] >= 2){ pts += 5 * cnt[s]; if (gives.has(s)) pros.push(`${cnt[s]} armes montent avec ${SN(s)} : une seule stat boostera tout ça.`); else cons.push(`${cnt[s]} armes montent avec ${SN(s)} : ajoute-la à tes priorités.`); }
+  if (c){
+    if (c.sig){ if (ws.some(w => w.name === c.sig) || its.some(i => i.name === c.sig)){ pts += 8; pros.push(`Tu gardes ${c.sig}, l'équipement de départ de ${c.name}${c.sigSure ? "" : " (probable)"}.`); } }
+    for (const l of (c.likes || [])){
+      if (GN.stats[l]){ if (gives.has(l)){ pts += 6; pros.push(`${c.name} aime ${SN(l)} : c'est dans tes priorités.`); } else cons.push(`${c.name} aime ${SN(l)} : pense à la prendre.`); }
+      else if (GN.types[l]){ const n = ws.filter(w => w.type === l).length; if (n){ pts += 4 * n; pros.push(`${n} arme(s) ${SN(l).toLowerCase()}, ce que ${c.name} préfère.`); } }
+      else if (EFFECTS[l]){ if (effects.has(l)){ pts += 10; pros.push(`${c.name} profite de l'effet « ${SN(l)} » de ton build.`); } else cons.push(`${c.name} veut l'effet « ${SN(l)} » : aucune arme ou objet de ton build ne l'a (coche l'effet dans « Corriger » si tu en connais une).`); }
+    }
+    const bad = ws.filter(w => (c.dislikes || []).includes(w.type)); if (bad.length){ pts -= 8 * bad.length; cons.push(`${bad.map(w => w.name).join(", ")} : ${SN(bad[0].type).toLowerCase()}, ça va contre le passif de ${c.name}.`); }
+  }
+  const roles = {}; [c, ...ws, ...its].forEach(x => x && (x.roles || []).forEach(r => roles[r] = (roles[r] || 0) + 1));
+  if (!roles.zone) cons.push("Rien pour nettoyer la horde : prends au moins une arme de zone ou une orbite.");
+  if (!roles.boss) cons.push("Pas de tueur de boss : garde la touche « Elites & Bosses First » et vise une arme qui tape fort.");
+  if (!roles.surv) cons.push("Aucune survie : un Phoenix (résurrection) aide beaucoup pour aller loin.");
+  pts += 4 * Object.keys(roles).length;
+  if (!prio.size) cons.push("Choisis 2 ou 3 stats prioritaires pour tes cartes de niveau.");
+  const score = Math.max(0, Math.min(100, Math.round(pts)));
+  return { score, pros, cons, roles, c, ws, its };
+}
+function roleBars(roles){
+  const mx = Math.max(1, ...Object.values(roles));
+  return `<div class="gnbars">${Object.entries(GN.roles).map(([k, v]) => `<div class="gnbar${roles[k] ? "" : " zero"}"><span>${esc(v)}</span><i><b style="width:${Math.round(100 * (roles[k] || 0) / mx)}%"></b></i><span>${roles[k] || 0}</span></div>`).join("")}</div>`;
+}
+
+/* ---------- Builds ---------- */
+const blank = () => ({ name: "", char: "", weapons: ["", "", "", ""], items: ["", "", ""], stats: [] });
+let cur = Object.assign(blank(), ls.get("gn-build-cur", {}));
+let saved = ls.get("gn-builds", []);
+function optList(list, sel, groupBy){
+  let h = `<option value="">—</option>`;
+  if (groupBy){ for (const [k, v] of Object.entries(GN.types)){ const g = list.filter(x => x.type === k); if (g.length) h += `<optgroup label="${esc(v)}">${g.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("")}</optgroup>`; } }
+  else h += list.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("");
+  return h;
+}
+function renderBuild(){
+  const f = $("gn-bform");
+  f.innerHTML = `<label>Nom du build<input data-b="name" value="${esc(cur.name)}" placeholder="ex. Forteresse orbitale"></label>
+    <label>Perso<select data-b="char">${optList(GN.characters, cur.char)}</select></label>
+    <div class="gn2">${[0, 1, 2, 3].map(i => `<label>Arme ${i + 1}<select data-b="w${i}">${optList(GN.weapons, cur.weapons[i], true)}</select></label>`).join("")}</div>
+    <div class="gn2">${cur.items.map((v, i) => `<label>Objet clé ${i + 1}<select data-b="i${i}">${optList(GN.items, v)}</select></label>`).join("")}<label style="align-self:end"><button class="btn sm" type="button" id="gn-bitem">＋ Objet</button></label></div>
+    <label>Stats prioritaires sur les cartes de niveau${chk("bstats", GN.stats, cur.stats)}</label>`;
+  f.querySelectorAll("[data-b]").forEach(el => el.addEventListener(el.tagName === "INPUT" ? "input" : "change", () => {
+    const k = el.dataset.b, v = el.value;
+    if (k === "name") cur.name = v; else if (k === "char") cur.char = v; else if (k[0] === "w") cur.weapons[+k.slice(1)] = v; else cur.items[+k.slice(1)] = v;
+    ls.set("gn-build-cur", cur); if (k !== "name") renderBana();
+  }));
+  f.querySelectorAll("[name=bstats]").forEach(el => el.addEventListener("change", () => { cur.stats = [...f.querySelectorAll("[name=bstats]:checked")].map(x => x.value); ls.set("gn-build-cur", cur); renderBana(); }));
+  $("gn-bitem").addEventListener("click", () => { if (cur.items.length < 8){ cur.items.push(""); renderBuild(); } });
+  renderBana(); renderSaved();
+}
+function renderBana(){
+  const a = analyze(cur), c = a.c;
+  $("gn-bana").innerHTML = `<div style="display:flex;gap:16px;align-items:center"><div class="gnscore">${a.score}</div><div><b>/100</b><div class="mini">Note de cohérence (synergies connues, rôles couverts). Ce n'est pas un calcul de dégâts.</div></div></div>
+    ${c ? `<p class="mini" style="margin:10px 0 0"><b>${esc(c.name)}</b> : ${esc(c.passive || "")}</p>` : ""}
+    <h4 style="margin:14px 0 0;font-family:var(--f-display);color:var(--good)">✔ Ce qui marche</h4><ul class="gnlist">${a.pros.map(p => `<li class="ok">${esc(p)}</li>`).join("") || '<li class="mini">Rien de repéré pour l\'instant.</li>'}</ul>
+    <h4 style="margin:14px 0 0;font-family:var(--f-display);color:var(--gold)">⚠ À revoir</h4><ul class="gnlist">${a.cons.map(p => `<li class="ko">${esc(p)}</li>`).join("") || '<li class="mini">Rien à signaler.</li>'}</ul>
+    <h4 style="margin:14px 0 0;font-family:var(--f-display)">Rôles couverts</h4>${roleBars(a.roles)}`;
+}
+function renderSaved(){
+  const pre = (GN.presets || []).map((p, i) => `<div class="row"><div><b>⭐ ${esc(p.name)}</b> <span class="mini">· ${esc((C(p.char) || {}).name || p.char)} · note ${analyze(p).score}</span><div class="mini">${esc(p.why)}</div></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnpre="${i}">Charger</button></div></div>`);
+  const mine = saved.map((p, i) => `<div class="row"><div><b>${esc(p.name || "Sans nom")}</b> <span class="mini">· ${esc((C(p.char) || {}).name || "—")} · ${p.weapons.map(W).filter(Boolean).map(w => esc(w.name)).join(", ")} · note ${analyze(p).score}</span></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnload="${i}">Charger</button><button class="btn sm" type="button" data-gndel="${i}" aria-label="Supprimer">🗑</button></div></div>`);
+  $("gn-bsaved").innerHTML = [...pre, ...mine].join("") || '<p class="empty">Aucun build.</p>';
+}
+const norm = b => { const o = Object.assign(blank(), JSON.parse(JSON.stringify(b))); o.weapons = [0, 1, 2, 3].map(i => o.weapons[i] || ""); if (!o.items.length) o.items = [""]; delete o.why; return o; };
+$("gn-bsaved").addEventListener("click", e => {
+  const p = e.target.closest("[data-gnpre]"), l = e.target.closest("[data-gnload]"), d = e.target.closest("[data-gndel]");
+  if (p){ cur = norm(GN.presets[+p.dataset.gnpre]); }
+  else if (l){ cur = norm(saved[+l.dataset.gnload]); }
+  else if (d){ if (!confirm("Supprimer ce build ?")) return; saved.splice(+d.dataset.gndel, 1); ls.set("gn-builds", saved); renderSaved(); return; }
+  else return;
+  ls.set("gn-build-cur", cur); renderBuild(); $("gn-bmsg").textContent = "Build chargé."; window.scrollTo({ top: 0, behavior: "smooth" });
+});
+$("gn-bsave").addEventListener("click", () => {
+  if (!cur.name.trim()) cur.name = ((C(cur.char) || {}).name || "Build") + " " + (saved.length + 1);
+  const i = saved.findIndex(s => s.name === cur.name); const copyB = JSON.parse(JSON.stringify(cur));
+  if (i >= 0) saved[i] = copyB; else saved.push(copyB); ls.set("gn-builds", saved); renderBuild(); $("gn-bmsg").textContent = "Build enregistré.";
+});
+$("gn-bnew").addEventListener("click", () => { cur = blank(); ls.set("gn-build-cur", cur); renderBuild(); $("gn-bmsg").textContent = ""; });
+$("gn-bshare").addEventListener("click", () => copy(enc({ k: "b", b: cur }), $("gn-bmsg")));
+$("gn-bimp").addEventListener("click", () => { const s = prompt("Colle le code du build (GN1.…) :"); if (!s) return;
+  try { const o = dec(s); if (o.k !== "b") throw 0; cur = norm(o.b); ls.set("gn-build-cur", cur); renderBuild(); $("gn-bmsg").textContent = "Build importé. Enregistre-le pour le garder."; } catch(e){ $("gn-bmsg").textContent = "Ce code n'est pas un code de build ZKX."; } });
+
+/* ---------- Team up ---------- */
+let team = ls.get("gn-team", null) || [{}, {}, {}, {}];
+function renderTeam(){
+  const bopts = sel => `<option value="">Pas de build</option>` + saved.map((b, i) => `<option value="${i}"${String(sel) === String(i) ? " selected" : ""}>${esc(b.name)}</option>`).join("");
+  $("gn-team").innerHTML = team.map((p, i) => { const c = C(p.char); return `<div class="gnslot" style="--gnc:${c ? col(c) : "var(--line)"}"><b>Joueur ${i + 1}</b>
+    <input class="gnin" data-t="name" data-i="${i}" value="${esc(p.name || "")}" placeholder="Pseudo" aria-label="Pseudo du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">
+    <select data-t="char" data-i="${i}" aria-label="Perso du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">${optList(GN.characters, p.char)}</select>
+    ${p.build && typeof p.build === "object" ? `<span class="mini">Build importé : <b>${esc(p.build.name || "sans nom")}</b> <button class="btn sm" type="button" data-tunb="${i}">✕</button></span>` : `<select data-t="bi" data-i="${i}" aria-label="Build du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">${bopts(p.bi)}</select>`}
+    ${c ? `<div class="gtags">${(c.roles || []).map(r => `<span class="gt r">${esc(RN(r))}</span>`).join("")}</div>` : ""}</div>`; }).join("");
+  renderTana();
+}
+function playerBuild(p){ if (p.build && typeof p.build === "object") return p.build; if (p.bi !== "" && p.bi != null && saved[+p.bi]) return saved[+p.bi]; return null; }
+function renderTana(){
+  const ps = team.map((p, i) => Object.assign({ i }, p)).filter(p => p.char && C(p.char));
+  if (!ps.length){ $("gn-tana").innerHTML = '<p class="empty">Choisis au moins un perso.</p>'; return; }
+  const roles = {}, who = {}, notes = [];
+  ps.forEach(p => { const c = C(p.char), b = playerBuild(p), lab = p.name || c.name;
+    const rs = new Set(c.roles || []);
+    if (b){ const a = analyze(Object.assign({}, b, { char: p.char })); Object.keys(a.roles).forEach(r => rs.add(r)); }
+    rs.forEach(r => { roles[r] = (roles[r] || 0) + 1; (who[r] = who[r] || []).push(lab); }); });
+  const chars = ps.map(p => p.char), dup = chars.filter((c, i) => chars.indexOf(c) !== i);
+  if (dup.length) notes.push(`${[...new Set(dup)].map(d => C(d).name).join(", ")} est pris deux fois : vous aurez les mêmes forces et les mêmes trous.`);
+  const missing = Object.keys(GN.roles).filter(r => !roles[r]);
+  const sugg = missing.map(r => { const c = GN.characters.filter(x => (x.roles || []).includes(r) && !chars.includes(x.id)).slice(0, 4); return `<li class="ko"><b>${esc(RN(r))}</b> : personne ne le couvre. ${c.length ? "Persos qui le font : " + c.map(x => esc(x.name)).join(", ") + "." : ""}</li>`; });
+  const ws = new Map(); ps.forEach(p => { const b = playerBuild(p); if (b) (b.weapons || []).filter(Boolean).forEach(w => ws.set(w, (ws.get(w) || 0) + 1)); });
+  const shared = [...ws].filter(([, n]) => n > 1).map(([w]) => (W(w) || {}).name || w);
+  if (shared.length) notes.push(`Armes en double entre joueurs : ${shared.join(", ")}. Répartissez-les pour couvrir plus de rôles.`);
+  if (ps.some(p => p.char === "verdicta") && ps.length > 1) notes.push("Verdicta : les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse. Laissez-les à celui qui doit monter vite.");
+  if (ps.some(p => C(p.char).roles.includes("eco"))) notes.push(`${ps.filter(p => C(p.char).roles.includes("eco")).map(p => p.name || C(p.char).name).join(", ")} : laissez-lui les coffres et les choix de cartes de chance.`);
+  notes.push("Les exploits d'équipe débloquent des persos pour tout le monde, et chaque joueur a sa couleur.");
+  const score = Math.round(100 * (Object.keys(GN.roles).length - missing.length) / Object.keys(GN.roles).length);
+  $("gn-tana").innerHTML = `<div style="display:flex;gap:16px;align-items:center"><div class="gnscore">${score}</div><div><b>% des rôles couverts</b><div class="mini">${ps.length} joueur(s). Ajoute vos builds pour une analyse plus précise.</div></div></div>
+    <h4 style="margin:14px 0 0;font-family:var(--f-display)">Qui fait quoi</h4><ul class="gnlist">${Object.entries(GN.roles).filter(([r]) => who[r]).map(([r, v]) => `<li class="ok"><b>${esc(v)}</b> : ${who[r].map(esc).join(", ")}</li>`).join("")}</ul>
+    ${sugg.length ? `<h4 style="margin:14px 0 0;font-family:var(--f-display);color:var(--gold)">⚠ Il manque</h4><ul class="gnlist">${sugg.join("")}</ul>` : ""}
+    <h4 style="margin:14px 0 0;font-family:var(--f-display)">Conseils coop</h4><ul class="gnlist">${notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>`;
+}
+$("gn-team").addEventListener("input", e => { const el = e.target.closest("[data-t]"); if (!el) return; team[+el.dataset.i][el.dataset.t] = el.value; ls.set("gn-team", team); if (el.dataset.t === "name") renderTana(); else renderTeam(); });
+$("gn-team").addEventListener("click", e => { const u = e.target.closest("[data-tunb]"); if (u){ delete team[+u.dataset.tunb].build; ls.set("gn-team", team); renderTeam(); } });
+$("gn-tclear").addEventListener("click", () => { team = [{}, {}, {}, {}]; ls.set("gn-team", team); renderTeam(); });
+$("gn-tshare").addEventListener("click", () => copy(enc({ k: "t", t: team.map(p => ({ name: p.name || "", char: p.char || "", build: playerBuild(p) })) }), $("gn-tmsg")));
+$("gn-timp").addEventListener("click", () => { const s = prompt("Colle le code (team ou build d'un pote, GN1.…) :"); if (!s) return;
+  try { const o = dec(s);
+    if (o.k === "t"){ team = [0, 1, 2, 3].map(i => o.t[i] ? { name: o.t[i].name, char: o.t[i].char, build: o.t[i].build || undefined } : {}); }
+    else if (o.k === "b"){ const i = team.findIndex(p => !p.char); const j = i < 0 ? 3 : i; team[j] = { name: "", char: o.b.char, build: o.b }; }
+    else throw 0;
+    ls.set("gn-team", team); renderTeam(); $("gn-tmsg").textContent = "Importé.";
+  } catch(e){ $("gn-tmsg").textContent = "Ce code n'est pas un code ZKX."; } });
+
+/* ---------- Infos ---------- */
+function renderInfo(){
+  const nEd = Object.values(edits).reduce((n, o) => n + Object.keys(o).length, 0);
+  $("gn-info").innerHTML = `<h2>Go Next!</h2><p class="sub">${esc(GN.about)}</p>
+    <div class="kpis" style="margin:10px 0"><div class="kpi acc"><div class="v">${GN.characters.length}/${GN.counts.characters}</div><div class="l">persos renseignés</div></div><div class="kpi"><div class="v">${GN.weapons.length}/${GN.counts.weapons}</div><div class="l">armes</div></div><div class="kpi"><div class="v">${GN.items.length}/${GN.counts.items}</div><div class="l">objets</div></div><div class="kpi gold"><div class="v">${esc(GN.patch)}</div><div class="l">dernier patch pris en compte</div></div></div>
+    <h4 style="font-family:var(--f-display);font-size:18px;margin:14px 0 4px">À savoir en run</h4><ul class="gnlist">${(GN.rules || []).map(r => `<li>${esc(r)}</li>`).join("")}</ul>
+    <h4 style="font-family:var(--f-display);font-size:18px;margin:14px 0 4px">Données</h4>
+    <p class="mini">${esc(onlineMsg || ("Données du " + BASE.updated + "."))} Les données se mettent à jour toutes seules depuis GitHub (data/gonext.json), sans nouvelle version de ZKX.</p>
+    <div class="tools"><button class="btn" type="button" id="gn-iref">🔄 Vérifier maintenant</button><button class="btn" type="button" id="gn-iexp"${nEd ? "" : " disabled"}>📤 Exporter mes ajouts (${nEd})</button><label class="btn" for="gn-iimpf">📥 Importer des ajouts</label><input type="file" id="gn-iimpf" accept=".json,application/json" hidden></div>
+    <p class="mini" id="gn-imsg" aria-live="polite"></p>
+    <p class="note">Sources : ${(GN.sources || []).map(esc).join(" · ")}. Les armes de départ marquées « probable » sont déduites des descriptions, pas confirmées. Go Next! est un jeu de Mixidev ; ZKX est un projet de fan non officiel.</p>`;
+  $("gn-iref").addEventListener("click", () => refresh(true));
+  $("gn-iexp").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify({ zkx: "gonext-edits", date: new Date().toISOString().slice(0, 10), edits }, null, 2)], { type: "application/json" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "zkx-gonext-ajouts.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    $("gn-imsg").textContent = "Fichier téléchargé : envoie-le à PandaZkx pour l'ajouter pour tout le monde.";
+  });
+  $("gn-iimpf").addEventListener("change", e => { const fl = e.target.files[0]; if (!fl) return; fl.text().then(t => { const o = JSON.parse(t); if (!o.edits) throw 0;
+      for (const k of Object.keys(KINDS)) Object.assign(edits[k], o.edits[k] || {}); ls.set("gn-edits", edits); merge(); renderInfo(); $("gn-imsg").textContent = "Ajouts importés."; })
+    .catch(() => { $("gn-imsg").textContent = "Fichier non reconnu."; }); });
+}
+
+document.body.classList.toggle("gn", game === "gn");
+if (game === "gn") setGame("gn"); else document.querySelectorAll("[data-game]").forEach(b => b.setAttribute("aria-selected", b.dataset.game === game));
+})();
 </script>
 </body>
 </html>

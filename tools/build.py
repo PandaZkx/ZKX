@@ -7,6 +7,7 @@ for k, f in (("__DATA__", "data.json"), ("__META__", "meta.json"), ("__ARTS__", 
     t = t.replace(k, (T / f).read_text(encoding="utf-8"), 1)
 cf = T.parent / "data" / "coach.json"
 t = t.replace("__COACH__", cf.read_text(encoding="utf-8") if cf.exists() else "null", 1)
+t = t.replace("__GONEXT__", (T.parent / "data" / "gonext.json").read_text(encoding="utf-8"), 1)
 t = t.replace("__BANNERS__", (T.parent / "data" / "banners.json").read_text(encoding="utf-8"), 1)
 (T.parent / "app" / "index.html").write_text(t, encoding="utf-8")
 print("app/index.html OK")
