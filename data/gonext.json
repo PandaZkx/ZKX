@@ -1,6 +1,6 @@
 {
   "game": "Go Next!",
-  "updated": "2026-11-16b",
+  "updated": "2026-11-16c",
   "patch": "14/11/2026",
   "about": "Horde survivor à la 3e personne de Mixidev, sorti le 9/11/2026 sur Steam. Les armes tirent toutes seules, toi tu bouges : course sur les murs, dash, glissade, piqué, bunny hop. 4 emplacements d'arme (niveau 50 puis enclume), 11 raretés d'arme et 10 d'objet (de Commun à Galaxie), armure (chapeau, anneau, ceinture, pantalon), coop en ligne jusqu'à 4.",
   "counts": {
@@ -60,7 +60,8 @@
         "melee"
       ],
       "passive": "Plus il est loin de sa cible, plus il tape : bonus de ×1,0 à moins de 1 m jusqu'à ×1,35 à 5 m et plus. +0,5 % de critique par niveau.",
-      "tip": "Garde tes distances : armes à projectiles, pas de mêlée."
+      "tip": "Garde tes distances : armes à projectiles, pas de mêlée.",
+      "img": "chars/agent-bald.png"
     },
     {
       "id": "frogita",
@@ -73,7 +74,8 @@
         "xp"
       ],
       "passive": "Son fouet (Snag) arrache des cristaux d'XP aux monstres : +1 cristal tous les 15 niveaux, 25 dégâts par niveau. Festin : XP ×1,12.",
-      "tip": "Monte très vite en niveau : idéale pour lancer le build tôt."
+      "tip": "Monte très vite en niveau : idéale pour lancer le build tôt.",
+      "img": "chars/frogita.png"
     },
     {
       "id": "freaky-panda",
@@ -85,7 +87,8 @@
         "hp"
       ],
       "passive": "Rancune (Grudge) pendant 4 s. Dernier carré : reste à 1 PV au lieu de mourir, une fois par minute.",
-      "tip": "Pardonne les erreurs : bon perso pour apprendre les cartes difficiles."
+      "tip": "Pardonne les erreurs : bon perso pour apprendre les cartes difficiles.",
+      "img": "chars/freaky-panda.png"
     },
     {
       "id": "mustafa",
@@ -97,7 +100,8 @@
         "luck"
       ],
       "passive": "+1 % de chance par coffre ouvert, pour toute la run. Un coffre acheté sur 10 est gratuit.",
-      "tip": "Ouvre tout ce que tu croises : sa chance grimpe avec les coffres."
+      "tip": "Ouvre tout ce que tu croises : sa chance grimpe avec les coffres.",
+      "img": "chars/mustafa.png"
     },
     {
       "id": "cluckson",
@@ -111,7 +115,8 @@
         "hp"
       ],
       "passive": "En sprint : −25 % de dégâts subis et soin de 1 %.",
-      "tip": "Le perso le plus solide si tu ne t'arrêtes jamais de courir."
+      "tip": "Le perso le plus solide si tu ne t'arrêtes jamais de courir.",
+      "img": "chars/cluckson.png"
     },
     {
       "id": "cosmic-prince",
@@ -123,7 +128,8 @@
         "slow"
       ],
       "passive": "Les monstres ralentis subissent +20 % de dégâts, +0,3 % par niveau.",
-      "tip": "Cherche tout ce qui ralentit ou gèle."
+      "tip": "Cherche tout ce qui ralentit ou gèle.",
+      "img": "chars/cosmic-prince.png"
     },
     {
       "id": "verdicta",
@@ -133,7 +139,8 @@
       ],
       "likes": [],
       "passive": "Exécute les boss sous 5 % de PV. Le seuil d'exécution des monstres monte de 15 % à 35 % avec le niveau. 1 exécution sur 4 donne un carreau gratuit.",
-      "tip": "En coop, les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse."
+      "tip": "En coop, les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse.",
+      "img": "chars/verdicta.png"
     },
     {
       "id": "kaiju-kun",
@@ -146,7 +153,8 @@
         "hp"
       ],
       "passive": "3 plaques d'armure (+1 tous les 20 niveaux, max 8) qui se remettent plus vite avec le niveau. Leurs éclats font 20 % des PV max du monstre.",
-      "tip": "Les éclats en % de PV en font un bon tueur d'élites."
+      "tip": "Les éclats en % de PV en font un bon tueur d'élites.",
+      "img": "chars/kaiju-kun.png"
     },
     {
       "id": "zorp",
@@ -159,7 +167,8 @@
         "xp"
       ],
       "passive": "Rayon de soucoupe : +2 % de taille par niveau, dure 4 s et donne ×3 XP. Les lumières de la soucoupe indiquent quand il est prêt.",
-      "tip": "Utilise le rayon sur les gros paquets pour tripler l'XP."
+      "tip": "Utilise le rayon sur les gros paquets pour tripler l'XP.",
+      "img": "chars/zorp.png"
     },
     {
       "id": "tenzai",
@@ -175,7 +184,8 @@
       "sig": "Katana",
       "sigSure": false,
       "passive": "Chaque kill rend 25 % du dash. Sa coupe tape 2 % plus fort par niveau.",
-      "tip": "Enchaîne les dash dans la horde : chaque kill recharge."
+      "tip": "Enchaîne les dash dans la horde : chaque kill recharge.",
+      "img": "chars/tenzai.png"
     },
     {
       "id": "mister-jackpot",
@@ -189,7 +199,8 @@
       "sig": "Wheel of Fortune",
       "sigSure": false,
       "passive": "Les cartes face cachée ont une rareté de plus. Chaque choix à l'aveugle donne +1 % de chance pour la run.",
-      "tip": "Prends les cartes face cachée : c'est tout son intérêt."
+      "tip": "Prends les cartes face cachée : c'est tout son intérêt.",
+      "img": "chars/mister-jackpot.png"
     },
     {
       "id": "lillia",
@@ -202,7 +213,8 @@
         "poison"
       ],
       "passive": "Ses vues donnent des bonus (1 % tous les 250 vues). Le poison d'un monstre qui meurt se propage à 2 voisins.",
-      "tip": "Le poison viral nettoie les paquets serrés."
+      "tip": "Le poison viral nettoie les paquets serrés.",
+      "img": "chars/lillia.png"
     },
     {
       "id": "plaguey",
@@ -215,7 +227,8 @@
         "poison"
       ],
       "passive": "Les effets de vitalité qui touchent au moins 4 cibles ajoutent des dégâts pour toute la run.",
-      "tip": "Le médecin de peste : plus la horde est dense, plus il grossit."
+      "tip": "Le médecin de peste : plus la horde est dense, plus il grossit.",
+      "img": "chars/plaguey.png"
     },
     {
       "id": "dr-singularity",
@@ -228,7 +241,8 @@
       "sig": "Black Hole",
       "sigSure": false,
       "passive": "L'explosion finale gagne 50 % des dégâts infligés. Fait apparaître des mini trous noirs (1, +1 tous les 25 niveaux).",
-      "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser."
+      "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser.",
+      "img": "chars/dr-singularity.png"
     },
     {
       "id": "professor-mole",
@@ -242,7 +256,8 @@
       "sig": "Drill",
       "sigSure": true,
       "passive": "Garde sa série de kills si la cible suivante est à moins de 5 m. La pointe de la foreuse gagne +1 % par cumul (jusqu'à ×2).",
-      "tip": "Reste collé aux paquets pour ne jamais casser la série."
+      "tip": "Reste collé aux paquets pour ne jamais casser la série.",
+      "img": "chars/professor-mole.png"
     },
     {
       "id": "pink-zeppelin",
@@ -256,7 +271,8 @@
       "sig": "Vinyl",
       "sigSure": false,
       "passive": "Un riff joue tous les 2 lancers, à 60 % de puissance +1 % par niveau.",
-      "tip": "Plus tu tires vite, plus il y a de riffs."
+      "tip": "Plus tu tires vite, plus il y a de riffs.",
+      "img": "chars/pink-zeppelin.png"
     },
     {
       "id": "cynja",
@@ -270,7 +286,8 @@
       "sig": "Shuriken",
       "sigSure": false,
       "passive": "Chance de relancer : 50 % +0,5 % par niveau (max 75 %).",
-      "tip": "Les relances doublent presque ses projectiles en fin de run."
+      "tip": "Les relances doublent presque ses projectiles en fin de run.",
+      "img": "chars/cynja.png"
     },
     {
       "id": "boingo",
@@ -283,7 +300,8 @@
         "move"
       ],
       "passive": "25 dégâts par niveau. Chaque rebond de chaîne ajoute +40 %. Le rayon de son écrasement grandit de 2 % par niveau.",
-      "tip": "Saute dans les paquets : l'écrasement fait le ménage."
+      "tip": "Saute dans les paquets : l'écrasement fait le ménage.",
+      "img": "chars/boingo.png"
     },
     {
       "id": "auresaurus-jr",
@@ -296,7 +314,8 @@
         "move"
       ],
       "passive": "Enchaîne 12 figures pour appeler un météore (il tombe en 2,5 s). Toucher le sol trop longtemps coûte 3 figures. Cumul de sauts : max 10 sauts (+50 % de vitesse).",
-      "tip": "Ne touche jamais le sol : bunny hop et course sur les murs."
+      "tip": "Ne touche jamais le sol : bunny hop et course sur les murs.",
+      "img": "chars/auresaurus-jr.png"
     },
     {
       "id": "zeus",
@@ -310,7 +329,8 @@
       "sig": "Zeus Lightning",
       "sigSure": false,
       "passive": "Zeus version culturiste des années 80. Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/zeus.png"
     },
     {
       "id": "nekage",
@@ -318,7 +338,8 @@
       "roles": [],
       "likes": [],
       "passive": "Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/nekage.png"
     },
     {
       "id": "al-pachinko",
@@ -332,7 +353,8 @@
       "sig": "Heads or Tails",
       "sigSure": false,
       "passive": "Le gangster qui règle tout à pile ou face. Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/al-pachinko.png"
     },
     {
       "id": "gumi",
@@ -360,7 +382,8 @@
       "sig": "Electrostatic Generator",
       "sigSure": true,
       "passive": "+5 % de PV et de cadence de tir, −5 % de vitesse de déplacement. Ramasse des Glitch Cartridges.",
-      "tip": "Nouveau perso du 14/11."
+      "tip": "Nouveau perso du 14/11.",
+      "img": "chars/tv-head.png"
     }
   ],
   "weapons": [

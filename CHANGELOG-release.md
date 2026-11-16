@@ -1,9 +1,7 @@
 ## Nouveautés
 
-- 🎮 **Go Next! : les vraies icônes du jeu** pour les 69 armes et les 134 objets, plus les aperçus des 10 cartes.
-- 📚 **Listes complètes** : toutes les armes et tous les objets du jeu sont maintenant dans Données et dans le créateur de builds (les effets des nouveaux restent à compléter).
-- ✨ Nouvelle catégorie **Passifs (arbre)** : les 52 passifs de l'arbre d'amélioration.
-- Les icônes de tes armes et objets s'affichent dans l'analyse du build.
+- 🎮 **Go Next! : portraits des persos** (23 sur 24, tirés des modèles 3D du jeu), dans Données, Comparer, Builds et Team up.
+- Vérification complète des images : 69 armes, 134 objets, 52 passifs et 10 cartes, aucune image cassée.
 
 ## Installer
 

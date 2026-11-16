@@ -402,6 +402,10 @@ body.gn .wrap>.view:not(.gnv){display:none!important}
 .gnav{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:14px;color:#fff;background:linear-gradient(145deg,var(--gnc,var(--acc)),#120b1d);border:1px solid rgba(255,255,255,.15)}
 .gnav.im{background:#120b1d;padding:3px}
 .gnav img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.gnav.pt{padding:0;overflow:hidden;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--gnc,var(--acc)) 45%,#1a1026),#0d0814)}
+.gnav.pt img{image-rendering:auto;object-fit:cover}
+.gncard h3 .gnav.pt{width:72px;height:72px;border-radius:14px}
+.gnslot .gnav.pt{width:100%;height:150px;border-radius:12px}
 .gncard h3 .gnav{width:44px;height:44px}
 .gnmap{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
 .gnicons{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -2689,7 +2693,7 @@ const $ = id => document.getElementById(id);
 const ls = { get(k, d){ try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch(e){ return d; } }, set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} } };
 let BASE = {
   "game": "Go Next!",
-  "updated": "2026-11-16b",
+  "updated": "2026-11-16c",
   "patch": "14/11/2026",
   "about": "Horde survivor à la 3e personne de Mixidev, sorti le 9/11/2026 sur Steam. Les armes tirent toutes seules, toi tu bouges : course sur les murs, dash, glissade, piqué, bunny hop. 4 emplacements d'arme (niveau 50 puis enclume), 11 raretés d'arme et 10 d'objet (de Commun à Galaxie), armure (chapeau, anneau, ceinture, pantalon), coop en ligne jusqu'à 4.",
   "counts": {
@@ -2749,7 +2753,8 @@ let BASE = {
         "melee"
       ],
       "passive": "Plus il est loin de sa cible, plus il tape : bonus de ×1,0 à moins de 1 m jusqu'à ×1,35 à 5 m et plus. +0,5 % de critique par niveau.",
-      "tip": "Garde tes distances : armes à projectiles, pas de mêlée."
+      "tip": "Garde tes distances : armes à projectiles, pas de mêlée.",
+      "img": "chars/agent-bald.png"
     },
     {
       "id": "frogita",
@@ -2762,7 +2767,8 @@ let BASE = {
         "xp"
       ],
       "passive": "Son fouet (Snag) arrache des cristaux d'XP aux monstres : +1 cristal tous les 15 niveaux, 25 dégâts par niveau. Festin : XP ×1,12.",
-      "tip": "Monte très vite en niveau : idéale pour lancer le build tôt."
+      "tip": "Monte très vite en niveau : idéale pour lancer le build tôt.",
+      "img": "chars/frogita.png"
     },
     {
       "id": "freaky-panda",
@@ -2774,7 +2780,8 @@ let BASE = {
         "hp"
       ],
       "passive": "Rancune (Grudge) pendant 4 s. Dernier carré : reste à 1 PV au lieu de mourir, une fois par minute.",
-      "tip": "Pardonne les erreurs : bon perso pour apprendre les cartes difficiles."
+      "tip": "Pardonne les erreurs : bon perso pour apprendre les cartes difficiles.",
+      "img": "chars/freaky-panda.png"
     },
     {
       "id": "mustafa",
@@ -2786,7 +2793,8 @@ let BASE = {
         "luck"
       ],
       "passive": "+1 % de chance par coffre ouvert, pour toute la run. Un coffre acheté sur 10 est gratuit.",
-      "tip": "Ouvre tout ce que tu croises : sa chance grimpe avec les coffres."
+      "tip": "Ouvre tout ce que tu croises : sa chance grimpe avec les coffres.",
+      "img": "chars/mustafa.png"
     },
     {
       "id": "cluckson",
@@ -2800,7 +2808,8 @@ let BASE = {
         "hp"
       ],
       "passive": "En sprint : −25 % de dégâts subis et soin de 1 %.",
-      "tip": "Le perso le plus solide si tu ne t'arrêtes jamais de courir."
+      "tip": "Le perso le plus solide si tu ne t'arrêtes jamais de courir.",
+      "img": "chars/cluckson.png"
     },
     {
       "id": "cosmic-prince",
@@ -2812,7 +2821,8 @@ let BASE = {
         "slow"
       ],
       "passive": "Les monstres ralentis subissent +20 % de dégâts, +0,3 % par niveau.",
-      "tip": "Cherche tout ce qui ralentit ou gèle."
+      "tip": "Cherche tout ce qui ralentit ou gèle.",
+      "img": "chars/cosmic-prince.png"
     },
     {
       "id": "verdicta",
@@ -2822,7 +2832,8 @@ let BASE = {
       ],
       "likes": [],
       "passive": "Exécute les boss sous 5 % de PV. Le seuil d'exécution des monstres monte de 15 % à 35 % avec le niveau. 1 exécution sur 4 donne un carreau gratuit.",
-      "tip": "En coop, les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse."
+      "tip": "En coop, les cristaux d'XP qu'elle fait tomber vont au coéquipier qui les ramasse.",
+      "img": "chars/verdicta.png"
     },
     {
       "id": "kaiju-kun",
@@ -2835,7 +2846,8 @@ let BASE = {
         "hp"
       ],
       "passive": "3 plaques d'armure (+1 tous les 20 niveaux, max 8) qui se remettent plus vite avec le niveau. Leurs éclats font 20 % des PV max du monstre.",
-      "tip": "Les éclats en % de PV en font un bon tueur d'élites."
+      "tip": "Les éclats en % de PV en font un bon tueur d'élites.",
+      "img": "chars/kaiju-kun.png"
     },
     {
       "id": "zorp",
@@ -2848,7 +2860,8 @@ let BASE = {
         "xp"
       ],
       "passive": "Rayon de soucoupe : +2 % de taille par niveau, dure 4 s et donne ×3 XP. Les lumières de la soucoupe indiquent quand il est prêt.",
-      "tip": "Utilise le rayon sur les gros paquets pour tripler l'XP."
+      "tip": "Utilise le rayon sur les gros paquets pour tripler l'XP.",
+      "img": "chars/zorp.png"
     },
     {
       "id": "tenzai",
@@ -2864,7 +2877,8 @@ let BASE = {
       "sig": "Katana",
       "sigSure": false,
       "passive": "Chaque kill rend 25 % du dash. Sa coupe tape 2 % plus fort par niveau.",
-      "tip": "Enchaîne les dash dans la horde : chaque kill recharge."
+      "tip": "Enchaîne les dash dans la horde : chaque kill recharge.",
+      "img": "chars/tenzai.png"
     },
     {
       "id": "mister-jackpot",
@@ -2878,7 +2892,8 @@ let BASE = {
       "sig": "Wheel of Fortune",
       "sigSure": false,
       "passive": "Les cartes face cachée ont une rareté de plus. Chaque choix à l'aveugle donne +1 % de chance pour la run.",
-      "tip": "Prends les cartes face cachée : c'est tout son intérêt."
+      "tip": "Prends les cartes face cachée : c'est tout son intérêt.",
+      "img": "chars/mister-jackpot.png"
     },
     {
       "id": "lillia",
@@ -2891,7 +2906,8 @@ let BASE = {
         "poison"
       ],
       "passive": "Ses vues donnent des bonus (1 % tous les 250 vues). Le poison d'un monstre qui meurt se propage à 2 voisins.",
-      "tip": "Le poison viral nettoie les paquets serrés."
+      "tip": "Le poison viral nettoie les paquets serrés.",
+      "img": "chars/lillia.png"
     },
     {
       "id": "plaguey",
@@ -2904,7 +2920,8 @@ let BASE = {
         "poison"
       ],
       "passive": "Les effets de vitalité qui touchent au moins 4 cibles ajoutent des dégâts pour toute la run.",
-      "tip": "Le médecin de peste : plus la horde est dense, plus il grossit."
+      "tip": "Le médecin de peste : plus la horde est dense, plus il grossit.",
+      "img": "chars/plaguey.png"
     },
     {
       "id": "dr-singularity",
@@ -2917,7 +2934,8 @@ let BASE = {
       "sig": "Black Hole",
       "sigSure": false,
       "passive": "L'explosion finale gagne 50 % des dégâts infligés. Fait apparaître des mini trous noirs (1, +1 tous les 25 niveaux).",
-      "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser."
+      "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser.",
+      "img": "chars/dr-singularity.png"
     },
     {
       "id": "professor-mole",
@@ -2931,7 +2949,8 @@ let BASE = {
       "sig": "Drill",
       "sigSure": true,
       "passive": "Garde sa série de kills si la cible suivante est à moins de 5 m. La pointe de la foreuse gagne +1 % par cumul (jusqu'à ×2).",
-      "tip": "Reste collé aux paquets pour ne jamais casser la série."
+      "tip": "Reste collé aux paquets pour ne jamais casser la série.",
+      "img": "chars/professor-mole.png"
     },
     {
       "id": "pink-zeppelin",
@@ -2945,7 +2964,8 @@ let BASE = {
       "sig": "Vinyl",
       "sigSure": false,
       "passive": "Un riff joue tous les 2 lancers, à 60 % de puissance +1 % par niveau.",
-      "tip": "Plus tu tires vite, plus il y a de riffs."
+      "tip": "Plus tu tires vite, plus il y a de riffs.",
+      "img": "chars/pink-zeppelin.png"
     },
     {
       "id": "cynja",
@@ -2959,7 +2979,8 @@ let BASE = {
       "sig": "Shuriken",
       "sigSure": false,
       "passive": "Chance de relancer : 50 % +0,5 % par niveau (max 75 %).",
-      "tip": "Les relances doublent presque ses projectiles en fin de run."
+      "tip": "Les relances doublent presque ses projectiles en fin de run.",
+      "img": "chars/cynja.png"
     },
     {
       "id": "boingo",
@@ -2972,7 +2993,8 @@ let BASE = {
         "move"
       ],
       "passive": "25 dégâts par niveau. Chaque rebond de chaîne ajoute +40 %. Le rayon de son écrasement grandit de 2 % par niveau.",
-      "tip": "Saute dans les paquets : l'écrasement fait le ménage."
+      "tip": "Saute dans les paquets : l'écrasement fait le ménage.",
+      "img": "chars/boingo.png"
     },
     {
       "id": "auresaurus-jr",
@@ -2985,7 +3007,8 @@ let BASE = {
         "move"
       ],
       "passive": "Enchaîne 12 figures pour appeler un météore (il tombe en 2,5 s). Toucher le sol trop longtemps coûte 3 figures. Cumul de sauts : max 10 sauts (+50 % de vitesse).",
-      "tip": "Ne touche jamais le sol : bunny hop et course sur les murs."
+      "tip": "Ne touche jamais le sol : bunny hop et course sur les murs.",
+      "img": "chars/auresaurus-jr.png"
     },
     {
       "id": "zeus",
@@ -2999,7 +3022,8 @@ let BASE = {
       "sig": "Zeus Lightning",
       "sigSure": false,
       "passive": "Zeus version culturiste des années 80. Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/zeus.png"
     },
     {
       "id": "nekage",
@@ -3007,7 +3031,8 @@ let BASE = {
       "roles": [],
       "likes": [],
       "passive": "Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/nekage.png"
     },
     {
       "id": "al-pachinko",
@@ -3021,7 +3046,8 @@ let BASE = {
       "sig": "Heads or Tails",
       "sigSure": false,
       "passive": "Le gangster qui règle tout à pile ou face. Passif pas encore détaillé dans les notes de patch.",
-      "tip": ""
+      "tip": "",
+      "img": "chars/al-pachinko.png"
     },
     {
       "id": "gumi",
@@ -3049,7 +3075,8 @@ let BASE = {
       "sig": "Electrostatic Generator",
       "sigSure": true,
       "passive": "+5 % de PV et de cadence de tir, −5 % de vitesse de déplacement. Ramasse des Glitch Cartridges.",
-      "tip": "Nouveau perso du 14/11."
+      "tip": "Nouveau perso du 14/11.",
+      "img": "chars/tv-head.png"
     }
   ],
   "weapons": [
@@ -5275,7 +5302,7 @@ const SN = s => (GN.stats && GN.stats[s]) || EFFECTS[s] || (GN.types && GN.types
 const RN = r => (GN.roles && GN.roles[r]) || r;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const IMG_REMOTE = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/app/gonext/";
-const av = x => x && x.img ? `<span class="gnav im" title="${esc(x.name)}"><img src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}"></span>` : `<span class="gnav" title="${esc(x ? x.name : "")}">${x ? ini(x.name) : "?"}</span>`;
+const av = x => x && x.img ? `<span class="gnav im${x.img.startsWith("chars/") ? " pt" : ""}" title="${esc(x.name)}"><img src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}"></span>` : `<span class="gnav" title="${esc(x ? x.name : "")}">${x ? ini(x.name) : "?"}</span>`;
 document.addEventListener("error", e => { const im = e.target; if (!im || im.tagName !== "IMG" || !im.dataset.r) return; if (!im.dataset.tried){ im.dataset.tried = 1; im.src = IMG_REMOTE + im.dataset.r; } else { const sp = im.parentNode; sp.classList.remove("im"); sp.textContent = ini(sp.title || "?"); } }, true);
 const ini = n => esc(String(n).split(/[\s.\-]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase());
 const col = x => COLORS[x.type] || COLORS[(x.roles || [])[0]] || "var(--acc)";
@@ -5464,7 +5491,7 @@ function renderCmp(){
   if (cKind === "characters") rows.push(["Aime", x => (x.likes || []).map(SN).join(", ") || "—"], ["Évite", x => (x.dislikes || []).map(SN).join(", ") || "—"], ["Arme de départ", x => x.sig ? x.sig + (x.sigSure ? "" : " (probable)") : "—"], ["Passif", x => x.passive || "—"], ["Conseil", x => x.tip || "—"]);
   else rows.push(["Effet", x => x.note || "—"]);
   rows.push(["Va bien avec", x => { const g = goesWith(cKind, x); return g.length ? g.slice(0, 8).join(" · ") + (g.length > 8 ? ` · +${g.length - 8}` : "") : "rien de repéré pour l'instant"; }]);
-  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => `<td>${esc(f(x))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><div style="display:flex;gap:10px;align-items:center">${av(x)}<b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></div></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => `<td>${esc(f(x))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 }
 $("gn-cmp-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ cKind = b.dataset.k; cSel = []; renderCmp(); } });
 $("gn-cmp-sel").addEventListener("change", e => { const s = e.target.closest("[data-ci]"); if (s){ cSel[+s.dataset.ci] = s.value; cSel = cSel.map(v => v || ""); renderCmp(); } });
@@ -5533,7 +5560,7 @@ function renderBuild(){
 function renderBana(){
   const a = analyze(cur), c = a.c;
   $("gn-bana").innerHTML = `<div style="display:flex;gap:16px;align-items:center"><div class="gnscore">${a.score}</div><div><b>/100</b><div class="mini">Note de cohérence (synergies connues, rôles couverts). Ce n'est pas un calcul de dégâts.</div></div></div>
-    <div class="gnicons">${[...a.ws, ...a.its].map(av).join("")}</div>
+    <div class="gnicons">${[a.c, ...a.ws, ...a.its].filter(Boolean).map(av).join("")}</div>
     ${c ? `<p class="mini" style="margin:10px 0 0"><b>${esc(c.name)}</b> : ${esc(c.passive || "")}</p>` : ""}
     <h4 style="margin:14px 0 0;font-family:var(--f-display);color:var(--good)">✔ Ce qui marche</h4><ul class="gnlist">${a.pros.map(p => `<li class="ok">${esc(p)}</li>`).join("") || '<li class="mini">Rien de repéré pour l\'instant.</li>'}</ul>
     <h4 style="margin:14px 0 0;font-family:var(--f-display);color:var(--gold)">⚠ À revoir</h4><ul class="gnlist">${a.cons.map(p => `<li class="ko">${esc(p)}</li>`).join("") || '<li class="mini">Rien à signaler.</li>'}</ul>
@@ -5567,7 +5594,7 @@ $("gn-bimp").addEventListener("click", () => { const s = prompt("Colle le code d
 let team = ls.get("gn-team", null) || [{}, {}, {}, {}];
 function renderTeam(){
   const bopts = sel => `<option value="">Pas de build</option>` + saved.map((b, i) => `<option value="${i}"${String(sel) === String(i) ? " selected" : ""}>${esc(b.name)}</option>`).join("");
-  $("gn-team").innerHTML = team.map((p, i) => { const c = C(p.char); return `<div class="gnslot" style="--gnc:${c ? col(c) : "var(--line)"}"><b>Joueur ${i + 1}</b>
+  $("gn-team").innerHTML = team.map((p, i) => { const c = C(p.char); return `<div class="gnslot" style="--gnc:${c ? col(c) : "var(--line)"}"><b>Joueur ${i + 1}</b>${c && c.img ? av(c) : ""}
     <input class="gnin" data-t="name" data-i="${i}" value="${esc(p.name || "")}" placeholder="Pseudo" aria-label="Pseudo du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">
     <select data-t="char" data-i="${i}" aria-label="Perso du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">${optList(GN.characters, p.char)}</select>
     ${p.build && typeof p.build === "object" ? `<span class="mini">Build importé : <b>${esc(p.build.name || "sans nom")}</b> <button class="btn sm" type="button" data-tunb="${i}">✕</button></span>` : `<select data-t="bi" data-i="${i}" aria-label="Build du joueur ${i + 1}" style="background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:7px 9px">${bopts(p.bi)}</select>`}
