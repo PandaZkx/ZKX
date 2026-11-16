@@ -1,7 +1,8 @@
 ## Nouveautés
 
-- 🎮 **Go Next! : portraits des persos** (23 sur 24, tirés des modèles 3D du jeu), dans Données, Comparer, Builds et Team up.
-- Vérification complète des images : 69 armes, 134 objets, 52 passifs et 10 cartes, aucune image cassée.
+- 🖼 **Go Next! : choix en images.** Dans Comparer et dans Builds, clique sur une case pour choisir un perso, une arme ou un objet dans une grille d'images avec recherche.
+- ⇄ **Comparer plus visuel** : grands portraits ou icônes en tête de colonne, et « Va bien avec » affiche chaque perso, arme ou objet avec son image et la raison.
+- 🛠 **12 nouveaux builds tout prêts** (Armée gobeline, Peste virale, Jackpot, Dieu du tonnerre, Tireur d'élite, Singularité, Prince du givre…), marqués « mécaniques confirmées » ou « idée ZKX à tester ».
 
 ## Installer
 

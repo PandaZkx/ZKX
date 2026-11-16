@@ -1,6 +1,6 @@
 {
   "game": "Go Next!",
-  "updated": "2026-11-16c",
+  "updated": "2026-11-16d",
   "patch": "14/11/2026",
   "about": "Horde survivor à la 3e personne de Mixidev, sorti le 9/11/2026 sur Steam. Les armes tirent toutes seules, toi tu bouges : course sur les murs, dash, glissade, piqué, bunny hop. 4 emplacements d'arme (niveau 50 puis enclume), 11 raretés d'arme et 10 d'objet (de Commun à Galaxie), armure (chapeau, anneau, ceinture, pantalon), coop en ligne jusqu'à 4.",
   "counts": {
@@ -399,7 +399,9 @@
     {
       "id": "adult-dragon",
       "name": "Adult Dragon",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "minion",
@@ -417,7 +419,9 @@
     {
       "id": "arrow-rain",
       "name": "Arrow Rain",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -441,7 +445,9 @@
     {
       "id": "black-hole",
       "name": "Black Hole",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "Trou noir de poche (arme). À ne pas confondre avec l'objet Pocket Black Hole.",
       "uses": [],
       "type": "aoe",
@@ -480,7 +486,9 @@
       "id": "burning-forge",
       "name": "Burning Forge",
       "type": "aoe",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "uses": [],
       "note": "Projectile 3D depuis le 12/11.",
       "img": "weapons/burning-forge.png"
@@ -538,10 +546,13 @@
       "id": "coronabirus",
       "name": "Coronabirus",
       "roles": [],
-      "note": "",
+      "note": "Effet « poison » probable d'après le nom, à vérifier.",
       "uses": [],
       "type": "",
-      "img": "weapons/coronabirus.png"
+      "img": "weapons/coronabirus.png",
+      "effects": [
+        "poison"
+      ]
     },
     {
       "id": "d20",
@@ -583,7 +594,9 @@
       "id": "dragon-egg",
       "name": "Dragon Egg",
       "type": "minion",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "uses": [],
       "note": "Œuf de dragon.",
       "img": "weapons/dragon-egg.png"
@@ -641,7 +654,9 @@
     {
       "id": "firecracker",
       "name": "Firecracker",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -738,7 +753,9 @@
     {
       "id": "implosion",
       "name": "Implosion",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -778,7 +795,9 @@
     {
       "id": "meteor",
       "name": "Meteor",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -825,11 +844,16 @@
     {
       "id": "plague",
       "name": "Plague",
-      "roles": [],
-      "note": "",
+      "roles": [
+        "zone"
+      ],
+      "note": "Effet « poison » probable d'après le nom, à vérifier.",
       "uses": [],
       "type": "aoe",
-      "img": "weapons/plague.png"
+      "img": "weapons/plague.png",
+      "effects": [
+        "poison"
+      ]
     },
     {
       "id": "playing-card",
@@ -870,7 +894,9 @@
     {
       "id": "pulse-aura",
       "name": "Pulse Aura",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -890,11 +916,16 @@
     {
       "id": "radioactive-dust",
       "name": "Radioactive Dust",
-      "roles": [],
-      "note": "",
+      "roles": [
+        "zone"
+      ],
+      "note": "Effet « poison » probable d'après le nom, à vérifier.",
       "uses": [],
       "type": "aoe",
-      "img": "weapons/radioactive-dust.png"
+      "img": "weapons/radioactive-dust.png",
+      "effects": [
+        "poison"
+      ]
     },
     {
       "id": "shotgun",
@@ -922,10 +953,13 @@
       "id": "snowball",
       "name": "Snowball",
       "roles": [],
-      "note": "",
+      "note": "Effet « ralentit » probable d'après le nom, à vérifier.",
       "uses": [],
       "type": "proj",
-      "img": "weapons/snowball.png"
+      "img": "weapons/snowball.png",
+      "effects": [
+        "slow"
+      ]
     },
     {
       "id": "solar-system",
@@ -994,7 +1028,9 @@
     {
       "id": "void-rain",
       "name": "Void Rain",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "aoe",
@@ -1028,8 +1064,11 @@
         "ctrl"
       ],
       "uses": [],
-      "note": "Nerfé le 12/11.",
-      "img": "weapons/web-shot.png"
+      "note": "Nerfé le 12/11. Effet « ralentit » probable d'après le nom, à vérifier.",
+      "img": "weapons/web-shot.png",
+      "effects": [
+        "slow"
+      ]
     },
     {
       "id": "wheel-of-fortune",
@@ -1054,7 +1093,9 @@
     {
       "id": "zeus-cloud",
       "name": "Zeus Cloud",
-      "roles": [],
+      "roles": [
+        "zone"
+      ],
       "note": "",
       "uses": [],
       "type": "beam",
@@ -1628,8 +1669,11 @@
         "ctrl"
       ],
       "gives": [],
-      "note": "Rééquilibré le 11/11.",
-      "img": "items/ice-cube-tray.png"
+      "note": "Rééquilibré le 11/11. Ralentit / gèle probablement (d'après le nom).",
+      "img": "items/ice-cube-tray.png",
+      "effects": [
+        "slow"
+      ]
     },
     {
       "id": "ignition",
@@ -1695,8 +1739,10 @@
       "id": "lucky-penny",
       "name": "Lucky Penny",
       "roles": [],
-      "note": "",
-      "gives": [],
+      "note": "Chance probable (d'après le nom).",
+      "gives": [
+        "luck"
+      ],
       "img": "items/lucky-penny.png"
     },
     {
@@ -2260,7 +2306,8 @@
         "projsize",
         "hp"
       ],
-      "why": "Les orbites protègent pendant que tu bouges, et vitesse d'attaque + taille de projectile boostent les 3 premières armes en même temps."
+      "why": "Les orbites protègent pendant que tu bouges, et vitesse d'attaque + taille de projectile boostent les 3 premières armes en même temps.",
+      "sure": true
     },
     {
       "name": "Taupe foreuse",
@@ -2279,7 +2326,8 @@
         "hp",
         "move"
       ],
-      "why": "Professor Mole et la Drill partagent la même série de kills à 5 m : reste collé aux paquets."
+      "why": "Professor Mole et la Drill partagent la même série de kills à 5 m : reste collé aux paquets.",
+      "sure": true
     },
     {
       "name": "Bourreau",
@@ -2298,7 +2346,8 @@
         "dmg",
         "crit"
       ],
-      "why": "Verdicta exécute les boss et les élites : on lui donne de quoi les faire descendre vite."
+      "why": "Verdicta exécute les boss et les élites : on lui donne de quoi les faire descendre vite.",
+      "sure": true
     },
     {
       "name": "Ninja relance",
@@ -2316,7 +2365,245 @@
         "atkspd",
         "projsize"
       ],
-      "why": "Les relances de Cynja et le retour gratuit du Shuriken montent tous les deux jusqu'à 75 %."
+      "why": "Les relances de Cynja et le retour gratuit du Shuriken montent tous les deux jusqu'à 75 %.",
+      "sure": true
+    },
+    {
+      "name": "Armée gobeline",
+      "char": "pink-zeppelin",
+      "weapons": [
+        "goblin-catapult",
+        "goblin-jockey",
+        "hungry-mimic",
+        "solar-system"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "projsize"
+      ],
+      "why": "Les 3 invocations et le Solar System accélèrent toutes avec la vitesse d'attaque (patch 14/11). Une seule stat fait monter tout le build.",
+      "sure": false
+    },
+    {
+      "name": "Peste virale",
+      "char": "lillia",
+      "weapons": [
+        "plague",
+        "radioactive-dust",
+        "fallout",
+        "solar-system"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "projsize"
+      ],
+      "why": "Le poison d'un monstre qui meurt passe à 2 voisins : avec plusieurs sources de poison, la horde fond en chaîne. Solar System te protège pendant ce temps.",
+      "sure": false
+    },
+    {
+      "name": "Nuage toxique",
+      "char": "plaguey",
+      "weapons": [
+        "fallout",
+        "pulse-aura",
+        "radioactive-dust",
+        "asteroid-belt"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "projsize",
+        "hp"
+      ],
+      "why": "Plaguey gagne des dégâts pour toute la run quand ses effets touchent 4 cibles ou plus : que des zones larges, et Fallout grossit tout seul.",
+      "sure": false
+    },
+    {
+      "name": "Jackpot",
+      "char": "mister-jackpot",
+      "weapons": [
+        "wheel-of-fortune",
+        "heads-or-tails",
+        "dice-roll",
+        "solar-system"
+      ],
+      "items": [
+        "lucky-penny",
+        "phoenix"
+      ],
+      "stats": [
+        "luck",
+        "atkspd"
+      ],
+      "why": "Chaque carte face cachée donne +1 % de chance pour la run : prends-les toutes et monte des armes de hasard.",
+      "sure": false
+    },
+    {
+      "name": "Dieu du tonnerre",
+      "char": "zeus",
+      "weapons": [
+        "zeus-lightning",
+        "zeus-cloud",
+        "olympus-fist",
+        "mjolnir"
+      ],
+      "items": [
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "crit"
+      ],
+      "why": "Panoplie de l'Olympe : la foudre nettoie, Mjolnir et Olympus Fist s'occupent des boss.",
+      "sure": false
+    },
+    {
+      "name": "Tireur d'élite",
+      "char": "agent-bald",
+      "weapons": [
+        "9mm",
+        "akimbo",
+        "judgment-arrow",
+        "guided-missile"
+      ],
+      "items": [
+        "grannys-glasses",
+        "phoenix"
+      ],
+      "stats": [
+        "crit",
+        "range"
+      ],
+      "why": "Agent Bald tape jusqu'à ×1,35 à 5 m et gagne du crit à chaque niveau : que des armes à distance, aucune mêlée.",
+      "sure": false
+    },
+    {
+      "name": "Lame éclair",
+      "char": "tenzai",
+      "weapons": [
+        "katana",
+        "claws",
+        "divine-claw",
+        "solar-system"
+      ],
+      "items": [
+        "spicy-sneakers",
+        "phoenix"
+      ],
+      "stats": [
+        "move",
+        "crit"
+      ],
+      "why": "Chaque kill rend 25 % du dash : fonce de paquet en paquet. Solar System couvre tes arrières.",
+      "sure": false
+    },
+    {
+      "name": "Singularité",
+      "char": "dr-singularity",
+      "weapons": [
+        "black-hole",
+        "implosion",
+        "gravity-cannon",
+        "void-tentacles"
+      ],
+      "items": [
+        "pocket-black-hole",
+        "phoenix"
+      ],
+      "stats": [
+        "projsize",
+        "atkspd"
+      ],
+      "why": "Tout aspire la horde au même endroit, puis l'explosion finale de Dr. Singularity reprend 50 % des dégâts infligés.",
+      "sure": false
+    },
+    {
+      "name": "Météore jurassique",
+      "char": "auresaurus-jr",
+      "weapons": [
+        "meteor",
+        "bouncing-comet",
+        "solar-system",
+        "asteroid-belt"
+      ],
+      "items": [
+        "wanderers-boots",
+        "phoenix"
+      ],
+      "stats": [
+        "move",
+        "atkspd",
+        "projsize"
+      ],
+      "why": "Ne touche jamais le sol pour garder tes figures et ton météore ; les orbites tapent pendant que tu bunny hop.",
+      "sure": false
+    },
+    {
+      "name": "Prince du givre",
+      "char": "cosmic-prince",
+      "weapons": [
+        "snowball",
+        "web-shot",
+        "solar-system",
+        "asteroid-belt"
+      ],
+      "items": [
+        "ice-cube-tray",
+        "phoenix"
+      ],
+      "stats": [
+        "atkspd",
+        "projsize"
+      ],
+      "why": "Les monstres ralentis prennent +20 % (et plus avec le niveau) : on empile tout ce qui ralentit.",
+      "sure": false
+    },
+    {
+      "name": "Coffre-fort",
+      "char": "mustafa",
+      "weapons": [
+        "solar-system",
+        "asteroid-belt",
+        "goblin-catapult",
+        "wheel-of-fortune"
+      ],
+      "items": [
+        "lucky-penny",
+        "phoenix"
+      ],
+      "stats": [
+        "luck",
+        "atkspd"
+      ],
+      "why": "Mustafa gagne de la chance à chaque coffre : build solide qui tourne tout seul pendant que tu ouvres tout. Parfait en soutien coop.",
+      "sure": false
+    },
+    {
+      "name": "Kaiju blindé",
+      "char": "kaiju-kun",
+      "weapons": [
+        "solar-system",
+        "asteroid-belt",
+        "mjolnir",
+        "sword-of-damocles"
+      ],
+      "items": [
+        "plot-armor",
+        "phoenix"
+      ],
+      "stats": [
+        "hp",
+        "atkspd"
+      ],
+      "why": "Ses plaques encaissent et leurs éclats font 20 % des PV max : on fonce dans les élites, protégé par deux orbites.",
+      "sure": false
     }
   ],
   "passives": [

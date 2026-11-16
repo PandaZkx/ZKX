@@ -410,6 +410,18 @@ body.gn .wrap>.view:not(.gnv){display:none!important}
 .gnmap{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
 .gnicons{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .gnicons .gnav{width:40px;height:40px}
+.gnpick{display:flex;align-items:center;gap:10px;width:100%;min-width:0;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--gnc);border-radius:12px;padding:7px 10px;cursor:pointer;text-align:left;color:var(--text)}
+.gnpick:hover{border-color:var(--acc2)}
+.gnpick>span:last-child{display:grid;min-width:0}.gnpick small{color:var(--muted);font-size:11.5px;font-weight:700}.gnpick b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gn-cmp-sel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.gnpkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;max-height:62vh;overflow:auto;padding:2px}
+.gnpk{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-top:3px solid var(--gnc);border-radius:12px;padding:10px 6px;cursor:pointer;color:var(--text);font-weight:700;font-size:12.5px;text-align:center}
+.gnpk:hover,.gnpk.on{border-color:var(--acc);background:var(--acc-bg)}
+.gnpk .gnav{width:56px;height:56px}.gnpk .gnav.pt{width:72px;height:72px}
+.gnchips{display:flex;flex-wrap:wrap;gap:6px}
+.gnchip{display:inline-flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--gnc);border-radius:10px;padding:4px 9px 4px 4px;max-width:100%}
+.gnchip .gnav{width:34px;height:34px}.gnchip>span:last-child{display:grid;line-height:1.2}.gnchip small{color:var(--muted);font-size:11px}
+table.gncmp thead .gnav{width:64px;height:64px}table.gncmp thead .gnav.pt{width:96px;height:96px}
 .gt{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:700;background:var(--bg2);color:var(--muted);white-space:nowrap}
 .gt.r{color:var(--text);border-color:color-mix(in srgb,var(--acc) 50%,var(--line))}
 .gt.s{color:var(--gold);border-color:var(--gold2)}
@@ -659,7 +671,7 @@ __JSZIP__
 </div>
 <section class="card" style="margin-top:18px">
   <h2>Builds tout prêts et enregistrés</h2>
-  <p class="sub">Clique pour charger. Les builds tout prêts sont faits à partir des notes de patch : adapte-les selon ce qui tombe.</p>
+  <p class="sub">Clique pour charger. « Mécaniques confirmées » : basés sur les notes de patch. « Idée ZKX » : cohérents avec les passifs, mais certains effets d'armes et d'objets sont devinés d'après leur nom. Adapte selon ce qui tombe.</p>
   <div class="gnsaved" id="gn-bsaved"></div>
 </section>
 </div>
@@ -2506,7 +2518,7 @@ function editDlg(kind, id){
   if (kind === "weapons") f += `<label>Monte avec${chk("uses", GN.stats, x.uses)}</label><label>Effets${chk("effects", EFFECTS, x.effects)}</label><label>Effet / notes<textarea name="note">${esc(x.note || "")}</textarea></label>`;
   if (kind === "items") f += `<label>Donne${chk("gives", GN.stats, x.gives)}</label><label>Effets${chk("effects", EFFECTS, x.effects)}</label><label>Effet / notes<textarea name="note">${esc(x.note || "")}</textarea></label>`;
   f += `<div class="tools" style="margin:6px 0 0"><button class="btn primary" type="submit">Enregistrer</button>${id && x.mine ? `<button class="btn" type="button" id="gn-ereset">${x.added ? "🗑 Supprimer" : "↺ Revenir aux données ZKX"}</button>` : ""}</div></form>`;
-  $("gn-dlg").innerHTML = f; openOv("ov-gn");
+  $("gn-dlg").style.maxWidth = "640px"; $("gn-dlg").innerHTML = f; openOv("ov-gn");
   $("gn-ef").addEventListener("submit", e => {
     e.preventDefault(); const fd = new FormData(e.target), o = {};
     o.name = String(fd.get("name") || "").trim(); if (!o.name) return;
@@ -2536,30 +2548,42 @@ function goesWith(kind, x){
       (w.uses || []).filter(s => likes.includes(s)).forEach(s => why.push(SN(s)));
       (w.effects || []).filter(s => likes.includes(s)).forEach(s => why.push(SN(s)));
       if ((x.dislikes || []).includes(w.type)) return;
-      if (why.length) out.push(`${w.name} (${why.join(", ")})`); });
-    GN.items.forEach(i => { const why = [...(i.gives || []), ...(i.effects || [])].filter(s => likes.includes(s)); if (why.length) out.push(`${i.name} (${why.map(SN).join(", ")})`); });
+      if (why.length) out.push({ x: w, why: why.join(", ") }); });
+    GN.items.forEach(i => { const why = [...(i.gives || []), ...(i.effects || [])].filter(s => likes.includes(s)); if (why.length) out.push({ x: i, why: why.map(SN).join(", ") }); });
   } else if (kind === "weapons"){
     GN.characters.forEach(c => { if ((c.dislikes || []).includes(x.type)) return; const why = [];
       if (c.sig === x.name) why.push("son arme de départ");
       if ((c.likes || []).includes(x.type)) why.push(SN(x.type));
       [...(x.uses || []), ...(x.effects || [])].filter(s => (c.likes || []).includes(s)).forEach(s => why.push(SN(s)));
-      if (why.length) out.push(`${c.name} (${why.join(", ")})`); });
-    GN.weapons.forEach(w => { if (w.id === x.id) return; const s = (w.uses || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push(`${w.name} (même stat : ${s.map(SN).join(", ")})`); });
-    GN.items.forEach(i => { const s = (i.gives || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push(`${i.name} (donne ${s.map(SN).join(", ")})`); });
+      if (why.length) out.push({ x: c, why: why.join(", ") }); });
+    GN.weapons.forEach(w => { if (w.id === x.id) return; const s = (w.uses || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push({ x: w, why: "même stat : " + s.map(SN).join(", ") }); });
+    GN.items.forEach(i => { const s = (i.gives || []).filter(u => (x.uses || []).includes(u)); if (s.length) out.push({ x: i, why: "donne " + s.map(SN).join(", ") }); });
   } else {
     const g = [...(x.gives || []), ...(x.effects || [])];
-    GN.weapons.forEach(w => { const s = (w.uses || []).filter(u => g.includes(u)); if (s.length) out.push(`${w.name} (${s.map(SN).join(", ")})`); });
-    GN.characters.forEach(c => { const s = (c.likes || []).filter(u => g.includes(u)); if (s.length) out.push(`${c.name} (${s.map(SN).join(", ")})`); });
+    GN.weapons.forEach(w => { const s = (w.uses || []).filter(u => g.includes(u)); if (s.length) out.push({ x: w, why: s.map(SN).join(", ") }); });
+    GN.characters.forEach(c => { const s = (c.likes || []).filter(u => g.includes(u)); if (s.length) out.push({ x: c, why: s.map(SN).join(", ") }); });
   }
   return out;
 }
 
 /* ---------- Comparer ---------- */
 let cKind = "characters", cSel = [];
+function slotBtn(x, attr, label){ return `<button type="button" class="gnpick" ${attr} style="--gnc:${x ? col(x) : "var(--line)"}">${x ? av(x) : '<span class="gnav">＋</span>'}<span><small>${esc(label)}</small><b>${x ? esc(x.name) : "Choisir…"}</b></span></button>`; }
+function chip(o){ return `<span class="gnchip" style="--gnc:${col(o.x)}" title="${esc(o.why || "")}">${av(o.x)}<span><b>${esc(o.x.name)}</b>${o.why ? `<small>${esc(o.why)}</small>` : ""}</span></span>`; }
+function pickDlg(kind, curId, onPick){
+  const list = q => GN[kind].filter(x => !q || x.name.toLowerCase().includes(q) || JSON.stringify(x.roles || []).includes(q));
+  const grid = q => list(q).map(x => `<button type="button" class="gnpk${x.id === curId ? " on" : ""}" data-pk="${esc(x.id)}" style="--gnc:${col(x)}">${av(x)}<span>${esc(x.name)}</span></button>`).join("") || '<p class="empty">Rien ne correspond.</p>';
+  const d = $("gn-dlg"); d.style.maxWidth = "980px";
+  d.innerHTML = `<button class="btn sm x" type="button" data-gnx>✕</button><h3 id="gn-dlg-t">Choisir : ${esc(KINDS[kind][1])}</h3>
+    <div class="tools" style="margin:10px 0"><input type="search" id="gn-pkq" placeholder="Chercher…" aria-label="Chercher">${curId ? '<button class="btn sm" type="button" data-pk="">Retirer</button>' : ""}</div><div class="gnpkgrid" id="gn-pkg">${grid("")}</div>`;
+  openOv("ov-gn"); const q = $("gn-pkq"); q.focus();
+  q.addEventListener("input", () => { $("gn-pkg").innerHTML = grid(q.value.trim().toLowerCase()); });
+  d.onclick = e => { const b = e.target.closest("[data-pk]"); if (!b) return; d.onclick = null; closeOv("ov-gn"); onPick(b.dataset.pk); };
+}
 function renderCmp(){
   $("gn-cmp-kind").innerHTML = Object.entries(KINDS).map(([k, v]) => `<button type="button" data-k="${k}" aria-pressed="${k === cKind}">${v[0]}</button>`).join("");
   const opts = sel => `<option value="">—</option>` + GN[cKind].map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("");
-  $("gn-cmp-sel").innerHTML = [0, 1, 2].map(i => `<select data-ci="${i}" aria-label="Élément ${i + 1}">${opts(cSel[i])}</select>`).join("");
+  $("gn-cmp-sel").innerHTML = [0, 1, 2].map(i => slotBtn(BY[cKind + ":" + cSel[i]], `data-ci="${i}"`, `${KINDS[cKind][1]} ${i + 1}`)).join("");
   const xs = cSel.map(id => BY[cKind + ":" + id]).filter(Boolean);
   if (xs.length < 2){ $("gn-cmp-out").innerHTML = '<p class="empty">Choisis au moins 2 éléments (ou clique sur « ⇄ Comparer » dans Données).</p>'; return; }
   const rows = [["Rôles", x => (x.roles || []).map(RN).join(", ") || "—"]];
@@ -2567,11 +2591,11 @@ function renderCmp(){
   if (cKind === "items") rows.push(["Donne", x => (x.gives || []).map(SN).join(", ") || "—"]);
   if (cKind === "characters") rows.push(["Aime", x => (x.likes || []).map(SN).join(", ") || "—"], ["Évite", x => (x.dislikes || []).map(SN).join(", ") || "—"], ["Arme de départ", x => x.sig ? x.sig + (x.sigSure ? "" : " (probable)") : "—"], ["Passif", x => x.passive || "—"], ["Conseil", x => x.tip || "—"]);
   else rows.push(["Effet", x => x.note || "—"]);
-  rows.push(["Va bien avec", x => { const g = goesWith(cKind, x); return g.length ? g.slice(0, 8).join(" · ") + (g.length > 8 ? ` · +${g.length - 8}` : "") : "rien de repéré pour l'instant"; }]);
-  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><div style="display:flex;gap:10px;align-items:center">${av(x)}<b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></div></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => `<td>${esc(f(x))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  rows.push(["Va bien avec", x => { const g = goesWith(cKind, x); return g.length ? { html: `<div class="gnchips">${g.map(chip).join("")}</div>` } : "rien de repéré pour l'instant"; }]);
+  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><div style="display:flex;gap:10px;align-items:center">${av(x)}<b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></div></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => { const v = f(x); return `<td>${v && v.html ? v.html : esc(v)}</td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
 }
 $("gn-cmp-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ cKind = b.dataset.k; cSel = []; renderCmp(); } });
-$("gn-cmp-sel").addEventListener("change", e => { const s = e.target.closest("[data-ci]"); if (s){ cSel[+s.dataset.ci] = s.value; cSel = cSel.map(v => v || ""); renderCmp(); } });
+$("gn-cmp-sel").addEventListener("click", e => { const s = e.target.closest("[data-ci]"); if (!s) return; const i = +s.dataset.ci; pickDlg(cKind, cSel[i], id => { cSel[i] = id; cSel = [0, 1, 2].map(j => cSel[j] || ""); renderCmp(); }); });
 
 /* ---------- analyse d'un build ---------- */
 function analyze(b){
@@ -2600,6 +2624,8 @@ function analyze(b){
   if (!roles.surv) cons.push("Aucune survie : un Phoenix (résurrection) aide beaucoup pour aller loin.");
   pts += 4 * Object.keys(roles).length;
   if (!prio.size) cons.push("Choisis 2 ou 3 stats prioritaires pour tes cartes de niveau.");
+  const unk = [...ws, ...its].filter(x => !(x.note || "").trim() && !(x.uses || x.gives || []).length && !(x.roles || []).length);
+  if (unk.length) cons.push(`Infos encore inconnues pour ${unk.map(x => x.name).join(", ")} : la note est sous-estimée (complète-les avec « Corriger » dans Données).`);
   const score = Math.max(0, Math.min(100, Math.round(pts)));
   return { score, pros, cons, roles, c, ws, its };
 }
@@ -2621,9 +2647,9 @@ function optList(list, sel, groupBy){
 function renderBuild(){
   const f = $("gn-bform");
   f.innerHTML = `<label>Nom du build<input data-b="name" value="${esc(cur.name)}" placeholder="ex. Forteresse orbitale"></label>
-    <label>Perso<select data-b="char">${optList(GN.characters, cur.char)}</select></label>
-    <div class="gn2">${[0, 1, 2, 3].map(i => `<label>Arme ${i + 1}<select data-b="w${i}">${optList(GN.weapons, cur.weapons[i], true)}</select></label>`).join("")}</div>
-    <div class="gn2">${cur.items.map((v, i) => `<label>Objet clé ${i + 1}<select data-b="i${i}">${optList(GN.items, v)}</select></label>`).join("")}<label style="align-self:end"><button class="btn sm" type="button" id="gn-bitem">＋ Objet</button></label></div>
+    <div>${slotBtn(C(cur.char), 'data-bp="char"', "Perso")}</div>
+    <div class="gn2">${[0, 1, 2, 3].map(i => slotBtn(W(cur.weapons[i]), `data-bp="w${i}"`, `Arme ${i + 1}`)).join("")}</div>
+    <div class="gn2">${cur.items.map((v, i) => slotBtn(I(v), `data-bp="i${i}"`, `Objet clé ${i + 1}`)).join("")}<label style="align-self:end"><button class="btn sm" type="button" id="gn-bitem">＋ Objet</button></label></div>
     <label>Stats prioritaires sur les cartes de niveau${chk("bstats", GN.stats, cur.stats)}</label>`;
   f.querySelectorAll("[data-b]").forEach(el => el.addEventListener(el.tagName === "INPUT" ? "input" : "change", () => {
     const k = el.dataset.b, v = el.value;
@@ -2632,6 +2658,9 @@ function renderBuild(){
   }));
   f.querySelectorAll("[name=bstats]").forEach(el => el.addEventListener("change", () => { cur.stats = [...f.querySelectorAll("[name=bstats]:checked")].map(x => x.value); ls.set("gn-build-cur", cur); renderBana(); }));
   $("gn-bitem").addEventListener("click", () => { if (cur.items.length < 8){ cur.items.push(""); renderBuild(); } });
+  f.querySelectorAll("[data-bp]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.bp, kind = k === "char" ? "characters" : k[0] === "w" ? "weapons" : "items";
+    const curId = k === "char" ? cur.char : k[0] === "w" ? cur.weapons[+k.slice(1)] : cur.items[+k.slice(1)];
+    pickDlg(kind, curId, id => { if (k === "char") cur.char = id; else if (k[0] === "w") cur.weapons[+k.slice(1)] = id; else cur.items[+k.slice(1)] = id; ls.set("gn-build-cur", cur); renderBuild(); }); }));
   renderBana(); renderSaved();
 }
 function renderBana(){
@@ -2644,7 +2673,7 @@ function renderBana(){
     <h4 style="margin:14px 0 0;font-family:var(--f-display)">Rôles couverts</h4>${roleBars(a.roles)}`;
 }
 function renderSaved(){
-  const pre = (GN.presets || []).map((p, i) => `<div class="row"><div><div class="gnicons" style="margin:0 0 4px">${[...p.weapons.map(W), ...(p.items || []).map(I)].filter(Boolean).map(av).join("")}</div><b>⭐ ${esc(p.name)}</b> <span class="mini">· ${esc((C(p.char) || {}).name || p.char)} · note ${analyze(p).score}</span><div class="mini">${esc(p.why)}</div></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnpre="${i}">Charger</button></div></div>`);
+  const pre = (GN.presets || []).map((p, i) => `<div class="row"><div><div class="gnicons" style="margin:0 0 4px">${[...p.weapons.map(W), ...(p.items || []).map(I)].filter(Boolean).map(av).join("")}</div><b>⭐ ${esc(p.name)}</b> <span class="gt ${p.sure ? "r" : "s"}">${p.sure ? "mécaniques confirmées" : "idée ZKX à tester"}</span> <span class="mini">· ${esc((C(p.char) || {}).name || p.char)} · note ${analyze(p).score}</span><div class="mini">${esc(p.why)}</div></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnpre="${i}">Charger</button></div></div>`);
   const mine = saved.map((p, i) => `<div class="row"><div><b>${esc(p.name || "Sans nom")}</b> <span class="mini">· ${esc((C(p.char) || {}).name || "—")} · ${p.weapons.map(W).filter(Boolean).map(w => esc(w.name)).join(", ")} · note ${analyze(p).score}</span></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnload="${i}">Charger</button><button class="btn sm" type="button" data-gndel="${i}" aria-label="Supprimer">🗑</button></div></div>`);
   $("gn-bsaved").innerHTML = [...pre, ...mine].join("") || '<p class="empty">Aucun build.</p>';
 }
