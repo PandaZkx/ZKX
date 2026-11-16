@@ -2428,6 +2428,9 @@ function merge(){
 }
 merge();
 const C = id => BY["characters:" + id], W = id => BY["weapons:" + id], I = id => BY["items:" + id];
+/* une variante prend l'emplacement de son arme d'origine : jamais les deux dans un build */
+const baseW = w => (w && w.variantOf) || (w && w.id) || "";
+const wName = id => { const w = W(id); return w ? NM(w) : id; };
 const SN = s => (GN.stats && GN.stats[s]) || EFFECTS[s] || (GN.types && GN.types[s]) || s;
 const RN = r => (GN.roles && GN.roles[r]) || r;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -2492,6 +2495,8 @@ function refresh(force){
 function tagsOf(kind, x){
   const t = [];
   if (x.type && GN.types[x.type]) t.push(`<span class="gt">${esc(SN(x.type))}</span>`);
+  if (kind === "weapons" && x.variantOf) t.push(`<span class="gt me">variante de ${esc(wName(x.variantOf))}</span>`);
+  if (kind === "weapons"){ const vs = GN.weapons.filter(w => w.variantOf === x.id); if (vs.length) t.push(`<span class="gt me">variante : ${esc(vs.map(NM).join(", "))}</span>`); }
   (x.roles || []).forEach(r => t.push(`<span class="gt r">${esc(RN(r))}</span>`));
   if (kind === "characters") (x.likes || []).forEach(s => t.push(`<span class="gt s">aime : ${esc(SN(s))}</span>`));
   (x.uses || []).forEach(s => t.push(`<span class="gt s">monte avec : ${esc(SN(s))}</span>`));
@@ -2666,7 +2671,9 @@ function analyze(b){
   const effects = new Set(); [...ws, ...its].forEach(x => (x.effects || []).forEach(s => effects.add(s)));
   if (!c) cons.push("Choisis un perso.");
   if (ws.length < 4) cons.push(`${4 - ws.length} emplacement(s) d'arme vide(s).`);
-  const ids = ws.map(w => w.id); if (new Set(ids).size < ids.length) cons.push("La même arme est mise deux fois.");
+  const ids = ws.map(w => w.id); if (new Set(ids).size < ids.length){ pts -= 15; cons.push("La même arme est mise deux fois."); }
+  const dup = {}; ws.forEach(w => { const b = baseW(w); (dup[b] = dup[b] || []).push(w); });
+  for (const b in dup){ const g = [...new Set(dup[b])]; if (g.length > 1){ pts -= 15; cons.push(`${g.map(NM).join(" et ")} : c'est la même arme (${g.find(w => w.variantOf) ? NM(g.find(w => w.variantOf)) + " est la variante de " + wName(b) : wName(b)}). Une variante prend l'emplacement de l'originale, impossible d'avoir les deux.`); } }
   for (const w of ws){ const hit = (w.uses || []).filter(s => gives.has(s)); if (hit.length){ pts += 6 * hit.length; pros.push(`${w.name} profite de ${hit.map(SN).join(" et ")}.`); } }
   const cnt = {}; ws.forEach(w => (w.uses || []).forEach(s => cnt[s] = (cnt[s] || 0) + 1));
   for (const s in cnt) if (cnt[s] >= 2){ pts += 5 * cnt[s]; if (gives.has(s)) pros.push(`${cnt[s]} armes montent avec ${SN(s)} : une seule stat boostera tout ça.`); else cons.push(`${cnt[s]} armes montent avec ${SN(s)} : ajoute-la à tes priorités.`); }
@@ -2721,7 +2728,13 @@ function renderBuild(){
   $("gn-bitem").addEventListener("click", () => { if (cur.items.length < 8){ cur.items.push(""); renderBuild(); } });
   f.querySelectorAll("[data-bp]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.bp, kind = k === "char" ? "characters" : k[0] === "w" ? "weapons" : "items";
     const curId = k === "char" ? cur.char : k[0] === "w" ? cur.weapons[+k.slice(1)] : cur.items[+k.slice(1)];
-    pickDlg(kind, curId, id => { if (k === "char") cur.char = id; else if (k[0] === "w") cur.weapons[+k.slice(1)] = id; else cur.items[+k.slice(1)] = id; ls.set("gn-build-cur", cur); renderBuild(); }); }));
+    pickDlg(kind, curId, id => { let msg = "";
+      if (k === "char") cur.char = id;
+      else if (k[0] === "w"){ const s = +k.slice(1), nw = W(id);
+        if (nw) cur.weapons.forEach((o, j) => { if (j !== s && o && baseW(W(o)) === baseW(nw)){ msg = `${wName(o)} retiré : ${NM(nw)} et ${wName(o)} sont la même arme (variante), on ne peut pas avoir les deux.`; cur.weapons[j] = ""; } });
+        cur.weapons[s] = id; }
+      else cur.items[+k.slice(1)] = id;
+      ls.set("gn-build-cur", cur); renderBuild(); if (msg) $("gn-bmsg").textContent = msg; }); }));
   renderBana(); renderSaved(); loadCommunity();
 }
 function renderBana(){

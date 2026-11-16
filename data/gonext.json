@@ -1103,7 +1103,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 10 → November 11"
-   }
+   },
+   "variantOf": "dragon-egg"
   },
   {
    "id": "akimbo",
@@ -1141,7 +1142,8 @@
      "kind": "modif",
      "line": "Late-game balance pass: a weapon-by-weapon check against Akimbo. Stronger in the late game: Aura, Donation, Drill, Katana, Heads or Tails, Akimbo, Judgment Arrow, Sword of Damocles, Zeus Lightning, 9mm, Burning Forge, Mysterious Trap, Electrostatic Generator, Bowling Strike, Prospector, Goblin Jockey, Asteroid Belt, Pulse Aura and Bouncing Comet. Slightly weaker: Dice Roll, Gravity Orb, Firecracke"
     }
-   ]
+   ],
+   "variantOf": "9mm"
   },
   {
    "id": "arrow-rain",
@@ -1257,7 +1259,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 10 → November 11"
-   }
+   },
+   "variantOf": "solar-system"
   },
   {
    "id": "black-hole",
@@ -1402,7 +1405,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 10 → November 11"
-   }
+   },
+   "variantOf": "meteor"
   },
   {
    "id": "bowling-strike",
@@ -1446,7 +1450,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "gravity-cannon"
   },
   {
    "id": "burning-forge",
@@ -1524,7 +1529,8 @@
      "kind": "modif",
      "line": "Chain Reaction (Implosion variant): Projectile Count now starts more first implosions per trigger."
     }
-   ]
+   ],
+   "variantOf": "implosion"
   },
   {
    "id": "chainsaw",
@@ -1593,7 +1599,8 @@
    "badge": {
     "kind": "buff",
     "patch": "October 26 → November 2"
-   }
+   },
+   "variantOf": "chainsaw"
   },
   {
    "id": "claws",
@@ -1758,7 +1765,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "dice-roll"
   },
   {
    "id": "dice-roll",
@@ -1829,7 +1837,8 @@
    "badge": {
     "kind": "buff",
     "patch": "October 26 → November 2"
-   }
+   },
+   "variantOf": "olympus-fist"
   },
   {
    "id": "donation",
@@ -2128,7 +2137,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 11 → November 12"
-   }
+   },
+   "variantOf": "radioactive-dust"
   },
   {
    "id": "fireball",
@@ -2259,7 +2269,8 @@
    "badge": {
     "kind": "buff",
     "patch": "October 26 → November 2"
-   }
+   },
+   "variantOf": "shotgun"
   },
   {
    "id": "goblin-catapult",
@@ -2391,7 +2402,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "goblin-catapult"
   },
   {
    "id": "gravity-cannon",
@@ -2561,7 +2573,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "firecracker"
   },
   {
    "id": "hungry-mimic",
@@ -2628,7 +2641,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "mysterious-trap"
   },
   {
    "id": "implosion",
@@ -2819,7 +2833,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 5 → November 6"
-   }
+   },
+   "variantOf": "whip"
   },
   {
    "id": "meteor",
@@ -3143,7 +3158,8 @@
    "badge": {
     "kind": "buff",
     "patch": "October 26 → November 2"
-   }
+   },
+   "variantOf": "playing-card"
   },
   {
    "id": "prospector",
@@ -3194,7 +3210,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 10 → November 11"
-   }
+   },
+   "variantOf": "drill"
   },
   {
    "id": "puffball",
@@ -3212,7 +3229,8 @@
    "nameFr": "Puffball",
    "effects": [
     "poison"
-   ]
+   ],
+   "variantOf": "mushroom"
   },
   {
    "id": "pulse-aura",
@@ -3271,7 +3289,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 10 → November 11"
-   }
+   },
+   "variantOf": "aura"
   },
   {
    "id": "pyromaniac",
@@ -3642,7 +3661,8 @@
      "kind": "modif",
      "line": "Zeus Cloud is much stronger and its bonus cap goes 5 → 10. Sword of Damocles waits 1.2 s between arrows (was 1.79 s) and grows like Judgment Arrow. Lasso grows like it did before the Whip's nerfs. Super Combo hits harder: 0.7× per tick (was 0.3×) and the giant tick 3×."
     }
-   ]
+   ],
+   "variantOf": "combo-counter"
   },
   {
    "id": "sword-of-damocles",
@@ -3683,7 +3703,8 @@
    "badge": {
     "kind": "buff",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "judgment-arrow"
   },
   {
    "id": "tornado",
@@ -3889,7 +3910,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 13 → November 14"
-   }
+   },
+   "variantOf": "void-rain"
   },
   {
    "id": "water-drop",
@@ -4077,7 +4099,8 @@
    "badge": {
     "kind": "nerf",
     "patch": "November 8"
-   }
+   },
+   "variantOf": "zeus-lightning"
   },
   {
    "id": "zeus-lightning",
@@ -6967,7 +6990,7 @@
    "weapons": [
     "electrostatic-generator",
     "solar-system",
-    "asteroid-belt",
+    "fallout",
     "goblin-catapult"
    ],
    "items": [
@@ -6978,7 +7001,7 @@
     "projsize",
     "hp"
    ],
-   "why": "Les orbites protègent pendant que tu bouges ; vitesse d'attaque et taille de projectile boostent Solar System, Asteroid Belt et la Catapulte en même temps.",
+   "why": "Les orbites protègent pendant que tu bouges ; la vitesse d'attaque accélère Solar System et la Catapulte, la taille de projectile grossit les planètes, le générateur et les ondes de Fallout.",
    "sure": true
   },
   {
@@ -7046,7 +7069,7 @@
    "weapons": [
     "claws",
     "goblin-catapult",
-    "goblin-jockey",
+    "hungry-mimic",
     "solar-system"
    ],
    "items": [
@@ -7056,7 +7079,7 @@
     "atkspd",
     "projsize"
    ],
-   "why": "Un coup de Griffes sur 2 envoie une onde sonore (Riff) ; les invocations et Solar System accélèrent avec la vitesse d'attaque.",
+   "why": "Un coup de Griffes sur 2 envoie une onde sonore (Riff) ; la Catapulte, la Mimique et Solar System accélèrent avec la vitesse d'attaque.",
    "sure": false
   },
   {
@@ -7064,7 +7087,7 @@
    "char": "lillia",
    "weapons": [
     "coronabirus",
-    "radioactive-dust",
+    "mushroom",
     "fallout",
     "solar-system"
    ],
@@ -7084,7 +7107,7 @@
    "weapons": [
     "plague",
     "fallout",
-    "radioactive-dust",
+    "coronabirus",
     "solar-system"
    ],
    "items": [
@@ -7122,7 +7145,7 @@
    "char": "zeus",
    "weapons": [
     "zeus-lightning",
-    "zeus-cloud",
+    "bowling-strike",
     "olympus-fist",
     "mjolnir"
    ],
@@ -7133,7 +7156,7 @@
     "atkspd",
     "hp"
    ],
-   "why": "Séance de muscu : +1 % de dégâts et de PV max par niveau. La foudre étourdit, Poing d'Olympe ralentit.",
+   "why": "Séance de muscu : +1 % de dégâts et de PV max par niveau. La foudre et le Bowling Strike étourdissent, Poing d'Olympe ralentit.",
    "sure": false
   },
   {
@@ -7141,7 +7164,7 @@
    "char": "agent-bald",
    "weapons": [
     "9mm",
-    "akimbo",
+    "spiritual-spear",
     "judgment-arrow",
     "guided-missile"
    ],
@@ -7200,9 +7223,9 @@
    "char": "auresaurus-jr",
    "weapons": [
     "meteor",
-    "bouncing-comet",
+    "tornado",
     "solar-system",
-    "asteroid-belt"
+    "arrow-rain"
    ],
    "items": [
     "phoenix"
@@ -7242,7 +7265,7 @@
     "firecracker",
     "donation",
     "solar-system",
-    "asteroid-belt"
+    "prospector"
    ],
    "items": [
     "lucky-penny",
@@ -7252,7 +7275,7 @@
     "luck",
     "gold"
    ],
-   "why": "+25 % d'or et coffres moins chers ; Donation gagne +1 % de dégâts par 30 pièces possédées (jusqu'à +300 %).",
+   "why": "+25 % d'or et coffres moins chers ; Prospector double l'or des kills, et Donation gagne +1 % de dégâts par 30 pièces possédées (jusqu'à +300 %).",
    "sure": true
   },
   {
@@ -7261,7 +7284,7 @@
    "weapons": [
     "pyromaniac",
     "solar-system",
-    "asteroid-belt",
+    "burning-forge",
     "mjolnir"
    ],
    "items": [
@@ -7300,7 +7323,7 @@
     "mushroom",
     "hungry-mimic",
     "solar-system",
-    "asteroid-belt"
+    "radioactive-dust"
    ],
    "items": [
     "phoenix"
