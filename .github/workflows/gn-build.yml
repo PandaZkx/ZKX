@@ -33,4 +33,5 @@ jobs:
       - name: Fermer l'issue
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh issue close ${{ github.event.issue.number }} -R ${{ github.repository }} -c "✅ Build ajouté : il apparaît dans ZKX (Go Next! → Builds → Builds de la communauté)."
+        run: |
+          gh issue close ${{ github.event.issue.number }} -R ${{ github.repository }} -c "✅ Build ajouté, il apparaît dans ZKX (Go Next! → Builds → Builds de la communauté)."
