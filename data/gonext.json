@@ -1,18 +1,20 @@
 {
   "game": "Go Next!",
-  "updated": "2026-11-16",
+  "updated": "2026-11-16b",
   "patch": "14/11/2026",
   "about": "Horde survivor à la 3e personne de Mixidev, sorti le 9/11/2026 sur Steam. Les armes tirent toutes seules, toi tu bouges : course sur les murs, dash, glissade, piqué, bunny hop. 4 emplacements d'arme (niveau 50 puis enclume), 11 raretés d'arme et 10 d'objet (de Commun à Galaxie), armure (chapeau, anneau, ceinture, pantalon), coop en ligne jusqu'à 4.",
   "counts": {
     "weapons": 71,
-    "items": 131,
+    "items": 134,
     "characters": 24,
-    "worlds": 11
+    "worlds": 11,
+    "passives": 52
   },
   "sources": [
     "Page Steam du jeu (app 5064170)",
     "Notes de patch 10/11, 12/11, 13/11 et 14/11/2026 (Steam / SteamDB)",
-    "Communauté Steam de Go Next!"
+    "Communauté Steam de Go Next!",
+    "Icônes et listes complètes : fichiers du jeu (export AssetRipper)"
   ],
   "stats": {
     "atkspd": "Vitesse d'attaque",
@@ -223,7 +225,7 @@
         "boss"
       ],
       "likes": [],
-      "sig": "Trou noir",
+      "sig": "Black Hole",
       "sigSure": false,
       "passive": "L'explosion finale gagne 50 % des dégâts infligés. Fait apparaître des mini trous noirs (1, +1 tous les 25 niveaux).",
       "tip": "La scientifique au trou noir : regroupe la horde puis fais exploser."
@@ -363,18 +365,40 @@
   ],
   "weapons": [
     {
-      "id": "solar-system",
-      "name": "Solar System",
-      "type": "orbit",
-      "roles": [
-        "zone",
-        "surv"
-      ],
-      "uses": [
-        "atkspd",
-        "projsize"
-      ],
-      "note": "Fait orbiter jusqu'à 30 planètes autour de toi. Accélère avec la vitesse d'attaque et grossit avec la taille de projectile (patch 14/11)."
+      "id": "9mm",
+      "name": "9mm",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/9mm.png"
+    },
+    {
+      "id": "adult-dragon",
+      "name": "Adult Dragon",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "minion",
+      "img": "weapons/adult-dragon.png"
+    },
+    {
+      "id": "akimbo",
+      "name": "Akimbo",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/akimbo.png"
+    },
+    {
+      "id": "arrow-rain",
+      "name": "Arrow Rain",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/arrow-rain.png"
     },
     {
       "id": "asteroid-belt",
@@ -388,7 +412,226 @@
         "atkspd",
         "projsize"
       ],
-      "note": "Anneau de rochers. Mêmes bonus que Solar System depuis le 14/11."
+      "note": "Anneau de rochers. Mêmes bonus que Solar System depuis le 14/11.",
+      "img": "weapons/asteroid-belt.png"
+    },
+    {
+      "id": "black-hole",
+      "name": "Black Hole",
+      "roles": [],
+      "note": "Trou noir de poche (arme). À ne pas confondre avec l'objet Pocket Black Hole.",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/black-hole.png"
+    },
+    {
+      "id": "blood-crescent",
+      "name": "Blood Crescent",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/blood-crescent.png"
+    },
+    {
+      "id": "bouncing-comet",
+      "name": "Bouncing Comet",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/bouncing-comet.png"
+    },
+    {
+      "id": "bowling-strike",
+      "name": "Bowling Strike",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "La boule roule dans la ligne de monstres la plus dense et touche chacun une fois. Assez de quilles : STRIKE ! +50 %.",
+      "img": "weapons/bowling-strike.png"
+    },
+    {
+      "id": "burning-forge",
+      "name": "Burning Forge",
+      "type": "aoe",
+      "roles": [],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/burning-forge.png"
+    },
+    {
+      "id": "chain-reaction",
+      "name": "Chain Reaction",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/chain-reaction.png"
+    },
+    {
+      "id": "chainsaw",
+      "name": "Chainsaw",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Nerfée le 12/11.",
+      "img": "weapons/chainsaw.png"
+    },
+    {
+      "id": "circular-saw",
+      "name": "Circular Saw",
+      "type": "proj",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "",
+      "img": "weapons/circular-saw.png"
+    },
+    {
+      "id": "claws",
+      "name": "Claws",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "melee",
+      "img": "weapons/claws.png"
+    },
+    {
+      "id": "combo-counter",
+      "name": "Combo Counter",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/combo-counter.png"
+    },
+    {
+      "id": "coronabirus",
+      "name": "Coronabirus",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/coronabirus.png"
+    },
+    {
+      "id": "d20",
+      "name": "D20",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "luck",
+      "img": "weapons/d20.png"
+    },
+    {
+      "id": "dice-roll",
+      "name": "Dice Roll",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "luck",
+      "img": "weapons/dice-roll.png"
+    },
+    {
+      "id": "divine-claw",
+      "name": "Divine Claw",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "melee",
+      "img": "weapons/divine-claw.png"
+    },
+    {
+      "id": "donation",
+      "name": "Donation",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": "Buffé le 12/11.",
+      "img": "weapons/donation.png"
+    },
+    {
+      "id": "dragon-egg",
+      "name": "Dragon Egg",
+      "type": "minion",
+      "roles": [],
+      "uses": [],
+      "note": "Œuf de dragon.",
+      "img": "weapons/dragon-egg.png"
+    },
+    {
+      "id": "drill",
+      "name": "Drill",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Série de kills gardée si la cible suivante est à moins de 5 m ; les dégâts de zone de la pointe montent de 1 % par coup, jusqu'au double.",
+      "img": "weapons/drill.png"
+    },
+    {
+      "id": "electrostatic-generator",
+      "name": "Electrostatic Generator",
+      "roles": [],
+      "note": "Arme de départ de TV Head, que tout le monde peut gagner.",
+      "uses": [],
+      "type": "",
+      "img": "weapons/electrostatic-generator.png"
+    },
+    {
+      "id": "explosive-taunt",
+      "name": "Explosive Taunt",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/explosive-taunt.png"
+    },
+    {
+      "id": "fallout",
+      "name": "Fallout",
+      "type": "aoe",
+      "roles": [
+        "zone",
+        "ctrl"
+      ],
+      "uses": [],
+      "note": "Nuage qui grossit tant qu'il vit (Growing Threat). Nerfé le 12/11.",
+      "img": "weapons/fallout.png"
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/fireball.png"
+    },
+    {
+      "id": "firecracker",
+      "name": "Firecracker",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/firecracker.png"
+    },
+    {
+      "id": "future-shotgun",
+      "name": "Future Shotgun",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/future-shotgun.png"
     },
     {
       "id": "goblin-catapult",
@@ -400,7 +643,8 @@
       "uses": [
         "atkspd"
       ],
-      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11).",
+      "img": "weapons/goblin-catapult.png"
     },
     {
       "id": "goblin-jockey",
@@ -412,92 +656,26 @@
       "uses": [
         "atkspd"
       ],
-      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11).",
+      "img": "weapons/goblin-jockey.png"
     },
     {
-      "id": "hungry-mimic",
-      "name": "Hungry Mimic",
-      "type": "minion",
-      "roles": [
-        "zone"
-      ],
-      "uses": [
-        "atkspd"
-      ],
-      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11)."
-    },
-    {
-      "id": "drill",
-      "name": "Drill",
-      "type": "melee",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": "Série de kills gardée si la cible suivante est à moins de 5 m ; les dégâts de zone de la pointe montent de 1 % par coup, jusqu'au double."
-    },
-    {
-      "id": "shuriken",
-      "name": "Shuriken",
+      "id": "gravity-cannon",
+      "name": "Gravity Cannon",
       "type": "proj",
-      "roles": [
-        "zone"
-      ],
-      "uses": [
-        "atkspd"
-      ],
-      "note": "Une étoile rattrapée est relancée gratuitement : 50 % de chance (+0,5 % par niveau, max 75 %)."
-    },
-    {
-      "id": "bowling-strike",
-      "name": "Bowling Strike",
-      "type": "aoe",
-      "roles": [
-        "zone"
-      ],
+      "roles": [],
       "uses": [],
-      "note": "La boule roule dans la ligne de monstres la plus dense et touche chacun une fois. Assez de quilles : STRIKE ! +50 %."
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/gravity-cannon.png"
     },
     {
-      "id": "fallout",
-      "name": "Fallout",
-      "type": "aoe",
-      "roles": [
-        "zone",
-        "ctrl"
-      ],
+      "id": "guided-missile",
+      "name": "Guided Missile",
+      "roles": [],
+      "note": "",
       "uses": [],
-      "note": "Nuage qui grossit tant qu'il vit (Growing Threat). Nerfé le 12/11."
-    },
-    {
-      "id": "void-tentacles",
-      "name": "Void Tentacles",
-      "type": "aoe",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": "Slam : dégâts fixes comptés ×6 (au lieu de ×15) ; une faille en plus tombe sur son propre paquet. Nerfé le 14/11."
-    },
-    {
-      "id": "chainsaw",
-      "name": "Chainsaw",
-      "type": "melee",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": "Nerfée le 12/11."
-    },
-    {
-      "id": "web-shot",
-      "name": "Web Shot",
       "type": "proj",
-      "roles": [
-        "ctrl"
-      ],
-      "uses": [],
-      "note": "Nerfé le 12/11."
+      "img": "weapons/guided-missile.png"
     },
     {
       "id": "heads-or-tails",
@@ -509,15 +687,273 @@
       "uses": [
         "luck"
       ],
-      "note": "Pile ou face. Nerfé le 12/11, projectile 3D."
+      "note": "Pile ou face. Nerfé le 12/11, projectile 3D.",
+      "img": "weapons/heads-or-tails.png"
     },
     {
-      "id": "donation",
-      "name": "Donation",
+      "id": "hot-potato",
+      "name": "Hot Potato",
       "type": "proj",
       "roles": [],
       "uses": [],
-      "note": "Buffé le 12/11."
+      "note": "",
+      "img": "weapons/hot-potato.png"
+    },
+    {
+      "id": "hungry-mimic",
+      "name": "Hungry Mimic",
+      "type": "minion",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Invocation : va plus vite avec la vitesse d'attaque (14/11).",
+      "img": "weapons/hungry-mimic.png"
+    },
+    {
+      "id": "implosion",
+      "name": "Implosion",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/implosion.png"
+    },
+    {
+      "id": "judgment-arrow",
+      "name": "Judgment Arrow",
+      "type": "proj",
+      "roles": [
+        "boss"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/judgment-arrow.png"
+    },
+    {
+      "id": "katana",
+      "name": "Katana",
+      "type": "melee",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/katana.png"
+    },
+    {
+      "id": "lasso",
+      "name": "Lasso",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/lasso.png"
+    },
+    {
+      "id": "meteor",
+      "name": "Meteor",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/meteor.png"
+    },
+    {
+      "id": "mjolnir",
+      "name": "Mjolnir",
+      "type": "proj",
+      "roles": [
+        "boss"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/mjolnir.png"
+    },
+    {
+      "id": "mushroom",
+      "name": "Mushroom",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/mushroom.png"
+    },
+    {
+      "id": "mysterious-trap",
+      "name": "Mysterious Trap",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/mysterious-trap.png"
+    },
+    {
+      "id": "olympus-fist",
+      "name": "Olympus Fist",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/olympus-fist.png"
+    },
+    {
+      "id": "plague",
+      "name": "Plague",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/plague.png"
+    },
+    {
+      "id": "playing-card",
+      "name": "Playing Card",
+      "type": "proj",
+      "roles": [],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/playing-card.png"
+    },
+    {
+      "id": "poker-hand",
+      "name": "Poker Hand",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "luck",
+      "img": "weapons/poker-hand.png"
+    },
+    {
+      "id": "prospector",
+      "name": "Prospector",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/prospector.png"
+    },
+    {
+      "id": "puffball",
+      "name": "Puffball",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/puffball.png"
+    },
+    {
+      "id": "pulse-aura",
+      "name": "Pulse Aura",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/pulse-aura.png"
+    },
+    {
+      "id": "pyromaniac",
+      "name": "Pyromaniac",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Projectile 3D depuis le 12/11.",
+      "img": "weapons/pyromaniac.png"
+    },
+    {
+      "id": "radioactive-dust",
+      "name": "Radioactive Dust",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/radioactive-dust.png"
+    },
+    {
+      "id": "shotgun",
+      "name": "Shotgun",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/shotgun.png"
+    },
+    {
+      "id": "shuriken",
+      "name": "Shuriken",
+      "type": "proj",
+      "roles": [
+        "zone"
+      ],
+      "uses": [
+        "atkspd"
+      ],
+      "note": "Une étoile rattrapée est relancée gratuitement : 50 % de chance (+0,5 % par niveau, max 75 %).",
+      "img": "weapons/shuriken.png"
+    },
+    {
+      "id": "snowball",
+      "name": "Snowball",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "proj",
+      "img": "weapons/snowball.png"
+    },
+    {
+      "id": "solar-system",
+      "name": "Solar System",
+      "type": "orbit",
+      "roles": [
+        "zone",
+        "surv"
+      ],
+      "uses": [
+        "atkspd",
+        "projsize"
+      ],
+      "note": "Fait orbiter jusqu'à 30 planètes autour de toi. Accélère avec la vitesse d'attaque et grossit avec la taille de projectile (patch 14/11).",
+      "img": "weapons/solar-system.png"
+    },
+    {
+      "id": "spiritual-spear",
+      "name": "Spiritual Spear",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/spiritual-spear.png"
+    },
+    {
+      "id": "super-combo",
+      "name": "Super Combo",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/super-combo.png"
+    },
+    {
+      "id": "sword-of-damocles",
+      "name": "Sword of Damocles",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/sword-of-damocles.png"
+    },
+    {
+      "id": "tornado",
+      "name": "Tornado",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/tornado.png"
     },
     {
       "id": "vinyl",
@@ -529,7 +965,77 @@
       "uses": [
         "atkspd"
       ],
-      "note": "Vole jusqu'à 16 m (11/11)."
+      "note": "Vole jusqu'à 16 m (11/11).",
+      "img": "weapons/vinyl.png"
+    },
+    {
+      "id": "void-rain",
+      "name": "Void Rain",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "aoe",
+      "img": "weapons/void-rain.png"
+    },
+    {
+      "id": "void-tentacles",
+      "name": "Void Tentacles",
+      "type": "aoe",
+      "roles": [
+        "zone"
+      ],
+      "uses": [],
+      "note": "Slam : dégâts fixes comptés ×6 (au lieu de ×15) ; une faille en plus tombe sur son propre paquet. Nerfé le 14/11.",
+      "img": "weapons/void-tentacles.png"
+    },
+    {
+      "id": "water-drop",
+      "name": "Water Drop",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "",
+      "img": "weapons/water-drop.png"
+    },
+    {
+      "id": "web-shot",
+      "name": "Web Shot",
+      "type": "proj",
+      "roles": [
+        "ctrl"
+      ],
+      "uses": [],
+      "note": "Nerfé le 12/11.",
+      "img": "weapons/web-shot.png"
+    },
+    {
+      "id": "wheel-of-fortune",
+      "name": "Wheel of Fortune",
+      "type": "luck",
+      "roles": [],
+      "uses": [
+        "luck"
+      ],
+      "note": "Roue de la fortune.",
+      "img": "weapons/wheel-of-fortune.png"
+    },
+    {
+      "id": "whip",
+      "name": "Whip",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "melee",
+      "img": "weapons/whip.png"
+    },
+    {
+      "id": "zeus-cloud",
+      "name": "Zeus Cloud",
+      "roles": [],
+      "note": "",
+      "uses": [],
+      "type": "beam",
+      "img": "weapons/zeus-cloud.png"
     },
     {
       "id": "zeus-lightning",
@@ -541,138 +1047,566 @@
       "uses": [
         "atkspd"
       ],
-      "note": "Foudre de Zeus."
-    },
-    {
-      "id": "wheel-of-fortune",
-      "name": "Wheel of Fortune",
-      "type": "luck",
-      "roles": [],
-      "uses": [
-        "luck"
-      ],
-      "note": "Roue de la fortune."
-    },
-    {
-      "id": "mjolnir",
-      "name": "Mjolnir",
-      "type": "proj",
-      "roles": [
-        "boss"
-      ],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "dragon-egg",
-      "name": "Dragon Egg",
-      "type": "minion",
-      "roles": [],
-      "uses": [],
-      "note": "Œuf de dragon."
-    },
-    {
-      "id": "playing-card",
-      "name": "Playing Card",
-      "type": "proj",
-      "roles": [],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "judgment-arrow",
-      "name": "Judgment Arrow",
-      "type": "proj",
-      "roles": [
-        "boss"
-      ],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "gravity-cannon",
-      "name": "Gravity Cannon",
-      "type": "proj",
-      "roles": [],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "katana",
-      "name": "Katana",
-      "type": "melee",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "pyromaniac",
-      "name": "Pyromaniac",
-      "type": "aoe",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "burning-forge",
-      "name": "Burning Forge",
-      "type": "aoe",
-      "roles": [],
-      "uses": [],
-      "note": "Projectile 3D depuis le 12/11."
-    },
-    {
-      "id": "hot-potato",
-      "name": "Hot Potato",
-      "type": "proj",
-      "roles": [],
-      "uses": [],
-      "note": ""
-    },
-    {
-      "id": "circular-saw",
-      "name": "Circular Saw",
-      "type": "proj",
-      "roles": [
-        "zone"
-      ],
-      "uses": [],
-      "note": ""
+      "note": "Foudre de Zeus.",
+      "img": "weapons/zeus-lightning.png"
     }
   ],
   "items": [
     {
-      "id": "phoenix",
-      "name": "Phoenix",
-      "roles": [
-        "surv"
-      ],
+      "id": "alien-technology",
+      "name": "Alien Technology",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/alien-technology.png"
+    },
+    {
+      "id": "angel-investor",
+      "name": "Angel Investor",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/angel-investor.png"
+    },
+    {
+      "id": "answered-prayers",
+      "name": "Answered Prayers",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/answered-prayers.png"
+    },
+    {
+      "id": "anvil-polish",
+      "name": "Anvil Polish",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/anvil-polish.png"
+    },
+    {
+      "id": "bait",
+      "name": "Bait",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/bait.png"
+    },
+    {
+      "id": "balance-patch",
+      "name": "Balance Patch",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/balance-patch.png"
+    },
+    {
+      "id": "banana-peel-halo",
+      "name": "Banana Peel Halo",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/banana-peel-halo.png"
+    },
+    {
+      "id": "banana-phone",
+      "name": "Banana Phone",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/banana-phone.png"
+    },
+    {
+      "id": "bic-pen-springs",
+      "name": "BIC Pen Springs",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/bic-pen-springs.png"
+    },
+    {
+      "id": "big-red-button",
+      "name": "Big Red Button",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/big-red-button.png"
+    },
+    {
+      "id": "blessed-rng",
+      "name": "Blessed RNG",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/blessed-rng.png"
+    },
+    {
+      "id": "block-party",
+      "name": "Block Party",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/block-party.png"
+    },
+    {
+      "id": "blood-moon",
+      "name": "Blood Moon",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/blood-moon.png"
+    },
+    {
+      "id": "bogo-soul",
+      "name": "BOGO Soul",
+      "roles": [],
+      "gives": [],
+      "note": "Rééquilibré le 11/11.",
+      "img": "items/bogo-soul.png"
+    },
+    {
+      "id": "bootleg-excalibur",
+      "name": "Bootleg Excalibur",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/bootleg-excalibur.png"
+    },
+    {
+      "id": "boss-music",
+      "name": "Boss Music",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/boss-music.png"
+    },
+    {
+      "id": "bouncers-badge",
+      "name": "Bouncer's Badge",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/bouncer-s-badge.png"
+    },
+    {
+      "id": "bowling-ball",
+      "name": "Bowling Ball",
+      "roles": [],
+      "gives": [],
+      "note": "Rééquilibré le 11/11.",
+      "img": "items/bowling-ball.png"
+    },
+    {
+      "id": "brand-new-white-sneakers",
+      "name": "Brand New White Sneakers",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/brand-new-white-sneakers.png"
+    },
+    {
+      "id": "brittle",
+      "name": "Brittle",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/brittle.png"
+    },
+    {
+      "id": "bubble-wrap",
+      "name": "Bubble Wrap",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/bubble-wrap.png"
+    },
+    {
+      "id": "buy-now-pay-later",
+      "name": "Buy Now, Pay Later",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/buy-now-pay-later.png"
+    },
+    {
+      "id": "caffeinated-cat",
+      "name": "Caffeinated Cat",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/caffeinated-cat.png"
+    },
+    {
+      "id": "cargo-shorts",
+      "name": "Cargo Shorts",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/cargo-shorts.png"
+    },
+    {
+      "id": "clanker-detector",
+      "name": "Clanker Detector",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/clanker-detector.png"
+    },
+    {
+      "id": "collector",
+      "name": "Collector",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/collector.png"
+    },
+    {
+      "id": "corsair",
+      "name": "Corsair",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/corsair.png"
+    },
+    {
+      "id": "credit-card-debt",
+      "name": "Credit Card Debt",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/credit-card-debt.png"
+    },
+    {
+      "id": "crit-inception",
+      "name": "Crit Inception",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/crit-inception.png"
+    },
+    {
+      "id": "cross-necklace",
+      "name": "Cross Necklace",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/cross-necklace.png"
+    },
+    {
+      "id": "ctrl-z",
+      "name": "Ctrl+Z",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/ctrl-z.png"
+    },
+    {
+      "id": "curse",
+      "name": "Curse",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/curse.png"
+    },
+    {
+      "id": "cursed-yo-yo",
+      "name": "Cursed Yo-Yo",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/cursed-yo-yo.png"
+    },
+    {
+      "id": "day-one-dlc-the-dash",
+      "name": "Day-One DLC The Dash",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/day-one-dlc-the-dash.png"
+    },
+    {
+      "id": "deathbed",
+      "name": "Deathbed",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/deathbed.png"
+    },
+    {
+      "id": "demolisher",
+      "name": "Demolisher",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/demolisher.png"
+    },
+    {
+      "id": "diploma-of-brainrot",
+      "name": "Diploma of brainrot",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/diploma-of-brainrot.png"
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/discovery.png"
+    },
+    {
+      "id": "doomsday-yapper",
+      "name": "Doomsday Yapper",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/doomsday-yapper.png"
+    },
+    {
+      "id": "double-it-and-give-it-to-the-next",
+      "name": "Double It and Give It to the Next",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/double-it-and-give-it-to-the-next.png"
+    },
+    {
+      "id": "eat-the-rich",
+      "name": "Eat the Rich",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/eat-the-rich.png"
+    },
+    {
+      "id": "edge-of-the-mirror",
+      "name": "Edge of the Mirror",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/edge-of-the-mirror.png"
+    },
+    {
+      "id": "energy-drink",
+      "name": "Energy Drink",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/energy-drink.png"
+    },
+    {
+      "id": "evade-window",
+      "name": "Evade Window",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/evade-window.png"
+    },
+    {
+      "id": "existential-mirror",
+      "name": "Existential Mirror",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/existential-mirror.png"
+    },
+    {
+      "id": "exo-mech",
+      "name": "Exo Mech",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/exo-mech.png"
+    },
+    {
+      "id": "extra-hand",
+      "name": "Extra Hand",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/extra-hand.png"
+    },
+    {
+      "id": "fight-or-flight",
+      "name": "Fight or Flight",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/fight-or-flight.png"
+    },
+    {
+      "id": "forbidden-candy",
+      "name": "Forbidden Candy",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/forbidden-candy.png"
+    },
+    {
+      "id": "fresh-meat-detector",
+      "name": "Fresh Meat Detector",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/fresh-meat-detector.png"
+    },
+    {
+      "id": "full-metal-jacket",
+      "name": "Full Metal Jacket",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/full-metal-jacket.png"
+    },
+    {
+      "id": "gambling",
+      "name": "Gambling",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/gambling.png"
+    },
+    {
+      "id": "ghost-pepper",
+      "name": "Ghost Pepper",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/ghost-pepper.png"
+    },
+    {
+      "id": "ghosting-energy",
+      "name": "Ghosting Energy",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/ghosting-energy.png"
+    },
+    {
+      "id": "glitched-cartridge",
+      "name": "Glitched Cartridge",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/glitched-cartridge.png"
+    },
+    {
+      "id": "gluttony",
+      "name": "Gluttony",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/gluttony.png"
+    },
+    {
+      "id": "goblin-glue",
+      "name": "Goblin Glue",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/goblin-glue.png"
+    },
+    {
+      "id": "grannys-glasses",
+      "name": "Granny's Glasses",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/granny-s-glasses.png"
+    },
+    {
+      "id": "group-chat",
+      "name": "Group Chat",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/group-chat.png"
+    },
+    {
+      "id": "guardian-angel",
+      "name": "Guardian Angel",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/guardian-angel.png"
+    },
+    {
+      "id": "hand-warmer",
+      "name": "Hand Warmer",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/hand-warmer.png"
+    },
+    {
+      "id": "haunted-backpack",
+      "name": "Haunted Backpack",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/haunted-backpack.png"
+    },
+    {
+      "id": "hex-shades",
+      "name": "Hex Shades",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/hex-shades.png"
+    },
+    {
+      "id": "hoarding",
+      "name": "Hoarding",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/hoarding.png"
+    },
+    {
+      "id": "holy-nova",
+      "name": "Holy Nova",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/holy-nova.png"
+    },
+    {
+      "id": "hot-skull",
+      "name": "Hot Skull",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/hot-skull.png"
+    },
+    {
+      "id": "hot-take",
+      "name": "Hot Take",
+      "roles": [],
       "gives": [
-        "hp"
+        "dmg"
       ],
-      "note": "Te fait revivre ; l'explosion de résurrection touche chaque monstre à 10 m, une fois (14/11)."
+      "note": "Fait une part des dégâts d'un coup.",
+      "img": "items/hot-take.png"
     },
     {
-      "id": "pocket-black-hole",
-      "name": "Pocket Black Hole",
-      "roles": [
-        "zone"
-      ],
+      "id": "hyperdrive",
+      "name": "Hyperdrive",
+      "roles": [],
+      "note": "",
       "gives": [],
-      "note": "Fait une part des dégâts d'un coup. Nerfé le 13/11. La page Steam le cite aussi comme arme."
+      "img": "items/hyperdrive.png"
     },
     {
-      "id": "zombie-missile",
-      "name": "Zombie Missile",
+      "id": "ice-cube-tray",
+      "name": "Ice Cube Tray",
       "roles": [
-        "zone"
+        "ctrl"
       ],
       "gives": [],
-      "note": "Les kills des missiles ne relancent plus l'objet (11/11)."
+      "note": "Rééquilibré le 11/11.",
+      "img": "items/ice-cube-tray.png"
     },
     {
       "id": "ignition",
@@ -683,71 +1617,254 @@
       "gives": [
         "dmg"
       ],
-      "note": "Fait une part des dégâts d'un coup. Rééquilibré le 11/11."
+      "note": "Fait une part des dégâts d'un coup. Rééquilibré le 11/11.",
+      "img": "items/ignition.png"
     },
     {
-      "id": "hot-take",
-      "name": "Hot Take",
+      "id": "knockoff-sword",
+      "name": "Knockoff Sword",
       "roles": [],
-      "gives": [
-        "dmg"
-      ],
-      "note": "Fait une part des dégâts d'un coup."
+      "note": "",
+      "gives": [],
+      "img": "items/knockoff-sword.png"
     },
     {
-      "id": "shockwave",
-      "name": "Shockwave",
+      "id": "last-minute-essay",
+      "name": "Last-Minute Essay",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/last-minute-essay.png"
+    },
+    {
+      "id": "lava-lamp",
+      "name": "Lava Lamp",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/lava-lamp.png"
+    },
+    {
+      "id": "lazy-bullets",
+      "name": "Lazy Bullets",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/lazy-bullets.png"
+    },
+    {
+      "id": "loaf-of-bread",
+      "name": "Loaf of Bread",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/loaf-of-bread.png"
+    },
+    {
+      "id": "loose-change",
+      "name": "Loose Change",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/loose-change.png"
+    },
+    {
+      "id": "lucky-penny",
+      "name": "Lucky Penny",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/lucky-penny.png"
+    },
+    {
+      "id": "magnetism",
+      "name": "Magnetism",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/magnetism.png"
+    },
+    {
+      "id": "main-character-syndrome",
+      "name": "Main Character Syndrome",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/main-character-syndrome.png"
+    },
+    {
+      "id": "manifesting-damage",
+      "name": "Manifesting Damage",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/manifesting-damage.png"
+    },
+    {
+      "id": "mental-health-day",
+      "name": "Mental Health Day",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/mental-health-day.png"
+    },
+    {
+      "id": "mimic-trap",
+      "name": "Mimic Trap",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/mimic-trap.png"
+    },
+    {
+      "id": "moms-spaghetti",
+      "name": "Mom's Spaghetti",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/mom-s-spaghetti.png"
+    },
+    {
+      "id": "mood-ring",
+      "name": "Mood Ring",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/mood-ring.png"
+    },
+    {
+      "id": "necromancers-punchcard",
+      "name": "Necromancer's Punchcard",
+      "roles": [],
+      "gives": [],
+      "note": "",
+      "img": "items/necromancer-s-punchcard.png"
+    },
+    {
+      "id": "overclocked-gpu",
+      "name": "Overclocked GPU",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/overclocked-gpu.png"
+    },
+    {
+      "id": "overforge",
+      "name": "Overforge",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/overforge.png"
+    },
+    {
+      "id": "participation-trophy",
+      "name": "Participation Trophy",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/participation-trophy.png"
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "roles": [
+        "surv"
+      ],
+      "gives": [
+        "hp"
+      ],
+      "note": "Te fait revivre ; l'explosion de résurrection touche chaque monstre à 10 m, une fois (14/11).",
+      "img": "items/phoenix.png"
+    },
+    {
+      "id": "pigeon-trauma",
+      "name": "Pigeon Trauma",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/pigeon-trauma.png"
+    },
+    {
+      "id": "pity-timer",
+      "name": "Pity Timer",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/pity-timer.png"
+    },
+    {
+      "id": "plot-armor",
+      "name": "Plot Armor",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/plot-armor.png"
+    },
+    {
+      "id": "pocket-black-hole",
+      "name": "Pocket Black Hole",
       "roles": [
         "zone"
       ],
       "gives": [],
-      "note": "Rééquilibré le 11/11, nouveau visuel."
-    },
-    {
-      "id": "bowling-ball",
-      "name": "Bowling Ball",
-      "roles": [],
-      "gives": [],
-      "note": "Rééquilibré le 11/11."
-    },
-    {
-      "id": "ice-cube-tray",
-      "name": "Ice Cube Tray",
-      "roles": [
-        "ctrl"
-      ],
-      "gives": [],
-      "note": "Rééquilibré le 11/11."
-    },
-    {
-      "id": "smite",
-      "name": "Smite",
-      "roles": [
-        "boss"
-      ],
-      "gives": [],
-      "note": "Rééquilibré le 11/11."
-    },
-    {
-      "id": "bogo-soul",
-      "name": "BOGO Soul",
-      "roles": [],
-      "gives": [],
-      "note": "Rééquilibré le 11/11."
-    },
-    {
-      "id": "spike-protein",
-      "name": "Spike Protein",
-      "roles": [],
-      "gives": [],
-      "note": "Rééquilibré le 11/11."
+      "note": "Fait une part des dégâts d'un coup. Nerfé le 13/11. La page Steam le cite aussi comme arme.",
+      "img": "items/pocket-black-hole.png"
     },
     {
       "id": "pocket-lint",
       "name": "Pocket Lint",
       "roles": [],
       "gives": [],
-      "note": "Peu commun, +200 % (11/11)."
+      "note": "Peu commun, +200 % (11/11).",
+      "img": "items/pocket-lint.png"
+    },
+    {
+      "id": "porcupine-panic",
+      "name": "Porcupine Panic",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/porcupine-panic.png"
+    },
+    {
+      "id": "pre-workout-expired",
+      "name": "Pre-Workout (Expired)",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/pre-workout-expired.png"
+    },
+    {
+      "id": "quicksave",
+      "name": "Quicksave",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/quicksave.png"
+    },
+    {
+      "id": "rage",
+      "name": "Rage",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/rage.png"
+    },
+    {
+      "id": "ratiod",
+      "name": "Ratio'd",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/ratio-d.png"
+    },
+    {
+      "id": "reapers-punch-card",
+      "name": "Reaper's Punch Card",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/reaper-s-punch-card.png"
     },
     {
       "id": "refrigerator",
@@ -756,65 +1873,340 @@
         "surv"
       ],
       "gives": [],
-      "note": "Légendaire gratuit pour chaque sauvegarde (14/11)."
+      "note": "Légendaire gratuit pour chaque sauvegarde (14/11).",
+      "img": "items/refrigerator.png"
     },
     {
-      "id": "electrostatic-generator",
-      "name": "Electrostatic Generator",
+      "id": "refund-receipt",
+      "name": "Refund Receipt",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/refund-receipt.png"
+    },
+    {
+      "id": "rented-wings",
+      "name": "Rented Wings",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/rented-wings.png"
+    },
+    {
+      "id": "resting-bitch-face",
+      "name": "Resting Bitch Face",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/resting-bitch-face.png"
+    },
+    {
+      "id": "rusty-spoon",
+      "name": "Rusty Spoon",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/rusty-spoon.png"
+    },
+    {
+      "id": "schrodingers-box",
+      "name": "Schrodinger's Box",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/schrodinger-s-box.png"
+    },
+    {
+      "id": "self-reflection",
+      "name": "Self-Reflection",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/self-reflection.png"
+    },
+    {
+      "id": "sentient-calculator",
+      "name": "Sentient Calculator",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/sentient-calculator.png"
+    },
+    {
+      "id": "shockwave",
+      "name": "Shockwave",
       "roles": [
         "zone"
       ],
       "gives": [],
-      "note": "Objet de départ de TV Head, que tout le monde peut gagner."
+      "note": "Rééquilibré le 11/11, nouveau visuel.",
+      "img": "items/shockwave.png"
     },
     {
-      "id": "necromancers-punchcard",
-      "name": "Necromancer's Punchcard",
+      "id": "sick-combo",
+      "name": "Sick Combo",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/sick-combo.png"
+    },
+    {
+      "id": "skeleton-key",
+      "name": "Skeleton Key",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/skeleton-key.png"
+    },
+    {
+      "id": "skill-issue",
+      "name": "Skill Issue",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/skill-issue.png"
+    },
+    {
+      "id": "slot-machine",
+      "name": "Slot Machine",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/slot-machine.png"
+    },
+    {
+      "id": "smite",
+      "name": "Smite",
+      "roles": [
+        "boss"
+      ],
+      "gives": [],
+      "note": "Rééquilibré le 11/11.",
+      "img": "items/smite.png"
+    },
+    {
+      "id": "snowball",
+      "name": "Snowball",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/snowball.png"
+    },
+    {
+      "id": "soul-sommelier",
+      "name": "Soul Sommelier",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/soul-sommelier.png"
+    },
+    {
+      "id": "speeding-ticket",
+      "name": "Speeding Ticket",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/speeding-ticket.png"
+    },
+    {
+      "id": "spicy-sneakers",
+      "name": "Spicy Sneakers",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/spicy-sneakers.png"
+    },
+    {
+      "id": "spike-protein",
+      "name": "Spike Protein",
       "roles": [],
       "gives": [],
-      "note": ""
+      "note": "Rééquilibré le 11/11.",
+      "img": "items/spike-protein.png"
+    },
+    {
+      "id": "squeaky-hammer",
+      "name": "Squeaky Hammer",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/squeaky-hammer.png"
+    },
+    {
+      "id": "static-sweater",
+      "name": "Static Sweater",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/static-sweater.png"
+    },
+    {
+      "id": "sticky-note",
+      "name": "Sticky Note",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/sticky-note.png"
+    },
+    {
+      "id": "stinky-sock",
+      "name": "Stinky Sock",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/stinky-sock.png"
+    },
+    {
+      "id": "stockholm-syndrome",
+      "name": "Stockholm Syndrome",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/stockholm-syndrome.png"
+    },
+    {
+      "id": "tax-return",
+      "name": "Tax Return",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/tax-return.png"
+    },
+    {
+      "id": "ten-thousand-bees",
+      "name": "Ten Thousand Bees",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/ten-thousand-bees.png"
+    },
+    {
+      "id": "terms-and-conditions",
+      "name": "Terms and Conditions",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/terms-and-conditions.png"
+    },
+    {
+      "id": "totem-fast-pass",
+      "name": "Totem Fast Pass",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/totem-fast-pass.png"
+    },
+    {
+      "id": "turret",
+      "name": "Turret",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/turret.png"
+    },
+    {
+      "id": "vampire-floss",
+      "name": "Vampire Floss",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/vampire-floss.png"
+    },
+    {
+      "id": "wanderers-boots",
+      "name": "Wanderer's Boots",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/wanderer-s-boots.png"
+    },
+    {
+      "id": "wizards-discount-wand",
+      "name": "Wizard's Discount Wand",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/wizard-s-discount-wand.png"
+    },
+    {
+      "id": "yeet-energy",
+      "name": "Yeet Energy",
+      "roles": [],
+      "note": "",
+      "gives": [],
+      "img": "items/yeet-energy.png"
+    },
+    {
+      "id": "zombie-missile",
+      "name": "Zombie Missile",
+      "roles": [
+        "zone"
+      ],
+      "gives": [],
+      "note": "Les kills des missiles ne relancent plus l'objet (11/11).",
+      "img": "items/zombie-missile.png"
     }
   ],
   "maps": [
     {
       "name": "Medieval Fortress",
       "boss": "Golem",
-      "note": "Remparts sur lesquels courir. Carte 1."
+      "note": "Remparts sur lesquels courir. Carte 1.",
+      "img": "maps/medieval-fortress.webp"
     },
     {
       "name": "Pyramid Necropolis",
       "boss": "Sphinx",
-      "note": "Le rayon du Sphinx ne touche plus qu'une fois (12/11)."
+      "note": "Le rayon du Sphinx ne touche plus qu'une fois (12/11).",
+      "img": "maps/pyramid-necropolis.webp"
     },
     {
       "name": "Hanging Gardens",
       "boss": "",
-      "note": "Tomber ne tue plus (12/11)."
+      "note": "Tomber ne tue plus (12/11).",
+      "img": "maps/hanging-gardens.webp"
     },
     {
       "name": "Mystic Hollow",
       "boss": "",
-      "note": "Tomber ne tue plus (12/11)."
+      "note": "Tomber ne tue plus (12/11).",
+      "img": "maps/mystic-hollow.webp"
     },
     {
       "name": "Synthcity",
       "boss": "",
-      "note": "Toits de ville, superboss scellé."
+      "note": "Toits de ville, superboss scellé.",
+      "img": "maps/synthcity.webp"
     },
     {
       "name": "Pirate Archipelago",
       "boss": "",
-      "note": "Attention : les monstres nagent."
+      "note": "Attention : les monstres nagent.",
+      "img": "maps/pirate-archipelago.webp"
     },
     {
       "name": "Coliseum Ruins",
       "boss": "",
-      "note": "70 braseros à allumer."
+      "note": "70 braseros à allumer.",
+      "img": "maps/coliseum-ruins.webp"
     },
     {
       "name": "Extraterrestrial Base",
       "boss": "",
-      "note": "Un trou noir mange une planète par minute."
+      "note": "Un trou noir mange une planète par minute.",
+      "img": "maps/extraterrestrial-base.webp"
+    },
+    {
+      "name": "Nuclear Test Site",
+      "boss": "",
+      "note": "",
+      "img": "maps/nuclear-test-site.webp"
+    },
+    {
+      "name": "Tesseract",
+      "boss": "",
+      "note": "",
+      "img": "maps/tesseract.webp"
     }
   ],
   "rules": [
@@ -902,6 +2294,268 @@
         "projsize"
       ],
       "why": "Les relances de Cynja et le retour gratuit du Shuriken montent tous les deux jusqu'à 75 %."
+    }
+  ],
+  "passives": [
+    {
+      "id": "accelerant",
+      "name": "Accelerant",
+      "img": "passives/accelerant.png"
+    },
+    {
+      "id": "acceleration",
+      "name": "Acceleration",
+      "img": "passives/acceleration.png"
+    },
+    {
+      "id": "adrenaline",
+      "name": "Adrenaline",
+      "img": "passives/adrenaline.png"
+    },
+    {
+      "id": "blood-crit",
+      "name": "Blood Crit",
+      "img": "passives/blood-crit.png"
+    },
+    {
+      "id": "chain-bounce",
+      "name": "Chain Bounce",
+      "img": "passives/chain-bounce.png"
+    },
+    {
+      "id": "compression",
+      "name": "Compression",
+      "img": "passives/compression.png"
+    },
+    {
+      "id": "critical-momentum",
+      "name": "Critical Momentum",
+      "img": "passives/critical-momentum.png"
+    },
+    {
+      "id": "crowd-breaker",
+      "name": "Crowd Breaker",
+      "img": "passives/crowd-breaker.png"
+    },
+    {
+      "id": "crushing-blow",
+      "name": "Crushing Blow",
+      "img": "passives/crushing-blow.png"
+    },
+    {
+      "id": "crushing-presence",
+      "name": "Crushing Presence",
+      "img": "passives/crushing-presence.png"
+    },
+    {
+      "id": "deadeye",
+      "name": "Deadeye",
+      "img": "passives/deadeye.png"
+    },
+    {
+      "id": "dominance",
+      "name": "Dominance",
+      "img": "passives/dominance.png"
+    },
+    {
+      "id": "escalation",
+      "name": "Escalation",
+      "img": "passives/escalation.png"
+    },
+    {
+      "id": "execution-crit",
+      "name": "Execution Crit",
+      "img": "passives/execution-crit.png"
+    },
+    {
+      "id": "executioner",
+      "name": "Executioner",
+      "img": "passives/executioner.png"
+    },
+    {
+      "id": "fatal-chain",
+      "name": "Fatal Chain",
+      "img": "passives/fatal-chain.png"
+    },
+    {
+      "id": "final-round",
+      "name": "Final Round",
+      "img": "passives/final-round.png"
+    },
+    {
+      "id": "first-round",
+      "name": "First Round",
+      "img": "passives/first-round.png"
+    },
+    {
+      "id": "flurry",
+      "name": "Flurry",
+      "img": "passives/flurry.png"
+    },
+    {
+      "id": "focused-fury",
+      "name": "Focused Fury",
+      "img": "passives/focused-fury.png"
+    },
+    {
+      "id": "growing-threat",
+      "name": "Growing Threat",
+      "img": "passives/growing-threat.png"
+    },
+    {
+      "id": "hyperactive",
+      "name": "Hyperactive",
+      "img": "passives/hyperactive.png"
+    },
+    {
+      "id": "infinite-rebound",
+      "name": "Infinite Rebound",
+      "img": "passives/infinite-rebound.png"
+    },
+    {
+      "id": "instant-delivery",
+      "name": "Instant Delivery",
+      "img": "passives/instant-delivery.png"
+    },
+    {
+      "id": "jackpot",
+      "name": "Jackpot",
+      "img": "passives/jackpot.png"
+    },
+    {
+      "id": "mach-impact",
+      "name": "Mach Impact",
+      "img": "passives/mach-impact.png"
+    },
+    {
+      "id": "marked-for-death",
+      "name": "Marked for Death",
+      "img": "passives/marked-for-death.png"
+    },
+    {
+      "id": "massive-impact",
+      "name": "Massive Impact",
+      "img": "passives/massive-impact.png"
+    },
+    {
+      "id": "merciless",
+      "name": "Merciless",
+      "img": "passives/merciless.png"
+    },
+    {
+      "id": "overflowing-precision",
+      "name": "Overflowing Precision",
+      "img": "passives/overflowing-precision.png"
+    },
+    {
+      "id": "overflowing-speed",
+      "name": "Overflowing Speed",
+      "img": "passives/overflowing-speed.png"
+    },
+    {
+      "id": "overkill",
+      "name": "Overkill",
+      "img": "passives/overkill.png"
+    },
+    {
+      "id": "payback",
+      "name": "Payback",
+      "img": "passives/payback.png"
+    },
+    {
+      "id": "perfect-ricochet",
+      "name": "Perfect Ricochet",
+      "img": "passives/perfect-ricochet.png"
+    },
+    {
+      "id": "pinball",
+      "name": "Pinball",
+      "img": "passives/pinball.png"
+    },
+    {
+      "id": "predator",
+      "name": "Predator",
+      "img": "passives/predator.png"
+    },
+    {
+      "id": "pressure",
+      "name": "Pressure",
+      "img": "passives/pressure.png"
+    },
+    {
+      "id": "railgun",
+      "name": "Railgun",
+      "img": "passives/railgun.png"
+    },
+    {
+      "id": "rebound",
+      "name": "Rebound",
+      "img": "passives/rebound.png"
+    },
+    {
+      "id": "rebound-volley",
+      "name": "Rebound Volley",
+      "img": "passives/rebound-volley.png"
+    },
+    {
+      "id": "ricochet-explosion",
+      "name": "Ricochet Explosion",
+      "img": "passives/ricochet-explosion.png"
+    },
+    {
+      "id": "shatterpoint",
+      "name": "Shatterpoint",
+      "img": "passives/shatterpoint.png"
+    },
+    {
+      "id": "size-overflow",
+      "name": "Size Overflow",
+      "img": "passives/size-overflow.png"
+    },
+    {
+      "id": "sonic-boom",
+      "name": "Sonic Boom",
+      "img": "passives/sonic-boom.png"
+    },
+    {
+      "id": "speed-split",
+      "name": "Speed Split",
+      "img": "passives/speed-split.png"
+    },
+    {
+      "id": "stored-force",
+      "name": "Stored Force",
+      "img": "passives/stored-force.png"
+    },
+    {
+      "id": "supercrit",
+      "name": "Supercrit",
+      "img": "passives/supercrit.png"
+    },
+    {
+      "id": "swarm-intelligence",
+      "name": "Swarm Intelligence",
+      "img": "passives/swarm-intelligence.png"
+    },
+    {
+      "id": "terminal-velocity",
+      "name": "Terminal Velocity",
+      "img": "passives/terminal-velocity.png"
+    },
+    {
+      "id": "titan-slayer",
+      "name": "Titan Slayer",
+      "img": "passives/titan-slayer.png"
+    },
+    {
+      "id": "trick-shot",
+      "name": "Trick Shot",
+      "img": "passives/trick-shot.png"
+    },
+    {
+      "id": "velocity-crit",
+      "name": "Velocity Crit",
+      "img": "passives/velocity-crit.png"
     }
   ]
 }
