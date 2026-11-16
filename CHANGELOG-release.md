@@ -1,8 +1,10 @@
 ## Nouveautés
 
-- 🖼 **Go Next! : choix en images.** Dans Comparer et dans Builds, clique sur une case pour choisir un perso, une arme ou un objet dans une grille d'images avec recherche.
-- ⇄ **Comparer plus visuel** : grands portraits ou icônes en tête de colonne, et « Va bien avec » affiche chaque perso, arme ou objet avec son image et la raison.
-- 🛠 **12 nouveaux builds tout prêts** (Armée gobeline, Peste virale, Jackpot, Dieu du tonnerre, Tireur d'élite, Singularité, Prince du givre…), marqués « mécaniques confirmées » ou « idée ZKX à tester ».
+- 📕 **Nouveau logo ZKX** : le livre, détouré et en meilleure qualité (icône de l'appli, de la barre des tâches, du raccourci et de l'icône près de l'horloge).
+
+## Rappel 2.2.3
+
+- Go Next! : choix en images dans Comparer et Builds, comparateur visuel, 12 builds tout prêts en plus.
 
 ## Installer
 
