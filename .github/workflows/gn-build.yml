@@ -1,0 +1,36 @@
+name: Build Go Next! de la communauté
+# Quand PandaZkx met le label « build-ok » sur une issue « [Build top 1] », le build est ajouté
+# à data/gonext_community.json (ZKX le recharge en ligne) et l'issue est fermée.
+on:
+  issues:
+    types: [labeled]
+permissions:
+  contents: write
+  issues: write
+jobs:
+  add:
+    if: github.event.label.name == 'build-ok'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Ajouter le build
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: python tools/gn_community.py
+      - name: Enregistrer
+        run: |
+          git config user.name "zkx-bot"
+          git config user.email "zkx-bot@users.noreply.github.com"
+          git add data/gonext_community.json
+          git diff --cached --quiet || git commit -m "Go Next! : build de la communauté (#${{ github.event.issue.number }})"
+          git pull --rebase
+          git push
+      - name: Fermer l'issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close ${{ github.event.issue.number }} -R ${{ github.repository }} -c "✅ Build ajouté : il apparaît dans ZKX (Go Next! → Builds → Builds de la communauté)."

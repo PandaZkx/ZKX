@@ -422,6 +422,22 @@ body.gn .wrap>.view:not(.gnv){display:none!important}
 .gnchip{display:inline-flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--gnc);border-radius:10px;padding:4px 9px 4px 4px;max-width:100%}
 .gnchip .gnav{width:34px;height:34px}.gnchip>span:last-child{display:grid;line-height:1.2}.gnchip small{color:var(--muted);font-size:11px}
 table.gncmp thead .gnav{width:64px;height:64px}table.gncmp thead .gnav.pt{width:96px;height:96px}
+.gt.nf{color:#ffb4b4;border-color:#b33}.gt.bf{color:#b4ffd0;border-color:#2a8a4f}.nfc{color:#ff8a8a}.bfc{color:#7dffb0}
+.gncard h3 small.en{display:block;font-family:var(--f-body);font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:0}
+.gncard h3>span:not(.gnav):not(.gt){flex:1;min-width:0}
+.gnsig{display:flex;align-items:center;gap:8px}.gnsig .gnav{width:34px;height:34px}
+details.gnhist{font-size:12.5px}details.gnhist summary{cursor:pointer;color:var(--acc-soft);font-weight:700}details.gnhist ul{margin:6px 0 0;padding-left:16px;display:grid;gap:4px;color:var(--muted)}
+.gnacc{display:grid;gap:6px}.gnacc details{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 12px}.gnacc summary{cursor:pointer;font-weight:800;font-family:var(--f-display);font-size:16px}
+.gnmd{font-size:13.5px;line-height:1.55}.gnmd h5{font-family:var(--f-display);font-size:16px;color:var(--acc-soft);margin:12px 0 4px}.gnmd ul{margin:4px 0;padding-left:18px}.gnmd p{margin:6px 0}.gnmd hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:12px;font-weight:800}
+.gntier{display:grid;gap:6px}.gntrow{display:grid;grid-template-columns:56px 1fr;gap:6px;min-height:76px}
+.gntl{display:grid;place-items:center;border-radius:10px;font-family:var(--f-display);font-weight:700;font-size:26px;color:#120b1d}
+.gntz{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg2);border:1px dashed var(--line);border-radius:10px;padding:6px;cursor:pointer}
+.gntc{display:flex;flex-direction:column;align-items:center;gap:3px;width:78px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:5px;cursor:grab;color:var(--text);font-size:11px;font-weight:700;text-align:center}
+.gntc.on{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}.gntc .gnav.pt{width:60px;height:60px}.gntc span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
+.gntop{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}@media (max-width:1000px){.gntop{grid-template-columns:1fr}}
+.gnshot{min-height:180px;border:2px dashed var(--line);border-radius:12px;display:grid;place-items:center;text-align:center;color:var(--muted);cursor:pointer;background:var(--bg2);overflow:hidden}
+.gnshot:focus{border-color:var(--acc)}.gnshot.has{border-style:solid;cursor:zoom-in}.gnshot img{width:100%;height:auto;display:block}
 .gt{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:700;background:var(--bg2);color:var(--muted);white-space:nowrap}
 .gt.r{color:var(--text);border-color:color-mix(in srgb,var(--acc) 50%,var(--line))}
 .gt.s{color:var(--gold);border-color:var(--gold2)}
@@ -479,7 +495,8 @@ __JSZIP__
     <button role="tab" id="tab-gn-cmp" aria-selected="false" aria-controls="v-gn-cmp"><span class="ic">⇄</span>Comparer</button>
     <button role="tab" id="tab-gn-build" aria-selected="false" aria-controls="v-gn-build"><span class="ic">🛠</span>Builds</button>
     <button role="tab" id="tab-gn-team" aria-selected="false" aria-controls="v-gn-team"><span class="ic">🤝</span>Team up</button>
-    <button role="tab" id="tab-gn-info" aria-selected="false" aria-controls="v-gn-info"><span class="ic">ℹ</span>Infos &amp; patchs</button>
+    <button role="tab" id="tab-gn-tier" aria-selected="false" aria-controls="v-gn-tier"><span class="ic">★</span>Tier list</button>
+    <button role="tab" id="tab-gn-info" aria-selected="false" aria-controls="v-gn-info"><span class="ic">📖</span>Guide &amp; patchs</button>
   </nav>
   <div class="side-h e7only">Ma box</div>
   <div class="side-actions e7only">
@@ -670,6 +687,20 @@ __JSZIP__
 </section>
 </div>
 <section class="card" style="margin-top:18px">
+  <h2>📸 Build d'un top 1</h2>
+  <p class="sub">Dans le jeu, ouvre le classement et clique sur la ligne du top 1 pour voir ses armes et objets. Fais une capture (Win + Maj + S), colle-la ici (Ctrl + V), remplis le build au-dessus avec ce que tu vois, puis envoie-le : une fois validé, il apparaît pour tout le monde.</p>
+  <div class="gntop">
+    <div class="gnshot" id="gn-shot" tabindex="0" role="button" aria-label="Zone de capture"><span>📋 Colle ta capture ici (Ctrl + V)<br><small>ou clique / glisse une image</small></span></div>
+    <input type="file" id="gn-shotf" accept="image/*" hidden>
+    <div class="gnform">
+      <label>Pseudo du joueur<input id="gn-topp" placeholder="ex. MixiMaster"></label>
+      <label>Classement / score<input id="gn-topr" placeholder="ex. Top 1 classé, 148 pts"></label>
+      <div class="tools" style="margin:4px 0 0"><button class="btn primary" type="button" id="gn-topsend">🌍 Envoyer pour tout le monde</button><button class="btn" type="button" id="gn-topsave">💾 Garder pour moi</button></div>
+      <p class="mini" id="gn-topmsg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+<section class="card" style="margin-top:18px">
   <h2>Builds tout prêts et enregistrés</h2>
   <p class="sub">Clique pour charger. « Mécaniques confirmées » : basés sur les notes de patch. « Idée ZKX » : cohérents avec les passifs, mais certains effets d'armes et d'objets sont devinés d'après leur nom. Adapte selon ce qui tombe.</p>
   <div class="gnsaved" id="gn-bsaved"></div>
@@ -683,6 +714,14 @@ __JSZIP__
   <div class="tools" style="margin-top:12px"><button class="btn" type="button" id="gn-tshare">🔗 Copier le code de la team</button><button class="btn" type="button" id="gn-timp">📥 Coller un code</button><button class="btn" type="button" id="gn-tclear">Vider</button><span class="mini" id="gn-tmsg" aria-live="polite"></span></div>
 </section>
 <section class="card" style="margin-top:18px"><h2>Analyse de la team</h2><div id="gn-tana"></div></section>
+</div>
+<div class="view gnv" id="v-gn-tier" role="tabpanel" aria-labelledby="tab-gn-tier" hidden>
+<section class="card">
+  <h2>Tier list des persos</h2>
+  <p class="sub">Glisse les portraits dans les lignes (ou clique un perso puis une ligne). Elle est gardée sur ton PC ; partage-la avec un code.</p>
+  <div id="gn-tier" class="gntier"></div>
+  <div class="tools" style="margin-top:12px"><button class="btn" type="button" id="gn-tshare2">🔗 Copier le code</button><button class="btn" type="button" id="gn-timp2">📥 Coller un code</button><button class="btn" type="button" id="gn-tclear2">Vider</button><span class="mini" id="gn-tmsg2" aria-live="polite"></span></div>
+</section>
 </div>
 <div class="view gnv" id="v-gn-info" role="tabpanel" aria-labelledby="tab-gn-info" hidden>
 <section class="card" id="gn-info"></section>
@@ -2369,9 +2408,11 @@ let BASE = __GONEXT__;
 let edits = ls.get("gn-edits", {}); for (const k of ["characters","weapons","items"]) edits[k] = edits[k] || {};
 let GN, BY = {};
 const KINDS = { characters: ["Persos", "perso"], weapons: ["Armes", "arme"], items: ["Objets", "objet"] };
-const EFFECTS = { slow: "Ralentit / gèle", poison: "Poison" };
+const EFFECTS = Object.assign({ slow: "Ralentissement", poison: "Poison" }, BASE.effects || {});
+const NM = x => x ? (x.nameFr && x.nameFr !== x.name ? x.nameFr : x.name) : "";
+const RECENT = () => (GN.patchNotes || []).slice(0, 3).map(p => (p.title.match(/\(([^)]+)\)/) || [])[1]);
 const COLORS = { zone: "#a855f7", boss: "#ef4444", ctrl: "#22d3ee", surv: "#22c55e", eco: "#f0b429", mob: "#3b82f6",
-  orbit: "#a855f7", minion: "#22c55e", melee: "#ef4444", proj: "#3b82f6", aoe: "#f97316", beam: "#22d3ee", luck: "#f0b429" };
+  orbit: "#a855f7", minion: "#22c55e", melee: "#ef4444", proj: "#3b82f6", aoe: "#f97316", beam: "#22d3ee", luck: "#f0b429", ground: "#a3e635", aura: "#e879f9" };
 function merge(){
   GN = JSON.parse(JSON.stringify(BASE)); BY = {};
   for (const k of Object.keys(KINDS)){
@@ -2391,7 +2432,7 @@ const SN = s => (GN.stats && GN.stats[s]) || EFFECTS[s] || (GN.types && GN.types
 const RN = r => (GN.roles && GN.roles[r]) || r;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const IMG_REMOTE = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/app/gonext/";
-const av = x => x && x.img ? `<span class="gnav im${x.img.startsWith("chars/") ? " pt" : ""}" title="${esc(x.name)}"><img src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}"></span>` : `<span class="gnav" title="${esc(x ? x.name : "")}">${x ? ini(x.name) : "?"}</span>`;
+const av = x => x && x.img ? `<span class="gnav im${x.img.startsWith("chars/") ? " pt" : ""}" title="${esc(NM(x))}"><img src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}"></span>` : `<span class="gnav" title="${esc(x ? x.name : "")}">${x ? ini(x.name) : "?"}</span>`;
 document.addEventListener("error", e => { const im = e.target; if (!im || im.tagName !== "IMG" || !im.dataset.r) return; if (!im.dataset.tried){ im.dataset.tried = 1; im.src = IMG_REMOTE + im.dataset.r; } else { const sp = im.parentNode; sp.classList.remove("im"); sp.textContent = ini(sp.title || "?"); } }, true);
 const ini = n => esc(String(n).split(/[\s.\-]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase());
 const col = x => COLORS[x.type] || COLORS[(x.roles || [])[0]] || "var(--acc)";
@@ -2408,11 +2449,12 @@ const dec = s => { s = String(s || "").trim(); if (!s.startsWith("GN1.")) throw 
 /* ---------- jeu actif ---------- */
 const GAMES = { e7: "Epic Seven", gn: "Go Next!" };
 const GN_PAGES = {
-  data: ["Go Next! · Données", "Persos, armes, objets et cartes connus, d'après la page Steam et les notes de patch. Ajoute ou corrige ce que tu découvres en jeu."],
+  data: ["Go Next! · Données", "Tous les persos, armes, objets, passifs et cartes, avec les textes officiels du jeu (version du 14/11)."],
   cmp: ["Go Next! · Comparer", "Deux ou trois éléments côte à côte."],
   build: ["Go Next! · Builds", "Monte ton build et vois ses synergies et ses trous."],
   team: ["Go Next! · Team up", "Prépare une run coop à 2, 3 ou 4."],
-  info: ["Go Next! · Infos & patchs", "Règles utiles, cartes, sources et mise à jour des données."] };
+  tier: ["Go Next! · Tier list des persos", "Classe les persos à ta façon et partage ta tier list."],
+  info: ["Go Next! · Guide & patchs", "Le guide officiel du jeu en français, les notes de patch et la mise à jour des données."] };
 let gnTab = ls.get("gn-tab", "data");
 let game = ls.get("zkx-game", "e7");
 function setGame(g){
@@ -2431,7 +2473,7 @@ function showGn(t){
   $("page-h").textContent = GN_PAGES[gnTab][0]; $("page-p").textContent = GN_PAGES[gnTab][1];
   render();
 }
-function render(){ ({ data: renderData, cmp: renderCmp, build: renderBuild, team: renderTeam, info: renderInfo })[gnTab](); }
+function render(){ ({ data: renderData, cmp: renderCmp, build: renderBuild, team: renderTeam, tier: renderTier, info: renderInfo })[gnTab](); }
 document.querySelectorAll("[data-game]").forEach(b => b.addEventListener("click", () => setGame(b.dataset.game)));
 for (const k in GN_PAGES) $("tab-gn-" + k).addEventListener("click", () => showGn(k));
 
@@ -2458,18 +2500,37 @@ function tagsOf(kind, x){
   if (x.mine) t.push(`<span class="gt me">${x.added ? "ajouté par toi" : "corrigé par toi"}</span>`);
   return `<div class="gtags">${t.join("")}</div>`;
 }
+function badge(x){
+  if (!x.badge || !RECENT().includes(x.badge.patch)) return "";
+  return `<span class="gt ${x.badge.kind === "nerf" ? "nf" : "bf"}" title="Patch ${esc(x.badge.patch)}">${x.badge.kind === "nerf" ? "▼ nerfé" : "▲ buffé"}</span>`;
+}
+function hist(x){
+  if (!(x.history || []).length) return "";
+  return `<details class="gnhist"><summary>Historique des patchs (${x.history.length})</summary><ul>${x.history.map(h => `<li><b class="${h.kind === "nerf" ? "nfc" : h.kind === "buff" ? "bfc" : ""}">${esc(h.patch)}</b> · ${esc(h.line)}</li>`).join("")}</ul></details>`;
+}
 function card(kind, x){
-  const txt = kind === "characters" ? x.passive : x.note;
-  const sig = kind === "characters" && x.sig ? `<p class="mini">Arme de départ : <b>${esc(x.sig)}</b>${x.sigSure ? "" : " (probable)"}</p>` : "";
-  return `<article class="gncard" style="--gnc:${col(x)}"><h3>${av(x)}${esc(x.name)}</h3>${tagsOf(kind, x)}
-    ${txt ? `<p>${esc(txt)}</p>` : `<p class="mini">Effet pas encore renseigné.</p>`}${sig}${x.tip ? `<p class="mini">💡 ${esc(x.tip)}</p>` : ""}
+  const sub = x.nameFr && x.nameFr !== x.name ? `<small class="en">${esc(x.name)}</small>` : "";
+  let body = "";
+  if (kind === "characters"){
+    const sw = GN.weapons.find(w => w.name === x.sig);
+    body = `${x.tag ? `<p class="mini" style="font-style:italic">« ${esc(x.tag)} »</p>` : ""}
+      ${x.statsTxt ? `<p><b>Profil :</b> ${esc(x.statsTxt)}</p>` : ""}
+      ${x.sig ? `<p class="gnsig">${sw ? av(sw) : ""}<span>Arme fétiche : <b>${esc(sw ? NM(sw) : x.sig)}</b></span></p>` : ""}
+      ${x.passive ? `<p><b>${esc(x.passiveName || "Passif")} :</b> ${esc(x.passive)}</p>` : ""}
+      ${x.unlock ? `<p class="mini">🔓 ${esc(x.unlock)}</p>` : ""}
+      ${x.lore ? `<details class="gnhist"><summary>Histoire</summary><p class="mini">${esc(x.lore)}</p></details>` : ""}`;
+  } else body = x.note ? `<p>${esc(x.note)}</p>` : `<p class="mini">Effet pas encore renseigné.</p>`;
+  return `<article class="gncard" style="--gnc:${col(x)}"><h3>${av(x)}<span>${esc(NM(x))}${sub}</span>${badge(x)}</h3>${tagsOf(kind, x)}
+    ${body}${x.auto ? '<p class="mini">Tags déduits de la description.</p>' : ""}${hist(x)}
     <div class="acts"><button class="btn sm" type="button" data-gncmp="${kind}:${esc(x.id)}">⇄ Comparer</button><button class="btn sm" type="button" data-gnedit="${kind}:${esc(x.id)}">✏ Corriger</button></div></article>`;
 }
 
 /* ---------- Données ---------- */
 let dKind = "characters";
 function filterOpts(kind){
-  if (kind === "weapons") return [["", "Tous les types"], ...Object.entries(GN.types).map(([k, v]) => ["t:" + k, v]), ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v])];
+  const ef = Object.entries(EFFECTS).map(([k, v]) => ["e:" + k, "Effet : " + v]);
+  if (kind === "weapons") return [["", "Tous les types"], ...Object.entries(GN.types).map(([k, v]) => ["t:" + k, v]), ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v]), ...ef, ["b:", "Modifiés aux derniers patchs"]];
+  if (kind === "items") return [["", "Tous les rôles"], ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v]), ...ef, ["b:", "Modifiés aux derniers patchs"]];
   if (kind === "maps") return [["", "Tout"]];
   return [["", "Tous les rôles"], ...Object.entries(GN.roles).map(([k, v]) => ["r:" + k, v])];
 }
@@ -2480,23 +2541,23 @@ function renderData(){
   const q = $("gn-q").value.trim().toLowerCase();
   if (dKind === "maps"){
     const m = (GN.maps || []).filter(x => !q || JSON.stringify(x).toLowerCase().includes(q));
-    $("gn-grid").innerHTML = m.map(x => `<article class="gncard">${x.img ? `<img class="gnmap" src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}">` : ""}<h3>${esc(x.name)}</h3>${x.boss ? `<div class="gtags"><span class="gt r">Boss : ${esc(x.boss)}</span></div>` : ""}${x.note ? `<p>${esc(x.note)}</p>` : ""}</article>`).join("");
+    $("gn-grid").innerHTML = m.map(x => `<article class="gncard">${x.img ? `<img class="gnmap" src="gonext/${esc(x.img)}" alt="" loading="lazy" data-r="${esc(x.img)}">` : ""}<h3>${x.order ? `<span class="gnav">${x.order}</span>` : ""}${esc(NM(x))}</h3>${x.boss ? `<p><b>Boss :</b> ${esc(x.boss)}</p>` : ""}${x.note ? `<p>${esc(x.note)}</p>` : ""}</article>`).join("");
     $("gn-count").textContent = `${(GN.maps || []).length} / ${GN.counts.worlds} mondes connus`;
     $("gn-data-note").textContent = "";
     return;
   }
   if (dKind === "passives"){
     const m = (GN.passives || []).filter(x => !q || x.name.toLowerCase().includes(q));
-    $("gn-grid").innerHTML = m.map(x => `<article class="gncard"><h3>${av(x)}${esc(x.name)}</h3></article>`).join("");
+    $("gn-grid").innerHTML = m.map(x => `<article class="gncard"><h3>${av(x)}<span>${esc(NM(x))}${x.nameFr && x.nameFr !== x.name ? `<small class="en">${esc(x.name)}</small>` : ""}</span></h3>${x.note ? `<p>${esc(x.note)}</p>` : ""}</article>`).join("");
     $("gn-count").textContent = `${(GN.passives || []).length} passifs`;
-    $("gn-data-note").textContent = "Les passifs se débloquent dans l'arbre d'amélioration (une branche par monde). Leurs effets ne sont pas encore extraits du jeu.";
+    $("gn-data-note").textContent = "Passifs d'armure : ils apparaissent sur les pièces d'armure et sur les objets finaux de la forge, une fois débloqués dans l'arbre d'améliorations.";
     return;
   }
   const fv = f.value;
-  const list = GN[dKind].filter(x => (!q || JSON.stringify(x).toLowerCase().includes(q)) && (!fv || (fv[0] === "t" ? x.type === fv.slice(2) : (x.roles || []).includes(fv.slice(2)))));
+  const list = GN[dKind].filter(x => (!q || JSON.stringify(x).toLowerCase().includes(q)) && (!fv || (fv[0] === "t" ? x.type === fv.slice(2) : fv[0] === "e" ? (x.effects || []).includes(fv.slice(2)) : fv[0] === "b" ? !!badge(x) : (x.roles || []).includes(fv.slice(2)))));
   $("gn-grid").innerHTML = list.length ? list.map(x => card(dKind, x)).join("") : '<p class="empty">Rien ne correspond.</p>';
   $("gn-count").textContent = `${GN[dKind].length} / ${GN.counts[dKind]} ${KINDS[dKind][0].toLowerCase()} renseignés`;
-  $("gn-data-note").textContent = GN[dKind].length < GN.counts[dKind] ? `Le jeu en compte ${GN.counts[dKind]}, mais seuls ceux cités sur Steam ou dans les patchs sont là. Utilise « Ajouter » pour ceux que tu croises (menu Unlocks du jeu) : ils servent tout de suite dans les builds.` : "";
+  $("gn-data-note").textContent = "Noms et descriptions : textes officiels du jeu. Types, rôles et stats sont un classement ZKX pour les builds (corrigeables avec ✏).";
 }
 $("gn-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ dKind = b.dataset.k; $("gn-q").value = ""; $("gn-f").value = ""; renderData(); } });
 $("gn-q").addEventListener("input", renderData); $("gn-f").addEventListener("change", renderData);
@@ -2509,7 +2570,7 @@ function editDlg(kind, id){
   const allLikes = Object.assign({}, GN.stats, GN.types, EFFECTS);
   let f = `<button class="btn sm x" type="button" data-gnx>✕</button><h3 id="gn-dlg-t">${id ? "Corriger" : "Ajouter"} : ${esc(KINDS[kind][1])}</h3>
   <p class="mini">Reste sur ton PC. Pour le partager à tout le monde, utilise « Exporter mes ajouts » dans Infos et envoie le fichier à PandaZkx.</p>
-  <form class="gnform" id="gn-ef"><label>Nom (comme dans le jeu)<input name="name" required value="${esc(x.name)}"${id && !x.added ? " readonly" : ""}></label>`;
+  <form class="gnform" id="gn-ef"><label>Nom (comme dans le jeu)<input name="name" required value="${esc(NM(x))}"${id && !x.added ? " readonly" : ""}></label>`;
   if (kind === "weapons") f += `<label>Type<select name="type">${Object.entries(GN.types).map(([k, v]) => `<option value="${k}"${x.type === k ? " selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   f += `<label>Rôles${chk("roles", GN.roles, x.roles)}</label>`;
   if (kind === "characters") f += `<label>Aime (stats, types d'arme, effets)${chk("likes", allLikes, x.likes)}</label><label>Déteste${chk("dislikes", GN.types, x.dislikes)}</label>
@@ -2568,11 +2629,11 @@ function goesWith(kind, x){
 
 /* ---------- Comparer ---------- */
 let cKind = "characters", cSel = [];
-function slotBtn(x, attr, label){ return `<button type="button" class="gnpick" ${attr} style="--gnc:${x ? col(x) : "var(--line)"}">${x ? av(x) : '<span class="gnav">＋</span>'}<span><small>${esc(label)}</small><b>${x ? esc(x.name) : "Choisir…"}</b></span></button>`; }
-function chip(o){ return `<span class="gnchip" style="--gnc:${col(o.x)}" title="${esc(o.why || "")}">${av(o.x)}<span><b>${esc(o.x.name)}</b>${o.why ? `<small>${esc(o.why)}</small>` : ""}</span></span>`; }
+function slotBtn(x, attr, label){ return `<button type="button" class="gnpick" ${attr} style="--gnc:${x ? col(x) : "var(--line)"}">${x ? av(x) : '<span class="gnav">＋</span>'}<span><small>${esc(label)}</small><b>${x ? esc(NM(x)) : "Choisir…"}</b></span></button>`; }
+function chip(o){ return `<span class="gnchip" style="--gnc:${col(o.x)}" title="${esc(o.why || "")}">${av(o.x)}<span><b>${esc(NM(o.x))}</b>${o.why ? `<small>${esc(o.why)}</small>` : ""}</span></span>`; }
 function pickDlg(kind, curId, onPick){
   const list = q => GN[kind].filter(x => !q || x.name.toLowerCase().includes(q) || JSON.stringify(x.roles || []).includes(q));
-  const grid = q => list(q).map(x => `<button type="button" class="gnpk${x.id === curId ? " on" : ""}" data-pk="${esc(x.id)}" style="--gnc:${col(x)}">${av(x)}<span>${esc(x.name)}</span></button>`).join("") || '<p class="empty">Rien ne correspond.</p>';
+  const grid = q => list(q).map(x => `<button type="button" class="gnpk${x.id === curId ? " on" : ""}" data-pk="${esc(x.id)}" style="--gnc:${col(x)}">${av(x)}<span>${esc(NM(x))}</span></button>`).join("") || '<p class="empty">Rien ne correspond.</p>';
   const d = $("gn-dlg"); d.style.maxWidth = "980px";
   d.innerHTML = `<button class="btn sm x" type="button" data-gnx>✕</button><h3 id="gn-dlg-t">Choisir : ${esc(KINDS[kind][1])}</h3>
     <div class="tools" style="margin:10px 0"><input type="search" id="gn-pkq" placeholder="Chercher…" aria-label="Chercher">${curId ? '<button class="btn sm" type="button" data-pk="">Retirer</button>' : ""}</div><div class="gnpkgrid" id="gn-pkg">${grid("")}</div>`;
@@ -2582,7 +2643,7 @@ function pickDlg(kind, curId, onPick){
 }
 function renderCmp(){
   $("gn-cmp-kind").innerHTML = Object.entries(KINDS).map(([k, v]) => `<button type="button" data-k="${k}" aria-pressed="${k === cKind}">${v[0]}</button>`).join("");
-  const opts = sel => `<option value="">—</option>` + GN[cKind].map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("");
+  const opts = sel => `<option value="">—</option>` + GN[cKind].map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(NM(x))}</option>`).join("");
   $("gn-cmp-sel").innerHTML = [0, 1, 2].map(i => slotBtn(BY[cKind + ":" + cSel[i]], `data-ci="${i}"`, `${KINDS[cKind][1]} ${i + 1}`)).join("");
   const xs = cSel.map(id => BY[cKind + ":" + id]).filter(Boolean);
   if (xs.length < 2){ $("gn-cmp-out").innerHTML = '<p class="empty">Choisis au moins 2 éléments (ou clique sur « ⇄ Comparer » dans Données).</p>'; return; }
@@ -2592,7 +2653,7 @@ function renderCmp(){
   if (cKind === "characters") rows.push(["Aime", x => (x.likes || []).map(SN).join(", ") || "—"], ["Évite", x => (x.dislikes || []).map(SN).join(", ") || "—"], ["Arme de départ", x => x.sig ? x.sig + (x.sigSure ? "" : " (probable)") : "—"], ["Passif", x => x.passive || "—"], ["Conseil", x => x.tip || "—"]);
   else rows.push(["Effet", x => x.note || "—"]);
   rows.push(["Va bien avec", x => { const g = goesWith(cKind, x); return g.length ? { html: `<div class="gnchips">${g.map(chip).join("")}</div>` } : "rien de repéré pour l'instant"; }]);
-  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><div style="display:flex;gap:10px;align-items:center">${av(x)}<b style="font-family:var(--f-display);font-size:18px">${esc(x.name)}</b></div></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => { const v = f(x); return `<td>${v && v.html ? v.html : esc(v)}</td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+  $("gn-cmp-out").innerHTML = `<table class="gncmp"><thead><tr><th></th>${xs.map(x => `<td><div style="display:flex;gap:10px;align-items:center">${av(x)}<b style="font-family:var(--f-display);font-size:18px">${esc(NM(x))}</b></div></td>`).join("")}</tr></thead><tbody>${rows.map(([l, f]) => `<tr><th>${l}</th>${xs.map(x => { const v = f(x); return `<td>${v && v.html ? v.html : esc(v)}</td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
 }
 $("gn-cmp-kind").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b){ cKind = b.dataset.k; cSel = []; renderCmp(); } });
 $("gn-cmp-sel").addEventListener("click", e => { const s = e.target.closest("[data-ci]"); if (!s) return; const i = +s.dataset.ci; pickDlg(cKind, cSel[i], id => { cSel[i] = id; cSel = [0, 1, 2].map(j => cSel[j] || ""); renderCmp(); }); });
@@ -2640,8 +2701,8 @@ let cur = Object.assign(blank(), ls.get("gn-build-cur", {}));
 let saved = ls.get("gn-builds", []);
 function optList(list, sel, groupBy){
   let h = `<option value="">—</option>`;
-  if (groupBy){ for (const [k, v] of [...Object.entries(GN.types), ["", "Autres"]]){ const g = list.filter(x => (GN.types[x.type] ? x.type : "") === k); if (g.length) h += `<optgroup label="${esc(v)}">${g.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("")}</optgroup>`; } }
-  else h += list.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(x.name)}</option>`).join("");
+  if (groupBy){ for (const [k, v] of [...Object.entries(GN.types), ["", "Autres"]]){ const g = list.filter(x => (GN.types[x.type] ? x.type : "") === k); if (g.length) h += `<optgroup label="${esc(v)}">${g.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(NM(x))}</option>`).join("")}</optgroup>`; } }
+  else h += list.map(x => `<option value="${esc(x.id)}"${x.id === sel ? " selected" : ""}>${esc(NM(x))}</option>`).join("");
   return h;
 }
 function renderBuild(){
@@ -2661,7 +2722,7 @@ function renderBuild(){
   f.querySelectorAll("[data-bp]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.bp, kind = k === "char" ? "characters" : k[0] === "w" ? "weapons" : "items";
     const curId = k === "char" ? cur.char : k[0] === "w" ? cur.weapons[+k.slice(1)] : cur.items[+k.slice(1)];
     pickDlg(kind, curId, id => { if (k === "char") cur.char = id; else if (k[0] === "w") cur.weapons[+k.slice(1)] = id; else cur.items[+k.slice(1)] = id; ls.set("gn-build-cur", cur); renderBuild(); }); }));
-  renderBana(); renderSaved();
+  renderBana(); renderSaved(); loadCommunity();
 }
 function renderBana(){
   const a = analyze(cur), c = a.c;
@@ -2673,14 +2734,16 @@ function renderBana(){
     <h4 style="margin:14px 0 0;font-family:var(--f-display)">Rôles couverts</h4>${roleBars(a.roles)}`;
 }
 function renderSaved(){
-  const pre = (GN.presets || []).map((p, i) => `<div class="row"><div><div class="gnicons" style="margin:0 0 4px">${[...p.weapons.map(W), ...(p.items || []).map(I)].filter(Boolean).map(av).join("")}</div><b>⭐ ${esc(p.name)}</b> <span class="gt ${p.sure ? "r" : "s"}">${p.sure ? "mécaniques confirmées" : "idée ZKX à tester"}</span> <span class="mini">· ${esc((C(p.char) || {}).name || p.char)} · note ${analyze(p).score}</span><div class="mini">${esc(p.why)}</div></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnpre="${i}">Charger</button></div></div>`);
+  const pre = (GN.presets || []).map((p, i) => `<div class="row"><div><div class="gnicons" style="margin:0 0 4px">${[C(p.char), ...p.weapons.map(W), ...(p.items || []).map(I)].filter(Boolean).map(av).join("")}</div><b>⭐ ${esc(p.name)}</b> <span class="gt ${p.sure ? "r" : "s"}">${p.sure ? "mécaniques confirmées" : "idée ZKX à tester"}</span> <span class="mini">· ${esc((C(p.char) || {}).name || p.char)} · note ${analyze(p).score}</span><div class="mini">${esc(p.why)}</div></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnpre="${i}">Charger</button></div></div>`);
   const mine = saved.map((p, i) => `<div class="row"><div><b>${esc(p.name || "Sans nom")}</b> <span class="mini">· ${esc((C(p.char) || {}).name || "—")} · ${p.weapons.map(W).filter(Boolean).map(w => esc(w.name)).join(", ")} · note ${analyze(p).score}</span></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gnload="${i}">Charger</button><button class="btn sm" type="button" data-gndel="${i}" aria-label="Supprimer">🗑</button></div></div>`);
-  $("gn-bsaved").innerHTML = [...pre, ...mine].join("") || '<p class="empty">Aucun build.</p>';
+  const comm = community.map((p, i) => `<div class="row"><div><div class="gnicons" style="margin:0 0 4px">${[C(p.char), ...p.weapons.map(W), ...(p.items || []).map(I)].filter(Boolean).map(av).join("")}</div><b>🌍 ${esc(p.name || "Build")}</b> <span class="gt s">communauté</span> <span class="mini">· ${esc(NM(C(p.char)) || "—")}${p.player ? " · " + esc(p.player) : ""}${p.rank ? " · " + esc(p.rank) : ""} · note ${analyze(p).score}</span></div><div style="display:flex;gap:6px"><button class="btn sm" type="button" data-gncomm="${i}">Charger</button></div></div>`);
+  $("gn-bsaved").innerHTML = [...comm, ...pre, ...mine].join("") || '<p class="empty">Aucun build.</p>';
 }
 const norm = b => { const o = Object.assign(blank(), JSON.parse(JSON.stringify(b))); o.weapons = [0, 1, 2, 3].map(i => o.weapons[i] || ""); if (!o.items.length) o.items = [""]; delete o.why; return o; };
 $("gn-bsaved").addEventListener("click", e => {
-  const p = e.target.closest("[data-gnpre]"), l = e.target.closest("[data-gnload]"), d = e.target.closest("[data-gndel]");
-  if (p){ cur = norm(GN.presets[+p.dataset.gnpre]); }
+  const p = e.target.closest("[data-gnpre]"), l = e.target.closest("[data-gnload]"), d = e.target.closest("[data-gndel]"), cm = e.target.closest("[data-gncomm]");
+  if (cm){ cur = norm(community[+cm.dataset.gncomm]); }
+  else if (p){ cur = norm(GN.presets[+p.dataset.gnpre]); }
   else if (l){ cur = norm(saved[+l.dataset.gnload]); }
   else if (d){ if (!confirm("Supprimer ce build ?")) return; saved.splice(+d.dataset.gndel, 1); ls.set("gn-builds", saved); renderSaved(); return; }
   else return;
@@ -2719,7 +2782,7 @@ function renderTana(){
   const chars = ps.map(p => p.char), dup = chars.filter((c, i) => chars.indexOf(c) !== i);
   if (dup.length) notes.push(`${[...new Set(dup)].map(d => C(d).name).join(", ")} est pris deux fois : vous aurez les mêmes forces et les mêmes trous.`);
   const missing = Object.keys(GN.roles).filter(r => !roles[r]);
-  const sugg = missing.map(r => { const c = GN.characters.filter(x => (x.roles || []).includes(r) && !chars.includes(x.id)).slice(0, 4); return `<li class="ko"><b>${esc(RN(r))}</b> : personne ne le couvre. ${c.length ? "Persos qui le font : " + c.map(x => esc(x.name)).join(", ") + "." : ""}</li>`; });
+  const sugg = missing.map(r => { const c = GN.characters.filter(x => (x.roles || []).includes(r) && !chars.includes(x.id)).slice(0, 4); return `<li class="ko"><b>${esc(RN(r))}</b> : personne ne le couvre. ${c.length ? "Persos qui le font : " + c.map(x => esc(NM(x))).join(", ") + "." : ""}</li>`; });
   const ws = new Map(); ps.forEach(p => { const b = playerBuild(p); if (b) (b.weapons || []).filter(Boolean).forEach(w => ws.set(w, (ws.get(w) || 0) + 1)); });
   const shared = [...ws].filter(([, n]) => n > 1).map(([w]) => (W(w) || {}).name || w);
   if (shared.length) notes.push(`Armes en double entre joueurs : ${shared.join(", ")}. Répartissez-les pour couvrir plus de rôles.`);
@@ -2744,17 +2807,96 @@ $("gn-timp").addEventListener("click", () => { const s = prompt("Colle le code (
     ls.set("gn-team", team); renderTeam(); $("gn-tmsg").textContent = "Importé.";
   } catch(e){ $("gn-tmsg").textContent = "Ce code n'est pas un code ZKX."; } });
 
+/* ---------- Tier list des persos ---------- */
+const TIERS = [["S", "#f0b429"], ["A", "#45c27a"], ["B", "#3b82f6"], ["C", "#a855f7"], ["D", "#6b7280"]];
+let tier = ls.get("gn-tier", {}); let tierSel = null;
+function tierClean(){ const ok = new Set(GN.characters.map(c => c.id)); const seen = new Set();
+  for (const [t] of TIERS){ tier[t] = (tier[t] || []).filter(id => ok.has(id) && !seen.has(id) && seen.add(id)); } }
+function renderTier(){
+  tierClean();
+  const placed = new Set(TIERS.flatMap(([t]) => tier[t]));
+  const pc = id => { const c = C(id); return `<button type="button" class="gntc${tierSel === id ? " on" : ""}" draggable="true" data-tc="${esc(id)}" title="${esc(NM(c))}">${av(c)}<span>${esc(NM(c))}</span></button>`; };
+  const rows = TIERS.map(([t, colr]) => `<div class="gntrow" data-tr="${t}"><div class="gntl" style="background:${colr}">${t}</div><div class="gntz" data-tz="${t}">${tier[t].map(pc).join("") || '<span class="mini">Glisse des persos ici</span>'}</div></div>`).join("");
+  const rest = GN.characters.filter(c => !placed.has(c.id)).map(c => pc(c.id)).join("");
+  $("gn-tier").innerHTML = `${rows}<div class="gntrow"><div class="gntl" style="background:var(--panel2);color:var(--muted)">?</div><div class="gntz" data-tz="">${rest || '<span class="mini">Tous les persos sont classés.</span>'}</div></div>`;
+}
+function tierMove(id, t){ for (const [k] of TIERS) tier[k] = (tier[k] || []).filter(x => x !== id); if (t) tier[t].push(id); ls.set("gn-tier", tier); tierSel = null; renderTier(); }
+$("gn-tier").addEventListener("click", e => {
+  const c = e.target.closest("[data-tc]");
+  if (c){ tierSel = tierSel === c.dataset.tc ? null : c.dataset.tc; renderTier(); $("gn-tmsg2").textContent = tierSel ? "Clique maintenant sur une ligne pour y ranger " + NM(C(tierSel)) + "." : ""; return; }
+  const z = e.target.closest("[data-tz]"); if (z && tierSel){ tierMove(tierSel, z.dataset.tz); $("gn-tmsg2").textContent = ""; }
+});
+$("gn-tier").addEventListener("dragstart", e => { const c = e.target.closest("[data-tc]"); if (c) e.dataTransfer.setData("text/plain", c.dataset.tc); });
+$("gn-tier").addEventListener("dragover", e => { if (e.target.closest("[data-tz]")) e.preventDefault(); });
+$("gn-tier").addEventListener("drop", e => { const z = e.target.closest("[data-tz]"); if (!z) return; e.preventDefault(); const id = e.dataTransfer.getData("text/plain"); if (id) tierMove(id, z.dataset.tz); });
+$("gn-tshare2").addEventListener("click", () => copy(enc({ k: "tl", t: tier }), $("gn-tmsg2")));
+$("gn-timp2").addEventListener("click", () => { const s = prompt("Colle le code de la tier list (GN1.…) :"); if (!s) return;
+  try { const o = dec(s); if (o.k !== "tl") throw 0; tier = o.t || {}; ls.set("gn-tier", tier); renderTier(); $("gn-tmsg2").textContent = "Tier list importée."; } catch(e){ $("gn-tmsg2").textContent = "Ce code n'est pas une tier list ZKX."; } });
+$("gn-tclear2").addEventListener("click", () => { if (!confirm("Vider la tier list ?")) return; tier = {}; ls.set("gn-tier", tier); renderTier(); });
+
+/* ---------- mini rendu markdown (guide, patchs) ---------- */
+function md(t){
+  const inl = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>").replace(/\[E\]|\[F\]|\[TAB\]/g, m => `<kbd>${m.slice(1, -1)}</kbd>`);
+  let h = "", inList = false;
+  for (const line of String(t).split("\n")){
+    const l = line.trim();
+    if (/^- /.test(l)){ if (!inList){ h += "<ul>"; inList = true; } h += `<li>${inl(l.slice(2))}</li>`; continue; }
+    if (inList){ h += "</ul>"; inList = false; }
+    if (!l) continue;
+    if (/^---+$/.test(l)) h += "<hr>";
+    else if (/^#{1,3} /.test(l)) h += `<h5>${inl(l.replace(/^#+ /, ""))}</h5>`;
+    else if (/^> /.test(l)) h += `<p class="mini">${inl(l.slice(2))}</p>`;
+    else h += `<p>${inl(l)}</p>`;
+  }
+  return h + (inList ? "</ul>" : "");
+}
+
+/* ---------- Build d'un top 1 + builds de la communauté ---------- */
+const COMM_URL = "https://raw.githubusercontent.com/PandaZkx/ZKX/main/data/gonext_community.json";
+let community = ls.get("gn-comm", []), commLoaded = false;
+function loadCommunity(){
+  if (commLoaded) return; commLoaded = true;
+  fetch(COMM_URL + "?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => { if (Array.isArray(j)){ community = j; ls.set("gn-comm", j); if (gnTab === "build") renderSaved(); } }).catch(() => {});
+}
+let shotUrl = "";
+function setShot(file){ if (!file || !/^image\//.test(file.type)) return; if (shotUrl) URL.revokeObjectURL(shotUrl); shotUrl = URL.createObjectURL(file); $("gn-shot").innerHTML = `<img src="${shotUrl}" alt="Capture du build">`; $("gn-shot").classList.add("has"); }
+$("gn-shot").addEventListener("click", () => { if (!shotUrl) $("gn-shotf").click(); else window.open(shotUrl); });
+$("gn-shotf").addEventListener("change", e => setShot(e.target.files[0]));
+$("gn-shot").addEventListener("dragover", e => e.preventDefault());
+$("gn-shot").addEventListener("drop", e => { e.preventDefault(); setShot(e.dataTransfer.files[0]); });
+document.addEventListener("paste", e => { if (game !== "gn" || gnTab !== "build") return; const it = [...(e.clipboardData || {}).items || []].find(i => /^image\//.test(i.type)); if (it){ e.preventDefault(); setShot(it.getAsFile()); $("gn-topmsg").textContent = "Capture collée. Remplis le build à gauche avec ce que tu vois, puis envoie-le."; } });
+function openUrl(u){ if (window.zkx && window.zkx.openExternal) window.zkx.openExternal(u); else window.open(u, "_blank"); }
+$("gn-topsend").addEventListener("click", () => {
+  const a = analyze(cur);
+  if (!cur.char || a.ws.length < 2){ $("gn-topmsg").textContent = "Remplis d'abord le perso et les armes du build (à gauche), d'après la capture."; return; }
+  const player = $("gn-topp").value.trim(), rank = $("gn-topr").value.trim();
+  const b = Object.assign({}, cur, { name: cur.name || `Top 1 · ${NM(C(cur.char))}`, player, rank });
+  const code = enc({ k: "b", b });
+  const body = `Build du top 1 envoyé depuis ZKX.\n\n- Perso : ${NM(C(cur.char))}\n- Armes : ${a.ws.map(NM).join(", ")}\n- Objets : ${a.its.map(NM).join(", ") || "—"}\n- Joueur : ${player || "?"}\n- Classement : ${rank || "?"}\n\nCode ZKX (ne pas modifier) :\n\n${code}\n\n👉 Colle la capture d'écran du build ici (Ctrl + V) avant d'envoyer.`;
+  openUrl("https://github.com/PandaZkx/ZKX/issues/new?labels=build&title=" + encodeURIComponent("[Build top 1] " + b.name) + "&body=" + encodeURIComponent(body));
+  copy(code, null);
+  $("gn-topmsg").textContent = "Page GitHub ouverte : colle la capture (Ctrl + V) et valide. Une fois approuvé, le build apparaît pour tout le monde dans « Builds de la communauté ».";
+});
+$("gn-topsave").addEventListener("click", () => {
+  const player = $("gn-topp").value.trim(), rank = $("gn-topr").value.trim();
+  const b = JSON.parse(JSON.stringify(cur)); b.name = b.name || `Top 1 · ${NM(C(cur.char))}`; b.player = player; b.rank = rank;
+  saved.push(b); ls.set("gn-builds", saved); renderSaved(); $("gn-topmsg").textContent = "Ajouté à tes builds enregistrés.";
+});
+
 /* ---------- Infos ---------- */
 function renderInfo(){
   const nEd = Object.values(edits).reduce((n, o) => n + Object.keys(o).length, 0);
   $("gn-info").innerHTML = `<h2>Go Next!</h2><p class="sub">${esc(GN.about)}</p>
     <div class="kpis" style="margin:10px 0"><div class="kpi acc"><div class="v">${GN.characters.length}/${GN.counts.characters}</div><div class="l">persos renseignés</div></div><div class="kpi"><div class="v">${GN.weapons.length}/${GN.counts.weapons}</div><div class="l">armes</div></div><div class="kpi"><div class="v">${GN.items.length}/${GN.counts.items}</div><div class="l">objets</div></div><div class="kpi gold"><div class="v">${esc(GN.patch)}</div><div class="l">dernier patch pris en compte</div></div></div>
-    <h4 style="font-family:var(--f-display);font-size:18px;margin:14px 0 4px">À savoir en run</h4><ul class="gnlist">${(GN.rules || []).map(r => `<li>${esc(r)}</li>`).join("")}</ul>
+    <h4 style="font-family:var(--f-display);font-size:20px;margin:16px 0 6px">📖 Guide du jeu</h4><p class="mini" style="margin:0 0 8px">Le guide intégré au jeu, en français.</p>
+    <div class="gnacc">${(GN.guide || []).map(g => `<details><summary>${esc(g.title)}</summary><div class="gnmd">${md(g.text)}</div></details>`).join("")}</div>
+    <h4 style="font-family:var(--f-display);font-size:20px;margin:16px 0 6px">🛠 Notes de patch</h4><p class="mini" style="margin:0 0 8px">Les notes officielles (en anglais), de la plus récente à la plus ancienne. Les fiches des armes et objets montrent aussi leur historique.</p>
+    <div class="gnacc">${(GN.patchNotes || []).map((p, i) => `<details${i ? "" : " open"}><summary>${esc(p.title.replace("Go Next — ", ""))}</summary><div class="gnmd">${md(p.text.split("\n").slice(1).join("\n"))}</div></details>`).join("")}</div>
     <h4 style="font-family:var(--f-display);font-size:18px;margin:14px 0 4px">Données</h4>
     <p class="mini">${esc(onlineMsg || ("Données du " + BASE.updated + "."))} Les données se mettent à jour toutes seules depuis GitHub (data/gonext.json), sans nouvelle version de ZKX.</p>
     <div class="tools"><button class="btn" type="button" id="gn-iref">🔄 Vérifier maintenant</button><button class="btn" type="button" id="gn-iexp"${nEd ? "" : " disabled"}>📤 Exporter mes ajouts (${nEd})</button><label class="btn" for="gn-iimpf">📥 Importer des ajouts</label><input type="file" id="gn-iimpf" accept=".json,application/json" hidden></div>
     <p class="mini" id="gn-imsg" aria-live="polite"></p>
-    <p class="note">Sources : ${(GN.sources || []).map(esc).join(" · ")}. Les armes de départ marquées « probable » sont déduites des descriptions, pas confirmées. Go Next! est un jeu de Mixidev ; ZKX est un projet de fan non officiel.</p>`;
+    <p class="note">Sources : ${(GN.sources || []).map(esc).join(" · ")}. Go Next! est un jeu de Mixidev ; ZKX est un projet de fan non officiel.</p>`;
   $("gn-iref").addEventListener("click", () => refresh(true));
   $("gn-iexp").addEventListener("click", () => {
     const blob = new Blob([JSON.stringify({ zkx: "gonext-edits", date: new Date().toISOString().slice(0, 10), edits }, null, 2)], { type: "application/json" });

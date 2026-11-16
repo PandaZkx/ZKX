@@ -1,7 +1,7 @@
 {
   "name": "zkx",
   "productName": "ZKX",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "ZKX - conseiller Epic Seven et Go Next! (teams, stuff, tier lists, builds)",
   "main": "main.js",
   "author": "PandaZkx",

@@ -37,7 +37,10 @@ En haut de la fenêtre, passe de **Epic Seven** à **Go Next!** :
 - **🛠 Builds** : perso, 4 armes, objets clés, stats prioritaires ; ZKX note la cohérence et liste synergies et trous. Code `GN1.…` à partager.
 - **🤝 Team up** : jusqu'à 4 joueurs, rôles couverts et ce qui manque.
 
-Les données sont dans `data/gonext.json` (rechargé en ligne, pas besoin de nouvelle version). Les ajouts exportés par les joueurs (`zkx-gonext-ajouts.json`) se recopient dans ce fichier ; pense à changer `updated`.
+- **★ Tier list** des persos et **📖 Guide & patchs** (guide intégré au jeu + notes de patch).
+- **📸 Build d'un top 1** (onglet Builds) : ouvre une issue GitHub « [Build top 1] » avec le code du build. Pour le publier, mets le label **`build-ok`** sur l'issue : le robot (`.github/workflows/gn-build.yml`) l'ajoute à `data/gonext_community.json` et ferme l'issue ; ZKX le recharge en ligne.
+
+Les données sont dans `data/gonext.json` (rechargé en ligne, pas besoin de nouvelle version). Les noms, descriptions, guides et notes de patch viennent des fichiers du jeu. Les ajouts exportés par les joueurs (`zkx-gonext-ajouts.json`) se recopient dans ce fichier ; pense à changer `updated`.
 
 ## Fiches persos
 
